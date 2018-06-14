@@ -1,0 +1,16 @@
+# default: on
+# description: mysqlchk
+service mysqlchk
+{
+        disable = no
+        flags = REUSE
+        socket_type = stream
+        port = 9200
+        wait = no
+        user = nobody
+        server = /usr/bin/clustercheck
+        log_on_failure += USERID
+        only_from = 0.0.0.0/0
+        bind = {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+        per_source = UNLIMITED
+}

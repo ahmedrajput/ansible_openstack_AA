@@ -1,0 +1,16 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prin="http://principal.internal.platform.interfaces.ers.seamless.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <prin:resolvePrincipal>
+         <reference>123</reference>
+         <principalId>
+            <id>${principalId}</id>
+            <idType>${principalIdType}</idType>
+         </principalId>
+         <securityToken>
+            <data>2009</data>
+            <type>${password}</type>
+         </securityToken>
+      </prin:resolvePrincipal>
+   </soapenv:Body>
+</soapenv:Envelope>

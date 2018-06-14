@@ -1,0 +1,8 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.10.10.1      gateway1
+10.10.10.5      gateway2
+10.10.10.4      VIP
+10.10.10.2      controller1
+10.10.10.3      controller2
+10.10.10.7	ers1

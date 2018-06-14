@@ -1,0 +1,385 @@
+node_id=01
+
+########################################### LOCALE CONFIGURATIONS #########################################
+
+default_language=en
+default_encoding=UTF-8
+#language_encodings.fr=UTF-8
+language_encodings.en=UTF-8
+#language_encodings.en=ISO-8859-1
+#language_encodings.fr=ISO-8859-1
+
+default_currency=IRR
+locale.default_currency=IRR
+
+# MSISDN settings
+# Default country code padded to msisdn in case entered msisdn with only a networkcode
+# (starting with single 0)
+locale.default_country_code=98
+
+#Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+locale.default_network_code=910
+
+#Length of msisdn excluding network code and country code
+locale.subscriber_number_digits=7
+
+locale.max_subscriber_number_digits=6
+#Optional properties to set range of allowed network_codes.
+locale.accepted_network_codes=910
+
+locale.accepted_country_codes=98
+# Does a number that starts with a network code require a leading '0'?
+# (0 will not be counted as part the the network code and will be removed from the MSISDN)
+locale.network_code_requires_0_prefix=true
+
+# Currency settings
+#Decimal separator
+locale.decimal_separator=.
+#Thousand separator
+locale.thousand_separator=,
+# bookkeeping account id. on which the operation cost is credited
+bookkeepingId=OPERATOR
+
+# Main database configuration
+# 
+database.name=VASManagerDB
+database.sdb_pool_implementation=proxool
+database.db_driver=org.mariadb.jdbc.Driver
+database.db_url=jdbc:mysql://localhost:3306/vasmanager
+database.db_user=refill
+database.db_password=refill
+
+# Database connection pool configuration
+#
+database.pool_max_size=100
+database.pool_min_size=20
+database.pool_test_while_idle=false
+database.pool_test_on_borrow=false
+database.pool_test_on_return=false
+database.pool_time_between_eviction_runs_millis=120000
+database.pool_min_evictable_idle_time_millis=60000
+database.pool_num_tests_per_eviction_run=10
+database.pool_validation_query=SELECT 1
+database.pool_timeout=300000
+database.pool_query_timeout=12000
+
+# businesscounters.engine=com.seamless.ers.interfaces.businesscounter.DatabaseBusinessCounterEngine
+# Connection to the database for keeping track of business counters
+# businesscounters.db_driver=org.mariadb.jdbc.Driver
+# businesscounters.db_url=jdbc:mysql://localhost:3306/businesscounters
+# businesscounters.db_user=refill
+# businesscounters.db_password=refill
+# businesscounters.pool_max_size=100
+# businesscounters.pool_simultaneous_build_throttle=40
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=
+
+# This is the URL under which the operations interface is exported, 
+#  the client must use this URL to connect to the operations interface.
+# If the client is on another host, it has to replace localhost with the IP or the host name of the vasmanagerr host
+#
+operationsURL=http://localhost:8096/vasmanager/operations
+
+# This is the URL under which the service interface is exported, 
+#  the client must use this URL to connect to the service interface.
+# If the client is on another host, it has to replace localhost with the IP or the host name of the vasmanagerr host
+#
+servicesURL=http://localhost:8096/vasmanager/services
+
+# This is the URL under which the service management is exported, 
+#  the client must use this URL to connect to the management interface.
+# If the client is on another host, it has to replace localhost with the IP or the host name of the vasmanagerr host
+#
+managementURL=http://localhost:8096/vasmanager/management
+
+# The URL for publishing the custom operation service
+#  the client must use this URL to connect to the custom operation interface.
+# If the client is on another host, it has to replace localhost with the IP or the host name of the vasmanagerr host
+#
+customOperationServiceURL=http://localhost:8096/customOperations
+
+# The URL for publishing the custom operation Business Logicservice
+#  the client must use this URL to connect to the custom operation Business Logic interface.
+# If the client is on another host, it has to replace localhost with the IP or the host name of the vasmanagerr host
+#
+businessLogicServiceURL=http://localhost:8096/businessLogic
+
+############################# ERS connection configuration #############################
+
+# Configuration for the connection to the ersifplatform-client
+#
+ersplatformconnection.url=http://localhost:8777/txe/transactionProcessing
+ersplatformconnection.user=ussdapp
+ersplatformconnection.password=ussdapp
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# The default currency to use for all operations
+#
+vasmanager.default_currency=IRR
+
+# The thread pool settings for handling trigger events such as expiry handling and notifications etc
+#
+
+# Time between polling the database for new events
+#
+vasmanager.event_poll_interval=100
+
+# Max number of events in the queue
+#
+vasmanager.max_event_queue_size=100
+
+# Minimum number of threads to use to process events
+#
+vasmanager.min_event_threads=20
+
+# Max number of threads to use to process events
+#
+vasmanager.max_event_threads=20
+
+#
+# FRIENDS AND FAMILY - FAF
+#
+
+# Basic FAF configuration
+
+# Pattern to identify an regular number when adding to an FAF list
+#
+faf.regular_number_pattern=.*
+
+# Pattern to identify an off-net number when adding to an FAF list
+#
+faf.offnet_number_pattern=(17|18).*
+
+# Pattern to identify an international number when adding to an FAF list
+#
+faf.international_number_pattern=001.*
+
+# Configuration of warnings of pending FAF service expiry
+# 
+
+#Valid value of expiry_notification are true and false
+#if the expiry_notification=true Vas manager doesnot check the expire date and notify to the subscriber about that expiry
+#if the expiry_notification=false Vas Manager check the expire date and notify to the subscriber as per the configuration
+#still the expiry notification is not supported
+enable_expiry_notification=false
+
+
+# Maximum time in seconds that the FAF status of a subscribner is allowed to be "grabbed" (locked) before 
+# considered being an abnormal lock and will be cleaned up
+# 
+grab_expiry_time=120
+
+# Options for ERSCall
+faf.ers_call.principalIdType=SUBSCRIBERMSISDN
+faf.ers_call.transactionChannel=VASMANAGER
+faf.ers_call.accountTypeId=AUTO_RESOLVE
+
+# Number of warnings to send before the FAF service expires for a subscriber
+# IMPORTANT! Make sure the warnings are listed in order when they are supposed to be sent! 
+#
+faf.num_expiry_warnings=2
+
+#
+# How long before this warning should be sent
+# Specified with the following suffixes: S/s (seconds), H/h (hours), M/m (minutes), D/d (days) 
+#
+faf.expiry_warnings.1.time_before_expiry=20s
+#
+# The id of the language resource to use when sending this warning
+#
+faf.expiry_warnings.1.notification_id=FAF_EXPIRE_TOMORROW
+
+#
+# How long before this warning should be sent
+# Specified with the following suffixes: S/s (seconds), H/h (hours), M/m (minutes), D/d (days) 
+#
+faf.expiry_warnings.2.time_before_expiry=10s
+#
+# The id of the language resource to use when sending this warning
+#
+faf.expiry_warnings.2.notification_id=FAF_EXPIRE_ONE_HOUR
+
+# Config for business counter id resolver, if business counter engine is set up, this config is required.
+# It will resolve counterId based on PSPrincipal model.
+# faf.businesscounter_id_resolver.class=com.seamless.ers.components.vasmgr.faf.SubscriberMSISDNCounterIdResolever
+# faf.businesscounter_id_resolver.class=com.seamless.ers.components.vasmgr.faf.BeanShellCounterIdResolver
+# faf.businesscounter_id_resolver.script=principal.getSubscriberMSISDN()
+
+#
+# Default FAF rules, which can be overridden on a per-account-class basis
+#
+
+# Duration of the FAF service before it expires, counted from when activating the service
+# Specified with the following suffixes: S/s (seconds), H/h (hours), M/m (minutes), D/d (days) 
+# 
+faf.default_rules.duration=30s
+
+#Disable pricing of FAF operations from vasmanager
+
+# The cost for activating the FAF service, can be zero
+#
+faf.default_rules.activate_charge=2.00
+
+# The cost when extending the FAF service, can be zero
+# (this is applied automatically when the service expires, if there is enough funds)
+#
+faf.default_rules.extend_charge=3.00
+
+# The cost for adding a number to the FAF list
+#
+faf.default_rules.add_charge=5.00
+
+# The cost for removing a number from the FAF list
+#
+faf.default_rules.remove_charge=2.50
+
+# The cost for faf list charge
+#
+faf.default_rules.info_charge=1.00
+# The cost for replace a number from the FAF list
+#
+faf.default_rules.replace_charge=7.00
+
+# The maximum numbers in the FAF list
+#
+faf.default_rules.max_numbers=5
+
+# The maximum number of off-net numbers in the FAF list
+#
+faf.default_rules.max_offnet_numbers=2
+
+# The maximum number of international numbers in the FAF list
+#
+faf.default_rules.max_international_numbers=2
+
+# Configuration of charge free FAF operations based on number of requests.
+# faf.default_rules.operation_free_of_charge_thresholds.1.operation_id=SOME_REGEX_*
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_type_id=SOME_COUNTER_NAME
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_period=COUNTER_PERIOD_TYPE (HOUR, DAY, WEEK, MONTH, YEAR, TOTAL)
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_threshold=COUNTER THRESHOLD VALUE
+# If current counter period is lower or equal than specified threshold for specified operation, specified operation is free of charge
+# For example:
+# faf.default_rules.operation_free_of_charge_thresholds.1.operation_id=FAF_ADD
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_type_id=FAF_ADD_COUNTER
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_period=MONTH
+# faf.default_rules.operation_free_of_charge_thresholds.1.counter_threshold=1
+# Subscriber can perform 1 FAF_ADD operation in current MONTH for free.
+
+# List of blocked operations by default, list can be also configured per account_class
+# Operations list FAF_ADD FAF_REMOVE FAF_INFO FAF_REPLACE SC_CHANGE
+faf.default_rules.blocked_operations=
+
+# The configuration to blacklist a number based on faf operation
+#
+#faf.number_blacklist.FAF_ADD=7.*|8.*|5.*
+#faf.number_blacklist.FAF_REMOVE=2.*|3.*|4.*
+
+# 
+# ACCOUNT CLASSES (aka "service classes"/"subscriber products")
+#
+# Default properties for all account class conversion, only applicable in the
+# absence of account class specific configuration. Nothing will be applied if
+# commented 
+#account_classes.defaults.allowed_changes=42
+#account_classes.defaults.account_class_change_charge=5
+
+# The id of the account class according to the link
+#
+account_classes.1.link_id=60
+
+# The id of the account class according to the ERS
+#
+account_classes.1.class_id=MAIN
+
+# The name of the account class 
+#
+account_classes.1.name=Main account class
+
+# FAF rules for this account class, only values that override the default has to be specified 
+#
+account_classes.1.faf_rules.max_numbers=5
+account_classes.1.faf_rules.max_offnet_numbers=3
+account_classes.1.faf_rules.max_international_numbers=1
+
+account_classes.1.faf_rules.activate_charge=1.00
+account_classes.1.faf_rules.extend_charge=1.50
+account_classes.1.faf_rules.add_charge=2.50
+account_classes.1.faf_rules.remove_charge=2.00
+account_classes.1.faf_rules.info_charge=0.50
+account_classes.1.faf_rules.replace_charge=4.00
+
+# Comma separated list of account classes to which change is allowed
+account_classes.1.allowed_changes=42, 45, 90, 60
+
+account_classes.1.account_class_change_charge=2.00
+
+# The id of the account class according to the link
+#
+account_classes.2.link_id=20
+account_classes.2.class_id=MAIN
+account_classes.2.name=Main account class
+
+account_classes.3.link_id=103
+account_classes.3.class_id=MAIN
+account_classes.3.name=Main account class
+# FAF rules for this account classe, only values that override the default has to be specified 
+#
+account_classes.2.faf_rules.max_numbers=7
+account_classes.2.faf_rules.max_offnet_numbers=5
+account_classes.2.faf_rules.max_international_numbers=2
+
+# Name of the SMS request system.
+smsprovider.classname=HttpSMSProvider
+#smsprovider.classname=DummySMSProvider
+# The SMS provider address
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge
+smsprovider.from=1234
+
+# The connection to the different account systems that perform the actual VAS services
+#
+accountconnection.classname=FixedAccountClientConnection
+#accountconnection.server_url=http://localhost:8091/accountlinksimulator
+accountconnection.server_url=http://localhost:8010/UCIPLink
+
+# Classic reference generator with 25 digits using:
+# - Node id
+# - Time stamp
+# - Sequence number (that will wrap when restarted etc)
+#
+reference_generator.class_name=com.seamless.common.referencegeneration.TimestampReferenceGenerator
+
+# Number of digits in the sequence number part
+#
+reference_generator.reference_counter_length=6
+
+# The format of the timestamp part of the reference
+#
+reference_generator.timestamp_format=yyyyMMddHHmmssSSS
+
+# If a timestamp is repeated (eg beccause of clock sync etc) 
+#  this is the number of times it is allowed to repeat without logging a warning
+#
+reference_generator.timestamp_repeat_warning_count=10
+
+# Name of the CM system.
+cms.classname=SimpleFileCMS
+# The default language to be used by CM
+cms.languages=en fr pt
+# The language mapping file.
+cms.en.filename=messages_english.properties
+# The language file encoding.
+cms.en.encoding=UTF-8
+# The language mapping file.
+cms.fr.filename=messages_french.properties
+# The language file encoding.
+cms.fr.encoding=UTF-8
+
+cms.pt.filename=messages_portuguese.properties
+cms.pt.encoding=UTF-8

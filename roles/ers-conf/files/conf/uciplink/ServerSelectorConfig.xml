@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerSelectorConfig xmlns="http://www.example.org/ServerSelectorConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/ServerSelectorConfig ../../../main/resources/xsd/ServerSelectorConfig.xsd ">
+<RoundRobinSelector blockTimeout="10000" useIsAlive="false">
+	<ServerAddress>http://stewie3:9080/Air</ServerAddress>
+	<ServerAddress>http://stewie3:9081/Air</ServerAddress>
+	<ServerAddress>http://stewie3:9082/Air</ServerAddress>
+	<ServerAddress>http://stewie3:9083/Air</ServerAddress>
+	<ServerAddress>http://stewie3:9084/Air</ServerAddress>
+</RoundRobinSelector>	
+</ServerSelectorConfig>

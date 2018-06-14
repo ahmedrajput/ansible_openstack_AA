@@ -1,0 +1,9 @@
+---
+# vars file for nova_compute
+CONTROLLER_HOSTNAME: "controller1"
+CONTROLLER_IP: "10.10.10.2"
+RABBIT_PASS: b865d3cccf2a9bd4d51b
+NOVA_PASS: 8a5b9d4a3a3c251e5589
+REGION: RegionOne
+PLACEMENT_PASS: 75205893d797bf7bd265
+VIP: 10.10.10.4

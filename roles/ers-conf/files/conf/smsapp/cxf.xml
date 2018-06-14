@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="http://cxf.apache.org/transports/http/configuration
+                           http://cxf.apache.org/schemas/configuration/http-conf.xsd
+                           http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <http-conf:conduit name="*.http-conduit">
+    <http-conf:client Connection="Keep-Alive"
+                      MaxRetransmits="1"
+                      AllowChunking="false" />
+  </http-conf:conduit>
+</beans>

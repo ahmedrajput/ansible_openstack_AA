@@ -1,0 +1,8 @@
+---
+# handlers file for neutron_compute
+- name: Restart neutron-linuxbridge-agent
+  service: name=neutron-linuxbridge-agent state=restarted
+- name: Restart Nova API
+  service: name=openstack-nova-api state=restarted
+- name: Restart Nova Compute Service
+  service: name=openstack-nova-compute state=restarted

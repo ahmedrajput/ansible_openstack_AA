@@ -1,0 +1,141 @@
+
+# Campaign List Page
+Label.campaignList=Campaigns List
+Label.filter=Filter:
+Label.ongoingCampaign=Show All Campaigns
+Label.allCampaign=Show Ongoing Campaigns
+Label.addNewCampaign=Add a New Campaign
+
+# Campaign List Page Columns
+Label.status=Status
+Label.show=Show
+Label.edit=Edit
+Label.delete=Delete
+
+# Campaign Add / Edit /View 
+Label.back=&laquo; Back
+Label.campaignDetails=Campaign Details
+Label.campaignInfo=Campaign Information
+Label.name=Name
+Label.description=Description
+Label.startDate=Start Date
+Label.endDate=End Date
+Label.disableCampaign=Disable Campaign
+Label.activationTitle=Include resellers activated between:
+Label.enableFilters=Enable reseller activation filters
+Label.generatedBonusRecords=Generated Bonus Records
+Label.exportResults=exportResults
+
+# General
+Label.Submit=Submit
+Label.Cancel=Cancel
+Label.Reset=Reset
+Label.EmptyReport=Report is empty
+Label.Row=Row
+Label.Page=Page
+Label.PageNoAndTotalSeparator=/
+Label.RequiredFieldDescription=* means mandatory
+Label.RequiredFieldSign=*
+Label.FirstPage=FirstPage
+Label.PreviousPage=PreviousPage
+Label.NextPage=NextPage
+Label.LastPage=LastPage
+Label.OK=OK
+Label.Yes=Yes
+Label.No=No
+Label.MessageTitle=Message
+Label.ErrorTitle=Error
+Label.Search=Search
+Label.New=New
+Label.Next=Next
+Label.Send=Send
+Label.Back=Back
+Label.Any=Any
+Label.SUBMIT_FILE_BUTTON=Submit
+
+# Campaign Rules
+Label.addNewRule=Add New Rule For Monetary Tx
+Label.ruleNumber=Monetary Rule :
+
+# Campaign Rules for non-monetary transaction
+Label.addNewRuleForNonMonetary=Add New Rule For Non-monetary Tx
+Label.ruleNumberNonMonetary=Non Monetary Rule :
+
+# Campaign Rules Fields
+Label.SENDER=Sender Level
+Label.RECEIVER=Receiver Level
+Label.CHANNEL=Channel
+Label.TARGET_ACCOUNT_TYPE=Target Transaction Type
+Label.MIN_TRANSACTION_VALUE=Ignore transactions worth under
+Label.TARGET=Target
+Label.TARGET_TYPE=Target Type
+Label.BONUS=Promotion Amount
+Label.BONUS_TYPE=Promotion Type
+Label.BONUS_ACCOUNT_TYPE=Bonus Account Type
+Label.REMOVE=Remove
+Label.SENDER_REGION=Sender Region
+Label.RECEIVER_REGION=Receiver Region
+# Campaign Rules Fields for Non-Monetary Transaction
+Label.TARGET_LEVEL_NM=Target Level
+Label.CHANNEL_NM=Channel
+Label.TARGET_TRANSACTION_TYPE_NM=Target Transaction Type
+Label.TRANSACTION_COUNT_NM=Transaction Count
+Label.PROMOTION_AMOUNT_NM=Promotion Amount
+Label.BONUS_ACCOUNT_TYPE_NM=Bonus Account Type
+Label.REMOVE_NM=Remove
+
+# Promotion Generations List
+Label.bonusListTitle=Bonus Generations List
+
+# Promotion Records Columns
+Label.promotionDate=Promotion Date
+Label.resellerId=Reseller Id
+Label.creditAmt=Credit Amount
+Label.promotionAmt=Promotion Amount
+Label.ersRef=ERS Reference
+
+Message.InvalidEmailAddress= Invalid Email address
+Message.InvalidNumber=Non-numeric character entered
+Message.PleaseFill=Please fill in the required fields
+Message.InvalidDate=Invalid date format!
+
+# Campaign List Page
+Message.noCampaign=No campaign matches the selected filter
+
+# Campaign Add / Edit /View
+Message.errDuplicateRule=Only one rule allowed for the same sender/receiver levels, same sender/receiver regions and target transaction type
+Message.errInvalidCampaignDate=Start date cannot be equal to or exceed end date
+Message.errInvalidCampaignName=Enter a valid name for campaign
+Message.errInvalidCampaignStartDate=Enter a valid start date for campaign
+Message.errInvalidCampaignEndDate=Enter a valid end date for campaign
+Message.errInvalidOrderOfCampaignDate=Campaign start should be before campaign end date
+Message.errInvalidDiffOfCampaignDate=Campaign end should be no more than six months after start date
+Message.errInvalidActivationStartDate=Enter a valid reseller activation start date for campaign
+Message.errInvalidActivationEndDate=Enter a valid reseller activation end date for campaign
+Message.errInvalidOrderOfActivationDate=Reseller activation start should be before activation end date
+Message.errNullTargetValue=Please enter a target value for Rule :
+Message.errNullPromotionValue=Please enter a promotion value for Rule :
+Message.errNonPositiveTargetValue=Target value is negative or zero for Rule :
+Message.errNonPositivePromotionValue=Promotion value is negative or zero for Rule :
+Message.errNegativeMinTransactionValue=The value for "Ignore transactions worth under" is negative for Rule :
+Message.errNotIntegerTransactionValue=Target type is quantity and so the target should be a whole number
+Message.errTargetLessThanMinTransactionValue=Minimum transaction value is more than the target value on Rule :
+Message.errOrderOfLevel=Sender level cannot be lower than or equal to receiver level in Rule :
+Message.errNoRule=No rule defined.At least one rule is required for the campaign
+Message.errChannelsAllowedWhenRegionSelected=Selected channel is not allowed when region is selected. Allowed channels:
+Message.errSenderPromotionlevelsAllowedWhenRegionSelected=Selected sender promotion level is not allowed when region is selected. Allowed sender levels:
+Message.errReceiverPromotionlevelsAllowedWhenRegionSelected=Selected receiver promotion level is not allowed when region is selected. Allowed receiver levels:
+
+#These messages are related to Reseller File Upload functionality
+Message.errResellerIdIsShort=ResellerID is too short
+Message.errFileNotSelected=No file selected
+Message.errFileAlraedyUplaoded=File already uploaded against the rule
+Message.errInvalidFile=File is invalid
+Message.errInvalidReseller=Reseller is invalid
+Message.errFileIsEmpty=File is empty
+
+# Promotion Records Columns
+Message.noPromotions=No promotion records generated for this campaign.
+
+# Success messages
+Message.successFileUplaoded=File uploaded successfully

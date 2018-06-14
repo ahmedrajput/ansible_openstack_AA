@@ -1,0 +1,1 @@
+SELECT "resolvePrincipal", CONCAT(tag, "/9900"), "RESELLERUSER", "2009" FROM commission_receivers

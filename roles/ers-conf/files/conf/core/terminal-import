@@ -1,0 +1,71 @@
+import b2.lib.xml.XMLElement;
+
+
+String[] tokenize(String str)
+{
+     StringTokenizer tokenizer = new StringTokenizer(str, "\t ");
+     Vector tokens = new Vector();
+     while (tokenizer.hasMoreTokens())
+     {
+          tokens.addElement(tokenizer.nextToken());
+     }
+     return (String[])tokens.toArray(new String[0]);
+}
+
+
+XMLElement root = new XMLElement(null, "Terminals");
+String first_line = files[0].in.readLine();
+String[] first_line_tokens = tokenize(first_line);
+
+if (!first_line_tokens[0].equals("SIM_IMPORT"))
+{
+     logError("Invalid SIM card file!");
+     return ;
+}
+
+
+for (int i = 0 ; i < files.length ; ++i)
+{
+     while (true)
+     {
+          String line = files[i].in.readLine();
+          if (line == null)
+               break;
+          line = line.trim();
+          if (line.length() == 0)
+          continue;
+
+
+          StringTokenizer tokenizer = new StringTokenizer(line, "\t");
+          String MSISDN = tokenizer.nextToken();
+          String REGKEY = tokenizer.nextToken();
+          String ICCID = tokenizer.nextToken();
+          String ENCRYPTION_KEY = tokenizer.nextToken();
+
+
+          if (ICCID.length() > 21)
+          {
+               ICCID = ICCID.substring(ICCID.length() - 21);
+          }
+          ICCID = b2.lib.base.Util.stripLeading(ICCID, '0');
+
+
+          if (REGKEY.length() > 21)
+          {
+               REGKEY = REGKEY.substring(REGKEY.length() - 21);
+          }
+          REGKEY = b2.lib.base.Util.stripLeading(REGKEY, '0');
+
+
+          XMLElement terminal = new XMLElement(root, "ImprintTerminal");
+          terminal.addAttribute("terminal_class", "Phone");
+          terminal.addAttribute("serial", ICCID);
+          terminal.addAttribute("activation_code", REGKEY);
+          terminal.addAttribute("msisdn", MSISDN);
+          XMLElement encryption_key = new XMLElement(terminal, "EncryptionKey");
+          encryption_key.addAttribute("type", "3DES");
+          encryption_key.addAttribute("format", "Hex");
+          encryption_key.addData(ENCRYPTION_KEY);
+     }
+}
+print(root.toXMLString());

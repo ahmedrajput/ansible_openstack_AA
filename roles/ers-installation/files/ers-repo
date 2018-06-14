@@ -1,0 +1,6 @@
+[ers]
+name = ers-repo
+baseurl = http://10.10.10.1/ers
+#gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=0
+#keepcache=1

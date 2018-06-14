@@ -1,0 +1,4 @@
+---
+# vars file for post_install
+DB_PASS: 50f05373656451edbaf4
+RABBIT_PASS: b865d3cccf2a9bd4d51b

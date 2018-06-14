@@ -1,0 +1,159 @@
+# The SMSapp node id
+node_id=00
+
+# The port number the http server listens on.
+port=8991
+# Name of the http query parameter that contains the SMS sender MSISDN.
+sms_sender_param=from
+# Name of the http query parameter that contains the SMS receiver MSISDN.
+sms_destination_param=to
+# Name of the http query parameter that contains the SMS text body.
+sms_body_param=msg
+
+# The default language to use when processing requests.
+#For automation it's must be en
+#default_language=en
+
+# If no SMS destination address (typically a short code) is sent from the SMS
+# provider, this address will be used. This can be important if the SMS provider
+# requires a from address when sending the response.
+default_sms_address=776
+# By default, the sender for SMS response is SMS destination address
+# To override this, sms_response_sender value to be used to set a SMS response
+# sender's value different than SMS destination address.
+sms_response_sender=MTN
+# Channel name of this application
+channel=SMS
+# Client Id of this application
+clientId=SMS
+
+
+# Name of the CM system.
+#cms.classname=SimpleFileCMS
+# The default language to be used by CM
+#cms.languages=en pt
+# The language mapping file.
+cms.en.filename=smsapp_messages_english.properties
+cms.pt.filename=smsapp_messages_portuguese.properties
+cms.fr.filename=smsapp_messages_french.properties
+
+# MSISDN settings
+#Default country code padded to msisdn in case entered msisdn less than digits of default_country_code_digit + default_network_code_digits + subscriber_number_digits
+#locale.default_country_code=1
+#Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+#locale.network_code=6
+#Length of msisdn excluding network code and country code
+#locale.subscriber_number_digits=6
+#Optional property to set range of allowed network_codes.
+#locale.accepted_network_codes=6,9
+# Does a number that starts with a network code require a leading '0'?
+# (0 will not be counted as part the the network code and will be removed from the MSISDN)
+#locale.network_code_requires_0_prefix=false
+#Optional property to set range of allowed country_codes.
+#locale.accepted_country_codes=46,47
+
+# Currency settings
+#Decimal separator
+#locale.decimal_separator=.
+#Thousand separator
+#locale.thousand_separator=,
+#Length of minor decimals
+#locale.minorcur_decimals=2
+
+#locale.custom_currency.IRR=2
+#currency formatting
+#locale.currency_formatting.IRR=# IRR
+
+# Amount Settings
+amount.support_decimal=false
+
+# Internal control settings.
+#flowcontrol.default.asynchronous=true
+#flowcontrol.default.cooldown_time=10
+#flowcontrol.default.queue_size=100
+#flowcontrol.default.min_threads=40
+#flowcontrol.default.max_threads=40
+#flowcontrol.default.thread_idle_timeout=60000
+#flowcontrol.default.log_stats=TRUE
+#flowcontrol.default.log_stat_interval=60
+
+
+# Name of the SMS request system.
+smsprovider.classname=HttpSMSProvider
+# The SMS provider address
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge&from=MTN
+
+
+# The ERS address
+ersconnection.url=http://localhost:8777/txe
+# The ERS user name.
+ersconnection.user=smsapp
+# The ERS password
+ersconnection.password=smsapp
+
+# URL for the connection to the ersifplatform-client
+ersplatformconnection.url=http://localhost:8777/txe/transactionProcessing
+# The platform user name
+ersplatformconnection.user=smsapp
+# The platform password
+ersplatformconnection.password=smsapp
+
+# The default SMS command handler from address
+commandhandler.1.addresses=776
+
+
+# The SMS command mapping file.
+commandhandler.1.filename=smsapp.commands
+
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+
+# Transaction duplication checking settings 
+#
+
+# Sets whether transaction duplication checking should be done at all.
+# If this is false, no database connection is needed. 
+# IMPORTANT! All duplication settings on the SMS command will 
+# then also be ignored!
+#
+transaction_duplication.active=false
+
+# The internal with which the smsapp will 
+# cleanup old duplication log entries in the database
+#
+transaction_duplication.cleanup_interval=60s
+
+# Maximum time that duplication entries will be kept in the database
+#
+transaction_duplication.max_log_age=1h
+
+# The max number of old duplication rows to delete every time
+# a cleanup is run
+#
+transaction_duplication.max_cleanup_batch=200
+
+# The MySQL GET_LOCK id used to synchronzie so not more than 
+# one smsapp instance is running cleanup at the same time
+#
+transaction_duplication.cleanup_lock_id=SMSAPP_DUPLICATION_CLEANUP
+
+# The transaction duplication database setting
+# If upgrading the smsapp from a previous version, 
+# make sure to run ersinstall to install the database
+# if you intend to use transaction duplication testing
+# If transaction duplication checking is turned off, 
+# these settings will be ignored.
+#
+transaction_duplication.db_driver=org.mariadb.jdbc.Driver
+transaction_duplication.db_url=jdbc:mysql://localhost:3306/duplicationlog
+transaction_duplication.db_user=refill
+transaction_duplication.db_password=refill
+transaction_duplication.pool_min_size=10
+transaction_duplication.pool_max_size=20
+transaction_duplication.pool_simultaneous_build_throttle=40
+transaction_duplication.fetch_timeout=10
+
+

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-error locale="en_US"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="application-error.xsd">
+<service name="MobileApp" rangeStart="0000" rangeEnd="9999">
+		<errorType name="AndroidClient">
+		<error name="SUCCESS" code="0">
+				<description>Success</description>
+			</error>
+			<error name="PENDING_APPROVAL" code="1">
+				<description>Pending Approval</description>
+			</error>
+			<error name="REPORT_NOT_READY" code="3">
+				<description>Report not ready</description>
+			</error>
+			<error name="REJECTED_BUSINESS_LOGIC" code="10">
+				<description>Rejected Business Logic</description>
+			</error>
+			<error name="REJECTED_AMOUNT" code="11">
+				<description>Rejected Amount</description>
+			</error>
+			<error name="REJECTED_PAYMENT" code="12">
+				<description>Rejected Payment</description>
+			</error>
+			<error name="REJECTED_TOPUP" code="13">
+				<description>Rejected Topup</description>
+			</error>
+			<error name="AUTHENTICATION_FAILED" code="20">
+				<description>Authentication Failed</description>
+			</error>
+			<error name="ACCESS_DENIED" code="21">
+				<description>Access Denied</description>
+			</error>
+			<error name="INVALID_NEW_PASSWORD" code="22">
+				<description>Invalid New Password</description>
+			</error>
+			<error name="INVALID_ERS_REFERENCE" code="23">
+				<description>Invalid ERS Reference</description>
+			</error>
+			<error name="INVALID_INITIATOR_PRINCIPAL_ID" code="29">
+				<description>Invalid Initiator Principal ID</description>
+			</error>
+			<error name="INVALID_RECEIVER_PRINCIPAL_ID" code="30">
+				<description>Invalid Receiver Principal ID</description>
+			</error>
+			<error name="INVALID_SENDER_PRINCIPAL_ID" code="31">
+				<description>Invalid Sender Principal ID</description>
+			</error>
+			<error name="INVALID_TOPUP_PRINCIPAL_ID" code="32">
+				<description>Invalid Topup Principal ID</description>
+			</error>
+			<error name="INVALID_INITIATOR_PRINCIPAL_STATE" code="33">
+				<description>Invalid Initiator Principal State</description>
+			</error>
+			<error name="INVALID_RECEIVER_PRINCIPAL_STATE" code="34">
+				<description>Invalid Receiver Principal State</description>
+			</error>
+			<error name="INVALID_SENDER_PRINCIPAL_STATE" code="35">
+				<description>Invalid Sender Principal State</description>
+			</error>
+			<error name="INVALID_TOPUP_PRINCIPAL_STATE" code="36">
+				<description>Invalid Topup Principal State</description>
+			</error>
+			<error name="INITIATOR_PRINCIPAL_NOT_FOUND" code="37">
+				<description>Initiator Principal Not Found</description>
+			</error>
+			<error name="RECEIVER_PRINCIPAL_NOT_FOUND" code="38">
+				<description>Receiver Principal Not Found</description>
+			</error>
+			<error name="SENDER_PRINCIPAL_NOT_FOUND" code="39">
+				<description>Sender Principal Not Found</description>
+			</error>
+			<error name="TOPUP_PRINCIPAL_NOT_FOUND" code="40">
+				<description>Topup Principal Not Found</description>
+			</error>
+			<error name="INVALID_PRODUCT" code="41">
+				<description>Invalid Product</description>
+			</error>
+			<error name="INVALID_RECEIVER_ACCOUNT_TYPE" code="42">
+				<description>Invalid Receiver Account Type</description>
+			</error>
+			<error name="INVALID_SENDER_ACCOUNT_TYPE" code="43">
+				<description>Invalid Sender Account Type</description>
+			</error>
+			<error name="INVALID_TOPUP_ACCOUNT_TYPE" code="44">
+				<description>Invalid Topup Account Type</description>
+			</error>
+			<error name="RECEIVER_ACCOUNT_NOT_FOUND" code="45">
+				<description>Receiver Account Not Found</description>
+			</error>
+			<error name="SENDER_ACCOUNT_NOT_FOUND" code="46">
+				<description>Sender Account Not Found</description>
+			</error>
+			<error name="TOPUP_ACCOUNT_NOT_FOUND" code="47">
+				<description>Topup account Not Found</description>
+			</error>
+			<error name="PAYMENT_IN_PROGRESS" code="48">
+				<description>Payment in Progress</description>
+			</error>
+			<error name="INVALID_INVOICE_DATA" code="49">
+				<description>Invalid Invoice Data</description>
+			</error>
+			<error name="CANNOT_CANCEL_PAID_INVOICE" code="50">
+				<description>Cannot Cancel Paid Invoice</description>
+			</error>
+			<error name="CANNOT_CANCEL_INVOICE_IN_PROGRESS" code="51">
+				<description>Cannot Cancel Invoice in Progress</description>
+			</error>
+			<error name="INVALID_CUSTOMER" code="52">
+				<description>Invalid Customer</description>
+			</error>
+			<error name="INVALID_SEQR_ID" code="53">
+				<description>Invalid SEQR ID</description>
+			</error>
+			<error name="INVALID_INVOICE_REFERENCE" code="54">
+				<description>Invalid Invoice Reference</description>
+			</error>
+			<error name="PAYMENT_ALREADY_CANCELLED" code="55">
+				<description>Payment already Cancelled</description>
+			</error>
+			<error name="REGISTRATION_NOT_POSSIBLE" code="56">
+				<description>Registration Not Possible</description>
+			</error>
+			<error name="REGISTRATION_PRINCIPAL_ALREADY_EXISTS" code="57">
+				<description>Registration Principal already Exists</description>
+			</error>
+			<error name="AUTHORIZATION_EXPIRED" code="60">
+				<description>Authorization Expired</description>
+			</error>
+			<error name="AUTHORIZATION_CANCELLED" code="61">
+				<description>Authorization Cancelled</description>
+			</error>
+			<error name="AUTHORIZATION_IN_PROGRESS" code="62">
+				<description>Authorization in Progress</description>
+			</error>
+			<error name="INVALID_AUTHORIZATION_REFERENCE" code="63">
+				<description>Invalid Authorization Reference</description>
+			</error>
+			<error name="SYSTEM_ERROR" code="90">
+				<description>System Error</description>
+			</error>
+			<error name="UNSUPPORTED_OPERATION" code="91">
+				<description>Unsupported Operation</description>
+			</error>
+			<error name="LICENSE_REJECTION" code="92">
+				<description>License Rejection</description>
+			</error>
+			<error name="SYSTEM_BUSY" code="93">
+				<description>System Busy</description>
+			</error>
+			<error name="SERVICE_UNAVAILABLE" code="94">
+				<description>Service Unavailable</description>
+			</error>
+			<error name="INVOICE_ALREADY_CANCELED" code="95">
+				<description>Invoice already Canceled</description>
+			</error>
+			<error name="INVOICE_STATE_NOT_RESERVED" code="96">
+				<description>Invoice State not Reserved</description>
+			</error>
+			<error name="PRODUCT_OUT_OF_STOCK" code="97">
+				<description>Product out of Stock</description>
+			</error>
+			<error name="TRANSACTION_ALREADY_REVERSED" code="98">
+				<description>Transaction already Reversed</description>
+			</error>
+			<error name="SUCCESS_CANCELLED" code="100">
+				<description>Success Cancelled</description>
+			</error>
+			<error name="RECEIVER_ACCOUNT_DOES_NOT_ALLOW_REFUND" code="101">
+				<description>Receiver Account does not Allow Refund</description>
+			</error>
+			<error name="LIMIT_EXCEED" code="102">
+				<description>Limit Exceed</description>
+			</error>
+			<error name="ACCOUNT_NOT_CREATED" code="103">
+				<description>Account not Created</description>
+			</error>
+			<error name="INSUFFICIENT_SENDER_CREDIT" code="104">
+				<description>Insufficient Sender Credit</description>
+			</error>
+			<error name="ACCOUNTSYSTEM_TIMEOUT" code="105">
+				<description>Accountsystem Timeout</description>
+			</error>
+			<error name="ACCOUNTSYSTEM_UNAVAILABLE" code="106">
+				<description>Accountsystem Unavailable</description>
+			</error>
+			<error name="TRANSACTION_NOT_PENDING" code="107">
+				<description>Transaction not Pending</description>
+			</error>
+			<error name="COMMITTOPU_WITHOUT_PREPARETOPUP" code="108">
+				<description>Commit Topup without Prepare Topup</description>
+			</error>
+			<error name="CANCELTOPU_WITHOUT_PREPARETOPUP" code="109">
+				<description>Cancel Topup without Prepare Topup</description>
+			</error>
+			<error name="INVALID_CUSTOMER_PRINCIPAL" code="901">
+				<description>Invalid Customer Principal</description>
+			</error>
+			<error name="SENDER_NOT_FOUND" code="530">
+				<description>Sender not Found</description>
+			</error>
+			<error name="TRANSACTION_REVERSAL_ALREADY_REQUESTED" code="931">
+				<description>Transaction Reversal already Requested</description>
+			</error>
+			<error name="TRANSACTION_NOT_FOUND" code="933">
+				<description>Transaction not Found</description>
+			</error>
+			<error name="RESELLER_IS_NOT_ACTIVE" code="1044">
+				<description>Reseller is not Active</description>
+			</error>
+			<error name="RESELLER_NOT_FOUND" code="1104">
+				<description>Reseller not Found</description>
+			</error>
+			<error name="INVALID_ACCOUNT_TYPE" code="1010">
+				<description>Invalid Account Type</description>
+			</error>
+			<error name="ACCOUNT_UNSUPPORTED_OPERATION" code="1051">
+				<description>Account Unsupported Operation</description>
+			</error>
+			<error name="RESELLER_ALREADY_ACTIVE" code="8003">
+				<description>Reseller already Active</description>
+			</error>
+			<error name="OPERATION_UNSUPPORTED" code="8000">
+				<description>Operation Unsupported</description>
+			</error>
+			<error name="INVALID_PARENT" code="1089">
+				<description>Invalid Parent</description>
+			</error>
+			<error name="PARENT_ALREADY_ASSIGNED" code="1088">
+				<description>Parent already Assigned</description>
+			</error>
+			<error name="DELINK_RESELLER_CAN_NOT_HAVE_CHILDS" code="2011">
+				<description>Delink Reseller can not have Childs</description>
+			</error>
+			<error name="INVALID_RECEIVER_PRINCIPAL" code="1029">
+				<description>Invalid Receiver Principal</description>
+			</error>
+			<error name="RESELLER_TYPE_ID_NOT_EXISTS" code="1039">
+				<description>Reseller Type ID not Exists</description>
+			</error>
+			<error name="RESELLER_ALREADY_EXISTS" code="1040">
+				<description>Reseller already Exists</description>
+			</error>
+			<error name="RESELLER_HIERARCHY_INVALID" code="1090">
+				<description>Reseller Hierarchy Invalid</description>
+			</error>
+			<error name="INCORRECT_PASSWORD" code="1009">
+				<description>Incorrect PIN</description>
+			</error>
+			<error name="RECEIVER_IS_BLOCKED" code="1130">
+				<description>Receiver is Blocked</description>
+			</error>
+			<error name="RECEIVER_IS_FROZEN" code="1069">
+				<description>Receiver is Frozen</description>
+			</error>
+			<error name="INVALID_PARAMETERS" code="1099">
+				<description>Invalid Parameters</description>
+			</error>
+			<error name="DEFAULT_ERROR" code="8888">
+				<description>Unexpected Error Occured</description>
+			</error>
+		</errorType>
+		</service>
+	<service name="System" rangeStart="10001" rangeEnd="19999">
+		<errorType name="System">
+			<error name="UNEXPECTED_SYSTEM_ERROR" code="10001">
+				<description>Unexpected system error occurred</description>
+			</error>
+			<error name="UNABLE_TO_DESERIALIZE" code="10002">
+				<description>Unable to deserialize stream [$1]</description>
+			</error>
+			<error name="UNABLE_TO_SERIALIZE" code="10003">
+				<description>Unable to serialize stream [$1]</description>
+			</error>
+			<error name="NO_HTTP_RESPONSE" code="10004">
+				<description>No response from host</description>
+			</error>
+			<error name="RESOURCE_NOT_FOUND" code="10005">
+				<description>Unable to locate resource</description>
+			</error>
+			<error name="INVALID_VELOCITY_TEMPLATE" code="10006">
+				<description>Invalid velocity template format</description>
+			</error>
+			<error name="CONFIGURATION_READ_FAILURE" code="10007">
+				<description>Unable to read configuration</description>
+			</error>
+			<error name="INVALID_DATE_FORMAT" code="10008">
+				<description>Date format is invalid</description>
+			</error>
+			<error name="EMAIL_GENERATION_FAILURE" code="10009">
+				<description>Unable to generate email</description>
+			</error>
+			<error name="INVALID_REQUEST" code="10010">
+				<description>Unable to parse request</description>
+			</error>
+			<error name="NO_UNIQUE_LOCATOR" code="10011">
+				<description>No assignable code found, please contact system administrator.</description>
+			</error>
+		</errorType>
+		<errorType name="Security">
+			<error name="APPLICATION_SECURITY_FAILURE" code="11001">
+				<description>Application authorization failed</description>
+			</error>
+		</errorType>
+		<errorType name="Validation">
+			<error name="CURRENCY_MISMATCH" code="12001">
+				<description>Currency codes are different. Conversion is unsupported</description>
+			</error>
+		</errorType>
+	</service>
+	<service name="Application" rangeStart="20001" rangeEnd="29999">
+		<errorType name="Business">
+
+		</errorType>
+		<errorType name="Validation">
+			<error name="INVALID_EMAIL_RECIPIENT" code="21001">
+				<description>Email recipient is incorrect</description>
+			</error>
+			<error name="INVALID_EMAIL_SUBJECT" code="21002">
+				<description>Email subject is incorrect</description>
+			</error>
+			<error name="INVALID_DATE_OF_BIRTH" code="21003">
+				<description>Date of Birth is invalid</description>
+			</error>
+			<error name="INVALID_SENDER_ATTRIBUTE" code="21004">
+				<description>Sender Attribute is invalid</description>
+			</error>
+			<error name="PIN_REQUIRED" code="21005">
+				<description>PIN is required parameter.</description>
+			</error>
+			<error name="MSISDN_REQUIRED" code="21006">
+				<description>msisdn is required parameter.</description>
+			</error>
+			<error name="MSISDN_REQUIREDS" code="21007">
+				<description>ReceiverMSISDN is required parameter.</description>
+			</error>
+			<error name="TAMANGA_TRANSFER_REQUIRED" code="21008">
+				<description>TamangaTransfer is required parameter.</description>
+			</error>
+			<error name="SENDER_ATTRIBUTE_REQUIRED" code="21009">
+				<description>Sender Attribute is required parameter.</description>
+			</error>
+		</errorType>
+	</service>
+</application-error>

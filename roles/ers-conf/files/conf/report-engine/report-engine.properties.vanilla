@@ -1,0 +1,75 @@
+
+#URL to expose internal reporting service
+internalReportsURL=http://0.0.0.0:8920/reportengine/internal
+
+#URL to expose enterprise reporting service
+enterpriseReportsURL=http://0.0.0.0:8920/reportengine/enterprise
+
+#URL to expose custom operations
+customOperationsURL=http://0.0.0.0:8920/reportengine/customOperations
+
+#URL to expose report resource provider URL
+resourceProviderURL=http://localhost:8921/reportengine/resources
+
+
+# Main database configuration
+# 
+reportengine.name=reportDB
+reportengine.sdb_pool_implementation=proxool
+reportengine.db_driver=com.mysql.jdbc.Driver
+reportengine.db_url=jdbc:mysql://localhost:3306/sales
+reportengine.db_user=refill
+reportengine.db_password=refill
+
+# Database connection pool configuration
+#
+reportengine.pool_max_size=100
+reportengine.pool_min_size=1
+reportengine.pool_test_while_idle=false
+reportengine.pool_test_on_borrow=false
+reportengine.pool_test_on_return=false
+reportengine.pool_time_between_eviction_runs_millis=600000
+reportengine.pool_min_evictable_idle_time_millis=60000
+reportengine.pool_num_tests_per_eviction_run=10
+reportengine.pool_validation_query=SELECT 1
+reportengine.pool_timeout=300000
+reportengine.pool_query_timeout=12000
+
+# Flow control settings
+# 
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+## External dependency on birt report engine API
+#
+birtReportEnginePath=/opt/seamless/contrib/birt/ReportEngine
+
+# Reports and report resources will be kept under this dir 
+reportBasePath=/opt/seamless/etc/dist/reportengine/reports
+
+# Dynamically generated resources will be kept under this dir
+reportTempPath=/tmp/reports-gen
+
+# Date format for all reports
+dateFormat = yyyy-MM-dd
+dateTimeFormat = yyyy-MM-dd HH:mm:ss
+
+# Currency settings
+#Decimal separator
+locale.decimal_separator=,
+#Thousand separator
+locale.thousand_separator=.
+
+# Custom currency settings. 
+#
+# The format for the custom currency setting is:
+# locale.custom_currency.XTS=3
+#
+# In this case XTS is the three letter ISO 4217 code (XTS is a code reserved for testing)
+# and 3 is the amount of decimals. You can either make up your own currency code or override
+# an existing currency code.  
+# 
+locale.custom_currency.XTS=3
+# Default value is used
+locale.default_country_code=46

@@ -1,0 +1,87 @@
+---
+# tasks file for keystone
+- name: Installing keystone DB
+  mysql_db:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: keystone
+   state: present
+- name: Creating user keystone with privileges on keystone DB
+  mysql_user:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: keystone
+   password: "{{ KEYSTONE_DBPASS }}"
+   host: "{{ item }}"
+   priv: "keystone.*:ALL,GRANT"
+   state: present
+  with_items:
+  - "%"
+  - localhost
+- name: Installing keystone, httpd, mod_wsgi
+  yum: name={{ item }} state=installed
+  with_items:
+  - openstack-keystone
+  - httpd
+  - mod_wsgi
+- name: Copying configuration template
+  template:
+   src: keystone-conf.j2
+   dest: /etc/keystone/keystone.conf
+- name: Getting keystone DB status
+  shell: mysql -ukeystone -p{{ KEYSTONE_DBPASS }} -Dkeystone -e 'show tables;'| wc -l
+  register: keystone_db_status
+  changed_when: false
+- name: Populating keystone DB
+  become: true
+  become_user: keystone
+  shell: "keystone-manage db_sync"
+  when: keystone_db_status.stdout == "0"
+- name: Initialize Fernet Setup
+  shell: keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+- name: Initialize Fernet Credential Setup
+  shell: keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+- name: Populating Cred-0 file
+  copy:
+   src: cred-0
+   dest: /etc/keystone/credential-keys/0
+   owner: keystone
+   group: keystone
+   mode: 0600
+- name: Populating Cred-1 file
+  copy:
+   src: cred-1
+   dest: /etc/keystone/credential-keys/1
+   owner: keystone
+   group: keystone
+   mode: 0600
+- name: Populating Fernet-0 file
+  copy:
+   src: fern-0
+   dest: /etc/keystone/fernet-keys/0
+   owner: keystone
+   group: keystone
+   mode: 0600
+- name: Populating Fernet-0 file
+  copy:
+   src: fern-0
+   dest: /etc/keystone/fernet-keys/0
+   owner: keystone
+   group: keystone
+   mode: 0600
+- name: Bootstraping the keystone
+  shell: keystone-manage bootstrap --bootstrap-password {{ ADMIN_PASS }} --bootstrap-admin-url http://{{ VIP }}:35357/v3/ --bootstrap-internal-url http://{{ VIP }}:5000/v3/ --bootstrap-public-url http://{{ VIP }}:5000/v3/ --bootstrap-region-id {{ REGION }}
+  when: 'inventory_hostname == "controller1"'
+- name: httpd conf
+  template:
+   src: httpd-conf.j2
+   dest: /etc/httpd/conf/httpd.conf
+  notify: Restart Apache
+- name: Linking keystone wsgi in http dir
+  file:
+   src: /usr/share/keystone/wsgi-keystone.conf
+   dest: /etc/httpd/conf.d/wsgi-keystone.conf
+   state: link
+  notify: Restart Apache
+- name: start Apache
+  service: name=httpd state=started enabled=yes

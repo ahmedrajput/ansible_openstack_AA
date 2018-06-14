@@ -1,0 +1,43 @@
+
+# Configuration to list all possible currencies as per ISO 4217 
+###############################################################################
+# List of available currencies
+codes=EUR
+
+# All supported configurations per currency are mentioned below, overwrite them 
+# if needed (most unlikely this will ever be required)
+
+# Currency Number according to ISO 4217
+#codes.XXX.currencyNumber=000
+
+# Currency code according to ISO 4217 
+#codes.XXX.code=SEK
+
+# Currency name 
+#codes.XXX.currencyName=Swedish krona
+
+# Country name using this currency
+#codes.XXX.countryName=Sweden
+
+# External link to website providing exchange rates of this currency to other foreign currencies
+#codes.XXX.externalRateUrl=
+
+# By default for all currencies minorDecimals set to 2 unless overwritten 
+#codes.XXX.minorDecimals=2
+
+# By default for all currencies are treated as active, over-write to make the currency obselete
+#codes.XXX.obselete=false
+
+# By default for all currencies ,thousandSeparator=,
+#codes.XXX.thousandSeparator=,
+
+# By default for all currencies ,decimalSeparator=.
+#codes.XXX.decimalSeparator=.
+
+codes.EUR.currencyNumber=752 
+codes.EUR.code=EUR
+codes.EUR.currencyName=Euro
+codes.EUR.countryName=Europe
+codes.EUR.externalRateUrl=http://www.exchangerates.org.uk/Euro-EUR-currency-table.html
+codes.EUR.thousandSeparator=.
+codes.EUR.decimalSeparator=,

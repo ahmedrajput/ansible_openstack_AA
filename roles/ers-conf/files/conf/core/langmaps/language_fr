@@ -1,0 +1,414 @@
+90 = <menu name="Rechargement"><choice id="1" name="Achat"><choice id="2" name="Session"><choice id="9" name="Reimpression"><choice id="3" name="Administration"><choice id="4" name="Demo"><choice id="12" name="Activer"><choice id="13" name="Imprint"><choice id="5" name="Service"><choice id="6" name="Connexion"><choice id="10" name="System"></menu> 
+100 = <vs><small><center>Utilisateur inconnu<br><bottom><large><hs><invert>~OK~
+101 = <center><large>Utilisateur bloque!<vs><small>Cet utilisateur a ete bloque! <br>Contactez votre administrateur ou appelez le support technique.<bottom><hs><large><invert>~OK~ 
+102 = <vs><small><center>Code Pin invalide<br><bottom><large><hs><invert>~OK~ 
+103 = <vs><small><center>Acces refuse<br><bottom><large><hs><invert>~OK~ 
+104 = <vs><small><center>Utilisateur deja existant<br><bottom><large><hs><invert>~OK~ 
+105 = <vs><small><center>Code Pin invalide <br><bottom><large><hs><invert>~OK~ 
+106 = <vs><small><center>Carte deja existante <br><bottom><large><hs><invert>~OK~ 
+107 = <vs><small><center>Probleme de connexion,<br>Essayer plus tard<br><bottom><large><hs><invert>~OK~ 
+108 = <vs><small><br>Pret pour utilisation<br>telecharger maintenant<br><button id="ok" name="OK"> 
+109 = <vs><small><center>Mauvais code d'activation<br><bottom><large><hs><invert>~OK~ 
+110 = <vs><small><center>Mauvais code d'ouverture<br><bottom><large><hs><invert>~OK~ 
+111 = <vs><small><center>Date invalide<br><bottom><large><hs><invert>~OK~ 
+112 = <vs><small><center>Achat refuse, contactez le support technique<br><bottom><large><hs><invert>~OK~ 
+113 = <vs><small><center>Serveur occupe, Essayez plus tard<br><bottom><large><hs><invert>~OK~ 
+114 = <vs><small><center>Ce produit est temporairement indisponible<br><bottom><large><hs><invert>~OK~ 
+115 = <vs><small><center>Une erreur est survenue<br><bottom><large><hs><invert>~OK~ 
+116 = <vs><small><center>Demande rejetee<br><bottom><large><hs><invert>~OK~ 
+117 = <vs><small><center>Pas de tonalite, verifiez la ligne telephonique ou le prefixe<br><bottom><large><hs><invert>~OK~<br> 
+118 = <vs><small><center>Pas de tonalite, verifiez la ligne telephonique ou le prefixe<br><bottom><large><hs><invert>~OK~<br> 
+119 = <vs><small><center>Ligne indisponible<br><bottom><large><hs><invert>~OK~<br> 
+120 = <vs><small><center>Carte invalide<br><bottom><large><hs><invert>~OK~<br> 
+121 = <menu name="Administration"><choice id="1" name="Achat"><choice id="2" name="Session"><choice id="3" name="Reimprimer"></menu> 
+122 = <vs><small><center>Le systeme est ferme.<br>Demandez a votre administrateur d'ouvrir le systeme.<bottom><large><hs><invert>~OK~<br> 
+123 = <center><large>Error<vs><small>Erreur de modele de ticket<br><bottom><large><hs><invert>~OK~<br> 
+124 = <center><large>Error<vs><small>Modele de ticket manquant<br><bottom><large><hs><invert>~OK~<br> 
+125 = <center><large>Error<vs><small>Statut du terminal invalide<br><bottom><large><hs><invert>~OK~<br> 
+126 = <center><large>Depassement<br><small>Vous pouvez acheter max~$max_count$~de ce produit.<bottom><large><hs><invert>~OK~<br>  
+127 = <center><large>Invalid<br><small>Invalid phone number<bottom><large><hs><invert>~OK~<br>
+128 = <center><large>Invalid<br><small>Invalid amount<bottom><large><hs><invert>~OK~<br>
+129 = <center><large>Invalid<br><small>Invalid confirmation code<bottom><large><hs><invert>~OK~<br>
+130 = <center><large>Not found<br><small>Serial not found<bottom><large><hs><invert>~OK~<br>
+131 = <center><large>Invalid<br><small>Code cannot be cancelled<bottom><large><hs><invert>~OK~<br>
+132 = <center><large>Invalid<br><small>Invalid serial<bottom><large><hs><invert>~OK~<br>
+133 = <vs><small><center>Credit limit reached, Not enough credit!<br><bottom><large><hs><invert>~OK~
+200 = <menu name="Administration"><choice id="4" name="Parametres"><choice id="5" name="Synchroniser"><choice id="6" name="Nouveau vendeur"><choice id="7" name="Modifier vendeur"><choice id="8" name="Etat stock"><choice id="9" name="Annul  vendeur"><choice id="10" name="Service"><choice id="11" name="Depannage"><choice id="12" name="Messages"></menu> 
+201 = <menu name="Parametres"><choice id="2" name="Imprimer recu"><choice id="3" name="Confirmer impression"><choice id="4" name="Imprimer code barre"><choice id="6" name="Mode applicatif"><choice id="8" name="Pre Connexion"></menu> 
+202 = <menu name="Session"><choice id="4" name="Fermer le systeme"><choice id="5" name="Ouvrir le systeme"><choice id="6" name="Rapport de cloture"><choice id="1" name="Debut de session"><choice id="2" name="Fin de session"><choice id="3" name="Rapport"></menu> 
+203 = <menu name="Rapports"><choice id="1" name="par vendeur"><choice id="2" name="Global"><choice id="3" name="par produits"></menu>
+204 = <menu name="Service"><choice id="1" name="Re-initialisation"><choice id="2" name="Desactiver"><choice id="3" name="Telechargement"><choice id="4" name="Bloquer le terminal"><choice id="5" name="Synchroniser"><choice id="6" name="Debloquer utilisateur"><choice id="7" name="Langue des menus"><choice id="8" name="Exit BIOS"></menu> 
+205 = <menu name="Depannage"><choice id="1" name="Service"><choice id="2" name="Systeme"><choice id="3" name="identification"><choice id="4" name="Produits"><choice id="5" name="Com"><choice id="6" name="Utilisateur"> <choice id="7" name="Ressources"><choice id="8" name="Heap"><choice id="9" name="Parametres"><choice id="10" name="Messages"><choice id="11" name="Test utils"></menu> 
+206 = <menu name="Telechargements"><choice id="1" name="Telecharger maintenant"><choice id="3" name="Telechargement abandonne"></menu> 
+207 = <menu name="Test utils"><choice id="2" name="Impression liste ASCII"><choice id="3" name="Afficher liste ASCII"><choice id="5" name="Impression de test"></menu> 
+208 = <menu name="Systeme"><choice id="1" name="Impression info"><choice id="2" name="Controle d'integrite"><choice id="5" name="Telechargement force!"></menu> 
+209 = <menu name="Utilisateurs"><choice id="1" name="Re-initialisation"><choice id="2" name="Supprimer utilisateur"><choice id="3" name="Session"></menu> 
+210 = <menu name="Parametres"><choice id="1" name="Re-initialisation"><choice id="2" name="Supprimer"><choice id="3" name="Verouiller"></menu> 
+211 = <menu name="Ressources"><choice id="1" name="Re-initialiser"><choice id="2" name="Supprimer"><choice id="3" name="Mise a jour"><choice id="4" name="Dependency check"></menu> 
+212 = <menu name="Connexion"><choice id="2" name="Supprimer"><choice id="3" name="Re-initialiser"><choice id="4" name="Filtre connexion"><choice id="5" name="Verbose filter"><choice id="6" name="Filtre de rapport"><choice id="7" name="Info"></menu> 
+213 = <menu name="Com"><choice id="1" name="Re-initialiser"><choice id="2" name="Supprimer"></menu> 
+214 = <menu name="Heap"><choice id="1" name="Re-initialiser"><choice id="2" name="Alloc"><choice id="3" name="Disponible"><choice id="4" name="Supprimer"><choice id="5" name="Reorg"></menu> 
+215 = <menu name="Produits"><choice id="1" name="Re-initialiser"><choice id="2" name="Catalogue"><choice id="4" name="Stats stock"><choice id="5" name="Supprimer stock"><choice id="6" name="Supprimer stock"><choice id="7" name="Montrer stock"></menu> 
+216 = <menu name="Connexion"><choice id="1" name="Mode"><choice id="2" name="Type"><choice id="3" name="Prefixe"><choice id="4" name="Faire test d'appel"><choice id="5" name="Langue des menus"></menu>
+217 = <menu name="Mode connexion"><choice id="3" name="En ligne"><choice id="1" name="program. en ligne "><choice id="2" name="Hors ligne"></menu> 
+218 = <menu name="Type"><choice id="1" name="Vendeur"><choice id="2" name="Administrateur"><choice id="3" name="Racine"></menu> 
+219 = <menu name="Menu abrege"><choice id="1" name="Achat"><choice id="2" name="Administration"><choice id="3" name="Session"><choice id="4" name="Depannage"></menu>  
+220 = <menu name="Rapports"><choice id="1" name="par vendeur"><choice id="2" name="Global"><choice id="3" name="par produits"><choice id="100" name="Controle Facture"><choice id="101" name="Telechargements"><choice id="102" name="Credit Balance"></menu>
+300 = POS Memory full
+301 = MPOS bad order ack
+302 = MPOS buffer problem
+400 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~SESSION~~<br><bottom><invert>~~MENU~~<hs><invert>~~ACHAT~~ 
+401 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~CONNEXION~~<hs><br><bottom><invert>~~MENU~~<hs> 
+402 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br>Vendeur:~$cashier_id$<br><vs height="2"><small><invert>~~DE-CONNEXION~~<hs><invert>~~SESSION~~<br><bottom><invert>~~MENU~~<hs><invert>~~ACHAT~~  
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><bottom><invert>~~ADMIN~~<hs><invert>~~MENU~~<hs><invert>~~BUY~~
+404 = <center><normal>Refill $system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~WORKSHIFT~~<br><bottom><invert>~~MENU~~<hs><invert>~~BUY~~
+405 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br>Balance: <output id="balance" align="center" width="50"><br><bottom><small><invert>~~ADMIN~~<hs><invert>~~WORKSHIFT~~<br><bottom><invert>~~MENU~~<hs><invert>~~BUY~~
+500 = <center><large>Bienvenue!<br><small>Ce terminal n'a pas encore ete active! Appelez le support technique.<bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+501 = <center><large>Active<br><small><left>Terminal ID: $terminal_id$<br>Code de demarrage:~~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+502 = <center><large>Active<vs><small><left>Code d'activation:<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~Annulez~<hs><invert>~OK~ 
+503 = <large><center><output id="main_task" align="center" width="120"><br><small><output id="sub_task" align="center" width="120"><br><bottom><right><output id="task_status" align="right" width="64"><br>  
+504 = <center><large>Impression OK?<vs><bottom><large><invert>~NON~<hs><invert>~OUI~ 
+505 = <center><large>Recu?<vs><bottom><large><invert>~NON~<hs><invert>~OUI~ 
+506 = <center><large>S.A.V.<vs><small><left>Code S.A.V.: $service_code$<br>Verification du code: ~~~<input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+507 = <center><large>Achat<vs><small> $category_name$~ $product_value$ <br> Prix: $product_price$ <br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+508 = <center><large>Telechargement<vs><small>Telechargement en cours <output id="count" length="2" align="right" width="20"> seconds...<br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+509 = <center><large>Synchronisation<vs><small>Synchronisation en cours <output id="count" length="2" align="right" width="20"> secondes ...<br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+510 = <center><large>Bloque!<vs><small>Ce terminal a ete bloque! Appelez le support technique.<bottom><large><invert>~Annuler~<hs><invert>~De-Bloquer~ 
+511 = <center><large>Editer un reçu <vs><bottom><large><invert>~OK~ 
+512 = <center><large>Impression incomplete <vs><small>Re-editer le dernier ticket?<bottom><large><invert>~ANNULER~<hs><invert>~OK~ 
+513 = <center><large>Impr. a nouveau?<vs><small> $product_long_name$ <br> Attention! la re-impression d'une recharge deja editee engage votre responsabilite et sera enregistre sur le serveur. Cette fonction ne doit etre utiliser qu'en cas de probleme d'impression <br><Bas><large><invert>~Annuler~<hs><invert>~OK~ 
+515 = <center><large>Achat<vs><small> $category_name$~ $product_value$ <br> Prix: $product_price$ <br> #: <input id="count" length="2"><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+516 = <center><large>Achat<vs><small> $category_name$~ $product_value$ <br> Prix: $product_price$ <br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+517 = <center><large>Reimprimer ?<vs><small> $category_name$~ $product_value$ <br> Prix: $product_price$ <br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+518 = <center><large>Confirmez<br><small>Vous achetez <br>$count$x~$category_name$~ $product_value$ <br> Prix: $product_price$ <br><bottom><large><invert>~Annuler~<hs><invert>~OK~  
+519 = <center><large>Direct top-up<br><small> $product_long_name$ <br> Phone no:<br> <input id="phone_nr" length="14"><bottom><large><invert>~Cancel~<hs><invert>~OK~
+520 = <center><large>Direct top-up<br><small> $product_long_name$ <br> Amount ($currency$):<br> <input id="amount" length="5"> <bottom><large><invert>~Cancel~<hs><invert>~OK~
+521 = <center><large>Direct top-up<br><small> Waiting for customer input...<bottom><large><invert>~Cancel~<hs><invert>~OK~
+522 = <center><large>Cancel voucher<br><small> Serial:<br> <input id="serial" length="14"><bottom><large><invert>~Cancel~<hs><invert>~OK~
+523 = <center><large>Cancel voucher<br><small> Confirmation code<br> <input id="reference" length="14"><bottom><large><invert>~Cancel~<hs><invert>~OK~
+524 = <center><large>Unimprint<br><small>Are you sure you want to unimprint?<bottom><large><invert>~Cancel~<hs><invert>~OK~
+525  = <center><normal>Users unlocked!<br><invert><center><large><invert>~OK~
+
+600 = <menu name="MPos"><choice id="1" name="Synchronize"><choice id="2" name="Unlock Vouchers"></menu>
+601 = <center><large>Accept download?<br><small>MPos:$mpos_ser$<br>Tot.Value: $value$<bottom><large><invert>~Cancel~<hs><invert>~OK~
+602 = <center><large>Download completed!<bottom><large><invert><center>~OK~
+603 = <center><large>Sync. completed!<bottom><large><invert><center>~OK~
+604 = <center><large>Sync. failed!<br><br><center>$result_code$<bottom><large><invert><center>~OK~
+605 = <center><large>Download failed!<br><br><center>$reason$<bottom><large><invert><center>~OK~
+606 = <center><large>Activating MPOS<br><small>$mpos_ser$<br><vs><small><left>CNP:<input id="cnp" length="8" width="40"><br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+607 = <large><center>Requested codes<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+608 = <small><tr><td>$name$</td><td align="right">$count$</td><td align="right">$amount$</td></tr>
+609 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+610 = <center><large>Ack. Restock<br><small>MPos:$mpos_ser$<br><small><left>Ref:<input id="ref" length="12" width="40"><br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+611 = <center>Act. failed<br><br><center>$result_code$<br>Retry?<bottom><large><invert>~Cancel~<hs><invert>~OK~
+612 = Restock cancelled<br><small>MPos:$mpos_ser$<br><bottom><large><invert><center>~OK~
+613 = Activation failed<br><small>MPos:$mpos_ser$<br><bottom><center><large><invert>~OK~
+614 = Unlock all products?<br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+615 = <large><center>Restock summary<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+616 = <large><center>Missing products<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<br>Restock value:$restock_value$<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+617 = <large><center>Products unlocked<br><small><center>Count:$count$<br><bottom><center><large><invert>~OK~
+618 = <large><center>Missing products<br><small>Wanted:$restock_value$<vs>Missing:$turnover$<br>Continue restock?<br><bottom><center><large><invert>~NO~<hs><invert>~YES~
+619 = <large><center>Lost codes<hr><small><left><vs><table><tr><td>Product</td><td align="right">Serial</td><td align="right">Value</td></tr><hr>
+620 = <small><tr><td>$product_name$</td><td align="right">$serial$</td><td align="right">$product_resprice$</td></tr>
+621 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+622 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><small><br>Wanted restock value:$restock_value$<br><normal>Refund value:$refund_value$
+700 = <center><large>Ajouter vendeur?<br><small>User id: $user_id$<br>Group: $user_group$<br>Carte magnétique ? $use_card$<bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+701 = <center><large>Modifier vendeur?<br><small>Vendeur: $user_id$<br>Groupe: $user_group$<br>Use card: $use_card$<br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+702 = <center><large>Stock epuise!<br><small>Verifiez la ligne telephonique et pressez OK pour connecter.<br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+703 = <center><large>Systeme ferme <vs><small>Ouvrir le syteme?<bottom><large><invert>~NON~<hs><invert>~OUI~ 
+704 = <center><large>Confirmer<vs><small>Fermer le systeme?<bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+705 = <center><large>Pas de session de travail<vs><small>Ouvrir session?<bottom><large><invert>~NON~<hs><invert>~OUI~ 
+706 = <center><large>Ajouter vendeur?<br><large><bottom><invert>~NON~<hs><invert>~OUI~ 
+707 = <center><large>Confirmer<vs><small>Fin de la session de travail?<bottom><large><invert>~NON~<hs><invert>~OUI~ 
+710 = <center><large>Nouveau message<vs><small>Imprimer $count$ nouveau message?<bottom><large><invert>~Plus tard~<hs><invert>~OK~ 
+711 = <center><large>Telecharger<vs><small>Annuler telechargement?<bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+712 = <center><large>Connecter?<vs><small>Verifiez la ligne telephonique et pressez OK pour connecter<br><bottom><large><invert>~Annuler~<hs><invert>~OK~ 
+713 = <center><large>Niveau de stock limite<br><small>Verifiez la ligne telephonique et presser OK pour connecter<br><bottom><large><invert>~Annuler~<hs><invert>~OK~  
+715 = <large>Reset detected!<br><small>Weekly report contents are not accurate!
+716 = <large><center>$product_status$<hr><small><hr><table><tr><td align="left" width="24">Product</td><td>Count</td></tr>
+717 = <tr><td>$name$</td><td>$count$</td></tr>
+718 = </table><hr>Total count:$count$<vs><vs>
+719 = <menu name="ComType"><choice id="0" name="KYLIK"><choice id="65" name="Landline"><choice id="73" name="ISDN"><choice id="71" name="GPRS"><choice id="84" name="LAN"><choice id="77" name="GSM"><choice id="87" name="WIFI"><choice id="67" name="CDMA"><choice id="80" name="Landline-PPP"></menu>
+800 = <large><center>Session<hr><small><left>Debut:<hs>$start_date$~$start_time$<br>Fin:<hs>$end_date$~$end_time$<br>Vendeur:<hs>$cashier_id$<vs> 
+801 = <large><center>Total<br><small><left> 
+802 = <small><table><tr><td width="4">Qte</td><td width="15">Produit</td><td align="right">Chiffre d'affaire</td></tr><hr>
+803 = <small><tr><td>$count$</td><td>$product_name$</td><td align="right">$turnover$</td></tr>
+804 = <hr><tr><td>$count$</td><td>Total</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+805 = <br><br><hr><hr><hr><large><center>Rapport de fermeture<br><small><left>Systeme ouvert: $system_open$<br>Systeme ferme: $system_close$<br>Close count:~$close_count$<br>Terminal:~$terminal_id$<br> 
+806 = <hr><hr><hr><vs><vs><vs> 
+808 = <normal><center>Till $cashier_id$<hr>
+809 = <tr><small><td>$date(5,10)$~$time$</td><td align="left">$product_name$</td><td align="right">$product_value$</td></tr>
+810 = <large><center>Information systeme<br><hr><small><left>Revendeur: $reseller_name$<br>Addresse: $reseller_addr$<br>Code Postal: $reseller_zip$<br>Telephone: $reseller_phone$<br>WWW: $reseller_www$<br><br>Terminal ID: $terminal_id$<br>$open_status$<br>System state: $state$<br><br><br><br> 
+811 = <small><table><tr><td width="14">Date</td><td>Product</td><td align="right">Value</td></tr>
+812 = <center><large>User Information<left><normal><br><table><tr><td>ID<td>Name<td>State</tr>
+813 = <tr><td>$user_id$</td><td>$user_name$</td><td>$user_locked$</td></tr>
+814 = </table><br>Users:$user_count$ of $max_user_count$<vs><vs><vs>
+
+820 = <large><center>Rapport<br><small><left>Debut :~$system_open$<br>Fin :~$system_close$<br>Vendeur :~$cashier_id$<br><vs> 
+821 = <small><table><tr><td width="4">Qte</td><td width="20">Produit</td><td align="right">Chiffre d'affaire</td></tr><hr>
+822 = <small><tr><td>$count$</td><td>$product_name$</td><td width="9" align="right">$turnover$</td></tr>
+823 = <hr><tr><td>$count$</td><td>Total</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+
+830 = <large><center>Rapport<hr><hr><small><left>Debut :~$system_open$<br>Fin :~$system_close$<vs><table>
+831 = <small><table><tr><td width="10">Vendeur</td><td align="right">Chiffre d'affaire</td></tr><hr> <small>
+832 = <tr><td>$cashier_id$</td><td align="right">$turnover$</td></tr> 
+833 = <hr><tr><td>Total</td><td align="right">$turnover$</td></tr></table><br><vs> 
+834 = <hr></table><br>
+835  = <br>
+
+840 = <hr><large><center>$EAN_code$<vs><normal>$product_long_name$<vs>CONTRE-MARQUE<hr>$reseller_name$<br>$reseller_city$<br><small><left>TERMINAL:<hs>$terminal_id$<br>VENDEUR:<hs>$cashier_id$<br>DATE:<hs>$date(8,10)$/$date(5,7)$/$date(2,4)$<br>HEURE:<hs>$time(0,2)$:$time(3,5)$<hr><normal>No serie:<hs>$serial$<br>Expire le:<hs>$expiry_date(5,7)$/$expiry_date(0,4)$<br>CREDIT:<hs>$product_value$<br>VALEUR:<hs>$product_price$<br><vs><vs> 
+841 = <vs><large><center>Attention!<br>Achat precedent<hr><normal>Veuillez noter que la date et l'heure de cette re-impression est celle du ticket original!<vs>Copy #$copy_no$<br> 
+842  = <vs><large><center>Printout<br>Interrupted!<hr><br><vs><vs><vs>
+843  = <vs><large><center>Printout<br>Error!<hr><br><vs><vs><vs>
+844  = <vs><large><center>Receipt<hr><normal>(Retailer copy)<vs><left>$count$~x~$product_long_name$<br>$date$~$time$<br><table><tr><td>Price:</td><td>$sum_amount$</td></tr><tr><td>Cashier:</td><td>$cashier_id$</td></tr><tr><tr><td>Serial:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+845  = <vs><large><center>Cancel instructions<hr><normal>This is how you do a cancel...<vs><vs><vs><vs><vs>
+846  = <vs><large><center>Cancel receipt<hr><normal><vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Cashier:</td><td>$cashier_id$</td></tr><tr><tr><td>Serial:</td><td>$serial$</td></tr><tr><td>Confirmation code</td><td>$reference$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+
+850 = <large><center>Stock disponible<hr><small><table><tr><td align="left" width="24">Produits<</td><td width="3" align="center">Qte</td><td align="right">Total</td></tr><hr>
+851  = <small><tr><td width="24">$product_name$</td><td width="3" align="center">$product_count$</td><td align="right">$amount$</td></tr>
+852 = <hr></table><vs><vs>
+853  = <hr><small><tr><td width="10">Total</td><td width="5" align="left">$product_total$</td><td align="right" width="12">$total_amount$</td></tr>
+
+860  = <vs><hr><center>Synchronizing<br><hr><small>Started:<hs>~$date$~$time$<br>
+861 = <left><small>Synchro. OK:<hs>~$date$~$time$<vs><vs>
+862 = <small>Synchro. echouee<vs><vs><vs>
+863 = <vs><vs><hr><center>Probleme de connexion.<br><small>Tentatives de connexions echouees.<br>Verifiez la ligne télephonique et synchronisez manuellement. Entrez dans le menu administrateur et selectionnez "Syncronisez".<br>Si le probleme persiste, contactez le support technique.<vs><vs><vs>
+864  = <large>Paylimit error!<br><normal>Contact support about your paylimit.<hr><vs><vs><vs>
+865  = Test call
+866  = <small>Paylimit error<br><hr><vs><vs><vs>
+
+870 = <large><center>Codes telecharges<br>la semaine derniere<hr><small><left><vs><table><tr><td width="24">Produit</td><td width="3">Qte</td><td align="right">Total</td></tr><hr>
+871 = <small><tr><td width="24">$product_name$</td><td width="3" align="center">$product_count$</td><td align="right">$amount$</td></tr>
+872 = <hr><small><tr><td width="10">Total</td><td width="5" align="left">$count$</td><td align="right" width="12">$turnover$</td></tr>
+873 = <br><center>No previous<br>purchases!<br><br><center><invert>~OK~
+
+880 = <large><center><hr><hr><hr>Prepaid terminal<hr><normal><vs><table><tr><td>Buy</td><td>Buy vouchers</td></tr><tr><td>Workshift</td><td>Start/End your workshift</td></tr><td>Print again</td><td>Re-print a previous purchase</td></tr></table><vs>Having problems with the terminal?<br>Call jeroen! 0174-123 456<br><hr><hr><hr>
+881 = <vs><hr><center>System Information<br><hr><br>
+882 = <br><hr><vs><vs><vs><vs><vs>
+883 = <center>Invalid<br><left>Invalid modem pool number<vs><center><invert>~OK~
+884 = Workshift Overflow<br>Close system and synchronize!<vs><center><invert>~OK~
+
+890 = Printer error<vs>Check paper!<vs><center><invert>~OK~
+891 = Printer OK again
+892 = <center><large>Printer low on paper!<br><small>Continue anyway?<left><bottom><large><invert>~Cancel~<hs><invert>~OK~
+
+895 = Activating MPOS
+896 = Deact. MPOS
+897 = Restocking MPOS
+898 = Waiting for MPOS
+899 = MPOS Unblocked!
+900 = Connexion 
+901 = Appel  
+902 = Envoi  
+903 = Reception  
+904 = Activation 
+905 = Desactivation 
+906 = Mise a jour 
+907 = Synchronisation 
+908 = Re-initialisation 
+909 = Rechargement 
+910 = Rapport 
+911 = Achat 
+912 = Test 
+913 = Impression 
+914 = Finalisation  
+915 = Initialisation 
+916 = Enregistrement 
+917 = Ressources 
+918 = Stock tampon 
+919 = Rapport  
+920 = Information 
+921 = Ajout vendeur 
+922 = Modif. vendeur 
+923 = En cours 
+924 = Operateur 
+925 = Code Pin 
+926 = Verifier Pin 
+927 = Prefixe 
+928 = Clef de commande: 
+929 = De: 
+930 = A: 
+931 = Destination: 
+932 = Vendeur: 
+933 = Passez la carte: 
+934 = Administrateur 
+935 = Vendeur 
+936 = Super administrateur 
+937 = Oui 
+938 = Non 
+939 = Choix du prefixe 
+940 = Achat precedent 
+941 = Preparation 
+942 = Finalisation 
+943 = Verification 
+944 = Imprimer image 
+945 = Imprimer recu 
+946 = Confirme impr. 
+947 = Code barre 
+948 = Achat multiple 
+949 = Mode applicatif 
+950 = Toujours 
+951 = Jamais 
+952 = Confirmer recu 
+953 = Standard 
+954 = Mode std 
+955 = Mode std + login 
+956 = Choix produits 
+957 = Liste produits 
+958 = Tous produits 
+959 = Produits 
+960 = Retour 
+961 = Sortir 
+962 = Parametres... 
+963 = Pre-connexion 
+964 = Synch. MPOS 
+965 =     
+966 = Cashier open/close
+967 = None
+968 = Only close
+969 = Open and close
+970 = Product menus
+971 = Price
+972 = Value
+973 = Name
+974 = Use PIN-pad
+975 = Auto purch sum
+976 = Enter modem pool
+
+1000 = Buy
+1001 = Workshift
+1002 = Print again
+1003 = Admin
+1004 = Demo
+1005 = Service
+1006 = Settings
+1007 = Activate
+1040 = Back to main menu
+
+1100 = Cancel
+1101 = Ok
+1102 = Print
+1103 = Printer settings
+1104 = Demo voucher
+1105 = Voucher
+1106 = Print
+1107 = Reprint
+1108 = <center><normal>Language selected<br>$language$<bottom><invert>~OK~
+1109 = <center><large>$reason$<br><small>$action$<br>please wait$progress$<bottom><small><input type="cancel" text="Abort operation">
+1110 = Purchasing vouchers from main ERS server
+1111 = <menu name="Settings"><choice id="1" name="Mode"><choice id="2" name="Speed"><choice id="3" name="Prefix"><choice id="4" name="Make testcall"><choice id="5" name="Select language"><choice id="6" name="Printer settings"></menu>
+1112 = Restocking
+1113 = Blocking
+1114 = Unblocking
+1115 = Downloading language list
+1116 = Downloading language
+1117 = Upgrading application
+1118 = <center><large>Invalid date<small><br>Invalid date specified<bottom><invert>~OK~
+1119 = Initializing prepaid client
+1120 = Sold time
+1121 = Cashier
+1122 = Product type
+1123 = Serial
+1124 = Receipt
+1125 = Receipt margins (in percent)
+1126 = Left
+1127 = Width
+1128 = Receipt fonts
+1129 = Small
+1130 = Normal
+1131 = Large
+1132 = Name
+1133 = Size
+1134 = Selected printer
+1135 = Change
+1136 = Refill Main menu
+1137 = All
+1138 = Synchronizing with main ERS system
+1139 = <center><large>Activate<vs><small><center>ERS IP address:<br><input id="ers_address" length="40" width="200p"><br>Store ID:<br><input id="store_id" length="40" width="200p"><br>Activation code:<br><input id="activation_code" length="6" width="40"><vs><vs><bottom><large><invert>~Cancel~<hs><invert>~Activate~
+1140 = <center><large>Operation failed<br><small>$error_str$<wbr>($error_code$)<vs><vs><bottom><large><center><invert>~Continue~
+1141 = Landscape mode
+1142 = Portrait only
+1143 = Landscape on request
+1144 = Still running
+1145 = Still open
+1146 = <center><large>Error<br><small>Mandatory field '$field$' has to be entered!<vs><bottom><large><center><invert>~Continue~
+1147 = <center><large>Error<br><small>Mandatory field '$field$' is invalid!<br>$error$<vs><bottom><large><center><invert>~Continue~
+
+1900 = Unknown error
+1901 = User cancelled operation
+1902 = User timeout
+1903 = Access deined
+1910 = Invalid PrepaidClient response
+1911 = Invalid request data
+1912 = Out of memory
+1913 = Invalid shared secret
+1914 = Disk write error
+1915 = Codepage translation failed
+1990 = PrepaidClient unreachable
+1991 = Server connect failed
+1999 = Transaction lost(socket closed)
+
+2000 = Success
+2001 = Invalid/unregistred cashier ID
+2002 = Prepaid Client is busy
+2003 = Bad/non-unique transaction ID
+2010 = Product unavailable/out of stock on ERS
+2011 = Product out of local stock
+2031 = Product not scheduled to be available yet
+2032 = Product not available any more
+2080 = No product with the specified ID/EAN/SKU
+2081 = Resource(typically bitmap) not found
+2082 = Given order id is unknown
+2083 = Pay limit exceeded, please contact support
+2084 = This PrepaidClient is blocked at ERS
+2085 = Given order ID reserved by another cashier
+2086 = Invalid order id state (reservation timeout)
+2087 = Invalid/unknown voucher serial
+2088 = Bad verification code for voiding voucher
+2089 = Voucher serial not unieuq, please specify product type
+2093 = Operation failed unexpectedly, see log file
+2094 = Connection with main ERS (server) failed
+2095 = Invalid formatted request message
+2100 = Bad PrepaidClient internal state for requested operation
+2101 = Bad PrepaidClient state at the ERS (Server) side
+2102 = Bad user id or password
+2103 = Not logged on, please log in
+2104 = Access denied for the current user
+2105 = Operation ignored, invalid request data
+2106 = Unknown language
+2107 = User/cashier type is invalid
+2108 = Too many users/cashiers
+2109 = Invalid service verification code
+2110 = ERS sync sequence number mismatching, access denied!
+2111 = Workshift already started
+2112 = Workshift already stopped
+2113 = Workshifts are not used on this PrepaidClient
+2114 = Too many running workshifts
+2115 = User not permitted to open system
+2116 = System already opened
+2117 = System already closed
+2118 = One or more workshifts are in a bad state
+2119 = No PrepaidClients ready for activation at the given store
+2120 = New user/cashier id is bad, must be 4-16 characters
+2121 = New user password bad, must be 4-8 characters
+2122 = The report that was requested is unknown
+2123 = Missing mandatory report input fields
+2124 = Voucher printout already acknowledged
+2125 = Voucher reprints are not permitted
+2126 = Deactivation failed, vouchers locked in PAID state
+2127 = Invalid (non existing) user specified
+2128 = ERS denied access
+2129 = All products passed last sell date
+2130 = Lock : Mismatching network card MAC
+2131 = Lock : Mismatching computer (Netbios) name
+2132 = Lock : Mismatching harddisk (volume) serial
+2133 = Lock : Mismatching restart counter
+2134 = Syntax error in receipt template
+2135 = Activation denied (unauthorized IP address)
+2136 = report incomplete, some langmap entries are missing
+2137 = Wrong activation code
+2138 = Store-id is incorrect or unauthorized
+2139 = Report has no matching language
+2140 = ERS still processing. please retry sooon
+2141 = ERS invalid/unexpected voucherless state
+2142 = Credit limit reached, please contact support

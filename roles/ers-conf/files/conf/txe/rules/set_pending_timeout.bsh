@@ -1,0 +1,13 @@
+import com.seamless.ers.txe.transaction.processors.TXERequestProcessor;
+
+
+public boolean validate(BusinessLogicTransaction transaction)
+{
+	long timeout=3600000;
+	TXETransaction txeTransaction = transaction.getTransaction();
+	if(txeTransaction.getPendingTimeout() == 0)
+		txeTransaction.setPendingTimeout(timeout);
+
+	// Always return true otherwise validate will fail
+	return true;
+}

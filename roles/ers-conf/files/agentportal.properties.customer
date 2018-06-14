@@ -1,0 +1,117 @@
+#Agent Portal server-side configuration file
+
+# NOTES:
+# 1. separate multiple items by comma
+
+###############################################################################
+# details of connection to TXE
+core_connection.url=http://localhost:8777/txe
+core_connection.username=smsapp
+core_connection.password=smsapp
+
+###############################################################################
+# details of connection to support system
+supportsystem_connection.url=http://localhost:8071/supportsystem
+#supportsystem_connection.username=
+#supportsystem_connection.password=
+
+#URL to talk to report engine custom operations interface
+# it is used for running reports without going through TXE
+reportEngine.url=http://localhost:8920/reportengine/customOperations
+reportEngine.receiveTimeout=0
+
+###############################################################################
+#URL contact report engine for fetching report resource
+resourceProviderURL=http://localhost:8921/reportengine/resources
+
+###############################################################################
+# ERS Business logic Connection Properties
+# Use username/password if connection supports it
+businesslogic.url=http://localhost:8923/exchangeRate
+#businesslogic.username=smsapp
+#businesslogic.password=smsapp
+
+###############################################################################
+# parameters for requests to core WS, and default language of the interface
+core_connection.defaultLanguage=en
+core_connection.channel=WEB
+
+###############################################################################
+# Should CAMPTCHA be used in logins?
+captcha_enabled=false
+
+# Name of the CM system.
+#cms.classname=SimpleFileCMS
+# The default language to be used by CM
+#cms.languages=en pt
+
+# The language mapping file.
+#cms.en.filename=messages_english.properties
+#cms.pt.filename=messages_portuguese.properties
+
+# The language file encoding.
+#cms.pt.encoding=UTF-8
+#cms.en.encoding=UTF-8
+# Name of the CM system.
+
+kyc.filename=kyc.properties
+
+###############################################################################
+# Locale settings
+# Default country code padded to msisdn in case entered msisdn less than digits of default_country_code_digit + default_network_code_digits + subscriber_number_digits
+#locale.default_country_code=1
+# Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+#locale.default_network_code=6
+# Length of msisdn excluding network code and country code
+#locale.subscriber_number_digits=6
+# Optional properties to set range of allowed network_codes.
+#locale.accepted_network_codes=6,9
+
+#locale.custom_currency.IRR=2
+
+# Currency settings
+#Decimal separator
+#locale.decimal_separator=.
+#Thousand separator
+#locale.thousand_separator=,
+
+# Account type used for subscriber registration
+subscriber_accounttype=AIRTIME
+
+# Sending remittance productSKUs
+remittanceSendProductSKUs=REMIT_SEND,CHARITY_SEND
+
+# Receiving remittance productSKUs
+remittanceReceiveProductSKUs=REMIT_RECEIVE,CHARITY_RECEIVE
+
+###############################################################################
+# A list of comma separated result codes of 'ResultCodes' e.g. PENDING, ONGOING.
+# Always exclude the mentioned result codes to be shown on the transaction 
+# search page no matter what search criteria has been provided on it.
+# By default, no result code will be excluded
+# excludeResultCodes=PENDING
+
+###############################################################################
+# Location where uploaded files from subscriber register screen will be temporary
+# stored
+storageDirectory=/tmp/ap/
+
+###############################################################################
+# Configuration of the WEBDAV server
+webdavURL=http://localhost
+webdavUsername=refill
+webdavPassword=refill
+
+
+###############################################################################
+# Configuration of the smsprovider
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://localhost:13013/cgi-bin/sendsms?username=ers&password=recharge&from=90050983
+smsprovider.to_prefix=
+
+searchTransaction.Filter.subreseller.maxLevels=2
+searchTransaction.Filter.subreseller.maxCount=1000000
+
+# Set AgentPortal Session timeout 0 mean nothing or <Desired value> and
+# value will be read only in "Seconds" time unit.
+agentportal_session_timeout=0

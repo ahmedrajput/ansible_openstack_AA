@@ -1,0 +1,167 @@
+#
+# $Id$
+
+# Paths for interface implementations
+#
+ws.externalclientservice.path=/topupservice/service
+
+# The hostnameto expose the proxy webservice on, typically localhost
+#
+ws.host=0.0.0.0
+
+# The port to expose the proxy webservice on
+#
+ws.port=8913
+
+# If true (default), use SSL (mandatory for production)
+# If set to true, the keystore, trustore and other SSL settings must be configured below
+# By default this is turned on using sample keystore 
+# 
+ws.use_ssl=false
+
+# Path to the keystore to use for SSL
+# Created with regular Java keystore tools
+# (see http://java.sun.com/j2se/1.5.0/docs/tooldocs/windows/keytool.html)
+# DON'T forget to generate an RSA key by using the -keyalg "RSA" argument!
+# Otherwise this certificate won't work with most browsers!
+# This store contains the server certificate
+#
+ws.keystore_filename=/opt/seamless/conf/topupservice/sample.keystore
+
+# The password for the keystore
+#
+ws.keystore_password=sample
+
+# Path to the truststore to use for SSL
+# Created with regular Java keystore tools
+# (see http://java.sun.com/j2se/1.5.0/docs/tooldocs/windows/keytool.html)
+# This may be the same as the keystore
+# Any trusted authorities will be in this store
+#
+ws.truststore_filename=/opt/seamless/conf/topupservice/sample.keystore
+
+# Password for the truststore
+#
+ws.truststore_password=sample
+
+# List of allowed cipher suite filters
+#
+ws.included_cipher_suites=.*_EXPORT_.* .*_EXPORT1024_.* .*_WITH_DES_.* .*_RSA_.* .*_WITH_NULL_.*
+
+# List of explicitly disallowed cipher suite filters
+#
+ws.excluded_cipher_suites=.*_DH_anon_.*
+
+# Default Client Timeout
+ws.default_client_timeout=3000
+
+# ERSWSReseller connection 
+ers_reseller_connection.url=http://localhost:8777/txe/reseller
+ers_reseller_connection.user=extclientproxy
+ers_reseller_connection.password=extclientproxy
+
+# ERSWSTransactionProcessingService connection
+ers.connections.transaction_processing.url=http://localhost:8777/txe/transactionProcessing
+ers.connections.transaction_processing.user=extclientproxy
+ers.connections.transaction_processing.password=extclientproxy
+
+# The URL to the support system
+ers_support_services.url=http://localhost:8071/supportsystem/support
+ers_support_services.user=extclientproxy
+ers_support_services.password=extclientproxy
+
+# ERSWSReportTransactionLink
+ers_report_engine_connection.url=http://localhost:8920/reportengine/internal
+ers_report_engine_connection.user=extclientproxy
+ers_report_engine_connection.password=extclientproxy
+
+# connection to payment broker
+paymentbroker.endpoint.class_name=mina.SocketMessageChannelEndpoint
+paymentbroker.endpoint.peer_host=localhost
+paymentbroker.endpoint.peer_port_number=7778
+
+# Flow control settings
+#flowcontrol.default.asynchronous=false
+#flowcontrol.default.cooldown_time=100
+#flowcontrol.default.max_parallel_requests=40
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+#servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# default language
+language=en
+
+# default channel
+topupservice.channel=WSClient
+
+# client id
+topupservice.clientId=topupservice
+
+# Voucher on demand requery
+topupservice.report.voucher_requery_report_id=misc/RESELLER_REP_VOUCHER_REQUERY.xml
+
+# Report Ids represent the reportId that client needs to mention when  
+# sending a WS request. max_row_count is the number of expected rows
+# in the last transaction request. 
+topupservice.report.last_transaction_report_id=LAST_TRANSACTION
+topupservice.report.max_row_count=1
+topupservice.report.transaction_status_report_id=TRANSACTION_STATUS
+
+# Product Id type to be passed to TXE (SKU or EAN)
+# The two following properties mention how the provided product id type should
+# be reformatted in order to be compatible with TXE's convention 
+# The client only passes SKU:VOUCHER_10 or EAN:123456789 (not PRODUCT_SKU:VOUCHER_10
+# or PRODUCT_EAN:123456789
+topupservice.product_settings.SKU_id_type=PRODUCT_SKU
+topupservice.product_settings.EAN_id_type=PRODUCT_EAN
+
+# List of Product Id type(s) to be passed in response of requestPurchase
+# Possible values of Product Id type:PRODUCT_SKU PRODUCT_EAN
+# If no values are configured, default value is PRODUCT_SKU
+# syntax:
+# topupservice.responsePurchase.product_id_type= {product_id_type}[,{product_id_type}]*
+# Warning: Do not keep space in comma separated list
+# E.g.:
+# topupservice.responsePurchase.product_id_types=PRODUCT_SKU
+# topupservice.responsePurchase.product_id_types=PRODUCT_EAN
+# topupservice.responsePurchase.product_id_types=PRODUCT_SKU,PRODUCT_EAN
+topupservice.responsePurchase.product_id_types=PRODUCT_SKU
+
+# Rollback credentials in case of timeout
+# In case of a timeout, those settings specify the principal who initiates by default the rollback
+# transaction.
+# Note that the credentials should match the ones used when logging in webadmin
+topupservice.automatic_rollback.default_principal.type=ADMINUSER
+topupservice.automatic_rollback.default_principal.id=root
+topupservice.automatic_rollback.default_principal.password=root
+
+
+# The setting for enable/disable electronic topup and vouchers services
+# Default is enable_services.ers=true
+enable_services.ers=true
+
+
+# Ignore the <clientRequestTimeout> field sent by the client (default true)
+# If this is turned off, the proxy will support blocking requests from the client
+# which is not tested enought to enable in production yet.
+ignore_client_timeout=true
+
+############################# SMS provider configuration #############################
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+topupservice.smsprovider.classname=HttpSMSProvider
+topupservice.smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge&from=1200
+
+# Should SMS be also sent to sender for credit transfer and topup
+topupservice.sendersms_enabled=false
+
+
+##### Vouchers denomination definitions.
+#List of all vouchers denomination in the system. Which are given for getVouchersDenomination method.
+topupservice.voucher_product.default_currency=IRR
+topupservice.voucher_product.1.SKU=10_IRR
+topupservice.voucher_product.1.amount=10
+topupservice.voucher_product.2.SKU=20_IRR
+topupservice.voucher_product.2.amount=20
+#If the product specific currency define it use otherwise default_currency take place.
+topupservice.voucher_product.2.amount_currency=IRR

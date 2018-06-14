@@ -1,0 +1,17 @@
+############################################################################################################
+#
+# This file is being used for Momo Enhancement. When the recipient't MSISDN or resellerId will be mentioned
+# in this file, defaultOVAAccount will be used for that specific reseller
+#
+# Ids in this file can be added in comma, pipe sign, space, tab or line separated way.
+#
+#
+#
+# e.g ResellerId1,ResellerId2|ResellerId3 resellerId4
+#
+# Note : We can also add msisds and resellerId separated using above mentioned delimiters
+#
+# e.g ResellerId1,23354100000,ResellerId2 is also valid way to mention resellers in this file
+#
+#############################################################################################################
+

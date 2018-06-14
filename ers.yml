@@ -1,0 +1,8 @@
+---
+- hosts: txe,web
+  roles:
+  - pre_install
+  - ers-installation
+- hosts: txe,db
+  roles:
+  - ers-db

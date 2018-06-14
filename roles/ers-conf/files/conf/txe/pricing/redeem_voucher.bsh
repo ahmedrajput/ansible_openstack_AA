@@ -1,0 +1,5 @@
+calculate(Account sender, Account receiver, Amount amount)
+{	
+	addReceiverTransaction(receiver, amount.clone(), AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, amount.negate(), AccountTransactionClassifier.Transfer);
+}

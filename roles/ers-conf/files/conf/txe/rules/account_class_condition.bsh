@@ -1,0 +1,109 @@
+import com.seamless.ers.interfaces.ersifcommon.dto.accounts.Account;
+import com.seamless.ers.interfaces.ersifextlink.ERSWSLinkResultCodes;
+import com.seamless.ers.interfaces.ersifextlink.dto.AccountVASOperationResponse;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+
+//Allowed account class list
+private String[] accountClassList = {"10","12","13"}; 
+/**
+ * Translate result code from account link to result code in TXE.
+ */
+private	void translateResultCode(TXETransaction transaction,
+		                 int resultCode, 
+		                 boolean isSender)
+{
+	
+	switch (resultCode)
+	{
+		case ERSWSLinkResultCodes.SUCCESS:
+			transaction.setResultCode(ResultCodes.SUCCESS);
+			break;
+		case ERSWSLinkResultCodes.ACCOUNT_NOT_FOUND:
+			if(isSender)
+				transaction.setResultCode(ResultCodes.SENDER_NOT_FOUND);
+			else
+				transaction.setResultCode(ResultCodes.RECEIVER_NOT_FOUND);
+			break;
+		case ERSWSLinkResultCodes.LINK_ACCESS_DENIED:
+		case ERSWSLinkResultCodes.LINK_CLOSED:
+		case ERSWSLinkResultCodes.LINK_DOWN:
+		case ERSWSLinkResultCodes.LINK_ERROR:
+ 		case ERSWSLinkResultCodes.LINK_EXHAUSTED:
+		case ERSWSLinkResultCodes.LINK_TIMEOUT:
+			transaction.setResultCode(ResultCodes.SERVICE_UNAVAILABLE);
+			break;
+		default:
+			transaction.setResultCode(ResultCodes.SERVICE_UNAVAILABLE);
+			break;
+	}
+	logger.info("Got extlink result code = " + resultCode + " translated to " + transaction.getResultCode());
+}
+/**
+* Get AccountClassId from Accountlink.
+* @param account
+* @param transaction
+* @param isSender
+* @return AccountClassId
+*/
+private String getAccountClassId(Account account,TXETransaction transaction, boolean isSender)
+{
+	String accountClassId;
+	AccountVASOperationResponse response = config.getAccountConnection().getServicesLink().performVASOperation(account.getAccountId(), account, null, "SC_INFO" , transaction.getTransactionReference(), null);
+	if(response.getResultCode() != ERSWSLinkResultCodes.SUCCESS)
+	{
+		translateResultCode(transaction, response.getResultCode(), isSender);
+		return null;
+	}	
+	accountClassId = response.getField("accountClassId");
+	if(accountClassId == null)
+	{
+		logger.info("Could not get accountClass from extlink");
+		transaction.setResultCode(ResultCodes.INTERNAL_ERROR);
+	}	
+	return accountClassId;
+}
+/**
+ * Check if accountClassId exists in accountClassList
+ * 
+ * @param accountClassId
+ * @return true if it exists in accountClassList
+ * 			false if it doesn't exist in accountClassList
+ */
+private boolean checkAccountClassList(String accountClassId)
+{
+	boolean found = false;
+	if (accountClassList != null)
+	{
+		for (String s : accountClassList)
+		{
+			if (s.equals(accountClassId))
+				found = true;
+		}
+		if (!found)
+			return false;
+	}
+	return found;
+}
+public boolean validate(BusinessLogicTransaction transaction)
+{
+	logger.info("Beginning of account_class_condition");
+	Account account = transaction.getSenderAccount();
+	if(account == null)
+	{
+		//account = transaction.getPrincipalAccount();
+		account = new Account("AIRTIME",transaction.getPrincipal().getPrincipalId().getId());
+	}
+	logger.info("account = " + account);
+	String accountClassId = getAccountClassId(account, transaction, true);
+	logger.info("accountClassId = " + accountClassId);
+	if(accountClassId == null)
+	{
+		return false;
+	}
+	boolean validate =  checkAccountClassList(accountClassId);
+	if(!validate)
+	{
+		transaction.setResult(ResultCodes.VALIDATION_ERROR);
+	}
+	return validate;
+}

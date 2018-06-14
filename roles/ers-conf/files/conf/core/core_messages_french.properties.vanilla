@@ -1,0 +1,5 @@
+
+# core_messages_french.properties
+"ResellerUserPasswordExpiryEvent/RESELLER_USER_PASSWORD_EXPIRED.*"=Votre mot de passe a expiré ${expiryTime?string("yyyy-MM-dd hh:mm:ss")}. S'il vous plaît changer votre mot de passe.
+"ResellerUserPasswordExpiryEvent/RESELLER_USER_PASSWORD_EXPIRE_ONE_HOUR_BEFORE.*"=Votre mot de passe expire ${expiryTime?string("yyyy-MM-dd hh:mm:ss")}. S'il vous plaît changer votre mot de passe.
+

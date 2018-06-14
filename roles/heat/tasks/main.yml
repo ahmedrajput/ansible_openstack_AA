@@ -1,0 +1,119 @@
+- name: Installing heat DB
+  mysql_db:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: heat
+   state: present
+- name: Creating user heat with privileges on heat DB
+  mysql_user:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: heat
+   password: "{{ HEAT_DBPASS }}"
+   host: "{{ item }}"
+   priv: "heat.*:ALL,GRANT"
+   state: present
+  with_items:
+  - "%"
+  - localhost
+- name: Creating heat user on openstack
+  os_user:
+   name: heat
+   domain: default
+   password: "{{ HEAT_PASS }}"
+   state: present
+- name: Adding heat to admin role
+  os_user_role:
+   role: admin
+   user: heat
+   project: service
+   state: present
+- name: Creating heat Service
+  os_keystone_service:
+   name: heat
+   service_type: orchestration
+   description: "Orchestration"
+   state: present
+- name: Creating heat-cfn Service
+  os_keystone_service:
+   name: heat-cfn
+   service_type: cloudformation
+   description: "Orchestration"
+   state: present
+- name: Creating Endpoint for heat-cfn
+  os_keystone_endpoint:
+   endpoint_interface: "{{ item }}"
+   service: heat-cfn
+   url: "http://{{ VIP }}:8000/v1"
+   region: "{{ REGION }}"
+   state: present
+  with_items:
+  - internal
+  - public
+  - admin
+- name: Installing Heat
+  yum: name={{ item }} state=present
+  with_items:
+  - openstack-heat-api
+  - openstack-heat-api-cfn
+  - openstack-heat-engine
+- name: Adding Heat Domain
+  os_keystone_domain:
+   name: heat
+   description: "Stack projects and users"
+   state: present
+- name: Creating heat_domain_admin user on openstack
+  os_user:
+   name: heat_domain_admin
+   domain: heat
+   password: "{{ HEAT_ADMIN_PASS }}"
+   state: present
+- name: Adding heat_domain_admin to admin role
+  os_user_role:
+   role: admin
+   user: heat_domain_admin
+   domain: heat
+   state: present
+  environment:
+   OS_USERNAME: admin
+   OS_PASSWORD: "{{ ADMIN_PASS }}"
+   OS_PROJECT_NAME: admin
+   OS_USER_DOMAIN_NAME: heat
+   OS_PROJECT_DOMAIN_NAME: heat
+   OS_AUTH_URL: http://{{ VIP }}:35357/v3
+   OS_IDENTITY_API_VERSION: 3
+- name: Creating role
+  os_keystone_role:
+   name: heat_stack_owner
+   state: present
+- name: Adding heat_domain_admin to heat_stack_owner role
+  os_user_role:
+   role: heat_stack_owner
+   user: demo
+   project: demo
+   state: present
+- name: Creating role
+  os_keystone_role:
+   name: heat_stack_user
+   state: present
+- name: Populating heat Config file
+  template:
+   src: heat-conf.j2
+   dest: /etc/heat/heat.conf
+  notify: Restart Heat Services
+- name: Getting heat DB status
+  shell: mysql -uheat -p{{ HEAT_DBPASS }} -Dheat -e 'show tables;'| wc -l
+  register: heat_db_status
+  changed_when: false
+- name: Populating heat DB
+  become: true
+  become_user: heat
+  shell: "heat-manage db_sync"
+  when: heat_db_status.stdout == "0"
+- name: Starting and enabling heat services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+  - openstack-heat-api
+  - openstack-heat-api-cfn
+  - openstack-heat-engine
+...

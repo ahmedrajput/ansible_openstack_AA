@@ -1,0 +1,32 @@
+# Column specification for TDR file generation
+#
+# Note that the ordering of the columns depends on the prefix digits. The position
+# in this properties file does not matter but the actual value of the digits.
+#
+
+1.id = clientType
+1.title = clientType
+
+2.id = endTime
+2.title = endTime
+
+3.id = ersReference
+3.title = ersReference
+
+4.id = receiverMSISDN
+4.title = receiverMSISDN
+
+5.id = requestAmountValue
+5.title = requestAmountValue
+
+6.id = senderMSISDN
+6.title = senderMSISDN
+
+7.id = senderResellerId
+7.title = senderResellerId
+
+8.id = senderResellerType
+8.title = senderResellerType
+
+9.id = transactionType
+9.title = transactionType

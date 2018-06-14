@@ -1,0 +1,27 @@
+# Column specification for TDR file generation
+#
+# Note that the ordering of the columns depends on the prefix digits. The position
+# in this properties file does not matter but the actual value of the digits.
+#
+
+# Reseller ID
+1.id = resellerId
+1.title = resellerId
+
+# Reseller terminal MSISDN
+2.id = resellerMSISDN
+2.title = resellerMSISDN
+
+# Reseller accountId
+3.id = accountId
+3.title = accountId
+
+# Reseller balance
+4.id = resellerBalance
+4.title = resellerBalance
+
+# Calculated time for the balance
+5.id = calculatedTime
+5.title = calculatedTime
+
+

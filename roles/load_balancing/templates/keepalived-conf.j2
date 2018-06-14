@@ -1,0 +1,21 @@
+global_defs {
+  router_id {{ inventory_hostname }}
+}
+vrrp_script haproxy {
+  script "killall -0 haproxy"
+  interval 2
+  weight 2
+}
+vrrp_instance 50 {
+  virtual_router_id 50
+  advert_int 1
+  priority 101
+  state MASTER
+  interface eth0
+  virtual_ipaddress {
+    {{ VIP }} dev eth0
+  }
+  track_script {
+    haproxy
+  }
+}

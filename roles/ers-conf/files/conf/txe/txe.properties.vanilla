@@ -1,0 +1,971 @@
+#
+# $Id$
+
+# This is the id of the TXE node which is used as part of the transaction reference
+# for transactions handled by this node. If running multiple nodes in parallel
+# this id MUST be different for each node!
+#
+node_id=01
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,address=9010,suspend=n
+
+## TXE services
+#
+# Which URL to use to export the transaction processing client interface
+#
+processing_service_url=http://0.0.0.0:8777/txe/transactionProcessing
+
+# Which URL to use to export the transaction exporting client interface
+#
+exporting_service_url=http://0.0.0.0:8777/txe/transactionExporting
+
+# Which URL to use to export the subscriber client interface
+#
+subscriber_service_url=http://0.0.0.0:8777/txe/subscriber
+
+# Which URL to use to export the reseller client interface
+#
+reseller_service_url=http://0.0.0.0:8777/txe/reseller
+
+# Which URL to use to export the systemadmin client interface
+#
+systemadmin_service_url=http://0.0.0.0:8777/txe/systemadmin
+
+# Which URL to use to export the eventcallback interface
+#
+eventcallback_service_url=http://0.0.0.0:8777/txe/callback
+
+coreproxyconnection.url=http://localhost:8912/coreProxy
+
+
+## Platform Web Services
+#
+# Location of the reseller transaction interface
+#
+resellertransactionconnection.url=http://localhost:8911/reseller
+
+# Location of the voucher database link interface
+#
+voucherdbconnection.url=http://localhost:8912/voucherDb
+
+# Location of the subscriber database transaction interface
+#
+subscribertransactionconnection.url=http://localhost:8087/subscribers/transaction
+
+# Location of the subscriber database management interface
+#
+subscribermanagementconnection.url=http://localhost:8087/subscribers/management
+
+# Location of core single sign-on interface
+#
+singlesignonconnection.url=http://localhost:8911/singleSignon
+
+# Account Operation Link Connection url
+
+accountoperationlink.url=http://localhost:8092/accountsystem/operations
+
+# Configuration for sending a request to USSDApp
+ussdapp.url=http://localhost:8680/cc/CC
+ussdapp.shortcode.resellerVisitConfirmationMenu=107
+
+# Profiling systems
+profilingsystemconnection = http://localhost:9808/profiling/getCustomerProfile
+
+# Credit Service
+creditserviceconnection = http://localhost:8099/api/services/
+
+# Configuration for the connection to the ersifplatform-internal
+#
+ersplatforminternal.url=http://localhost:8765/suggestedstock
+ersplatforminternal.user=
+ersplatforminternal.password=
+
+
+# Location of the report transaction interfaces
+# All transactions starting with SUP are handled by the support service
+reporttransactionconnection.1.url=http://localhost:8071/supportsystem/reports
+reporttransactionconnection.1.report_id_regexp=SUP.*
+reporttransactionconnection.layout_language=en
+
+reporttransactionconnection.2.url=http://localhost:8081/eire/ws/reportTransaction
+reporttransactionconnection.2.report_id_regexp=.*
+
+# ReportId for etopup last transaction
+reporttransactionconnection.etopup_last_transaction=SUP_LAST_TRANSACTION
+# ReportId for etopup transaction status
+reporttransactionconnection.etopup_transaction_status=SUP_TRANSACTION_STATUS
+
+# Location of the reseller management interface
+resellermanagementconnection.url=http://localhost:8911/resellerManagement
+
+# Location of the system management interface
+systemmanagementconnection.url=http://localhost:8911/systemManagement
+
+# reseller_last_transactions is used by: getLastTransactionStatus, getMolletLastTransactionStatus
+reporttransactionconnection.report_mapping.reseller_last_transactions=SUP_LAST_TRANSACTIONS
+# subscriber_last_transactions is used by: getLastTransactionStatus, getMolletLastTransactionStatus
+reporttransactionconnection.report_mapping.subscriber_last_transactions=SUP_SUB_LAST_TRANSACTIONS
+# reseller_transaction_status is used by: getTransactionStatus, getMolletTransactionStatus
+reporttransactionconnection.report_mapping.reseller_transaction_status=SUP_TRANSACTION_STATUS
+
+# Which AccountTransactionEngine to use. Possible choices: LEGACY and CLEARING.
+# LEGACY - Makes one method call per transaction, debits first
+# CLEARING - Sends all transactions to the same account provider, requires a clearing procedure on the side
+account_transaction_engine=CLEARING
+
+# Location of all principal systems and which principal id types they handle
+#
+principal_systems.SUBSCRIBERS.id_types=SUBSCRIBERID SUBSCRIBERKEY SUBSCRIBERMSISDN SUBSCRIBERANONYMOUSID
+principal_systems.SUBSCRIBERS.url=http://localhost:8087/principal
+principal_systems.RESELLERS.id_types=RESELLERID RESELLERUSER RESELLERMSISDN RESELLERIDANDMSISDN ADMINUSER TERMINALID
+principal_systems.RESELLERS.url=http://localhost:8912/principalService
+principal_systems.RESELLERS.allow_resolve_principal_using_msisdn_as_webuser=false
+
+# Custom operation service providers
+# If the url is specified as "VOID" the custom operation will be
+# treated as No operation and will return success if the principals
+# are resolved correctly.
+service_providers.1.provider_id=SUBSCRIBERSYSTEM
+service_providers.1.operation_id=SUBSCRIBER_.*
+service_providers.1.url=http://localhost:8087/customOperations
+service_providers.2.provider_id=RESELLERSYSTEM
+service_providers.2.operation_id=RESELLER_.*
+service_providers.2.url=http://localhost:8911/customOperations
+service_providers.3.provider_id=VOIDPROVIDER
+service_providers.3.operation_id=VOID_OPERATION
+service_providers.3.url=VOID
+service_providers.4.provider_id=VASMANAGER
+service_providers.4.operation_id=FAF_.*
+service_providers.4.url=http://localhost:8096/customOperations
+service_providers.5.provider_id=COREPROXY
+service_providers.5.operation_id=SEND_SMS_NOTIFICATION.*
+service_providers.5.url=http://localhost:8912/customOperationsService
+
+accountconnection.classname=StaticFinderMap
+accountconnection.1.account_type_id=AIRTIME
+#accountconnection.1.account_provider_id=SOMETELCO
+accountconnection.1.classname=FixedAccountClientConnection
+accountconnection.1.server_url=http://localhost:8091/accountlinksimulator
+
+
+
+accountconnection.2.account_type_id=MOLLET
+accountconnection.2.classname=FixedAccountClientConnection
+accountconnection.2.server_url=http://localhost:8092/accountsystem
+
+accountconnection.3.account_type_id=RESELLER
+accountconnection.3.classname=FixedAccountClientConnection
+accountconnection.3.server_url=http://localhost:8092/accountsystem
+
+accountconnection.4.account_type_id=BOOKKEEPING
+accountconnection.4.classname=TransactionVoidConnection
+
+accountconnection.5.account_type_id=MOLLET_VOUCHER
+accountconnection.5.classname=FixedAccountClientConnection
+accountconnection.5.server_url=http://localhost:8092/accountsystem
+
+purchase_providers.1.provider_id=ERS_VOUCHERS
+purchase_providers.1.product_id_type=PRODUCT_SKU|GLOBAL_SKU
+purchase_providers.1.url=http://localhost:8912/voucherPurchase
+
+purchase_providers.2.provider_id=TICKET_SIMULATOR
+purchase_providers.2.product_id_type=TICKET
+purchase_providers.2.url=http://localhost:8091/ticketPurchase
+
+
+purchase_providers.3.provider_id=VOUCHER_ON_DEMAND
+purchase_providers.3.product_id_type=VOD
+purchase_providers.3.url=http://localhost:9099/voucher-factory/services
+
+## Account services
+#
+# The configuration of the connection to account services
+#
+# Example:
+# You map account types to services.
+# First you need to specifY the account type
+#accountservice.1.account_type_id=AIRTIME
+# Then specify the service type, available types are:
+#  WEBSERVICE - for the new WS interface in ersplatform-internal
+#  LEGACY - For the old WS interface in ersifextlink
+#  VOID -  for an always successful service that does nothing (for BOOKKEEPING)
+#accountservice.1.service_type=WEBSERVICE
+# Then follows type dependant settings, for WEBSERVICE and LEGACY you need
+# to specify the server URL
+#accountservice.1.server_url=http://localhost:8091/accountlinksimulator
+# Last but not least, account_description can be specified
+#accountservice.1.account_description=Airtime
+#
+# Should TXE update principal account status after getAccountInformation
+# call in the principal system?
+#accountservice.1.update_principal_account_status=false
+
+accountservice.1.account_type_id=AIRTIME
+accountservice.1.service_type=LEGACY
+accountservice.1.server_url=http://localhost:8091/accountlinksimulator
+accountservice.1.account_description=Airtime
+
+accountservice.2.account_type_id=MOLLET
+accountservice.2.service_type=LEGACY
+accountservice.2.server_url=http://localhost:8092/accountsystem
+
+accountservice.3.account_type_id=RESELLER
+accountservice.3.service_type=VOID
+
+accountservice.4.account_type_id=RESELLER_CURRENCY
+accountservice.4.service_type=LEGACY
+accountservice.4.server_url=http://localhost:8092/accountsystem
+
+accountservice.5.account_type_id=BOOKKEEPING
+accountservice.5.service_type=VOID
+
+accountservice.6.account_type_id=MOLLET_VOUCHER
+accountservice.6.service_type=LEGACY
+accountservice.6.server_url=http://localhost:8092/accountsystem
+
+accountservice.7.account_type_id=AIRTIME_POSTPAID
+accountservice.7.service_type=LEGACY
+accountservice.7.server_url=http://localhost:8091/accountlinksimulator
+accountservice.7.account_description=Airtime Postpaid
+
+# Account Service Fallback
+#
+# Not Mandatory
+#
+# This configuration is mapped with a particular type of Account,
+# and a list of ErrorCodes.
+# If this fallback option is true, and the topup fails for a
+# accountlink within the list of configured ErrorCodes it will redirect the topup
+# to this configured accountlink for the second time.
+
+fallbackAccountService=true
+#To disable any specific account account type for topup. Like for Data Bundle account, fallback is not require.
+#fallbackDisableForAccountTypes=DATA_BUNDLE
+fallbackAccountServiceName=AIRTIME_POSTPAID
+fallbackErrorCodes=301,302
+
+
+# To define external account systems or custom operation Ids for specific VAS
+# services use vasservices properties. operation_id is required.
+# One can define server_url + classname or link_operation_id or both.
+# If link_operation_id is the same as operation_id, then it can be omitted.
+#
+vasservices.1.operation_id=CMB
+vasservices.1.classname=TransactionVoidConnection
+
+#vasservices.2.operation_id=BIC_INFO
+#vasservices.2.server_url=http://localhost:8091/accountlinksimulator
+#vasservices.2.classname=FixedAccountClientConnection
+#vasservices.2.link_operation_id=BIC_INFO
+
+# Resellers Operation
+# Resellers can activate themselves by sending activation
+# code over different clients. Setting activation_code true will enable activation code
+# checking.
+resellers.activation_code=true
+
+# Sub-resellers approving re-linking can either directly select there pin if true
+# otherwise they needs to supply their old pin.
+resellers.link_subreseller_approval_cpin=true
+
+# The supported reversal operations
+reversal.supported_tx_profiles=CREDIT_TRANSFER, TOPUP, MOLLET_VOUCHER_CREATE, MOLLET_TRANSFER
+
+# Example of validating sender/receiver principal on charging system
+# By Default it is sender principal if you want to validate receiver on charging system just enable following property
+# Accepted values of this property key are: SENDER or RECEIVER.
+# giving value SENDER to this key is equillant to disabling it.
+# transaction.topup.validate_topup_principal=RECEIVER
+
+# State machine customizations:
+#
+#   prepare_for_result_codes - applies TransactionChainState.Pending to all
+#   REQUESTs that fail with the specified result codes (comma separated list).
+#   "Prepare" because it simulates the behavior of PREPARE requests, which
+#   postpones the transactions until further approval.
+#   Example:
+#     statemachine.prepare_for_result_codes=1029
+#     will prepare transactions if the receiver was not found so they can be
+#     approved later when the receiver registers.
+
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge
+# SMS prefix to be added to the destination number.
+smsprovider.to_prefix=+
+
+locale.default_currency=EUR
+# MSISDN settings
+# Default country code padded to msisdn in case entered msisdn with only a networkcode
+# (starting with single 0)
+locale.default_country_code=46
+#Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+locale.default_network_code=70
+#Length of msisdn excluding network code and country code
+locale.subscriber_number_digits=7
+
+# Accepted country codes: These will be accepted even without an international prefix
+locale.accepted_country_codes=31 33 44 46 47 48 49
+
+# Length of msisdn excluding network code and country code
+#locale.subscriber_number_digits=8
+
+# The length of subscriber number can now also be set as min and max values to allow
+# for varying length msisdn:s.
+# This setting will override locale.subscriber_number_digits
+#locale.min_subscriber_number_digits=7
+#locale.max_subscriber_number_digits=7
+
+# Optional properties for the length of the full MSISDN, default values are 10 and 15
+#locale.min_msisdn_length=10
+#locale.max_msisdn_length=15
+
+# Optional property to set range of allowed network_codes.
+locale.accepted_network_codes=70
+
+# Does a number that starts with a network code require a leading '0'?
+# (0 will not be counted as part the the network code and will be removed from the MSISDN)
+locale.network_code_requires_0_prefix=true
+
+# Currency settings
+#Decimal separator
+locale.decimal_separator=,
+#Thousand separator
+locale.thousand_separator=.
+
+# Custom currency settings.
+#
+# The format for the custom currency setting is:
+# locale.custom_currency.XTS=3
+#
+# In this case XTS is the three letter ISO 4217 code (XTS is a code reserved for testing)
+# and 3 is the amount of decimals. You can either make up your own currency code or override
+# an existing currency code.
+#
+locale.custom_currency.XTS=3
+
+
+# CMS settings, used to resolve the request result message texts
+cms.classname=SimpleFileCMS
+# Optional default language in case the language is missing in the request to the CMS system.
+# cms.default_language=en
+cms.languages=en
+cms.en.filename=messages_english.properties
+cms.en.encoding=UTF-8
+
+# Flow control settings
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+flowcontrol.default.log_stats=true
+flowcontrol.default.log_stat_interval=60
+
+# Service manager settings
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log.
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+
+# Transaction log provider settings
+transactionlog.class_name=com.seamless.ers.txe.transactionlog.xmlbeans.XMLBeansTransactionLoggingFactory
+
+transactionlog.log.db_driver=com.mysql.jdbc.Driver
+transactionlog.log.db_url=jdbc:mysql://localhost:3306/transactionlog
+transactionlog.log.db_user=refill
+transactionlog.log.db_password=refill
+transactionlog.log.data_format=zip
+transactionlog.log.pool_min_size=40
+transactionlog.log.pool_max_size=100
+transactionlog.log.pool_simultaneous_build_throttle=40
+transactionlog.log.fallback_logdir=/var/seamless/log/txe/fallback
+
+# Classic reference generator with 25 digits using:
+# - Node id
+# - Time stamp
+# - Sequence number (that will wrap when restarted etc)
+#
+transactionlog.log.reference_generator.class_name=com.seamless.common.referencegeneration.TimestampReferenceGenerator
+
+# Number of digits in the sequence number part
+#
+transactionlog.log.reference_generator.reference_counter_length=6
+
+# The format of the timestamp part of the reference
+#
+transactionlog.log.reference_generator.timestamp_format=yyyyMMddHHmmssSSS
+
+# If a timestamp is repeated (eg beccause of clock sync etc)
+#  this is the number of times it is allowed to repeat without logging a warning
+#
+transactionlog.log.reference_generator.timestamp_repeat_warning_count=10
+
+# New reference generator, using the node id and a node-unique database sequence number
+#
+
+# transactionlog.log.reference_generator.class_name=com.seamless.common.referencegeneration.DatabaseSequenceReferenceGenerator
+# Database connection for the sequence generator table
+#
+transactionlog.log.reference_generator.db_driver=com.mysql.jdbc.Driver
+transactionlog.log.reference_generator.db_url=jdbc:mysql://localhost:3306/transactionlog
+transactionlog.log.reference_generator.db_user=refill
+transactionlog.log.reference_generator.db_password=refill
+transactionlog.log.reference_generator.db_autoCommit=true
+transactionlog.log.reference_generator.pool_min_size=1
+transactionlog.log.reference_generator.pool_max_size=100
+transactionlog.log.reference_generator.pool_timeout=100
+
+# The name of the reference number generated
+# (used in error logs to determine which reference generator had a problem)
+#
+transactionlog.log.reference_generator.reference_name=ERS transaction reference
+
+# The database table in which the sequence is stored (as a single row)
+#
+transactionlog.log.reference_generator.table_name=txe_transaction_reference_sequence
+
+# The column name for the sequence counter
+#
+transactionlog.log.reference_generator.sequence_column_name=seqNo
+
+# The number of digits in the sequence number part of the generated reference
+#
+transactionlog.log.reference_generator.num_sequence_digits=10
+
+# The alphabet used to generate the reference sequence number
+# Typically digits, but letters may be used to create a shorter transaction reference
+#
+transactionlog.log.reference_generator.sequence_number_alphabet=0123456789
+
+
+#transactionlog.log.cache.cluster.1.url =localhost:7001
+#transactionlog.log.cache.cluster.2.url =localhost:7003
+#transactionlog.log.cache.cluster.3.url =localhost:7005
+##################################################
+# Set to true if distributed locking is to be used (For active active)
+##################################################
+transactionlog.log.useDistributedLocking=false
+#transactionlog.log.transactionlocktimeout=60000
+#transactionlog.log.locktimeout=600000
+
+########################################
+# These two new properties are introduced to provide the functionality of
+# txe transaction archiver start/stop apart from txe, so that in case of any issue in archiver
+# So for backward compatibility we have put thee two properties be default values are already assigned,
+# these default values will allow txe to run as it is i.e. with archiver only.
+# we can start/stop archiver without restarting txe.
+# fallback true means txe will run exporter and archiver
+transLogFallback=true
+transactionlog.archive.classname=com.seamless.ers.txe.TXEStandaloneHost,se.seamless.ers.txe.rest.TXERestServiceHost,com.seamless.ers.txe.test.transactionlog.TestTransactionLogging
+# To run archive separately just change these two values :
+# transLogFallback=false
+# transactionlog.archive.classname=com.seamless.ers.txe.archiver.TXETransactionLogStandaloneHost /only this class to be changed/, se.seamless.ers.txe.rest.TXERestServiceHost,com.seamless.ers.txe.test.transactionlog.TestTransactionLogging
+# NOTE : These properties are not mandatory , if you do not provide , default values will be taken and txe will run as it is.
+############################
+
+transactionlog.archive.db_driver=com.mysql.jdbc.Driver
+transactionlog.archive.db_url=jdbc:mysql://localhost:3306/transactionlog
+transactionlog.archive.db_user=refill
+transactionlog.archive.db_password=refill
+transactionlog.archive.pool_min_size=1
+transactionlog.archive.pool_max_size=100
+transactionlog.archive.pool_simultaneous_build_throttle=40
+# Time in seconds, indicates any derived datasource can only read data which
+# is more than this many seconds old. DO NOT CHANGE IT UNLESS YOU ARE SURE WHAT
+# YOU ARE DOING
+transactionlog.archive.bucket_close_time=2
+
+transactionlog.replication.active=true
+transactionlog.replication.interval=1s
+transactionlog.replication.batch_size=100
+
+
+
+
+# Connection to the database for keeping track of business counters
+businesscounters.db_driver=com.mysql.jdbc.Driver
+businesscounters.db_url=jdbc:mysql://localhost:3306/businesscounters
+businesscounters.db_user=refill
+businesscounters.db_password=refill
+businesscounters.pool_max_size=100
+businesscounters.pool_simultaneous_build_throttle=40
+
+
+# Connection to the database for keeping track of duplicate transactions
+shouldLoadDuplicateTransactionChecker=false
+duplicatetransactionchecker.db_driver=com.mysql.jdbc.Driver
+duplicatetransactionchecker.db_url=jdbc:mysql://localhost:3306/duplicatetransactionchecker
+duplicatetransactionchecker.db_user=refill
+duplicatetransactionchecker.db_password=refill
+duplicatetransactionchecker.pool_max_size=100
+duplicatetransactionchecker.pool_simultaneous_build_throttle=40
+duplicatetransactionchecker.clean_data_cron_expression=0 0 0/1 * * ?;
+duplicatetransactionchecker.min_persistence_duration_in_mins=60
+
+# --- License system settings ---
+# How often the license manager updates its counters to license service
+licensemanager.update_frequency=60000
+
+# Path to license file
+licenseservice.license_file=license.pgp
+# How often license service checks db integrity
+licenseservice.update_frequency=600000
+# license service db settings
+licenseservice.database.db_driver=com.mysql.jdbc.Driver
+licenseservice.database.db_url=jdbc:mysql://localhost:3306/licensecounters
+licenseservice.database.db_user=refill
+licenseservice.database.db_password=refill
+
+# Example of license SMS notification settings
+#
+#licenseservice.notification.default_language=en
+#licenseservice.notification.sender=1234
+#
+# buffer_period denotes the time in minute it should consider to avoid
+# sending multiple sms from different nodes
+#licenseservice.notifications.buffer_period=60
+#
+#licenseservice.notifications.state_notification_recipients=
+#
+#licenseservice.notifications.threshold_warnings.1.percentage=80
+#licenseservice.notifications.threshold_warnings.1.notification_id=LICENSE_AT_80P
+#licenseservice.notifications.threshold_warnings.1.notification_recipients=
+#
+#licenseservice.notifications.threshold_warnings.2.percentage=95
+#licenseservice.notifications.threshold_warnings.2.notification_id=LICENSE_AT_95P
+#licenseservice.notifications.threshold_warnings.2.notification_recipients=
+
+
+## Pricing configuration
+#
+# Set list of pricing engines
+# Syntax: pricing.engines.$engine_name$.$property_name$=$property_value$
+# There are 4 types of pricing engine.
+# 1. BeanshellPriceEngine
+#	pricing.engines.A.classname=BeanShellPriceEngine
+#	pricing.engines.A.script=pricing/mollet_transfer.bsh
+# 2. SimpleTopupPriceEngine
+#	pricing.engines.B.classname=SimpleTopupPriceEngine
+# 3. FreePriceEngine
+#	pricing.engines.C.classname=FreePriceEngine
+# 4. ExternalPriceEngine
+# 	pricing.engines.D.classname=ExternalPriceEngine
+# 	pricing.engines.D.url=http://localhost:8080/core/priceengine
+# 	pricing.engines.D.product_SKU=CREDIT_TRANSFER
+
+# --- EIRE configuration ---
+# Default layout for legacy report
+eire.layout_language=en
+# ReportId for mollet last transaction
+eire.mollet_last_transaction=MOLLET_001
+# ReportId for mollet transaction status
+eire.mollet_transaction_status=MOLLET_002
+# ReportId for etopup last transaction
+eire.etopup_last_transaction=REP_1106
+# ReportId for etopup transaction status
+eire.etopup_transaction_status=REP_1107
+
+pricing.engines.MOLLET_TRANSFER.classname=BeanShellPriceEngine
+pricing.engines.MOLLET_TRANSFER.script=pricing/mollet_transfer.bsh
+
+pricing.engines.REDEEM_VOUCHER.classname=BeanShellPriceEngine
+pricing.engines.REDEEM_VOUCHER.script=pricing/redeem_voucher.bsh
+
+pricing.engines.MOLLET_DEREGISTER_SUBSCRIBER.classname=BeanShellPriceEngine
+pricing.engines.MOLLET_DEREGISTER_SUBSCRIBER.script=pricing/mollet_deregister_subscriber.bsh
+
+pricing.engines.MOLLET_DEPOSIT.classname=SimpleTopupPriceEngine
+pricing.engines.SIMPLE_TRANSFER.classname=SimpleTransferPriceEngine
+
+pricing.engines.SIMPLE_PURCHASE.classname=SimplePurchasePriceEngine
+pricing.engines.SIMPLE_GRATIFICATION.classname=SimpleGratificationPriceEngine
+
+pricing.engines.LEGACY_CREDIT_TRANSFER.classname=ExternalPriceEngine
+pricing.engines.LEGACY_CREDIT_TRANSFER.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_CREDIT_TRANSFER.product_SKU=CREDIT_TRANSFER
+
+pricing.engines.LEGACY_MOLLET_VOUCHER_CREATE.classname=ExternalPriceEngine
+pricing.engines.LEGACY_MOLLET_VOUCHER_CREATE.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_MOLLET_VOUCHER_CREATE.product_SKU=CREDIT_TRANSFER
+
+pricing.engines.LEGACY_R2S.classname=ExternalPriceEngine
+pricing.engines.LEGACY_R2S.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_R2S.product_SKU=TOPUP
+
+pricing.engines.LEGACY_P2P.classname=ExternalPriceEngine
+pricing.engines.LEGACY_P2P.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_P2P.product_SKU=P2P
+
+pricing.engines.LEGACY_VOUCHER.classname=ExternalPriceEngine
+pricing.engines.LEGACY_VOUCHER.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_VOUCHER.product_SKU=NA
+
+pricing.engines.EXTERNAL_BUSINESS_LOGIC.classname=ExternalBusinessLogicEngine
+pricing.engines.EXTERNAL_BUSINESS_LOGIC.url=http://localhost:8922/businessLogic
+
+pricing.engines.VOD_BUSINESS_LOGIC.classname=VODBusinessLogicEngine
+
+# enableOnSiblingTransfer:
+# This property represents if we want to enable ExternalBusinessLogicEngine for sibling transfer.
+# If not set, default value of this property will be considered 'true'
+# If set to false, pricing will be routed to BeanShellPriceEngine class and further configured script will be used.
+pricing.engines.EXTERNAL_BUSINESS_LOGIC.enableOnSiblingTransfer=true
+# In case enableOnSiblingTransfer is false, Following script will be used for alternative pricing of sibling transfer.
+
+pricing.engines.EXTERNAL_BUSINESS_LOGIC.include_reseller_rewards_account=false
+
+pricing.engines.EXTERNAL_BUSINESS_LOGIC.script=pricing/support_transfer.bsh
+
+##When core and coreproxy are deployed as separate components then uncomment the following properties and comment the default properties.
+#pricing.engines.LEGACY_VOUCHER.classname=ExternalLegacyPriceEngine
+#pricing.engines.LEGACY_VOUCHER.url=http://localhost:8910/legacyPricing
+pricing.engines.LEGACY_VOUCHER.classname=ExternalPriceEngine
+pricing.engines.LEGACY_VOUCHER.url=http://localhost:8912/coreProxy
+pricing.engines.LEGACY_VOUCHER.product_SKU=NA
+
+pricing.engines.VAS.classname=BeanShellPriceEngine
+pricing.engines.VAS.script=pricing/vas.bsh
+
+pricing.engines.FREE.classname=FreePriceEngine
+
+pricing.engines.SIMPLE_TOPUP.classname=SimpleTopupPriceEngine
+
+pricing.engines.SIMPLE_REFUND.classname=SimpleRefundPriceEngine
+
+pricing.engines.SUPPORT_TRANSFER.classname=BeanShellPriceEngine
+pricing.engines.SUPPORT_TRANSFER.script=pricing/support_transfer.bsh
+
+pricing.engines.FAF.classname=BeanShellPriceEngine
+pricing.engines.FAF.script=pricing/faf.bsh
+
+# Pricing mapping configuration.
+# Mapping transaction profile with pricing engine.
+# Every transaction need pricing engine.
+# Syntax:
+# 	pricing.mappings.$ordering_number$.$property_name$=$property_value$
+# Examples:
+# Set classifier
+#	pricing.mappings.1.classifier_match=.*/MOLLET_TRANSFER
+# Set engine
+#	pricing.mappings.1.engine=MOLLET_TRANSFER
+pricing.mappings.1.classifier_match=ERSTopupTransaction.*
+pricing.mappings.1.engine=SIMPLE_TOPUP
+
+pricing.mappings.2.classifier_match=ERSTransferTransaction.*
+pricing.mappings.2.engine=SIMPLE_TRANSFER
+
+pricing.mappings.3.classifier_match=ERSRefundTransaction.*
+pricing.mappings.3.engine=SIMPLE_REFUND
+
+pricing.mappings.4.classifier_match=ERSGratificationTransaction.*
+pricing.mappings.4.engine=SIMPLE_GRATIFICATION
+
+pricing.mappings.5.classifier_match=.*
+pricing.mappings.5.engine=FREE
+
+pricing.mappings.6.classifier_match=.*/VOS_PURCHASE.*
+pricing.mappings.6.engine=VOD_BUSINESS_LOGIC
+
+pricing.mappings.7.classifier_match=.*/VOT_PURCHASE.*
+pricing.mappings.7.engine=VOD_BUSINESS_LOGIC
+
+pricing.mappings.62.classifier_match=.*/Reseller/REGISTER_RESELLER_VISIT.*
+pricing.mappings.62.engine=FREE
+
+pricing.mappings.51.classifier_match=.*/Subscriber/MOLLET_TRANSFER
+pricing.mappings.51.engine=LEGACY_P2P
+
+pricing.mappings.52.classifier_match=.*/.*BALANCE
+pricing.mappings.52.engine=FREE
+
+pricing.mappings.53.classifier_match=.*/MOLLET_ACTIVATE
+pricing.mappings.53.engine=FREE
+
+pricing.mappings.54.classifier_match=.*/.*CHANGE_PASSWORD
+pricing.mappings.54.engine=FREE
+
+pricing.mappings.55.classifier_match=.*/MOLLET_DEPOSIT
+pricing.mappings.55.engine=MOLLET_TRANSFER
+
+pricing.mappings.56.classifier_match=.*/MOLLET_REGISTER
+pricing.mappings.56.engine=FREE
+
+pricing.mappings.57.classifier_match=.*/.*_LAST_TRANSACTION
+pricing.mappings.57.engine=FREE
+
+pricing.mappings.8.classifier_match=.*/MOLLET_DEREGISTER
+pricing.mappings.8.engine=MOLLET_DEREGISTER_SUBSCRIBER
+
+pricing.mappings.9.classifier_match=.*/MOLLET_WITHDRAWAL
+pricing.mappings.9.engine=MOLLET_TRANSFER
+
+pricing.mappings.10.classifier_match=.*/Reseller/TOPUP
+pricing.mappings.10.engine=LEGACY_R2S
+
+pricing.mappings.11.classifier_match=.*/CREDIT_TRANSFER
+pricing.mappings.11.engine=LEGACY_CREDIT_TRANSFER
+
+pricing.mappings.12.classifier_match=.*/Subscriber/AIRTIME_TOPUP
+pricing.mappings.12.engine=LEGACY_P2P
+
+pricing.mappings.13.classifier_match=.*/.*_TRANSACTION_STATUS
+pricing.mappings.13.engine=FREE
+
+pricing.mappings.14.classifier_match=.*/MOLLET_VOUCHER_CREATE
+pricing.mappings.14.engine=LEGACY_MOLLET_VOUCHER_CREATE
+
+pricing.mappings.15.classifier_match=.*/MOLLET_VOUCHER_REDEEM
+pricing.mappings.15.engine=REDEEM_VOUCHER
+
+pricing.mappings.16.classifier_match=.*/RESELLER_INFO
+pricing.mappings.16.engine=FREE
+
+pricing.mappings.17.classifier_match=.*/SUB_RESELLER_SEARCH
+pricing.mappings.17.engine=FREE
+
+pricing.mappings.18.classifier_match=.*/SUB_RESELLER_TYPES
+pricing.mappings.18.engine=FREE
+
+pricing.mappings.19.classifier_match=.*/REGISTER_SUB_RESELLER
+pricing.mappings.19.engine=FREE
+
+pricing.mappings.20.classifier_match=.*/REPORT
+pricing.mappings.20.engine=FREE
+
+pricing.mappings.21.classifier_match=.*/REGISTER_ETOPUP_SERVICE
+pricing.mappings.21.engine=FREE
+
+pricing.mappings.22.classifier_match=.*/*_ANONYMOUSID
+pricing.mappings.22.engine=FREE
+
+pricing.mappings.23.classifier_match=.*/AIRTIME_TRANSFER
+pricing.mappings.23.engine=LEGACY_P2P
+
+pricing.mappings.24.classifier_match=.*/VAS.*
+pricing.mappings.24.engine=VAS
+
+pricing.mappings.25.classifier_match=.*/BLOCK_RESELLER
+pricing.mappings.25.engine=FREE
+
+pricing.mappings.26.classifier_match=.*/UNBLOCK_RESELLER
+pricing.mappings.26.engine=FREE
+
+pricing.mappings.27.classifier_match=.*/VALIDATE_TOPUP
+pricing.mappings.27.engine=FREE
+
+pricing.mappings.28.classifier_match=.*/TRANSACTIONS_SEARCH
+pricing.mappings.28.engine=FREE
+
+pricing.mappings.29.classifier_match=.*/RESET_BUSINESS_COUNTER
+pricing.mappings.29.engine=FREE
+
+pricing.mappings.30.classifier_match=.*/REVERSE_TRANSFER
+pricing.mappings.30.engine=FREE
+
+pricing.mappings.31.classifier_match=.*/GET_USER_INFO
+pricing.mappings.31.engine=FREE
+
+pricing.mappings.32.classifier_match=.*/RESELLER_ACTIVATE
+pricing.mappings.32.engine=FREE
+
+pricing.mappings.33.classifier_match=.*/GET_SUBSCRIBER_INFO
+pricing.mappings.33.engine=FREE
+
+pricing.mappings.34.classifier_match=.*/RESELLER_WITHDRAW
+pricing.mappings.34.engine=SIMPLE_TRANSFER
+
+pricing.mappings.35.classifier_match=.*/RESELLER_DEPOSIT
+pricing.mappings.35.engine=SIMPLE_TRANSFER
+
+pricing.mappings.36.classifier_match=.*/REGISTER_WEB_USER
+pricing.mappings.36.engine=FREE
+
+pricing.mappings.37.classifier_match=.*/Subscriber/ACTIVATE_SERVICE
+pricing.mappings.37.engine=FREE
+
+pricing.mappings.38.classifier_match=.*/Subscriber/MOLLET_TOPUP
+pricing.mappings.38.engine=LEGACY_P2P
+
+pricing.mappings.39.classifier_match=.*/REVERSE_CREDIT_TRANSFER
+pricing.mappings.39.engine=FREE
+
+pricing.mappings.40.classifier_match=.*/REVERSE_TOPUP
+pricing.mappings.40.engine=FREE
+
+pricing.mappings.41.classifier_match=.*/Reseller/MOLLET_TRANSFER
+pricing.mappings.41.engine=LEGACY_CREDIT_TRANSFER
+
+pricing.mappings.42.classifier_match=.*/REVERSE_MOLLET_VOUCHER_CREATE
+pricing.mappings.42.engine=FREE
+
+pricing.mappings.43.classifier_match=.*/REVERSE_MOLLET_TRANSFER
+pricing.mappings.43.engine=FREE
+
+pricing.mappings.44.classifier_match=.*/RESERVE_VOUCHERS
+pricing.mappings.44.engine=LEGACY_VOUCHER
+
+pricing.mappings.45.classifier_match=.*/PURCHASE_VOUCHERS
+pricing.mappings.45.engine=LEGACY_VOUCHER
+
+pricing.mappings.46.classifier_match=.*/CANCEL_VOUCHER_RESERVATION
+pricing.mappings.46.engine=FREE
+
+pricing.mappings.47.classifier_match=.*/MOLLET_QUERY_VOUCHER
+pricing.mappings.47.engine=FREE
+
+pricing.mappings.48.classifier_match=.*/REPORT_SOLD_VOUCHERS
+pricing.mappings.48.engine=FREE
+
+# Examples of product to provider mappings
+#
+#topup.productprovidermapping.1.product_sku=17
+#topup.productprovidermapping.1.provider_id=SOMETELCO
+#
+#topup.productprovidermapping.2.product_sku=18
+#topup.productprovidermapping.2.provider_id=TELCO2
+#
+#topup.productprovidermapping.3.product_sku=19
+#topup.productprovidermapping.3.provider_id=SOMEOTHERTELCO
+
+# Example of callback event
+eventcallback.1.callback_type=CANCEL_TRANSACTION_CALLBACK
+#This classname will call specific method in TXETransactionProcessingService
+eventcallback.1.classname=CancelTransactionCallback
+eventcallback.1.data.principal_id_type=ADMINUSER
+eventcallback.1.data.principal_id=eventscheduler
+eventcallback.1.data.principal_password=seamless
+
+# Connection to event scheduler
+# In order to enable it, you need to uncomment the url setting
+# but you need to make sure that you have ers-eventscheduler install
+#eventscheduler.connection.url=http://localhost:8337/eventscheduler
+eventscheduler.connection.user=username
+eventscheduler.connection.password=password
+
+# Example of event scheduler jobs
+# Type of transaction which requires some callback operation
+eventscheduler.1.classifier_match=.*
+# Event-Scheduler job id which needs to called
+eventscheduler.1.job_id=PENDING_TIMEOUT_EVENT
+# Event type specifies which callback type will be called once the job is fired
+eventscheduler.1.event_type=CANCEL_TRANSACTION_CALLBACK
+
+#TS-2999 Converting voucher purchase request into one step purchase request
+purchase.request.oneStepPurchase=true
+
+#Auto create default user from STK
+stk.request.autoCreateUser=false
+
+#Principal id type check in ussdapp
+principalid.typecheck.enable=false
+
+#cache.cluster.1.url =localhost:7000
+#cache.cluster.2.url =localhost:7001
+#cache.cluster.3.url =localhost:7002
+##################################################
+# Set to true if distributed locking is to be used (For active active)
+##################################################
+useDistributedLocking=false
+#transactionlocktimeout=60000
+#locktimeout=600000
+
+########################################### Profile Transformation Properties #########################################################
+#
+# For Transpforming any transaction's profile form one to another, we can use these configurations.
+#profile_transformations.<index>.id = <UNIQUE ID to avoid overriding the existing properties>
+#profile_transformations.<index>.old_profile = <Exisiting profile of the transaction>
+#profile_transformations.<index>.new_profile = <Desired Profile for the new transaction>
+#profile_transformations.<index>.criteria = <A freemarker expression which should evaluate to TRUE for the target transactions>
+#
+# Apart from these configuration we also need to add Transaction_Types in Support System properties and PriceEngine in txe.properties
+# for the new profile of the transactions.#
+#
+
+######################################################################################################################################
+profile_transformations.1.id = TOPUP_TO_P2P
+profile_transformations.1.old_profile = TOPUP
+profile_transformations.1.new_profile = P2P
+profile_transformations.1.criteria = <#if transaction.productSKU??><#if transaction.productSKU="P2P">true</#if></#if>
+######################################################################################################################################
+profile_transformations.2.id = TOPUP_TO_CASHIN
+profile_transformations.2.old_profile = TOPUP
+profile_transformations.2.new_profile = CASHIN
+profile_transformations.2.criteria = <#if transaction.productSKU??><#if transaction.productSKU="CASHIN">true</#if></#if>
+######################################################################################################################################
+profile_transformations.3.id = TOPUP_TO_DATA_BUNDLE
+profile_transformations.3.old_profile = TOPUP
+profile_transformations.3.new_profile = DATA_BUNDLE
+profile_transformations.3.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("DB_.*")>true</#if></#if>
+######################################################################################################################################
+profile_transformations.4.id = TOPUP_TO_SMS_BUNDLE
+profile_transformations.4.old_profile = TOPUP
+profile_transformations.4.new_profile = SMS_BUNDLE
+profile_transformations.4.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("SMS_.*")>true</#if></#if>
+######################################################################################################################################
+profile_transformations.5.id = TOPUP_TO_COMBO_BUNDLE
+profile_transformations.5.old_profile = TOPUP
+profile_transformations.5.new_profile = COMBO_BUNDLE
+profile_transformations.5.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("COMBO_.*")>true</#if></#if>
+######################################################################################################################################
+profile_transformations.6.id = TOPUP_TO_IDD_BUNDLE
+profile_transformations.6.old_profile = TOPUP
+profile_transformations.6.new_profile = IDD_BUNDLE
+profile_transformations.6.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("IDD_.*")>true</#if></#if>
+######################################################################################################################################
+profile_transformations.7.id = TOPUP_TO_CRBT
+profile_transformations.7.old_profile = TOPUP
+profile_transformations.7.new_profile = CRBT
+profile_transformations.7.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "CRBT" >true</#if></#if>
+######################################################################################################################################
+profile_transformations.8.id = TOPUP_TO_REDEEM
+profile_transformations.8.old_profile = TOPUP
+profile_transformations.8.new_profile = VOUCHER_REDEEM
+profile_transformations.8.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "REDEEM" >true</#if></#if>
+######################################################################################################################################
+profile_transformations.9.id = PURCHASE_TO_VOT
+profile_transformations.9.old_profile = PURCHASE
+profile_transformations.9.new_profile = VOT_PURCHASE
+profile_transformations.9.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "VOT" >true</#if></#if>
+######################################################################################################################################
+profile_transformations.10.id = PURCHASE_TO_VOS
+profile_transformations.10.old_profile = PURCHASE
+profile_transformations.10.new_profile = VOS_PURCHASE
+profile_transformations.10.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "VOS" >true</#if></#if>
+######################################################################################################################################
+auto_commission_reversal=false
+disable_updateoffer_for_databundle=false
+######################################################################################################################################
+# Reseller Rewards Account inclusion in transaction object.
+include_rewards_account_in_transaction_object=false
+rewards_account_type_id=REWARDS
+
+cislink.account_type_id.data_bundle=DATA_BUNDLE
+cislink.account_type_id.sms_bundle=SMS_BUNDLE
+cislink.account_type_id.combo_bundle=COMBO_BUNDLE
+cislink.account_type_id.idd_bundle=IDD_BUNDLE
+
+# Mobile money enhancement
+# Default value is true
+# mobile_money_using_parent=true - buy stock from parent(old implementation)
+# mobile_money_using_parent=false - buy stock from the distributor in their hierarchy below the operator.
+mobile_money_using_parent=true
+default_mobile_money_account=2255520000000
+fallback_on_sender_not_active=false
+
+#Use messaging queue for business actions.
+#Business actions are created with class TransactionNotification
+useMessagingQueue=false
+queue.host=localhost
+queue.port=5672
+queue.username=seamless
+queue.password=seamless
+
+momo_default_resellers_file_name=momoResellers.txt
+
+#For Creating Rest Template (rest client) pool
+ers_template_wrapper_pool.min_objects=5
+ers_template_wrapper_pool.max_objects=10
+ers_template_wrapper_pool.validation_interval=120

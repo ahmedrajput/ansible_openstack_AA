@@ -1,0 +1,6 @@
+---
+- hosts: gateway2
+  roles:
+  - pre_install
+  - load_balancing
+  - post_install

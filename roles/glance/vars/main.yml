@@ -1,0 +1,8 @@
+---
+# vars file for glance
+DB_PASS: 50f05373656451edbaf4
+GLANCE_PASS: db3809711240c3ce70b4
+GLANCE_DBPASS: cf39ee4d4168c5f4d409
+ADMIN_PASS: 56dda5cced74f3168ba6
+REGION: RegionOne
+VIP: 10.10.10.4

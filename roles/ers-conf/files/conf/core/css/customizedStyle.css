@@ -1,0 +1,819 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import 'skeleton.css';
+@import 'tippy.css';
+/*
+CUSTOM CSS FOR WEBADMIN
+*/
+
+
+/*
+
+TABLE OF CONTENTS
+-----------------------
+1. Reset
+2. Table 
+3. Navbar
+4. Header
+5. Toogle
+6. POPUP
+7. MARGINS
+8. ERROR MESSAGES
+9. TOOL TIPS QUESTION
+10. PAGINATION
+11. MATERIAL_ICONS
+12. FOOTER
+13. MISC
+
+*/
+
+
+/**************************************************  START OF HTML REST ******************************************************/
+
+
+/* 1. Reset */
+
+html,
+body {
+    font-family: 'Noto Sans Kannada', sans-serif;
+    margin: 0;
+}
+
+.button.button-primary {
+    background: #3DB6BC;
+    border-color: #3DB6BC;
+    float: left;
+    margin-bottom: 16px !important;
+    font-weight: inherit !important;
+    background-color: #3DB6BC !important;
+    border-color: #3DB6BC !important;
+    border-radius: 4px;
+    font-size: 16px !important;
+    color: #FFFFFF;
+    letter-spacing: -0.29px !important;
+}
+
+button {
+    float: left;
+    margin-bottom: 16px !important;
+    font-weight: inherit !important;
+    background-color: #3DB6BC !important;
+    border-color: #3DB6BC !important;
+    border-radius: 4px;
+    font-size: 16px !important;
+    color: #FFFFFF;
+    letter-spacing: -0.29px !important;
+    margin-right: 5px;
+}
+
+button:hover {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, .4);
+    background-color: #309196 !important;
+}
+
+h4 {
+    /* Search Resellers By: */
+    font-size: 28px;
+    color: #3DB6BC;
+    letter-spacing: -0.51px;
+    font-weight: 800;
+}
+
+input {
+    border-radius: 4px;
+}
+
+hr {
+    margin-top: 64px;
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #444748, #ccc);
+}
+
+footer p {
+    margin-top: 32px;
+}
+
+h4+p {
+    width: 66.66%;
+}
+
+select {
+    border: 1px solid #ccc;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+    cursor: pointer;
+    /*    background: url(/system/images/downArrow.png) 95% / 5% no-repeat white;*/
+}
+
+select:hover {
+    box-shadow: 0px 2px 4px rgba(209, 209, 209, .4);
+    /*background-color: #D1D1D1 !important;*/
+}
+
+p {
+    margin-bottom: 32px;
+}
+
+textarea {
+    width: 100%;
+}
+
+
+/************************************************** TABLE CSS  ******************************************************/
+
+
+/* 1. Table */
+
+table {
+    font-size: 14px;
+    border-spacing: 0px;
+}
+
+th,
+tr {
+    margin-left: 4px
+}
+
+th:first-child,
+td:first-child {
+    padding-left: 6px;
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 6px;
+}
+
+tr:nth-child(even) {
+    background: white;
+}
+
+tr:nth-child(odd) {
+    background: #F8F8F8;
+}
+
+thead,
+th {
+    background: #3DB6BC;
+}
+
+th {
+    color: white;
+    font-size: 16px;
+    vertical-align: bottom;
+}
+
+tr:hover {
+    background: #e5e5e5;
+}
+
+
+/************************************************** END OF HTML RESET ******************************************************/
+
+
+/************************************************** START OF NAVBAR ******************************************************/
+
+
+/* 3. Navbar */
+
+.menu-section {
+    background: #3DB6BC;
+}
+
+.content-section .menu-section {
+    background: #309196;
+}
+
+.content-section .content-section .menu-section {
+    background: #246D70;
+}
+
+.menu-section li.navbar-item {
+    background: #3DB6BC;
+}
+
+.content-section .menu-section li.navbar-item {
+    background: #309196;
+}
+
+.content-section .content-section .menu-section li.navbar-item {
+    background: #246D70;
+}
+
+div.menu-section {
+    background: #3DB6BC;
+    padding: 0 50px;
+}
+
+.main-nav {
+    clear: both;
+    margin: 0;
+}
+
+li.navbar-item {
+    list-style: none;
+    display: inline-table;
+    background: #3DB6BC;
+    margin: 0;
+}
+
+li.navbar-item:hover {
+    background: #309196;
+    cursor: pointer;
+}
+
+.content-section .menu-section li.navbar-item:hover {
+    background: #246D70;
+    cursor: pointer;
+}
+
+.content-section .content-section .menu-section li.navbar-item:hover {
+    background: #18484B;
+    cursor: pointer;
+}
+
+.navbar-item a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 13px 16px;
+}
+
+li.navbar-item span {
+    position: relative;
+    z-index: 1;
+}
+
+.menu_choice {
+    opacity: 1;
+    font-weight: 800;
+    position: relative;
+}
+
+.menu_choice::after {
+    background: #000000;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+}
+
+.menu_no_choice {
+    font-weight: 300;
+}
+
+
+/************************************************** END OF NAVBAR ******************************************************/
+
+
+/************************************************** START OF HEADER AND STATUS BAR ******************************************************/
+
+
+/* 4. Header */
+
+.header {
+    background: #3DB6BC;
+    padding: 0 50px;
+    color: white;
+}
+
+.header .logo img {
+    height: 52px;
+    margin: 16px;
+}
+
+.header .status-bar {
+    padding: 16px 0;
+}
+
+#statusBarIcons {
+    float: right;
+}
+
+#statusBarDiv {
+    width: 6%;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+/************************************************** END OF HEADER AND STATUS BAR ******************************************************/
+
+
+/************************************************** START OF TOGGLE CSS ******************************************************/
+
+
+/* 5. Toogle */
+
+.toggleExpand {
+    /* Rectangle 2: */
+    background: #F2F2EF;
+    border-radius: 4px;
+}
+
+#toogleExpand {
+    margin-top: 32px !important;
+}
+
+.full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 32px;
+}
+
+.showHideAdvanceOptionsText {
+    /* Show advanced search: */
+    font-size: 16px;
+    color: #2D2D2D;
+    margin: 16px;
+    padding-left: 16px
+}
+
+#showHideAdvanceOptionsText {
+    font-weight: bold;
+}
+
+.advanceOptions {
+    margin: 16px;
+}
+
+
+/************************************************** END OF TOGGLE CSS ******************************************************/
+
+
+/************************************************** START OF POPUP CSS ******************************************************/
+
+
+/* 6. POPUP */
+
+.centerAllignContent {
+    margin: 16px 32px;
+}
+
+.popupHeader {
+    padding-top: 16px;
+    margin-bottom: 16px;
+}
+
+.createPopup {
+    box-shadow: 1px 1px 8px #000;
+    margin-top: 32px;
+    position: absolute;
+    z-index: 99;
+    display: block;
+    top: 0;
+    background: #F2F2EF;
+    width: 100%;
+}
+
+.popup {
+    display: none;
+}
+
+.close-popup {
+    float: right;
+    margin: 10px;
+}
+
+.signInPopup {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    margin: 6px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.29);
+    color: black;
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    z-index: 999;
+}
+
+/***#statusBarDiv:hover {
+    box-shadow: 1px 1px 8px #000;
+    z-index: 99;
+    cursor: pointer
+}***/
+
+
+/************************************************** END OF POPUP CSS ******************************************************/
+
+
+/************************************************** START OF MARGINS ******************************************************/
+
+
+/* 7. MARGINS */
+
+.provideMarginTop_32px {
+    margin-top: 32px;
+}
+
+.provideMarginBottom_32px {
+    margin-bottom: 32px;
+}
+
+.provideMarginTop_64px {
+    margin-top: 64px;
+}
+
+.provideMarginBottom_64px {
+    margin-top: 64px;
+}
+
+
+/* This section will be used for register button in reseller information page */
+
+.reseller-info-register-btn {
+    margin-top: 18px;
+}
+
+
+/* This section will be used for change parent buttons in reseller information page */
+
+.change-parent-btn {
+    margin-bottom: 40px;
+}
+
+
+/* This section will be used for choose parent div in reseller information page */
+
+.choose-parent-reseller {
+    margin-top: 32px;
+}
+
+.margin-top {
+    margin-top: 64px;
+}
+
+.customMaterializedClass {
+    margin-right: 8px;
+}
+
+.date-time-picker {
+    margin-left: 4px;
+}
+
+#asterick {
+    margin: 4px;
+}
+
+.lookupBtn {
+    margin-top: 27px;
+}
+
+.changeParentDiv {
+    margin-top: 40px;
+}
+
+.searchResellerResultSetPagination {
+    margin-bottom: 32px;
+}
+
+#logoutBtn {
+    margin: 20px 35px 0;
+}
+
+.changePasswordLink {
+    margin-top: 16px;
+}
+
+.pageHeader {
+    padding-top: 64px;
+    margin-bottom: 16px;
+}
+
+.reseller-info-register-btn {
+    margin: 26px;
+}
+
+
+/************************************************** END OF MARGINS ******************************************************/
+
+
+/************************************************** START OF ERROR MESSAGES ******************************************************/
+
+
+/* 8. ERROR MESSAGES */
+
+
+/* Handling Error/Success Alerts */
+
+#alertError {
+    text-align: center;
+    background: rgba(145, 0, 0, .75);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+}
+
+#changePassswordMessages {
+    text-align: center;
+    background: #06A879;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+
+/* End of Handling Error Alerts */
+
+
+/************************************************** END OF ERROR MESSAGES ******************************************************/
+
+
+/************************************************** START OF TOOL TIPS QUESTION MARKS CSS ******************************************************/
+
+
+/* 9. TOOL TIPS QUESTION */
+
+.helpQuestionMark {
+    font-size: 14px;
+    margin: 10px;
+    color: gray;
+    font-weight: bold;
+}
+
+.tableToolTip {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/************************************************** END OF TOOL TIPS QUESTION MARKS CSS ******************************************************/
+
+
+/************************************************** START OF PAGINATION CSS ******************************************************/
+
+
+/* 10. PAGINATION */
+
+
+/* Pagination Line Count Section */
+
+.lineCount {
+    float: left;
+    width: 100%;
+}
+
+
+/* End of Pagination Line Count Section */
+
+.pagination {
+    width: 100%;
+}
+
+.previous {
+    display: table-cell;
+    text-align: left;
+}
+
+.page {
+    display: table-cell;
+    text-align: center;
+}
+
+.nextLast {
+    align-content: right;
+    display: table-cell;
+    text-align: right;
+}
+
+.pagination input {
+    padding: 0 8px;
+    margin: -10px 0 0 0;
+}
+
+.paginationArrowsAllignment {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+/************************************************** END OF PAGINATION CSS ******************************************************/
+
+
+/************************************************** START OF MATERIAL_ICONS CSS ******************************************************/
+
+
+/* 11. MATERIAL_ICONS */
+
+.material-icons {
+    font-size: 20px;
+}
+
+.status-bar .material-icons {
+    font-size: 32px;
+    margin-top: 16px;
+}
+
+
+/************************************************** END OF MATERIAL_ICONS CSS ******************************************************/
+
+
+/************************************************** START OF FOOTER CSS ******************************************************/
+
+
+/* 12. FOOTER */
+
+.footer {
+    bottom: 0;
+    padding: 8px 0 2px 0;
+    text-align: center;
+    background: white;
+    display: block;
+    margin: auto;
+    width: 100vw;
+    margin-top: 64px;
+    z-index: -1;
+}
+
+
+/************************************************** END OF FOOTER CSS ******************************************************/
+
+
+/************************************************** START OF MISC CSS ******************************************************/
+
+
+/* 13. MISC */
+
+.stack-button {
+    float: left;
+    margin: 1px;
+}
+
+.expandButton {
+    opacity: 0.5;
+    background: #000000;
+    margin: 16px;
+    font-size: 24px;
+    float: right;
+    color: white;
+    border-radius: 4px;
+}
+
+.closeButton {
+    opacity: 0.5;
+    background: #000000;
+    margin: 16px;
+    font-size: 24px;
+    float: right;
+    color: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.closeButton:hover {
+    cursor: pointer;
+}
+
+.status-bar:hover .signInPopup {
+    display: block;
+}
+
+#passwordLink {
+    color: #3DB6BC;
+    font-weight: bold;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.body-wrapper {
+    padding: 50px 0;
+}
+
+.support {
+    clear: both;
+}
+
+.center-align {
+    text-align: center;
+}
+
+#InactiveResellers {
+    display: inline;
+}
+
+.hiddenContainer {
+    display: none;
+}
+
+.visibleContainer {
+    display: block;
+}
+
+.ORSeperator {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.infoPageHeading {
+    font-weight: bold;
+}
+
+.subText {
+    font-weight: bold;
+    color: #3DB6BC
+}
+
+.expanded-content {
+    border-left: 8px solid #3DB6BC;
+    padding-left: 32px;
+}
+
+.table-overflow {
+    overflow: scroll;
+}
+
+.showRoles {
+    float: right;
+}
+
+.showHideContent {
+    font-size: 16px;
+    color: #2D2D2D;
+    margin: 16px;
+    padding-left: 16px;
+    font-weight: bold;
+}
+
+.checked-off {
+    display: inline;
+}
+
+.checked-on {
+    display: inline;
+}
+
+.container #flowControlDiv.container {
+    margin: 0;
+    float: left;
+    width: -moz-fit-content;
+    width: fit-content;
+    width: min-content;
+}
+
+.PasswordPolicy {
+    float: none !important;
+}
+
+.product-ranges-popup {
+    top: 0px !important;
+    left: 0px !important;
+}
+
+.product-price-menu-popup {
+    top: 922px !important;
+    left: 139px !important;
+}
+
+.categories-popup {
+    top: 891px !important;
+    left: 138px !important;
+    width: 37% !important;
+}
+
+.dynamic-menu {
+    background: rgb(248, 248, 248);
+    align-content: center;
+    width: 161px;
+    text-align: center;
+}
+
+.removeUnderLine {
+    text-decoration: none
+}
+
+.createNewUserErrorMessages{
+    color: red
+}
+
+table a {
+    color: #ED9F17 !important;
+}
+
+.pagination a {
+    color: #ED9F17 !important;
+}
+
+/************************************************** END OF MISC CSS ******************************************************/

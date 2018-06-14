@@ -1,0 +1,160 @@
+#Agent Portal server-side configuration file
+
+########################## MULTI URL SUPPORT #################################
+
+# By default or if you don't mention the multi_url_support, it will be false
+# This will support ONLY /supportsystem/services & /txe/transactionProcessing
+multi_url_support=false
+multi_url_support.legacy_version=4.3
+# Multi URL support for support_system
+multi_url_support.support_system.1.url=http://localhost:8071/supportsystem/services
+multi_url_support.support_system.2.url=http://localhost:8071/supportsystem/services
+
+# Multi URL support for transaction_processing
+multi_url_support.transaction_processing.1.url=http://localhost:8777/txe/transactionProcessing
+multi_url_support.transaction_processing.2.url=http://localhost:8777/txe/transactionProcessing
+
+# NOTES:
+# 1. separate multiple items by comma
+
+###############################################################################
+# details of connection to TXE reseller and processing service
+core_connection.url=http://localhost:8777/txe
+core_connection.username=smsapp
+core_connection.password=smsapp
+core_connection.receive_timeout=100000
+
+###############################################################################
+# details of connection to TXE exporting service
+exporting_service.url=http://localhost:8778/txe/transactionExporting
+exporting_service.username=agentportal
+exporting_service.password=agentportal
+exporting_service.receive_timeout=100000
+
+###############################################################################
+# details of connection to support system
+supportsystem_connection.url=http://localhost:8071/supportsystem
+#supportsystem_connection.username=
+#supportsystem_connection.password=
+
+#URL to talk to report engine custom operations interface
+# it is used for running reports without going through TXE
+reportEngine.url=http://localhost:8920/reportengine/customOperations
+reportEngine.receive_timeout=0
+
+###############################################################################
+#URL contact report engine for fetching report resource
+resourceProviderURL=http://localhost:8921/reportengine/resources
+
+###############################################################################
+# ERS Business logic Connection Properties
+# Use username/password if connection supports it
+businesslogic.url=http://localhost:8923/exchangeRate
+#businesslogic.username=smsapp
+#businesslogic.password=smsapp
+
+################################################################################
+# details of connection to productService
+productservice_connection.url=http://localhost:8912/productService
+#productservice_connection.username=
+#productservice_connection.password=
+
+
+###############################################################################
+# parameters for requests to core WS, and default language of the interface
+core_connection.defaultLanguage=en
+core_connection.channel=WEB
+
+###############################################################################
+# Should CAMPTCHA be used in logins?
+captcha_enabled=false
+
+###############################################################################
+# Set AgentPortal Session timeout 0 mean nothing or <Desired value> and 
+# value will be read only in "Seconds" time unit.
+agentportal_session_timeout=0
+
+# Name of the CM system.
+cms.classname=SimpleFileCMS
+# The default language to be used by CM
+cms.languages=en
+# The language mapping file.
+cms.en.filename=messages_english.properties
+# The language file encoding.
+cms.en.encoding=UTF-8
+
+
+kyc.filename=kyc.properties
+
+###############################################################################
+# Locale settings
+# Default country code padded to msisdn in case entered msisdn less than digits of default_country_code_digit + default_network_code_digits + subscriber_number_digits
+locale.default_country_code=46
+# Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+locale.default_network_code=70
+# Length of msisdn excluding network code and country code
+locale.subscriber_number_digits=7
+# Optional properties to set range of allowed network_codes.
+# locale.accepted_network_codes=70,76,70
+
+# Account type used for subscriber registration
+subscriber_accounttype=AIRTIME
+
+# Sending remittance productSKUs 
+remittanceSendProductSKUs=REMIT_SEND,CHARITY_SEND
+
+# Receiving remittance productSKUs 
+remittanceReceiveProductSKUs=REMIT_RECEIVE,CHARITY_RECEIVE
+
+###############################################################################
+# A list of comma separated result codes of 'ResultCodes' e.g. PENDING, ONGOING.
+# Always exclude the mentioned result codes to be shown on the transaction 
+# search page no matter what search criteria has been provided on it.
+# By default, no result code will be excluded
+# excludeResultCodes=PENDING
+
+###############################################################################
+# Location where uploaded files from subscriber register screen will be temporary
+# stored
+storageDirectory=/tmp/ap/
+
+###############################################################################
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://localhost:13013/cgi-bin/sendsms?username=ers&password=recharge&from=90050983
+# SMS prefix to be added to the destination number.
+smsprovider.to_prefix=
+
+###############################################################################
+# Configuration of the WEBDAV server
+webdavURL=http://localhost
+webdavUsername=refill
+webdavPassword=refill
+
+###############################################################################
+# enable or disable single session per reseller feature
+single_session_loggedin=false
+
+###############################################################################
+# Added two new filters in Search Transaction.
+# maxLevels Maximum levels below to search for resellers
+# maxCount Maximum number of resellers to return
+# 
+searchTransaction.Filter.subreseller.maxLevels=2
+searchTransaction.Filter.subreseller.maxCount=1000000
+
+###############################################################################
+# details of connection to productService
+productservice_connection.url=http://localhost:8912/productService
+#productservice_connection.username=
+#productservice_connection.password=
+
+###################### For Exporting Search Result Transactions ########################
+export_all_search_result_transaction=false
+search_roles.Reseller.only_own_transactions=false
+search_roles.Reseller_admin.only_own_transactions=false
+
+########################## USE DEFAULT USER FOR MSISDN PRINCIPAL RESOLVING #################################
+
+# By default or if you don't mention the use_default_user_for_MSISDN, it will be true
+use_default_user_for_MSISDN=true

@@ -1,0 +1,190 @@
+#
+# CoreProxy properties
+#
+# $Id$
+
+# Node id for this proxy, required since the proxy now starts doing 
+# write transactions (voucher db)
+#
+node_id=01
+
+# Configuration for the voucher encryption settings
+#
+keystore_filename=/opt/seamless/conf/core/digitalwarehouse.key
+keystore_keyname=DigitalWarehouse
+keystore_password=hemligt
+key_password=hemligt
+
+# WS settings
+ws_coreproxy_service_url=http://0.0.0.0:8912/coreProxy
+ws_coreproxy_businesslogic_url=http://0.0.0.0:8912/businessLogic
+ws_principal_service_url=http://0.0.0.0:8912/principalService
+ws_custom_operations_service_url=http://0.0.0.0:8912/customOperationsService
+ws_product_service_url=http://localhost:8912/productService
+ws_coreproxy_cen_services_url=http://0.0.0.0:9030/cenServices
+
+# Outgoing WS setting
+ws_reseller_management.url=http://0.0.0.0:8911/resellerManagement
+
+# Database settings
+
+db_user=refill
+db_password=refill
+db_driver=org.mariadb.jdbc.Driver
+db_url=//localhost:3306/Refill
+db_stat_interval_seconds=0
+db_query_timeout=120
+pool_min_size=40
+pool_max_size=100
+
+
+
+# Proxool properties
+db_pool_implementation=proxool
+db_pool_proxool_house_keeping_sleep_time=30000
+db_pool_proxool_maximum_active_time=3600000
+db_pool_proxool_prototype_count=2
+db_pool_proxool_simultaneous_build_throttle=40
+
+# DB pool common properties
+db_zeroDateTimeBehavior=convertToNull
+db_pool_timeout_millis=300000
+
+# Flow control configuration
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,address=9020,suspend=n
+
+# PRICING CONFIGURATION
+# Business logic engine reseller tag for P2P transfer.
+pricing.transfer_tag_p2p=P2P
+
+# Business logic engine reseller tag for P2P topup.
+pricing.topup_tag_p2p=P2P
+
+# Pricing margin_roundup will be used to round 
+# up reseller margin, customer margin and customer bonus.
+# HALF_UP 7.222-> 7.22 & 7.226 -> 7.23 
+# FLOOR 7.222-> 7.22 & 7.226 -> 7.22 
+# CEILING 7.222-> 7.23 & 7.226 -> 7.23 
+pricing.margin_roundup=HALF_UP
+#pricing.margin_roundup=HALF_DOWN
+#pricing.margin_roundup=FLOOR
+#pricing.margin_roundup=CEILING
+
+pricing.accounts.transfer.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.transfer.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.transfer.bonus.eur=BOOKKEEPING:BONUS_EUR
+pricing.accounts.transfer.cash.commission.eur=BOOKKEEPING:CASH_COMMISSION_EUR
+pricing.accounts.transfer.cash.eur=BOOKKEEPING:CASH_EUR
+
+pricing.accounts.topup.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.topup.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.topup.bonus.eur=BOOKKEEPING:BONUS_EUR
+
+# NOTE! Following configuration is used by deprecated pricing engines
+# Should be removed once we clean up deprecated price engines
+pricing.accounts.p2p_topup.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.p2p_topup.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.p2p_topup.bonus.eur=BOOKKEEPING:BONUS_EUR
+pricing.accounts.p2p_transfer.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.p2p_transfer.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.p2p_transfer.bonus.eur=BOOKKEEPING:BONUS_EUR
+pricing.accounts.credit_transfer.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.credit_transfer.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.credit_transfer.bonus.eur=BOOKKEEPING:BONUS_EUR
+pricing.accounts.purchase.operator.eur=BOOKKEEPING:OPERATOR_EUR
+pricing.accounts.purchase.commission.eur=BOOKKEEPING:COMMISSION_EUR
+pricing.accounts.purchase.bonus.eur=BOOKKEEPING:BONUS_EUR
+# Deprecated price engines configuration ends here
+
+pricing.accounts.voucher.operator=BOOKKEEPING:OPERATOR
+pricing.accounts.voucher.commission=BOOKKEEPING:COMMISSION
+
+
+# EXCHANGE RATE CONFIGURATION
+#
+#exchangerate.rate.1.convert_currencies=EUR:DAY
+#exchangerate.rate.1.conversion_rate=0.48
+#exchangerate.rate.2.convert_currencies=DAY:EUR
+#exchangerate.rate.2.conversion_rate=2.8
+exchangerate.rate.rounding_mode=HALF_UP
+#exchangerate.rate.rounding_mode=HALF_DOWN
+#exchangerate.rate.rounding_mode=FLOOR
+#exchangerate.rate.rounding_mode=CEILING
+
+# Should be configured in the following format:
+# CURRENCY_ABBREVIATION:ACCOUNT_TYPE:ACCOUNT_ID
+#
+#exchangerate.account.1=SYP:BOOKKEEPING:EXCH_EUR
+#exchangerate.account.2=DAY:BOOKKEEPING:EXCH_DAY
+
+
+# Support account configuration for admin user
+#
+support_account.account_id=OPERATOR
+support_account.account_type_id=RESELLER
+
+
+# Authentication levels
+# Each level can be assigned an integer that will be returned when resolving
+# reseller principals. It's probably a good idea to use the same levels
+# across the whole system, in all principal services. A higher number means
+# better authentication.
+principals.authentication_level.NO_PASSWORD=0
+principals.authentication_level.PASSWORD_VERIFIED=1
+
+#  -- Custom operations configuration --
+#
+# REQUEST_RESELLER_PIN
+# 
+# pin_guess_level: If a pin is not stored in clear text, then we can attempt to guess it
+# The level set also includes all the lower levels.
+# 0 means don't guess
+# 1 means try common patterns for pins of size 4 or 5
+# 2 means brute force all size 4 pins
+# 3 means brute force all size 5 pins
+customoperation.REQUEST_RESELLER_PIN.pin_guess_level=0
+
+
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge
+# SMS prefix to be added to the destination number.
+smsprovider.to_prefix=+
+
+password_reset_msg=Your new password is {0}
+
+# Path of the dynamic fields properties file
+# Dynamic fields for agent/reseller users
+dynamic_fields.user.filename=kyc.properties
+# Dynamic fields for agent/reseller (as a company)
+dynamic_fields.reseller.filename=kyc_reseller.properties
+
+# Voucherdb configuration for setting limits of each distributor for voucher reservation
+# The setting can be set for all distributor using id as 'default'.
+# If specific distributor has different limit, id should be set as distributor id
+voucherdb.distributor.1.id=default
+voucherdb.distributor.1.reservationlimit=100
+#voucherdb.distributor.2.id=axfood
+#voucherdb.distributor.2.reservationlimit=200
+
+enableVoucherKeyIndexing=false
+#voucherkey_index_url=http://0.0.0.0:8989/
+#httpclient.max_total_connections=200
+#httpclient.default_max_connections_per_route=20
+#httpclient.max_connections_per_route=50
+
+resellermanagement.contract_auto_creation=false
+
+#Voucher PIN encoding Previously it was new String(decoded_PIN_byte_array) and 
+#now I have changed it to new String(decoded_PIN_byte_array, encoding). 
+#If this voucher_pin_encoding field is empty then the old one being used 
+#(i.e new String(decoded_PIN_byte_array))
+#voucher_pin_encoding=UTF-8

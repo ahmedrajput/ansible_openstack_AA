@@ -1,0 +1,24 @@
+---
+- hosts: controller2
+  vars:
+   VIP: 10.10.10.4
+   ADMIN_PASS: 56dda5cced74f3168ba6
+  environment:
+   OS_USERNAME: admin
+   OS_PASSWORD: "{{ ADMIN_PASS }}"
+   OS_PROJECT_NAME: admin
+   OS_USER_DOMAIN_NAME: Default
+   OS_PROJECT_DOMAIN_NAME: Default
+   OS_AUTH_URL: http://{{ VIP }}:35357/v3
+   OS_IDENTITY_API_VERSION: 3
+  roles:
+  - pre_install
+  - galera
+  - rabbit_clustering
+  - post_install
+  - keystone
+  - openstack_project
+  - glance
+  - nova_controller
+  - neutron_controller
+  - horizon

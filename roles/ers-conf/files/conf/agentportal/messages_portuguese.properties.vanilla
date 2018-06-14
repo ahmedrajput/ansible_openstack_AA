@@ -1,0 +1,692 @@
+#TODO need to change buyer receive amount 
+CREDIT_TRANSFER_RECEIPT_TITLE=Recibo da transferencia de credito
+CREDIT_TRANSFER_RECEIPT=<table><caption><font size="+2">Recibo da transferencia de credito </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Nr de referencia:</td><td>${transaction.ersReference}</td> </tr> <tr><td>comprador:</td><td>${transaction.receiverPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>vendedor:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Valor a tranferir :</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTransferAmount))}</td></tr></table>
+
+#TODO need to change topup amount to be received amount #TODO precisa mudar o valor a carregar para o valor a receber.
+#TOPUP_RECEIPT_TITLE=Carregamento recebido
+#TOPUP_RECEIPT=<table><caption><font size="+2"> Carregamento recebido </font> <br />Date Data: ${transaction.startTime?datetime}</caption> <tr><td>Referencia nr.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>comprador:</td><td>${transaction.topupPrincipal.submittedPrincipalId. Identificacao principal submetida id}</td> </tr> <tr><td>vendedor:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Topup Carregamento AmountValor:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTopupAmount))}</td></tr></table>
+
+TOPUP_RECEIPT_TITLE=Carregamento recebido
+TOPUP_RECEIPT=<table><caption><font size="+2"><#switch transaction.productId><#case "CASHIN">CASHIN recebido<#break><#default>Carregamento recebido</#switch></font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Referencia nr.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>comprador:</td><td>${transaction.topupPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>vendedor:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td><#switch transaction.productId><#case "CASHIN">CASHIN AmountValor:<#break><#default>Carregameneto AmountValor:</#switch></td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTopupAmount))}</td></tr></table>
+
+#TODO need to change topup amount to be received amount #TODO precisa mudar o valor a carregar para o valor a receber.
+#TOPUP_RECEIPT_TITLE=Carregamento recebido
+#TOPUP_RECEIPT=Carregamento recebido =<table><caption><font size="+2"> Carregamento recebido</font> <br />Dados Data: ${transaction.startTime?datetime}</caption> <tr><td>referência 
+#no.Nr de referencia #:</td><td>${transaction.ersRefere$
+
+#Voucher Receipt Recibo 
+VOUCHER_RECEIPT_TITLE=Recibo Nr de carregamento 
+VOUCHER_RECEIPT=<table><caption><font size="+2"> Voucher Receipt Recibo </font> <br />Dados Data: ${transaction.startTime?datetime}</caption> <tr><td>Referencia nr:</td><td>${transaction.ersReference}</td> </tr> <tr><td>comprador:</td><td>${transaction.receiverPrincipal.subscriberId}</td> </tr> <tr><td>vendedor:</td><td>${transaction.principal.primaryPrincipalId.id}</td></tr> <tr><td>Nr de serie do recibo:</td><td>${transaction.purchasedProducts[0].rows[0].reference}</td></tr> <tr><td>Comprovante do produto:</td><td>${transaction.purchasedProducts[0].product.name}</td></tr></table>
+
+#TODO need to change topup amount to be received amount
+CASHIN_RECEIPT_TITLE=Cash In recebido
+CASHIN_RECEIPT=<table><caption><font size="+2"> Cash In recebido </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.topupPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>CashIn quantidade:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTopupAmount))}</td></tr></table>
+
+MOLLET_DEPOSIT_RECEIPT_TITLE=Cash In recebido
+MOLLET_DEPOSIT_RECEIPT=<table><caption><font size="+2"> Cash In recebido </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Referencia nr:</td><td>${transaction.reference}</td> </tr> <tr><td>comprador:</td><td>${transaction.receiverId}</td> </tr> <tr><td>vendedor:</td><td>${transaction.senderId}</td></tr> <tr><td>Cash In Montante:</td><td>${transaction.receivedAmountString}</td></tr></table>
+
+
+# look into agentportal_client.properties to know about these following configurations # ver nas propriedades do agentportal_cliente para saber das seguintes configuracoes
+welcomeText=Bem-vindo ao ERS 360 portal do agente
+#dashboardReportId=ResellersHomePage
+helpUrl=../../agentportal_resources/help/ap/users_manual/users_manual_pt.html
+
+
+# for countries use para paises use "countries.[COUNTRY NAME]" syntax, eg. Ex. de sintaxe"countries.USA=USA" “Pais.USA=USA”
+# for statuses use para estados use "transactionStatuses.[STATUS NAME]" syntax, eg Ex. De sintaxe. "transactionStatuses.All=All"
+# for paymentMethods use para metodo de pagamento use "paymentMethods.[PAYMENT METHOD NAME]" syntax, eg. Ex. De sintaxe "paymentMethods.Cash=Cash"
+# for participationTypes use Para tipos de participantes use "participationTypes.[PARTICIPATION TYPE]" syntax, eg. Ex. De sintaxe "participationTypes.Sender=Sender Remetente"
+# for reports, use para relatorios use "reports.[REPORT ID].displayName" and "reports.[REPORT ID].params.[PARAM ID].displayName" syntax, eg Ex. De sintaxe. "reports.MOLLET_003.displayName=mollet003" and "reports.MOLLET_003.params.a.displayName=p1"
+
+
+#for enabledLanguages use para permitir o uso de idiomas "enabledLanguages.[LANGUAGE]" syntax, 
+#eg. Ex. De sintaxe "enabledLanguages.en=English" Ingles
+enabledLanguages.pt=Portuguese
+enabledLanguages.en=English
+
+###################################### Client side interface configurations  Configuracoes de interface do lado do cliente
+####### Messages Section Seccao de Mensagens
+Message.LoginFailed=Inicio de seccao falhou!
+Message.LoginFailedTooManyLoginAttempts=Voce esta bloqueado devido a muitas tentativas erradas. Entre em contato com operador para desbloquear.
+Message.UserLocked=Nao esta ativo
+Message.SessionExpired=A sua sessao expirou. Voce precisa fazer o login novamente.
+Message.TransactionAlreadyReversed=Esta transacao ja foi revertida.
+Message.TransactionReversalAlreadyRequested=A reversibilidade da Operacao para este pedido ja foi feito. Encontra-se pedente pois precisa da confirmacao de administrador.
+Message.AccessDenied= Acesso negado
+Message.IncorrectPasswordInChangePassword=senha incorreta.
+Message.TXEErrorMessageNoContents=Ocorreu um erro no servidor, codigo de erro:
+Message.ResellerIsAlreadyLinkedToYou=O revendedor ja esta vinculado a voce.
+Message.ResellerLinkedSuccessfully=O revendedor esta agora vinculado a voce
+Message.ResellerDeLinkedSuccessfully=O revendedor esta dissociada a voce
+Message.ResultsTruncated=Os resultados estao truncados. Tente pesquisar com mais condicoes para diminuir o numero de resultados.
+Message.CaptchaFailed=CAPTCHA falhou.
+Message.PleaseFillCaptcha=Por favor preencha o campo CAPTCHA
+Message.PasswordsDoNotMatch=As senhas nao sao iguais!
+Message.IncorrectPasswordsFormat=Digite o formato senha correto!
+Message.NotMatch=Value do not match given Criteria  O valor nao corresponde com os criterios especificados
+Message.NoPricingInfo=Nenhuma informacao de Precos encontrado no servidor
+Message.SubscriberPassword=Digite a senha da remessa do cliente.
+Message.RemittanceAlreadyReceived=Receber nao e possivel para a operacao de referencia. 
+Message.TransactionRefNotFound=Nr de identificacao da remessa da transacao nao foi encontrado
+Message.InvalidTransactionType=Nr de Transacao de Remessa e invalido. Por favor, verifique o tipo de transacao
+Message.ConfirmCancelTransaction=Voce quer cancelar a transacao.
+Message.ResellerHasNoParent=A transacao falhou porque este agente nao tem pai.
+Message.ConfirmRemoveAll=Realmente deseja remover todos os receptores da lista?
+Message.Warning=Aviso
+Message.ResendNotificationSuccess=Notificacao reenviada com sucesso <br> ERS Reference:
+Message.ResendNotificationFailed=O reenvio da notificacao falhou <br> ERS Reference:
+Message.BulkTopupLimitCrossed=Você excedeu as entradas máximas limitar em um único arquivo . O número máximo de entradas permitidas é:
+Message.BulkTopupDuplicateEntries=Você tem entradas duplicadas
+Message.BulkTopupInvalidProductSku=SKU produto inválida
+Message.BulkTopupInvalidSubscriberNo=Número Assinante inválido
+
+# Basic components messages (GWT components)
+
+Message.InvalidEmailAddress=address Email invalido
+Message.InvalidAmount=Valor invalido
+Message.InvalidNumber=Caractere nao-numerico introduzido
+Message.PleaseFill=Por favor, preencha os campos obrigatorios
+Message.InvalidPersonalNo=Entered Numero pessoal inserido e invalido
+Message.InvalidPhoneNo=Nr de telefone inserido e invalido
+Message.InvalidImsi=Nr de serie inserido e invalido
+Message.InvalidSubscriberId=Nr de identificacao do assinante e invalido
+Message.InvalidResellerId=Nr de identificacao do revendedor e invalido
+
+Message.InvalidDate=Formato de data invalido!
+Message.PleaseFillPassword=Por favor, introduza a sua senha
+Message.PleaseFillMSISDN=Por favor, digite o seu nr de telefone
+Message.PleaseFillResellerId=Por favor digite o nr de identificacao do revendedor
+Message.PleaseFillUserId=Por favor, digite o seu nr de identificacao
+Message.DontFillBothPhoneAndResellerId=Valores introduzidos tanto para "Nr do revendedor" como para "Nr de Telefone" nao sao suportados, utilize qualquer um deles.
+Message.DontFillPhoneAndResellerIdAndTerminalSerial= Valores introduzidos para um dos “Nr de revendedor”, “nr de serie” e nr de telephone” e suportado. Nao pode introduzir mais do que deles. 
+Message.UnsupportedOperation=Unsupported Operation Operacao nao suportada
+Message.PleaseFillValidAgentId=Introduza o seu nr de identificacao ou do sub agente.
+Message.NextStepRegisterUser=O proximo passo e registar usuarios para
+
+Message.FileAlreadyExists=O ficheiro ja existe
+Message.FileUploadFailed=Upload de arquivo falhou
+Message.FileDownloadFailed=Download de arquivo falhou
+Message.UnAuthrizeSearch= Nao esta autorizado a ver o resultado da pesquisa
+
+####### Labels Section
+
+
+# Login Screen
+Label.LoginScreenTitle=Entrar
+Label.AgentPortalLogin=Entrar no portal de agente
+Label.PhoneNo=Nr de telefone
+Label.PhoneNoHelp=
+Label.Password= Senha
+Label.PasswordHelp=
+Label.Submit=Submeter
+Label.Reset=Restabelecer
+Label.LoginUsingMSISDN=Entre usando o nr de telephone e a senha
+Label.LoginUsingResellerId=Entrar usando os dados do revendedor, usuario e senha
+Label.ResellerId=Identificacao do revendedor
+Label.UserId=Identificacao do usuario
+Label.ResellerIdHelp=
+Label.UsernameHelp=
+
+
+# Account Information Screen
+Label.AgentAccountInfoScreenTitle=Informacao da conta
+Label.AgentAccountInfo=Dados pessoais
+Label.Name=Nome
+Label.NameHelp=
+Label.AgentId=Identificacao do agente
+Label.AgentIdHelp=
+Label.ParentReseller=Pai revendedor
+Label.ParentResellerHelp=
+Label.Contract=contracto
+Label.ContractHelp=
+Label.TaxGroup=Grupo fiscal
+Label.TaxGroupHelp=
+Label.Account=conta
+Label.AccountHelp=
+Label.Type=tipo
+Label.TypeHelp=
+Label.Balance=Saldo
+Label.BalanceHelp=
+Label.CreditLimit=Credito limitado
+Label.CreditLimitHelp=
+Label.Description=Descricao
+Label.DescriptionHelp=
+Label.AccountInfoFor=Detalhes da conta
+Label.CommissionDetails=Detalhes da comissao
+Label.Address=Morada
+Label.AddressHelp=
+Label.UnlimitedCredit=Ilimitado
+Label.Zone=Zona
+Label.ZoneHelp=
+Label.Group=Grupo
+Label.SubGroup=Sub grupo
+Label.SubSubGroup=Sub sub grupo
+Label.ParentResellerName=Nome do revendedor pai
+Label.LimitPeriod=Periodo limite
+Label.PeriodicCreditLimit=Limite credito periodico
+Label.DormantState=estatuto
+
+# Change Password Screen
+Label.ChangePasswordScreenTitle= Mudar senha
+Label.ChangePassword=Mudar senha
+Label.OldPassword=enha antiga
+Label.OldPasswordHelp=
+Label.NewPassword=Nova senha
+Label.NewPasswordHelp=
+Label.ReEnterNewPassword=Re-introduzir nova senha
+Label.ReEnterNewPasswordHelp=
+Label.PasswordChangedSuccessfully=Senha mudada com sucesso
+
+# Mobile Money Screen
+Label.MobileMoneyScreenTitle=MM2ERS
+Label.MobileMoneyScreen=MM2ERS
+Label.MobileMoneyService=MM2ERS
+Label.MobileMoneyServiceHelp=Receber Mobile Money
+Label.MobileMoneyAmount=Amount Valor
+Label.MobileMoneyReceiptTitle=MM2ERS
+
+# Deposit Screen
+Label.DepositScreenTitle=Depósito Subscriber
+Label.DepositScreen=Detalhes depósito
+Label.DepositPhoneNo=Id Subscriber.
+Label.DepositPhoneNoHelp=
+Label.DepositAmount=quantidade
+Label.DepositAmountHelp=
+Label.DepositCurrency=moeda
+Label.DepositCurrencyHelp=
+Label.DepositReceiptTitle=Assinante Recibo de Depósito
+Label.DepositTransactionFinished=Transação concluída com êxito com referência não.:
+
+#RedeemVoucherScreen
+Label.RedeemVoucherScreenTitle=Redeem Voucher
+Label.RedeemVoucherScreen=Informações comprovante
+Label.VoucherId=comprovante Id
+Label.VoucherIdHelp=
+Label.Currency=moeda
+Label.CurrencyHelp=
+Label.Amount=quantidade
+Label.AmountHelp=
+Label.PersonalInformation=Informações Pessoais
+Label.PersonalIdNo=Número de Identificação Pessoal
+Label.PersonalIdNoHelp=Passaporte / Carta de Condução / Número de Identificação Pessoal
+Label.IdType=ID Type
+Label.IdTypeHelp=
+Label.FirstName=primeiro Nome
+Label.FirstNameHelp=
+Label.MiddleName=Nome Do Meio
+Label.MiddleNameHelp=
+Label.LastName=Sobrenome
+Label.LastNameHelp=
+Label.DateOfBirth=Data de nascimento
+Label.DateOfBirthHelp=
+Label.Street=Endereço
+Label.StreetHelp=
+Label.City=City
+Label.CityHelp=
+Label.Zip=Zip
+Label.ZipHelp=
+Label.Country=país
+Label.CountryHelp=
+Label.EmailAddress=Endereço De Email
+Label.EmailAddressHelp=
+Label.RedeemVoucherSuccess=Transação concluída com êxito com referência não. :
+Label.RedeemVoucherReceiptTitle=Resgatar voucher Receipt
+
+
+#Register Agent Screen
+Label.RegisterAgentScreenTitle=Registre Sub-Agent
+Label.RegisterAgentSuccess=Agente registrado com êxito.
+Label.ResellerName=Nome
+Label.ResellerNameHelp=
+Label.ResellerTypeHelp=
+Label.JuridicalName=Nome jurídica
+Label.JuridicalNameHelp=
+Label.Website=Website
+Label.WebsiteHelp=WebsiteHelp
+Label.AgentGroup=país
+Label.AgentGroupHelp=
+Label.AgentSubGroup=City
+Label.AgentSubGroupHelp=
+Label.AgentSubSubGroup=área
+Label.AgentSubSubGroupHelp=
+Label.EditAgentScreen=Update Agent
+
+
+#Link-DeLink Agent Screen
+Label.LinkDeLinkTitle=Link/De-Link subresellers
+Label.LinkTitle=Fazer a ligação subreseller
+Label.DeLinkTitle=De-Link subreseller
+Label.LinkDeLinkResellerMSISDN=Número de telefone Subreseller
+Label.LinkDeLinkResellerMSISDNHelp=Digite o número de telefone para ligar / de-link para você como um subreseller
+Label.ChooseResellerTypeForLinking=Por favor, escolha o tipo de subreseller:
+
+
+#Mollet Transfer Screen
+Label.MolletTransferScreenTitle=Mollet Transferência
+Label.TransferDetails=Detalhes de transferência
+Label.TransferSuccess=Transferência concluída com êxito. Transação de referência é:
+Label.MolletTransferReceiptTitle=Mollet Transferência Recibo
+
+
+#Credit Transfer Screen
+Label.CreditTransferScreenTitle=Transferir credito
+Label.AgentMsisdn=Agent MSISDN
+Label.AgentMsisdnHelp=
+Label.Comments=Comentario
+Label.CommentsHelp=
+Label.PaymentMethod=Metodo de pagamento
+Label.PaymentMethodHelp=
+Label.CreditTransferReceiptTitle=Recibo de transferencia do estoque de saldo
+Label.Print=Imprimir
+Label.TransferAmount=Transferir quantia
+Label.TransferAmountHelp=
+Label.AccountType=Tipo de conta
+Label.AccountTypeHelp=
+
+Label.UpdateMolletUserScreenTitle=Registre Mollet Usuário
+Label.SubscriptionType=Tipo de Assinatura
+Label.SubscriptionTypeHelp=
+Label.UserRegisterSuccess=Usuário registrado com êxito.
+
+
+
+#StatusBar Screen
+Label.RequestFailed=Pedido falhou
+
+
+#Main Menu
+Label.MainMenuScreenTitle=Menu principal
+Label.Role=Role Funcao
+Label.RoleHelp=
+Label.LoggedInResellerId=
+Label.MyAccount=inha conta
+Label.SubAgents=Agente
+Label.Subscribers=Inscritos
+Label.Transactions=Transacoes
+Label.Reports=Relatorios
+Label.Logout=Sair
+Label.LoggingOut=A sair …
+Label.ResellerType=Tipo
+Label.ResellerTypeHelp=
+
+
+#Transactions Report
+Label.TransactionsReportScreenTitle=Transacoes
+Label.SearchTransactions=procurar transacoes
+Label.FromDate=Da data
+Label.ToDate=Para a data
+Label.PhoneOrId=Identificacao/Nr de telefone
+Label.PhoneOrIdParticipation=Identificacao/Nr de telefone de participacao
+Label.SenderPhoneOrId=do remetente/ Nr de telemovel
+Label.ReceiverPhoneOrId=Identificacao do destinatario/ Nr de telefone
+Label.TransactionType=Tipo de transacao
+Label.TransactionReference=Referencia da transacao
+Label.TransactionStatus=Estado da transacao
+Label.Channel=Canal
+Label.Date=Data
+Label.Result=Resulto
+Label.Succeeded=Sucedido
+Label.Failed=Falhou
+Label.Pending=Pendente
+Label.Ongoing=Em andamento
+Label.Cancelled=Cancelado
+Label.TransactionsReportEmpty=Nenhuma transacao encontrada
+Label.RequestReversal=Pedido de reversao
+Label.RequestReversalCommentsTitle=Comentarios do pedido de reversao
+Label.ReversalFinished=Reversao concluida com sucesso
+Label.ReversalPending=Pedido de reversao.Estara em estado pendent ate que seja confirmado por um admin.
+Label.DetailsOfTransaction=Detalhes da transacao
+Label.Export=Exportar
+Label.SelectFormat=Escolher formato
+Label.Html=HTML
+Label.Pdf=PDF
+Label.Excel=EXCEL
+Label.CustomerPhoneOrId=Customer ID/Phone No.Identificacao do cliente/Nr de telefone
+Label.ReceiveMoney=receber dinheiro
+Label.ReprintReceipt=Re-imprimir o recibo
+Label.ResendPassword=Reenviar a senha
+Label.Operations=Operacoes
+Label.Select=Escolher
+Label.State=Estado
+
+
+
+#SubAgentsReport Screen
+Label.SubAgentsReportScreenTitle=Agente
+Label.SubAgentsList=Lista de agentes
+Label.SearchDepth=Profundidade da pesquisa
+Label.SearchDepthHelp=
+Label.RPP=Linhas por pagina
+Label.RPPHelp=
+Label.Details=Detalhes
+Label.TransferCredit=Transferir saldo
+Label.TransferMolletCredit=Transferir credito mollet
+Label.TerminalSerial=terminal série
+Label.TerminalSerialHelp=
+Label.Block=Bloqueado
+Label.Unblock=Desbloqueado
+Label.BlockCommentsTitle=Bloquear comentarios
+Label.AgentsReportEmpty=Nenhum agente encontrado
+Label.OnlySubAgentsOneLevelBelow=Mostrar apenas um nivel abaixo
+Label.AllSubAgents=Mostrar todos os niveis
+
+
+#Simple Dialog
+Label.OK=OK
+Label.Cancel=Cancelar
+Label.Yes=Sim
+Label.No=Nao
+Label.MessageTitle=Mensagem
+Label.ErrorTitle=Erro
+Label.Search=Procurar
+Label.New=Novo
+Label.Next=Proximo
+Label.Send=Enviar
+Label.Back=Voltar
+
+#EIRE Report
+Label.EIREReportScreenTitle=relatórios
+Label.EIREReport=relatórios
+Label.ReportName=relatórios Nome
+Label.ReportParameters=Os parâmetros de relatório
+
+#Home Page
+Label.HomePageTitle=Painel de instrumento
+
+
+# Topup Screen
+Label.TopupScreenTitle=Carregamento do assinante
+Label.TopupScreen=Detalhes de carregamento
+Label.TopupPhoneNo=Identificacao do assinante
+Label.TopupPhoneNoHelp=Telefone ou o numero de serie ou identificacao anonima do assinante para carregar
+Label.TopupAmount=Montante da transacao
+Label.TopupAmountHelp=topup Valor a carregar
+Label.TopupService=Servico
+Label.TopupServiceHelp=
+Label.TopupTransactionFinished=Transacao terminou com sucesso com o nr de referencia:
+Label.TopupReceiptTitle=Recibo de carregamento
+
+# Bulk Topup Screen
+Label.BulkTopupScreenTitle=granel topUp
+Label.BulkTopupScreen=Detalhes TopUp granel
+Label.BulkTopupPhoneNo=Assinante nº telefone
+Label.BulkTopupAmount=quantidade
+Label.BulkTopupCurrency=moeda
+Label.BulkTopupReceiptTitle=Topup (s) Recibo
+Label.BulkTopupRemove=remover
+Label.BulkTopupAddNewTopup=Adicionar Novo
+Label.BulkTopupSelectFile=Selecione o arquivo ...
+Label.BulkTopupSubmit=submeter
+Label.BulkTopupReset=restabelecer
+Message.BulkTopupInvalidFields=TEST
+Message.BulkTopupInvalidFileFormat=TEST1
+
+#Report Screen
+Label.EmptyReport=Relatório está vazio.
+Label.Row=linha
+Label.Page=página:
+Label.PageNoAndTotalSeperator=/
+
+
+#General
+Label.CopyRightFooter=<font size='-2'>&copy;2015 Distribuicao Seamless AB - Todos os direitos reservados.</font>
+Label.RequiredFieldDescription=*Campos marcados sao obrigatorios
+Label.RequiredFieldSign=*
+Label.Help=Ajuda
+Label.Remove=removedor
+Label.ShowHideReceiverList=Mostrar/Esconder a lista do destinatario
+Label.Alias=aliás
+Label.RemoveAll=Remover todos
+Label.Save=Guardar
+Label.Go=Go Ir
+
+
+#Transaction details screen
+Label.TransactionDetails= Detalhes da transacao
+Label.TransactionReferenceHelp=
+Label.TransactionDetailsScreenTitle=Detalhes da transacao
+Label.Sender=Remetente
+Label.SenderHelp=
+Label.Receiver=destinatario
+Label.ReceiverHelp=
+Label.TransactionTypeHelp=
+Label.ChannelHelp=
+Label.TransactionStartDate=Da data
+Label.TransactionStartDateHelp=
+Label.TransactionEndDate=Data final
+Label.TransactionEndDateHelp=
+Label.TransactionResultCode=Resultado de codigo
+Label.TransactionResultCodeHelp=
+Label.TransactionResultDescription=Descricao do resultado
+Label.TransactionResultDescriptionHelp=
+Label.OriginalErsReference=ERS referencia original
+Label.OriginalErsReferenceHelp=
+Label.ReferredErsReference=ERS referencia original
+Label.ReferredErsReferenceHelp=
+Label.SenderBalanceBefore=saldo inicial do rementente 
+Label.SenderBalanceBeforeHelp=
+Label.SenderBalanceAfter= O saldo final do remetente
+Label.SenderBalanceAfterHelp=
+Label.ReceiverBalanceBefore= O saldo inicial do destinatario
+Label.ReceiverBalanceBeforeHelp=
+Label.ReceiverBalanceAfter=O saldo final do destinatario
+Label.ReceiverBalanceAfterHelp=
+Label.SenderCustomerVirtualBalanceBefore=saldo inicial do remetente de cliente virtual
+Label.SenderCustomerVirtualBalanceBeforeHelp=
+Label.SenderCustomerVirtualBalanceAfter= saldo final do remetente de cliente virtual
+Label.SenderCustomerVirtualBalanceAfterHelp=
+Label.ReceiverCustomerVirtualBalanceBefore=saldo inicial do destinatario de cliente virtual
+Label.ReceiverCustomerVirtualBalanceBeforeHelp=
+Label.ReceiverCustomerVirtualBalanceAfter= O saldo final do destinatario de cliente virtual
+Label.ReceiverCustomerVirtualBalanceAfterHelp=
+Label.TransactionChainState=Estado da cadeia de transacao
+Label.TransactionChainStateHelp=
+Label.Customer=Cliente
+Label.CustomerHelp= O cliente paga por transacao
+Label.OriginalChainErsReference=Cadeia original ERS de referencia
+Label.ResendNotification=Reenviar notificacao
+
+# Single transaction search
+Label.SingleTransactionSearch=Procura pela unica transacao 
+Label.SingleTransactionSearchScreenTitle=Procura pela unica transacao
+
+
+# Captcha
+Label.CaptchaText=Por favor, digite os caracteres abaixo, caso nao importa.
+
+
+# Basic components labels (GWT components)
+Label.Submit=Submeter
+Label.Reset=Restabelecer
+Label.OK=Ok
+Label.Cancel=Cancelar
+Label.Yes=Sim
+Label.No=Nao
+Label.MessageTitle=mensagem
+Label.ErrorTitle=Erro
+Label.EmptyReport=O relatorio esta vazio
+Label.Row=Linha
+Label.Page=Pagina
+Label.PageNoAndTotalSeparator=/
+Label.FirstPage=&lt;&lt;Primeiro
+Label.PreviousPage=&lt;anterior
+Label.NextPage=Proximo&gt
+Label.LastPage=ultimo&gt;&gt
+Label.Export=Exportar
+Label.RequiredFieldDescription=* Os campos marcados sao mandatorios
+Label.RequiredFieldSign=*
+
+# Remittance Screen
+Label.RemittanceScreenTitle=enviar dinheiro
+Label.RemittanceScreen1=passo 1 of 2 - Digite enviar detalhes dinheiro
+Label.RemittanceScreen2=passo 2 of 2 - confirmar transação
+Label.SendingCustomer=enviando ao Cliente
+Label.ReceivingCustomer=receber Cliente
+Label.PaymentDetails=Detalhes Do Pagamento
+Label.RemittanceSenderCustomerID=remetente identidade
+Label.RemittanceReceiverCustomerID=recebedor identidade
+Label.RemittanceCustomerIDHelp=cliente identidade registrado em o sistema.
+Label.SenderCustomerId=remetente Identificação do Cliente
+Label.SenderCustomerIdHelp=remetente Identificação do Cliente
+Label.SenderName=nome
+Label.SenderNameHelp=nome
+Label.SenderPhone=telefone
+Label.SenderPhoneHelp=telefone Socorro
+Label.SenderAddress=endereço
+Label.SenderAddressHelp=endereço Socorro
+Label.SenderCountry=país
+Label.SenderCountryHelp=país Socorro
+Label.ReceiverCustomerId=recebedor Identificação do Cliente
+Label.ReceiverCustomerIdHelp=recebedor Identificação do Cliente Socorro
+Label.ReceiverName=nome
+Label.ReceiverNameHelp=nome
+Label.ReceiverPhone=telefone
+Label.ReceiverPhoneHelp=telefone Socorro
+Label.ReceiverAddress=endereço
+Label.ReceiverAddressHelp=endereço Socorro
+Label.ReceiverCountry=país
+Label.ReceiverCountryHelp=país Socorro
+Label.RemittanceAmount=remessa quantidade
+Label.RemittanceAmountHelp=The quantidade para transferência para recebedor cliente sem taxa
+Label.RemittanceTransactionFinished=transação com sucesso acabado com referência nenhuma. :
+Label.RemittanceReceiptTitle=remessa - Envie dinheiro recibo
+Label.RemittanceService=remessa serviço
+Label.RemittanceServiceHelp=escolher remessa serviço com taxa ou sem dinheiro.
+Label.PaymentAmountHelp=Montante em moeda de pagamento
+Label.PaymentCurrencyHelp=Moeda preço ao Cliente
+Label.PaymentAmount=preço ao Cliente
+Label.PaymentCurrency=moeda do cliente
+Label.AgentPrice=agente Preço
+Label.AgentPriceHelp=Preço para Comissão de Agente
+Label.ExchangeRate=Taxa De Câmbio
+Label.ExchangeRateHelp=Taxa de Conversão entre estes Moedas
+Label.TotalAmountHelp=Valor da transferência incluindo taxa
+Label.TotalAmount=montante total
+Label.FeeAmount=valor da taxa
+Label.FeeAmountHelp=Taxa para a transação
+Label.PaymentReference=referência de pagamento
+Label.PaymentReferenceHelp=Referência bancária ou cheque não
+Label.PricingDetails=Detalhes do preço
+Label.NoSubscriberFound="Não Assinante encontrado"
+Label.CancelTransactionFinished=Transação é cancelada com sucesso
+Label.ReceiverAlias=aliás
+Label.ReceiverAliasHelp=Nomeie o cliente para ser fácil de lembrar
+Label.ReceiverList=lista receiver
+Label.ReceiverListHelp=Pessoas registrado como sua lista receptor
+Label.Recurring=recorrente
+Label.RecurringHelp=Calendário de pagamentos recorrentes
+Label.RecurringDetails=Detalhes recorrentes
+Label.RecurringStartDate=Data Inicial
+Label.RecurringStartDateHelp=Data de pagamento recorrente começar
+Label.RecurringEndDate=final de
+Label.RecurringEndDateHelp=Data final de pagamento recorrente
+Label.RecurringPeriod=Período recorrente
+Label.RecurringPeriodHelp=Repita o ciclo de pagamento
+
+# Remittance agent registration screen
+Label.RemittanceEditAgent=Editar Agent
+Label.RemittanceAgentPhoneNumber=Número De Telefone
+Label.RemittanceAgentPhoneNumberHelp=Número de telefone do agente / Organização Número de telefone
+Label.RemittanceOrganizationNumber=Número organização
+Label.RemittanceOrganizationNumberHelp=Número organização
+Label.RemittanceAgentType=Tipo de Agente
+Label.RemittanceAccountType=Tipo De Conta
+Label.RemittanceCreditLimit=Limite De Crédito
+Label.RemittanceCreditLimitHelp=O montante que agente de crédito pode usar se a conta vai abaixo de zero
+Label.RemittancePaylimitPeriod=Período Paylimit
+Label.RemittancePaylimitPeriodHelp=Paylimit é uma maneira de controlar o número de transações ou quantidade agregada que podem ser utilizadas para o período.
+Label.RemittancePaylimitAmount=paylimit Montante
+Label.RemittancePaylimitAmountHelp=O montante agregado das operações de transferência.
+Label.RemittanceTotalTransactions=total de Transações
+Label.RemittanceTotalTransactionsHelp=Total de operações permitidas para o período definido de
+
+
+# Remittance receive screen
+Label.RemittanceReceiveScreenTitle=receber dinheiro
+Label.RemittanceReceiveScreen1=Passo 1 de 2 - Digite receber detalhes dinheiro
+Label.RemittanceReceiveScreen2=Passo 2 de 2 - Confirmar transação
+Label.RemittanceReceiveAmountHelp=O cliente valor será recebido
+Label.ReceivePaymentCurrencyHelp=A moeda que cliente deseja obter o dinheiro
+Label.ReceivePaymentAmountHelp=Montante em moeda de pagamento
+Label.ReceivePaymentAmount=receber Montante
+Label.ReceivePaymentCurrency=receber Moeda
+Label.RemittanceReference=Remessa transação ID
+Label.RemittanceReferenceHelp=ID da transação do remetente remessa
+Label.RemittanceReceive=receber dinheiro
+Label.ReceivingService=Serviço recebendo
+Label.ReceivingServiceHelp=Serviço para receber dinheiro
+Label.ReceivingAmount=receber Montante
+Label.ReceivingAmountHelp=Montante a ser recebido
+Label.AgentCommission=Comissão Agent
+Label.AgentCommissionHelp=Comissão de Agente
+Label.SendingAgent=enviando Agent
+Label.Receive=receber
+
+
+# Subscriber search screen
+Label.SubscriberSearchScreen=Procurar assinante
+Label.SubscriberCountryHelp=Pais do assinante
+Label.SubscriberId=Identificacao do assinante
+Label.SubscriberIdHelp=Unica identificacao do assinante gerada pelo ERS
+Label.SubscriberSearchScreenTitle=Procurar assinante
+Label.IdNumber=Nr de identificaco
+Label.IdNumberHelp=e Nome de identidade do um tipo especifica de identidade 
+Label.RemittanceSend=Enviar dinheiro
+Label.SubscriberResultEmpty=Nenhum assinante encontrado
+Label.Edit=Edit Editar
+
+# Register Subscriber Screen
+Label.RegisterSubscriberScreenTitle=escrivão
+Label.RegisterSubscriberScreen=Registre-se assinante
+Label.EditSubscriberScreen=Editar assinante
+Label.ShouldBeSelected= deve ser seleccionado
+Label.AddFiles=Adicionar arquivos)
+Label.Upload=Carregar
+
+# Remittance Cancel Screen
+Label.RemittanceCancelScreenTitle=Cancelar Enviando Dinheiro
+Label.RemittanceCancelDetails1=Passo 1 de 2 - Digite cancelar detalhes dinheiro
+Label.RemittanceCancelDetails2=Passo 2 de 2 - Confirmar transação
+Label.CancellingAmount=Cancelando Montante
+Label.CancellingAmountHelp=
+Label.CancellingCurrency=Cancelamento de Moeda
+Label.CancellingCurrencyHelp=
+Label.CancelSending=Cancelar o envio de dinheiro
+
+
+# Voucher Screen
+Label.VoucherScreenTitle=Vender Comprovante
+Label.VoucherScreen=Detalhes Abono
+Label.VoucherPhoneNo=Id Subscriber
+Label.VoucherPhoneNoHelp=
+Label.VoucherAmount=valor do voucher
+Label.VoucherAmountHelp=
+Label.VoucherService=comprovante Tipo
+Label.VoucherServiceHelp=
+Label.VoucherTransactionFinished=Transação concluída com êxito com referência não. :
+Label.VoucherReceiptTitle=Recibo comprovante
+
+# Request credit transfer
+Label.RequestCreditTransferScreenTitle=pedido de crédito
+Label.RequestTransferDetails=Pedido de Créditos detalhes
+
+# Search reseller users
+Label.SearchUsers=Procurar Usuários PROCURAR usuario
+Label.UserResultEmpty=Nenhum usuário encontrado Nenhum usuário encontrado
+
+# Register/Update reseller users
+Label.RegisterAgentUserScreenTitle=Registre-se Usuários
+Label.RegisterAgentUserScreen=Registre-se Usuário
+Label.EditAgentUserScreen=Editar Usuário
+Label.UserIdHelp=
+
+Label.IdentificationNo=Sem identificação
+Label.IdentificationNoHelp=Sem identificação
+Label.ShouldExpire=deve expirar
+Label.PaymentExpiration=expiração de pagamento
+Label.ExpiresAt=expira no
+
+#Dynamic Fields
+#Each KYC Fields are mapped based on Field-Id and Field-Description.
+#Example: Each field is mapped like <fileldId>:<fieldDescription> separated by comma(,). 
+Label.DynamicFields=FirstName:primeiro Nome, FirstNameHelp: Digite seu primeiro nome, sobrenome: Sobrenome, LastNameHelp: Digite seu último nome, MSISDN: Telefone não, MobileNoHelp: Digite seu celular não em formato t.ex. internacional 46762000123, Cidade: City, CityAjuda: cidade do endereço, código postal: Código postal, PostCodeHelp: CEP do endereço, StreetAddress: Endereço, StreetAddressHelp: Rua de seu endereço, IdentificationType: Tipo de Identificação, IdentificationTypeHelp: identificação do tipo de ajuda, IdentificationNo : Identificação Não, IdentificationNoHelp: Identificação No Help, IdentificationFiles: Identificação de arquivo (s), IdentificationFilesHelp: Identificação Arquivos de Ajuda, Passaporte: Passaporte, IDcard: ID Card, DrivingLicense: carta de condução, Outros: Outros

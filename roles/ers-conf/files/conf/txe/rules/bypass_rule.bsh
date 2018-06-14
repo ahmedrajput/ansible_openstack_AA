@@ -1,0 +1,7 @@
+import com.seamless.ers.txe.transaction.processors.TXERequestProcessor;
+
+
+public boolean validate()
+{
+	return true;
+}

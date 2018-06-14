@@ -1,0 +1,119 @@
+import org.apache.log4j.Logger;
+
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+import com.seamless.ers.interfaces.ersifclient.result.TransactionResult;
+import com.seamless.ers.interfaces.ersifcommon.dto.Amount;
+import com.seamless.ers.interfaces.ersifcommon.dto.ERSHashtableParameter;
+import com.seamless.ers.interfaces.ersifcommon.dto.Principal;
+import com.seamless.ers.interfaces.ersifcommon.dto.accounts.AccountData;
+import com.seamless.ers.interfaces.platform.clients.transaction.model.ERSAccountSpecifier;
+import com.seamless.ers.interfaces.platform.clients.transaction.model.ERSMap;
+import com.seamless.ers.interfaces.platform.clients.transaction.model.ERSPrincipalId;
+import com.seamless.ers.interfaces.platform.clients.transaction.model.ERSTransactionResultCode;
+import com.seamless.ers.interfaces.platform.clients.transaction.processing.data.ERSTransactionContext;
+import com.seamless.ers.interfaces.platform.clients.transaction.processing.response.ERSTransactionProcessingServiceResponse;
+import com.seamless.ers.interfaces.platform.internal.customoperations.data.CustomOperationRequestType;
+import com.seamless.ers.interfaces.platform.internal.customoperations.data.ERSCustomOperationRequest;
+import com.seamless.ers.interfaces.platform.internal.customoperations.response.ERSCustomOperationResponse;
+import com.seamless.ers.interfaces.platform.internal.customoperations.response.ERSCustomOperationResultCode;
+import com.seamless.ers.txe.TXEConfig;
+import com.seamless.ers.txe.conversion.ClientToTXEModel;
+import com.seamless.ers.txe.conversion.TXEToClientModel;
+import com.seamless.ers.txe.conversion.TXEToInternalModel;
+import com.seamless.ers.txe.transaction.model.ERSCustomOperationTransaction;
+import com.seamless.ers.txe.transaction.model.ERSStandardProfiles;
+import com.seamless.ers.txe.transaction.model.TXETransaction;
+import java.util.Collections;
+import java.util.Map;
+
+private void translateResponse(ERSCustomOperationResponse response,ERSCustomOperationTransaction transaction)
+	{
+		/* Always set operation specific result code */
+		transaction.setOperationResultCode(response.getOperationResultCode());
+
+		if (response.getServiceCost() != null)
+		{
+			Amount operationServiceCost = new Amount(response.getServiceCost()
+					.getValue(), response.getServiceCost().getCurrency());
+			transaction.setServiceCost(operationServiceCost);
+		}
+		if (response.getOperationResultParameters() != null)
+		{
+			transaction.setOperationResultParameters(new ERSHashtableParameter(
+					response.getOperationResultParameters()));
+		}
+
+ 		transaction.setTransactionResultMessage(response.getOperationResultParameters().get("anonymousId"));
+		// TODO: map INVALID_PARAMETERS, UNSUPPORTED_SERVICE
+		switch (response.getResultCode())
+		{
+		case ERSCustomOperationResultCode.SUCCESS:
+			break;
+		case ERSCustomOperationResultCode.OPERATION_FAILED:
+			transaction.setResult(ResultCodes.CUSTOM_OPERATION_FAILED);
+			break;
+		case ERSCustomOperationResultCode.OPERATION_DENIED:
+			transaction.setResult(ResultCodes.OPERATION_DENIED);
+			break;
+		case ERSCustomOperationResultCode.INVALID_TARGET_PRINCIPAL:
+			transaction.setResult(ResultCodes.INVALID_PRINCIPAL);
+			break;
+		case ERSCustomOperationResultCode.SERVICE_UNAVAILABLE:
+			transaction.setResult(ResultCodes.SERVICE_UNAVAILABLE);
+			break;
+		case ERSCustomOperationResultCode.UNSUPPORTED_OPERATION:
+			transaction.setResult(ResultCodes.OPERATION_UNSUPPORTED);
+			break;
+		default:
+			transaction.setResult(ResultCodes.LINK_ERROR);
+			break;
+		}
+	}
+	
+public void completed(BusinessLogicTransaction blTransaction)
+{
+	// TODO Auto-generated method stub
+	//logger.info("SUBSCRIBER_QUERY_ANONYMOUSID --------->>>>COMPLETE");
+	try
+		{
+			ERSCustomOperationTransaction transaction = blTransaction.getTransaction();
+			if(transaction.getClientType().equalsIgnoreCase("SMS") && transaction.getOperationResultParameters().getParameters() != null 
+			   && (transaction.getOperationResultParameters().getParameters().isEmpty()
+			       || transaction.getOperationResultParameters().getParameters().get("anonymousId") == null))
+             {
+             	logger.info("Executing custom operation: SUBSCRIBER_ANONYMOUS_ID_GENERATE");
+				ERSCustomOperationRequest request = new ERSCustomOperationRequest(
+					transaction.getErsReference(),
+					CustomOperationRequestType.COMMIT,
+					"SUBSCRIBER_ANONYMOUS_ID_GENERATE",
+					TXEToInternalModel.convertToPSPrincipal(transaction
+							.getTargetPrincipal()),
+					TXEToInternalModel.convertToMap(transaction
+							.getOperationParameters()));
+				ERSCustomOperationResponse response = config
+					.getCustomOperationServiceProvider().makeRequest(request);
+				logger.info("Executed custom operation: SUBSCRIBER_ANONYMOUS_ID_GENERATE "
+					+ ", result: "
+					+ response.getResultCode());
+				translateResponse(response,transaction);
+             }
+			
+			
+		}
+		catch (Exception e)
+		{
+			logger.error(
+					"Failed to execute custom operation "
+							+ transaction.getOperationId());
+			setResult(ResultCodes.LINK_ERROR);
+		}
+}
+
+public boolean validate(BusinessLogicTransaction blTransaction)
+{
+	return true;
+}
+
+
+
+	

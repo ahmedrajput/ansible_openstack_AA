@@ -1,0 +1,5 @@
+---
+# vars file for openstack_project
+DEMO_PASS: 26e3c50b4c53dd045b63
+ADMIN_PASS: 56dda5cced74f3168ba6
+VIP: 10.10.10.4

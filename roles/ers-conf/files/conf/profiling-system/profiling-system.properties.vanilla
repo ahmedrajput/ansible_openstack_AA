@@ -1,0 +1,84 @@
+# Properties for module mcs-profiling-system
+
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=90
+flowcontrol.default.max_parallel_requests=100
+flowcontrol.default.log_stats=FALSE
+flowcontrol.default.log_stat_interval=600
+
+ws.endpoint.threadpool.max.queuesize = 256
+ws.endpoint.threadpool.initial.threads = 5
+ws.endpoint.threadpool.high.watermark = 25
+ws.endpoint.threadpool.low.watermark = 5
+ws.endpoint.threadpool.dequeue.timeout.millis = 120000
+ws.endpoint.threadpool.name = ProfilingSystemCXFThreadPool
+
+
+############################ Bean Factory configuration ##################################
+## Can be used to determine which bean implementations to use for specific interfaces/abstract.
+## Mandatory beans:
+### SalesDataService: Service which provides data for reseller sales.
+### ProfilingDateRangeService: Service which calculates start date and end date for which reseller profile is evaluated.
+#############################
+
+beans_factory.beans[0].originalName=ElasticSearchSalesDataService
+beans_factory.beans[0].registerAs=SalesDataService
+
+beans_factory.beans[1].originalName=CycleProfilingDateRangeService
+beans_factory.beans[1].registerAs=ProfilingDateRangeService
+
+############################ Micro Credit Configurations ##################################
+
+#Format of current cycle start date which is stored in profilingdb.micro_credit_system_variables
+profile.current_cycle_start_date_format=yyyy-MM-dd
+
+#window size for which data is collected to make profile. it determines the start date and end date for querying sales data.
+profile.window_size_days=90
+
+#window slide duration is the cycle length. it determines after how many days the cycle will change.
+#Ideally it should be less than window size.
+profile.window_slide_duration_days=15
+
+## scoring_type and amount type can be used to change the calculation of micro credit mechanism. For example:
+# By setting RESELLER in both properties will lead the system to individual profiling. i.e. Slab will be selected based
+# on reseller's individual score and the amount that will be given will be according to reseller's sales.
+#
+# Credit score that will be used for selection of slab. It can be set to any of the following values.
+# RESELLER, SYSTEM (default), HIGHER, LOWER, AVERAGE (RESELLER/2 + SYSTEM/2), CUSTOM
+# NOTE: CUSTOM scoring type should be implemented under performCustomScoringTypeOnScore method in CreditScoringService.groovy
+profile.credit_score.scoring_type=RESELLER
+
+# Credit score in amount for which the selected criteria is applied. It can be set to any of the following values.
+# RESELLER, SYSTEM (default), HIGHER, LOWER, AVERAGE (RESELLER/2 + SYSTEM/2), CUSTOM
+# NOTE: CUSTOM scoring type should be implemented under performCustomScoringTypeOnAmount method in CreditScoringService.groovy
+profile.credit_score.amount_type=RESELLER
+
+
+## Resellers score is compared with this percentage of system's average.
+# If reseller's average is less than the percentage of  system's average, reseller will be ineligible.
+# For example: eligible: reseller_credit_score is 410 and system_credit_score is 400 and percentage value is 70. So, 410 >= 70 * 400/100 -->  410 >= 280(true)
+# ineligible : reseller_credit_score is 300 and system_credit_score is 450 and percentage is 70. So, 300 >= 70 * 450/100 --> 300 >= 315 (false)
+profile.eligibility_credit_score_percentage=70
+
+## Criteria Service Configuration
+# Eligibility criteria type --> Absolute:1, percentage:2
+# If eligibility criteria type is 2, percentage will be calculated based on the value of property profile.credit_score.amount_type.
+#If use_slabs_criteria = true then system will use slabs criteria.
+#If slabs criteria fails due to some reason and use_default_criteria_after_slabs_failure=true, system will use default criteria.
+#If slabs criteria fails and use_default_criteria_after_slabs_failure=false, system will return BAD_USER_PROFILE(1401) response code.
+#If slabs use_slabs_criteria = false and  use_default_criteria_after_slabs_failure = true, system will use default criteria.
+profile.use_slabs_criteria=true
+profile.use_default_criteria_after_slabs_failure=true
+profile.default_eligibility_criteria_value=10
+profile.default_eligibility_criteria_type=2
+
+############################ Elasticsearch Configurations ################################
+elasticsearch.hostname=localhost
+elasticsearch.port=9300
+elasticsearch.cluster.name=ers-reseller-data
+elasticsearch.client.transport.sniff=false
+elasticsearch.client.transport.ping_timeout=60
+#index name is equivalent to db name
+elasticsearch.index.name=tdr_csv_index
+#type name is equivalent to table name
+elasticsearch.index.type.name=tdrs

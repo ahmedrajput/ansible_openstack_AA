@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimpleFileCMS 
+	xmlns="http://www.seamless.se/SimpleFileCMS" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.seamless.se/SimpleFileCMS">
+	<LanguageFile language="en" filename="messages_english.properties"/>
+	<LanguageFile language="pt" filename="messages_portuguese.properties"/>
+</SimpleFileCMS>

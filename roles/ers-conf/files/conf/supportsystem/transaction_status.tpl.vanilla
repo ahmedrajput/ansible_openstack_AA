@@ -1,0 +1,10 @@
+<#if transactions ??>
+<#list transactions as tx>
+Time:${tx.startTime?string("yyyy-MM-dd HH:mm:ss")} Type:${tx.typeName} <#if tx.amount??><#attempt>Amount:${(amountUtils.formatAmount(tx.amount))}<#recover></#attempt> </#if>Receiver:${(tx.receiverId.id)!""} Status:<#if tx.resultCode = 0>Successful<#elseif tx.resultCode = 1>Pending<#else>Failed</#if>
+</#list>
+<#if transactions?size == 0>
+No transaction found that belongs to you.
+</#if>
+<#else>
+No transaction found.
+</#if>

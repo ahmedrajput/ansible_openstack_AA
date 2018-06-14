@@ -1,0 +1,256 @@
+###############################################################################
+# Bonus Database
+promotionsystem_db.db_driver=org.mariadb.jdbc.Driver
+promotionsystem_db.db_url=jdbc:mysql://localhost:3306/promotionsystem
+promotionsystem_db.db_user=refill
+promotionsystem_db.db_password=refill
+promotionsystem_db.pool_min_size=1
+promotionsystem_db.pool_max_size=10
+
+###############################################################################
+# Sales Database
+sales_db.db_driver=org.mariadb.jdbc.Driver
+sales_db.db_url=jdbc:mysql://localhost:3306/dataaggregator
+sales_db.db_user=refill
+sales_db.db_password=refill
+sales_db.pool_min_size=1
+sales_db.pool_max_size=10
+sales_db.reseller_table=resellers
+
+###############################################################################
+# Location of the ERS Transaction Processing Interface
+#
+ers_systemadmin.url=http://localhost:8777/txe/transactionProcessing
+ers_systemadmin.username=smsapp
+ers_systemadmin.password=smsapp
+ers_systemadmin.sysadmin_userid=root
+ers_systemadmin.sysadmin_password=krokuss123
+
+###############################################################################
+# General promotionsystem system properties
+promotionsystem.channel=PROMOTIONSYSTEM
+promotionsystem.language=en
+promotionsystem.promotion_currency=IRR
+
+#frequency of checking user authentication session status with ERS single signon interface
+promotionsystem.session_recheck_timeout=60
+promotionsystem.promotion_source_reseller=OPERATOR
+promotionsystem.channelOptions=SMS,USSD,WEB,WEBSERVICE
+
+# Fields can be re arranged, all monetary fields are listed below:
+# SENDER,SENDER_REGION,RECEIVER,RECEIVER_REGION,CHANNEL,TARGET_ACCOUNT_TYPE,MIN_TRANSACTION_VALUE,TARGET,TARGET_TYPE,BONUS,BONUS_TYPE,BONUS_ACCOUNT_TYPE
+
+# Optional fields: BONUS_ACCOUNT_TYPE, CHANNEL, SENDER_REGION, RECEIVER_REGION, TARGET_ACCOUNT_TYPE
+promotionsystem.monetaryRuleFields=SENDER,SENDER_REGION,RECEIVER,RECEIVER_REGION,CHANNEL,TARGET_ACCOUNT_TYPE,MIN_TRANSACTION_VALUE,TARGET,TARGET_TYPE,BONUS,BONUS_TYPE,BONUS_ACCOUNT_TYPE
+
+promotionsystem.enableMonetaryRule=true
+promotionsystem.enableNonMonetaryRule=false
+###
+# By Default, it is false
+#promotionsystem.runPreMaturedCampaigns=false
+
+###############################################################################
+# Date format
+promotionsystem.dateTimeFormat = yyyy-MM-dd HH:mm:ss
+promotionsystem.dateFormat = yyyy-MM-dd
+
+###############################################################################
+# Add customized currency
+# This is count of number of decimal digits
+# This value will be used for rounding promotion amount
+# Possible values are 0, 1 or 2.
+#locale.custom_currency.EUR=0
+locale.custom_currency.IRR=2
+# this locale is used by gwt locale.
+# Use point as decimal and comma as thousand separator
+# For custom separators, do not use it in this configuration
+# Instead use them in currency.<x>.thousand_separator and currency.<x>.decimal_separator
+#locale.currency_formatting.EUR=###,##0
+
+###############################################################################
+#currencies and their properties
+#currency.GHC.validation_regexp = ^\\d+\\.?\\d{0\,2}$
+#currency.GHC.thousand_separator=,
+#currency.GHC.decimal_separator=.
+#currency.GHC.minor_decimal_count=2
+
+###############################################################################
+# Regions settings
+promotionsystem.regions.enableRegionsInMonetaryRule=true
+promotionsystem.regions.repository=com.seamless.ers.component.promotionsystem.server.model.RestRegionRepository
+promotionsystem.regions.repository.regions_uri=http://localhost:55432/regions
+promotionsystem.regions.allowedPromotionLevels=1,2,3
+
+###############################################################################
+## details of user to use when connection to the core web service
+# It's PrincipalIdType can be one of these:
+# RESELLERUSER, ADMINUSER, RESELLERMSISDN, TERMINALID, SUBSCRIBERMSISDN, MOLLETUSER, SUBSCRIBERIDENDTITY,SUBSCRIBERANONYMOUSID
+ers_systemadmin.sysadmin_userid=IranOperator/webuser
+ers_systemadmin.sysadmin_password=20162016
+ers_systemadmin.PrincipalIdType=RESELLERUSER
+
+###############################################################################
+# Location of the system admin interface
+#
+ers_single_signon.url=http://localhost:8911/singleSignon
+#ers_single_signon.username=smsapp
+#ers_single_signon.password=smsapp
+ers_single_signon.enabled=true
+
+###############################################################################
+# Name of the CM system.
+#cms.classname=SimpleFileCMS
+# The default language to be used by CM
+#cms.languages=en
+
+# The language mapping file.
+cms.en.filename=promotionsystem_texts_english.properties
+
+# The language file encoding.
+#cms.en.encoding=UTF-8
+
+
+###### Reseller type and level mapping
+# ex. : Operator -> Distributor -> SubDistributor -> Reseller
+# List of principals supposed to be supported by ers-promotionsystem.
+# To add another principal, add this
+#  promotionlevels.<index-value>.name=Descriptive name of the principal
+#  promotionlevels.<index-value>.level=at which level the principal exists in ERS
+#  promotionlevels.<index-value>.calculationQuery=Name of the intended query which
+#                                 should be used for calculating promotions
+#
+#  List of all queries defined for the promotionsystem should be started with
+#  promotionquery as prefix.
+#
+#
+
+promotionlevels.1.name=Distributor
+promotionlevels.1.level=1
+promotionlevels.1.calculationQuery=transferquery
+
+promotionlevels.2.name=Sub Distributor
+promotionlevels.2.level=2
+promotionlevels.2.calculationQuery=transferquery
+
+promotionlevels.3.name=Reseller
+promotionlevels.3.level=2
+promotionlevels.3.calculationQuery=transferquery
+
+#promotionlevels.3.name=End Subscriber
+#promotionlevels.3.level=3
+#promotionlevels.3.calculationQuery=transferquery
+
+
+# Optional: Needed if hierarchy is not linear.
+# Default: Values are set with logic -- sender level <= receiver level
+# Use level values from promotionlevels.<index-value>.level to define hierarchy
+# Syntax: hierarchy= {mapping} (| {mapping})*
+# {mapping} = {parent level}->{child level} (, {child level})*
+# e.g. hierarchy=1->2,3|2->4|3->4
+# hierarchy=1->2|2->3|3->4
+#hierarchy=1->2|2->2|2->3|3->3|3->4|4->4
+
+# Different types of queries for calculating promotions based on
+# different principals supported by ERS.
+# like Reseller, Airtime Subscribers, Mobile Money Subscribers etc.
+#
+# To add query for promotionsystem, add this
+#   promotionquery.Unique name of the query=Intened query
+#
+# use the uniquely defined name when defining promotion level
+# promotionlevels.<index-value>.calculationQuery= name of query
+#
+
+# Query is for all resellers in ERS. As between resellers, only CREDIT_TRANSFER
+# transaction can be done, query is considering only CREDIT_TRANSFER and
+# REVERSE_CREDIT_TRANSFER. Query finds details of both sender and receiver by
+# joining transaction_details table two times - one for sender and another for
+# receiver. Only for sender accounts and account_types tables are used to determine
+# which accountType is used during the transactions(at.accountTypeName LIKE '%AIRTIME%').
+# resellers table is joined to match resellerId. Channel is matched with transactions table.
+# With receiver details, checking only level of the resellers(r_r.resellerLevel = ${campaignRule.receiverResellerLevel}).
+#
+promotionquery.transferquery=/opt/seamless/conf/promotionsystem/transferquery.sql
+
+# Query is for all end subscribers in ERS. As between resellers and subscribers,
+# only TOPUP transactions can be done, query considered only TOPUP and REVERSE_TOPUP
+# REVERSE_CREDIT_TRANSFER. Query finds details of both sender and receiver by
+# joining transaction_details table two times - one for sender and another for
+# receiver. Only for sender accounts and account_types tables are used to determine
+# which accountType is used during the transactions(at.accountTypeName LIKE '%AIRTIME%').
+# resellers table is joined to match resellerId. Channel is matched with transactions table.
+# With receiver details, checking only level of the resellers. As for topup, operator account
+# is debitted with topup amount, query is checking receiverLevel as 0(as 0 is the level
+# of the operator reseller in ERS)
+#
+promotionquery.subscriberquery=/opt/seamless/conf/promotionsystem/transferquery.sql
+
+# List of products registered in ERS for doing different transactions based on
+# account types and for voucher based transactions. Here keys will be the productSKU
+# and values will be any readable text for the drop down in UI of promotionsystem.
+# Example:
+#     target.transaction_types.productSKU.<Ordering like 1,2,3><productSKU of the product>=<Readable text to describe the product>
+#     target.transaction_types.productSKU.1.TRANSFER=Credit Transfer
+#     target.transaction_types.productSKU.2.TOPUP=Topup
+# To give multiple account support for productSKUs of both transfer and topup,
+# we use first letter of account type to be appended in the productSKU like
+# for airtime transfer productSKU is TRANSFER_A. To put this type of products
+# in the configuration, use the following approach
+# Example:
+#     target.transaction_types.productSKU.1.%_A=Airtime Transactions
+#     target.transaction_types.productSKU.2.%_P=Postpaid Transactions
+# where % means TRANSFER/TOPUP
+
+target.transaction_types.productSKU.1.TRANSFER=Credit Transfer Transactions
+target.transaction_types.productSKU.2.TOPUP=Topup Transactions
+target.transaction_types.productSKU.3.CASHIN=Cashin Transactions
+
+# List of sub accounts of resellers on which bonus will be awarded
+# should be no space between values of account types
+bonus.account_types=RESELLER
+
+# Mapping between bonus account types and accounTypeId defined in ERS
+# Format: accountType:accountTypeId
+# Example: AIRTIME:RESELLER_AIRTIME, POSTAPID:RESELLER_POSTPAID
+# It is required as for doing transfer between resellers, account information
+# should be passed.
+bonus.account_types.accounTypeId.mapping=RESELLER:RESELLER
+
+# Mapping between bonus account types and productSKU defined in ERS
+# Format: accountType: productSKU
+# Example: AIRTIME:TOPUP, POSTAPID:RESELLER:TRANSFER
+# It is required as for doing transfer between resellers, account information
+# should be passed.
+bonus.account_types.productSKU.mapping=RESELLER:TRANSFER
+
+# Hide resellers who got promotions of zero values
+# The information is displayed when click on "Show" button against campaign
+# set true/false for the configuration. Default it is false
+# means will not show resellers those have promotionAmount zero in the table
+# promotion_records.
+# in future will add more configurations of reports prefix with promotionreport
+promotionreport.hide_resellers_with_zero_promotion=false
+
+# Query setting for nonmonetary rules based on transaction profile
+nonmonetaryrule.transactionprofile.1.id=RESELLER_CREATE
+nonmonetaryrule.transactionprofile.1.name=Reseller creation
+nonmonetaryrule.transactionprofile.1.query=resellerCreationQuery
+nonmonetaryrule.transactionprofile.1.enableChannel=true
+nonmonetaryrule.transactionprofile.1.enableTransactionCount=false
+
+
+promotionquery.resellerCreationQuery=SELECT resellerId, count(*) as 'transactionCountOverPeriod',0 as sentAmountOverPeriod FROM resellers WHERE createDate BETWEEN ? AND ? group by resellerId
+
+# Maximum size of list to be exported in excel for Generated Bonus Records
+
+generatedbonusrecords.exportedatasize = 1000
+
+#Configurable Export Button for Promotions
+promotionsystem.exportEnable=false
+
+#Configurable thousand separator
+promotionsystem.thousandseperator=,
+#Configurable decimal separator
+promotionsystem.decimalSeparator=.
+#Configurable decimal places
+promotionsystem.decimalplaces=2

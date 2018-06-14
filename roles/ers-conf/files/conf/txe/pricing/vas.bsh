@@ -1,0 +1,31 @@
+// sender - is the sender account
+// target - is the target account
+// operation - is the vas operation id as a string like FAF_ADD, etc.
+// price - is the price suggested by the link, otherwise null
+// isPriceAppliedByLink - is true if the link has added a price, otherwise false,
+
+calculate(Account sender, Account target, String operation, Amount price, boolean isPriceAppliedByLink)
+{	
+	if (isPriceAppliedByLink)
+	{
+		// In case the price is added by the link we do nothing.
+	}
+	else if (price != null)
+	{
+		// A price has been suggested by the link so we need to take care of it.
+		
+        fee = AmountUtils.finalizeAmount(price);
+	    Account operator_fee_account = new Account("BOOKKEEPING", "FEES");
+	    addOtherTransaction(operator_fee_account, fee, AccountTransactionClassifier.Fee);
+	    addSenderTransaction(target, fee.clone().negate(), AccountTransactionClassifier.Fee);	
+	}
+	else
+	{
+		// Default price added for all other tasks.
+		
+	    fee = AmountUtils.finalizeAmount(new Amount(new BigDecimal("5"), "EUR"));
+	    Account operator_fee_account = new Account("BOOKKEEPING", "FEES");
+	    addOtherTransaction(operator_fee_account, fee, AccountTransactionClassifier.Fee);
+	    addSenderTransaction(target, fee.clone().negate(), AccountTransactionClassifier.Fee);
+	}
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jetm-config PUBLIC "-// void.fm //DTD JETM Config 1.2//EN"
+                             "http://jetm.void.fm/dtd/jetm_config_1_2.dtd">
+<!--  
+	Default JETM config for Core
+-->
+<jetm-config autostart="true">
+  <aggregator-chain>
+
+    <chain-element class="etm.core.aggregation.BufferedTimedAggregator">
+      <!-- Set aggregation interval to 1 second -->
+      <property name="aggregationInterval">1000</property>
+    </chain-element>
+
+    <chain-element class="etm.contrib.aggregation.log.Log4jAggregator">
+      <!-- Set commons-logging log category -->
+      <property name="logName">etm-result</property>
+    </chain-element>
+
+  </aggregator-chain>
+
+  <extension>
+     <plugin class="etm.contrib.console.HttpConsoleServerPlugin">
+     	<property name="listenPort">48082</property>
+     	<property name="workerSize">2</property>
+     </plugin>
+  </extension>
+</jetm-config>
+
+

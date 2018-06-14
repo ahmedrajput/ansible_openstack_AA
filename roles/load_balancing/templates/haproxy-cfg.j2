@@ -1,0 +1,129 @@
+global
+ chroot  /var/lib/haproxy
+ daemon
+ group  haproxy
+ maxconn  4000
+ pidfile  /var/run/haproxy.pid
+ log {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} local0
+ user  haproxy
+
+defaults
+  log  global
+  maxconn  4000
+  option  redispatch
+  retries  3
+  timeout  http-request 10s
+  timeout  queue 1m
+  timeout  connect 10s
+  timeout  client 1m
+  timeout  server 1m
+  timeout  check 10s
+  
+listen stats {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:80
+       mode http
+       stats enable
+       stats uri /stats
+       stats realm HAProxy\ Statistics
+       stats auth admin:seamless
+
+listen dashboard_cluster
+ bind {{ VIP }}:443
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:443 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:443 check inter 2000 rise 2 fall 5
+
+
+listen galera_cluster
+ bind {{ VIP }}:3306
+ balance  source
+ option  mysql-check
+ server controller1 {{ NODE1 }}:3306 check port 9200 inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:3306 check port 9200 inter 2000 rise 2 fall 5
+
+
+listen glance_api_cluster
+ bind {{ VIP }}:9292
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:9292 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:9292 check inter 2000 rise 2 fall 5
+
+
+listen glance_registry_cluster
+ bind {{ VIP }}:9191
+ balance  source
+ option  tcpka
+ option  tcplog
+ server controller1 {{ NODE1 }}:9191 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:9191 check inter 2000 rise 2 fall 5
+
+
+listen keystone_admin_cluster
+ bind {{ VIP }}:35357
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:35357 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:35357 check inter 2000 rise 2 fall 5
+
+
+listen keystone_public_internal_cluster
+ bind {{ VIP }}:5000
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:5000 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:5000 check inter 2000 rise 2 fall 5
+
+listen nova_compute_api_cluster
+ bind {{ VIP }}:8774
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:8774 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:8774 check inter 2000 rise 2 fall 5
+
+
+listen nova_metadata_api_cluster
+ bind {{ VIP }}:8775
+ balance  source
+ option  tcpka
+ option  tcplog
+ server controller1 {{ NODE1 }}:8775 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:8775 check inter 2000 rise 2 fall 5
+
+
+listen nova_vncproxy_cluster
+ bind {{ VIP }}:6080
+ balance  source
+ option  tcpka
+ option  tcplog
+ server controller1 {{ NODE1 }}:6080 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:6080 check inter 2000 rise 2 fall 5
+
+
+listen neutron_api_cluster
+ bind {{ VIP }}:9696
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:9696 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:9696 check inter 2000 rise 2 fall 5
+
+listen placement_api
+ bind {{ VIP }}:8778
+ balance  source
+ option  tcpka
+ option  httpchk
+ option  tcplog
+ server controller1 {{ NODE1 }}:8778 check inter 2000 rise 2 fall 5
+ server controller2 {{ NODE2 }}:8778 check inter 2000 rise 2 fall 5

@@ -1,0 +1,87 @@
+- name: Adding public key
+  shell: "if [ ! -f /root/.ssh/id_rsa.pub ]; then ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''; fi"
+- name: Adding new Flavor for DB
+  os_nova_flavor:
+   disk: 10
+   name: DB
+   ram: 1024
+   state: present
+   swap: 512
+   vcpus: 2
+   wait: yes
+  register: db_flavor
+- name: Downloading Cirros Image
+  get_url:
+   dest: /tmp/cirros.img
+   url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+- name: Adding new Image in Glance
+  os_image:
+   filename: /tmp/cirros.img
+   disk_format: qcow2
+   name: cirros
+   state: present
+   wait: yes
+  register: cirros_image
+- name: Creating a new network
+  os_network:
+   external: yes
+   shared: yes
+   provider_network_type: flat
+   provider_physical_network: provider
+   name: ext-net
+   state: present
+   wait: yes
+  register: ext_network
+- name: Creating subnet
+  os_subnet:
+   allocation_pool_start: 10.10.10.6
+   allocation_pool_end: 10.10.10.254
+   cidr: 10.10.10.0/24
+   dns_nameservers:
+   - 10.10.10.1
+   - 8.8.8.8
+   enable_dhcp: yes
+   name: ext-net-subnet
+   network_name: ext-net
+   gateway_ip: 10.10.10.1
+   state: present
+   wait: yes
+  register: ext_subnet
+- name: Creating keypair
+  os_keypair:
+   name: server_keypair
+   state: present
+   public_key_file: /root/.ssh/id_rsa.pub
+- name: Creating a sec group
+  os_security_group:
+   name: def-sec-group
+   state: present
+   wait: yes
+- name: Adding icmp rule in sec group
+  os_security_group_rule:
+   security_group: def-sec-group
+   direction: ingress
+   protocol: icmp
+   remote_ip_prefix: 0.0.0.0/0
+   state: present
+   wait: yes
+- name: Adding ssh rule in sec group
+  os_security_group_rule:
+   security_group: def-sec-group
+   direction: ingress
+   protocol: tcp
+   port_range_min: 22
+   port_range_max: 22
+   remote_ip_prefix: 0.0.0.0/0
+   state: present
+- name: Creating a machine
+  os_server:
+   flavor: "{{ db_flavor.id }}"
+   image: "{{ cirros_image.id }}"
+   key_name: server_keypair
+   name: db1
+   network: "{{ ext_network.id }}"
+   security_groups: def-sec-group
+   state: present
+   timeout: 1800
+   wait: yes

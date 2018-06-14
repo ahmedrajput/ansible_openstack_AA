@@ -1,0 +1,14 @@
+# name of file with a list of all possible cellids, one per line
+cellid_file=sample_cellids.txt
+
+# returned cellid if none is configured for MSISDN, if this parameter is empty random cellid is returned
+#cellid_if_none_configured=NO_CELL
+
+# Max and min simulated processing time to lookup cellid.
+# In milliseconds
+min_processing_time=200
+max_processing_time=400
+
+# Time to simulate a timeout, should be longer than the callers read timeout.
+# In milliseconds
+timeout_time=10000

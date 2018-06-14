@@ -1,0 +1,48 @@
+#Reference: https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html
+Configutation:
+  name: Default
+
+  Properties:
+    Property:
+      name: log-path
+      value: "/var/seamless/log/profiling-system"
+
+  Appenders:
+    #Appender will write the logs to console
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%highlight{%d %-5p [%c{1}] [%X{ersReference}] %m%n}{FATAL=red blink, ERROR=red, WARN=green, INFO=normal, DEBUG=normal, TRACE=normal}"
+
+    #Appender will write the logs to rolling file
+    RollingFile:
+      - name: Rolling_Appender
+        fileName: ${log-path}/profiling-system.log
+        filePattern: "${log-path}/profiling-system.log.%d{yyyy-MM-dd-hh-mm}.gz"
+        PatternLayout:
+          pattern: "%highlight{%d %-5p [%c{1}] [%X{ersReference}] %m%n%throwable}{FATAL=red blink, ERROR=red, WARN=green, INFO=normal, DEBUG=normal, TRACE=normal}"
+        Policies:
+        #Roll the log file and zip daily
+          CronTriggeringPolicy:
+            schedule: 0 0 0 * * ?
+        #Keep below defined number of rolling files before deleting them
+        DefaultRollOverStrategy:
+          max: 45
+
+  Loggers:
+      #Root logging level for application
+      Root:
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+          - ref: Rolling_Appender
+      #Application specific logging
+      Logger:
+        - name: se.seamless
+          additivity: false
+          level: debug
+          AppenderRef:
+            - ref: Console_Appender
+              level: info
+            - ref: Rolling_Appender

@@ -1,0 +1,563 @@
+# Channel name to be used for this application.
+# If not configured it falls back to "USSD".
+channel=USSD
+
+# The port to expose the USSD app on
+# The same port has to be configured in the USSD gateway
+#
+port=8680
+
+# How often (in milliseconds) this configuration file will be checked for changes
+# If any changes are found, the configuration file will automatically be reloaded
+#
+config_refresh_interval=5000
+
+# The maximum time in milliseconds that a session is allowed to go on before it is timed out 
+# This is by default 5 minutes
+#
+session_timeout=300000
+
+# The time interval with which timed out sessions will be checked
+# This is by default 30 seconds
+#
+session_cleanup_interval=30000
+
+############################# ERS connection configuration #############################
+
+# Configuration for the connection to the ersifclient
+#
+
+multiple_ersconnection_reseller.enabled=false
+multiple_ersconnection_reseller.1.url=http://localhost:8777/txe/reseller
+multiple_ersconnection_reseller.1.user=ussdapp
+multiple_ersconnection_reseller.1.password=ussdapp
+multiple_ersconnection_reseller.2.url=http://localhost:8777/txe/reseller
+multiple_ersconnection_reseller.2.user=ussdapp
+multiple_ersconnection_reseller.2.password=ussdapp
+
+multiple_ersconnection_subscriber.enabled=false
+multiple_ersconnection_subscriber.1.url=http://localhost:8777/txe/subscriber
+multiple_ersconnection_subscriber.1.user=ussdapp
+multiple_ersconnection_subscriber.1.password=ussdapp
+multiple_ersconnection_subscriber.2.url=http://localhost:8777/txe/subscriber
+multiple_ersconnection_subscriber.2.user=ussdapp
+multiple_ersconnection_subscriber.2.password=ussdapp
+
+# Configuration for the connection to the ersifplatform-client
+#
+ersplatformconnection.url=http://localhost:8777/txe/transactionProcessing
+ersplatformconnection.user=ussdapp
+ersplatformconnection.password=ussdapp
+
+# Configuration for the connection to the ersifplatform-internal
+#
+#ersplatforminternal.url=http://localhost:8912/productService
+#ersplatforminternal.user=ussdapp
+#ersplatforminternal.password=ussdapp
+
+############################# Flow control configuration #############################
+
+# Currently, the ussd app only supports asynchronous flow control, so don't change this!
+flowcontrol.default.asynchronous=false
+
+# How many parallel requests are allowed
+# If this limit is reached, the app will go into cooldown mode rejecting all new requests
+flowcontrol.default.max_parallel_requests=40
+# Configures how long (in milliseconds) the app will stay in cooldown mode 
+flowcontrol.default.cooldown_time=10000
+
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge&from=MTN
+# SMS prefix to be added to the destination number.
+smsprovider.to_prefix=
+
+######## Configuration for the connection to the coreProxy Voucher DB service ##############
+voucherdbconnection.url=http://localhost:8912/voucherDb
+
+############################# Locale configuration #############################
+
+# The default language to use for menus
+# Since the application does not currently support dynamic languages, 
+# this will be the only language used!
+default_language=en
+#default_language=fr
+
+# This determines which character encoding will be sent to the USSD gateway, depending on the language
+#
+default_encoding=UTF-8
+language_encodings.fr=UTF-8
+language_encodings.en=UTF-8
+#language_encodings.en=ISO-8859-1
+
+# MSISDN settings
+#Default network code padded to msisdn in case entered msisdn less than digits of default_country_code_digit + default_network_code_digits + subscriber_number_digits
+locale.default_country_code=224
+#Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+locale.default_network_code=66
+#Length of msisdn excluding network code and country code
+locale.subscriber_number_digits=7
+#Optional properties to set range of allowed network_codes.
+locale.accepted_network_codes=66
+
+# Does a number that starts with a network code require a leading '0'?
+# (0 will not be counted as part the the network code and will be removed from the MSISDN)
+locale.network_code_requires_0_prefix=false
+
+
+# The currency to use
+# All amounts entered will be assumed to be in this currency
+default_currency=GNF
+
+############################# Validation configuration #############################
+
+# Validation regexp used to validate passwords/PIN codes
+password_validation=[0-9]{4}
+
+# Validation regexp used to control entered phone numbers (MSISDN)
+msisdn_validation=.*
+
+# Validation regexp used to control if the entered number is an anonymous topup id
+anonymous_id_validation=(26).*
+
+# Validation regexp used to validate entered ERS references
+# Probably should match an ersReference pattern (TimeStampNodeIdSequenceNumber)
+ers_reference_validation=[0-9]{25}
+
+# Valiation regexp used to check amount integer value
+amount_validation=[0-9]*
+
+voucher_count_valication=^[1-9][0-9]*$
+# Valiation regexp used to check amount decimal value
+decimal_validation=[0-9]{0,2}
+
+# Match only valid dates, that is: 290202 is invalid, 
+# Month with 28 or 29 days: 2
+# Months with 30 days: 4, 6, 9, 11
+# Months with 31 days: 1, 3, 5, 7, 8, 10, 12
+# Matches xxxx01, xxxx01, xxxx01, xxxx01
+# All months can have days 0 to 28, month 2 cannot have 29 or 30 and month
+# 2,4,6,9 and 11 cannot have 31 days
+date_validation=(0[1-9]|1[0-9]|2[0-8]|29(?!02)|30(?!02)|31(?!(0[2469]|11)))(0[1-9]|1[012])[0-9][0-9]
+
+# Validation regexp used to validate entered times
+# 0000-2359
+time_validation=([01][0-9]|2[0-3])[0-5][0-9]
+
+checkDataBundleTypes=false
+
+############################# CMS configuration #############################
+
+# The CMS settings used to fetch the language transaction strings for the menus and messages 
+# sent to the user
+#
+
+# This is the only supported CMS type right now, dont change this!
+#
+cms.classname=SimpleFileCMS
+
+# The supported languages
+#
+cms.languages=en fr
+
+# File containing the french(fr) translations
+cms.fr.filename=ussdapp_messages_fr.properties
+# Encoding for the arabic translations
+cms.fr.encoding=UTF-8
+
+# File containing the english(en) translations
+cms.en.filename=ussdapp_messages_en.properties
+# Encoding for the english translations
+cms.en.encoding=UTF-8
+
+############################# Customer configuration #############################
+
+#Subscriber Identity Document Type
+subscriber.default.identitytype=PERSONAL_ID
+
+multiple_syntax.enable=true
+# *150*0*MSISDN# - FAF REMOVE
+# *150*1*MSISDN# - FAF ADD
+# *150*2# - FAF INFO
+# *150# - FAF INFO
+multiple_syntax.1.commands_regexp=\\*150#
+multiple_syntax.1.full_param_length=2
+multiple_syntax.1.insert_param_index=0
+multiple_syntax.1.insert_param_value=2
+
+# for cmbk string base menu
+multiple_syntax.2.commands_regexp=\\*131.*
+multiple_syntax.2.full_param_length=2
+multiple_syntax.2.insert_param_index.1=0
+multiple_syntax.2.insert_param_value.1=1
+
+## CONFIGURATION FOR for MOMO purchase
+default_purchase_from_mtn=mtn
+default_purchase_from_parent=parent
+
+## CONFIGURATION for Default Name while Registering a Reseller. If empty, MSISDN will be defaulted
+default.FirstName=FirstName
+default.LastName=LastName
+
+## Ussdgw properties
+ussdgw.pushport=8067
+ussdgw.host=localhost
+ussdgw.applicationId=ers
+ussdgw.password=ers
+
+############################# USSD short code configuration #############################
+
+menu.RESSELLER_REVERSAL_MENU=main_menu_reversal
+
+menu.RESSELLER_REVERSAL_MENU.1.id=REVERSAL_REQUEST
+menu.RESSELLER_REVERSAL_MENU.1.classname=USSDRequestReversalR2R
+menu.RESSELLER_REVERSAL_MENU.1.sendSmsResponse=true
+menu.RESSELLER_REVERSAL_MENU.1.requirePassword=true
+
+menu.RESSELLER_REVERSAL_MENU.2.id=REVERSAL_APPROVE
+menu.RESSELLER_REVERSAL_MENU.2.classname=USSDApproveReversalR2R
+menu.RESSELLER_REVERSAL_MENU.2.sendSmsResponse=true
+menu.RESSELLER_REVERSAL_MENU.2.requirePassword=true
+
+menu.RESSELLER_REVERSAL_MENU.3.id=REVERSAL_DENY
+menu.RESSELLER_REVERSAL_MENU.3.classname=USSDDenyReversalR2R
+menu.RESSELLER_REVERSAL_MENU.3.sendSmsResponse=true
+menu.RESSELLER_REVERSAL_MENU.3.requirePassword=true
+
+menu.RESSELLERMENU=main_menu
+
+menu.RESSELLERMENU.1.id=REGISTRATION
+menu.RESSELLERMENU.1.classname=USSDResellerActivate
+menu.RESSELLERMENU.1.sendSmsResponse=true
+menu.RESSELLERMENU.1.useActivationCode=true
+menu.RESSELLERMENU.1.useRepeatPassword=true
+
+menu.RESSELLERMENU.2.id=TOPUP
+menu.RESSELLERMENU.2.classname=USSDRequestTopup
+menu.RESSELLERMENU.2.product=TOPUP
+menu.RESSELLERMENU.2.sendSmsResponse=false
+menu.RESSELLERMENU.2.isSubscriberDialog=false
+menu.RESSELLERMENU.2.orderedItems=receiverMSISDN confirmReceiverMSISDN amount password
+
+menu.RESSELLERMENU.7.id=TRANSFER
+menu.RESSELLERMENU.7.classname=USSDRequestTransfer
+menu.RESSELLERMENU.7.product=TRANSFER
+menu.RESSELLERMENU.7.sendSmsResponse=false
+menu.RESSELLERMENU.7.isSubscriberDialog=false
+menu.RESSELLERMENU.7.orderedItems=receiverMSISDN confirmReceiverMSISDN amount password
+
+menu.RESSELLERMENU.4.id=BALANCE_INQUIRY
+menu.RESSELLERMENU.4.classname=USSDGetResellerInfo
+menu.RESSELLERMENU.4.sendSmsResponse=false
+menu.RESSELLERMENU.4.requirePassword=false
+menu.RESSELLERMENU.4.childBalance=false
+
+menu.RESSELLERMENU.5.id=TRANSACTION_STATUS
+menu.RESSELLERMENU.5.classname=USSDResellerTransactionStatus
+menu.RESSELLERMENU.5.sendSmsResponse=false
+menu.RESSELLERMENU.5.requirePassword=false
+
+menu.RESSELLERMENU.6.id=LAST_TRANSACTIONS
+menu.RESSELLERMENU.6.classname=USSDResellerLastTransactions
+menu.RESSELLERMENU.6.numTransactions=5
+menu.RESSELLERMENU.6.sendSmsResponse=false
+menu.RESSELLERMENU.6.requirePassword=false
+
+menu.RESSELLERMENU.7.id=report_menu
+menu.RESSELLERMENU.7.classname=USSDStaticMenu
+
+menu.RESSELLERMENU.7.menu.1.id=SALES_TODAY
+menu.RESSELLERMENU.7.menu.1.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.1.reportFile=REP_1001_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.1.requirePassword=false
+menu.RESSELLERMENU.7.menu.1.sendSmsResponse=false
+menu.RESSELLERMENU.7.menu.1.mappings=
+
+menu.RESSELLERMENU.7.menu.2.id=SALES_PERIOD
+menu.RESSELLERMENU.7.menu.2.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.2.reportFile=REP_1002_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.2.requirePassword=false
+menu.RESSELLERMENU.7.menu.2.sendSmsResponse=false
+menu.RESSELLERMENU.7.menu.2.mappings.1.sessionFieldId=from_date
+menu.RESSELLERMENU.7.menu.2.mappings.1.reportParameterId=FROM_DATE
+menu.RESSELLERMENU.7.menu.2.mappings.1.validator=date_validation
+menu.RESSELLERMENU.7.menu.2.mappings.2.sessionFieldId=to_date
+menu.RESSELLERMENU.7.menu.2.mappings.2.reportParameterId=TO_DATE
+menu.RESSELLERMENU.7.menu.2.mappings.2.validator=date_validation
+
+menu.RESSELLERMENU.7.menu.3.id=SALES_PERIOD
+menu.RESSELLERMENU.7.menu.3.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.3.reportFile=REP_1002_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.3.requirePassword=false
+menu.RESSELLERMENU.7.menu.3.sendSmsResponse=false
+menu.RESSELLERMENU.7.menu.3.mappings.1.sessionFieldId=from_date
+menu.RESSELLERMENU.7.menu.3.mappings.1.reportParameterId=FROM_DATE
+menu.RESSELLERMENU.7.menu.3.mappings.1.validator=date_validation
+menu.RESSELLERMENU.7.menu.3.mappings.2.sessionFieldId=to_date
+menu.RESSELLERMENU.7.menu.3.mappings.2.reportParameterId=TO_DATE
+menu.RESSELLERMENU.7.menu.3.mappings.2.validator=date_validation
+
+menu.RESSELLERMENU.7.menu.4.id=SALES_PERIOD_CHANNEL
+menu.RESSELLERMENU.7.menu.4.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.4.reportFile=REP_1003_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.4.requirePassword=false
+menu.RESSELLERMENU.7.menu.4.sendSmsResponse=true
+menu.RESSELLERMENU.7.menu.4.mappings.1.sessionFieldId=target_MSISDN
+menu.RESSELLERMENU.7.menu.4.mappings.1.reportParameterId=MSISDN
+menu.RESSELLERMENU.7.menu.4.mappings.1.validator=msisdn_validation
+menu.RESSELLERMENU.7.menu.4.mappings.2.sessionFieldId=from_date
+menu.RESSELLERMENU.7.menu.4.mappings.2.reportParameterId=FROM_DATE
+menu.RESSELLERMENU.7.menu.4.mappings.2.validator=date_validation
+menu.RESSELLERMENU.7.menu.4.mappings.3.sessionFieldId=to_date
+menu.RESSELLERMENU.7.menu.4.mappings.3.reportParameterId=TO_DATE
+menu.RESSELLERMENU.7.menu.4.mappings.3.validator=date_validation
+
+menu.RESSELLERMENU.7.menu.5.id=DEPOSIT_TODAY
+menu.RESSELLERMENU.7.menu.5.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.5.reportFile=REP_1004_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.5.requirePassword=false
+menu.RESSELLERMENU.7.menu.5.sendSmsResponse=false
+menu.RESSELLERMENU.7.menu.5.mappings=
+
+menu.RESSELLERMENU.7.menu.5.id=DEPOSIT_PERIOD
+menu.RESSELLERMENU.7.menu.5.classname=USSDStaticResellerReport
+menu.RESSELLERMENU.7.menu.5.reportFile=REP_1005_GN_MTN.xml
+menu.RESSELLERMENU.7.menu.5.requirePassword=false
+menu.RESSELLERMENU.7.menu.5.sendSmsResponse=false
+menu.RESSELLERMENU.7.menu.5.mappings.1.sessionFieldId=from_date
+menu.RESSELLERMENU.7.menu.5.mappings.1.reportParameterId=FROM_DATE
+menu.RESSELLERMENU.7.menu.5.mappings.1.validator=date_validation
+menu.RESSELLERMENU.7.menu.5.mappings.2.sessionFieldId=to_date
+menu.RESSELLERMENU.7.menu.5.mappings.2.reportParameterId=TO_DATE
+menu.RESSELLERMENU.7.menu.5.mappings.2.validator=date_validation
+
+menu.RESSELLERMENU.8.id=CHANGE_PIN
+menu.RESSELLERMENU.8.classname=USSDPasswordChange
+menu.RESSELLERMENU.8.sendSmsResponse=false
+
+menu.RESSELLERMENU.9.id=TRANSFER_TO_SIBLING
+menu.RESSELLERMENU.9.classname=USSDRequestTransfer
+menu.RESSELLERMENU.9.product=TRANSFER_TO_SIBLING
+menu.RESSELLERMENU.9.sendSmsResponse=false
+menu.RESSELLERMENU.9.isSubscriberDialog=false
+menu.RESSELLERMENU.9.orderedItems=receiverMSISDN confirmReceiverMSISDN amount password
+
+#block for Voucher PURCHASE
+menu.RESSELLERMENU.10.id=PURCHASE_VOUCHER
+menu.RESSELLERMENU.10.classname=USSDVoucherPurchase
+menu.RESSELLERMENU.10.sendSmsResponse=false
+menu.RESSELLERMENU.10.isSubscriberDialog=false
+menu.RESSELLERMENU.10.orderedItems=receiverMSISDN amount numberOfVouchers password confirm
+menu.RESSELLERMENU.10.defaultReceiverMSISDN=MTN
+menu.RESSELLERMENU.10.defaultAmount=1
+
+#block for Bundle Sales
+#menu.RESSELLERMENU.11.id=BUNDLE
+#menu.RESSELLERMENU.11.classname=USSDRequestProductRecharge
+#menu.RESSELLERMENU.11.product=Bundle
+#menu.RESSELLERMENU.11.sendSmsResponse=false
+#menu.RESSELLERMENU.11.isSubscriberDialog=false
+#menu.RESSELLERMENU.11.orderedItems=menuL1 menuL2 futurePlanRecharge receiverMSISDN password
+
+#menu.RESSELLERMENU.12.id=REGISTER_RESELLER
+#menu.RESSELLERMENU.12.classname=USSDRegisterReseller
+#menu.RESSELLERMENU.12.sendSmsResponse=false
+#menu.RESSELLERMENU.12.isSubscriberDialog=false
+#menu.RESSELLERMENU.12.override_parent_msisdn=260961100000
+#menu.RESSELLERMENU.12.override_parent_pin=2014
+#menu.RESSELLERMENU.12.link_if_fail_then_register=false
+#menu.RESSELLERMENU.12.extraSMSText=Your default PIN is 2009.
+#menu.RESSELLERMENU.12.orderedItems=defaultPassword defaultActivationCode resellerType
+#menu.RESSELLERMENU.12.register_fail_then_re_register=true
+#menu.RESSELLERMENU.12.extraSMSText=
+#menu.RESSELLERMENU.12.orderedItems=targetMSISDN password
+#menu.RESSELLERMENU.12.link_if_fail_then_register=false
+#menu.RESSELLERMENU.12.register_fail_then_re_register=false
+#menu.RESSELLERMENU.12.hierarchy_enabled=true
+#menu.RESSELLERMENU.12.addParentCity=true
+#menu.RESSELLERMENU.12.reseller_parent_child_map.operator=1
+#menu.RESSELLERMENU.12.reseller_parent_child_map.distributor=2
+#menu.RESSELLERMENU.12.reseller_parent_child_map.subdistributor=3
+#menu.RESSELLERMENU.12.reseller_parent_child_map.reseller=4
+
+#######################
+
+menu.FAFMENU=faf_menu
+menu.FAFMENU.0=FAF_REMOVE
+menu.FAFMENU.0.classname=USSDRequestFAFOperation
+menu.FAFMENU.0.product=FAF_REMOVE
+menu.FAFMENU.0.operationId=FAF_REMOVE
+menu.FAFMENU.0.isSubscriberDialog=true
+menu.FAFMENU.0.sendSmsResponse=false
+menu.FAFMENU.0.orderedItems=fafNumber
+
+menu.FAFMENU.1=FAF_ADD
+menu.FAFMENU.1.classname=USSDRequestFAFOperation
+menu.FAFMENU.1.product=FAF_ADD
+menu.FAFMENU.1.operationId=FAF_ADD
+menu.FAFMENU.1.isSubscriberDialog=true
+menu.FAFMENU.1.sendSmsResponse=false
+menu.FAFMENU.1.orderedItems=fafNumber
+
+menu.FAFMENU.2=FAF_INFO
+menu.FAFMENU.2.classname=USSDRequestFAFOperation
+menu.FAFMENU.2.product=FAF_INFO
+menu.FAFMENU.2.operationId=FAF_INFO
+menu.FAFMENU.2.isSubscriberDialog=true
+menu.FAFMENU.2.sendSmsResponse=false
+menu.FAFMENU.2.orderedItems=
+
+menu.SUBSCRIBERMENU=subscriber_menu
+menu.SUBSCRIBERMENU.1=REGISTRATION
+menu.SUBSCRIBERMENU.1.classname=USSDSubscriberServiceActivate
+menu.SUBSCRIBERMENU.1.sendSmsResponse=false
+menu.SUBSCRIBERMENU.1.serviceId=P2P_SERVICE
+menu.SUBSCRIBERMENU.1.requirePassword=true
+menu.SUBSCRIBERMENU.1.repeatPasswordRequired=false
+
+menu.SUBSCRIBERMENU.2=SUBSCRIBER_TRANSFER
+menu.SUBSCRIBERMENU.2.classname=USSDRequestP2P
+menu.SUBSCRIBERMENU.2.product=SUBSCRIBER_TRANSFER
+menu.SUBSCRIBERMENU.2.serviceId=P2P_SERVICE
+menu.SUBSCRIBERMENU.2.sendSmsResponse=false
+menu.SUBSCRIBERMENU.2.orderedItems=receiverMSISDN amount password
+
+menu.SUBSCRIBERMENU.3=CHANGE_PIN
+menu.SUBSCRIBERMENU.3.classname=USSDSubscriberPasswordChange
+menu.SUBSCRIBERMENU.3.serviceId=P2P_SERVICE
+menu.SUBSCRIBERMENU.3.repeatPasswordRequired=true
+
+menu.SUBSCRIBERMENU.4=LAST_TRANSACTIONS
+menu.SUBSCRIBERMENU.4.classname=USSDSubscriberLastTransactions
+menu.SUBSCRIBERMENU.4.numTransactions=1
+menu.SUBSCRIBERMENU.4.requirePassword=true
+
+menu.SUBSCRIBERCMBKMENU=subscriber_cmbk_menu
+menu.SUBSCRIBERCMBKMENU.1.id=SUBSCRIBER_CMBK
+menu.SUBSCRIBERCMBKMENU.1.classname=USSDRequestCMBKOperation
+menu.SUBSCRIBERCMBKMENU.1.product=SUBSCRIBER_CMBK
+menu.SUBSCRIBERCMBKMENU.1.operationId=CMBK
+menu.SUBSCRIBERCMBKMENU.1.isSubscriberDialog=true
+menu.SUBSCRIBERCMBKMENU.1.sendSmsResponse=false
+# This property is added to validate CMBK recipient MSISDN
+# As CMBK recipient subscriber can be on other network as well
+# So this regular expression should contain all possible network codes in order to support them
+menu.SUBSCRIBERCMBKMENU.1.recipientMSISDNValidationRegex=.*
+menu.SUBSCRIBERCMBKMENU.1.orderedItems=recipientMSISDN
+
+# Subscriber Call Me Back (CMBK)
+products.6.id=SUBSCRIBER_CMBK
+products.6.SKU=
+products.6.SENDER_ACCOUNT_TYPE=AIRTIME
+products.6.RECEIVER_ACCOUNT_TYPE=AUTO_RESOLVE
+products.6.currency=USD
+
+# R2S Bundle Recharge
+#products.7.id=Bundle
+#products.7.SKU=BUNDLE_RECHARGE
+#products.7.SENDER_ACCOUNT_TYPE=RESELLER
+#products.7.RECEIVER_ACCOUNT_TYPE=AIRTIME
+#products.7.currency=BSD
+
+## MICROCREDIT TRANSFER for loan
+products.11.id=Microcredit
+products.11.SKU=MICROCREDIT
+products.11.SENDER_ACCOUNT_TYPE=RESELLER
+products.11.RECEIVER_ACCOUNT_TYPE=RESELLER
+products.11.currency=FCFA
+
+menu.MICROCREDITREQUESTMENU=microcredit_request_menu
+menu.MICROCREDITREQUESTMENU.orderedItems=FETCH_RESELLER_INFO
+
+# FETCH_RESELLER_INFO is to fetch reseller information such as eligibility, reseller type etc.
+menu.MICROCREDITREQUESTMENU.orderedItems.FETCH_RESELLER_INFO.childBalance=false
+menu.MICROCREDITREQUESTMENU.orderedItems.FETCH_RESELLER_INFO.requirePassword=false
+menu.MICROCREDITREQUESTMENU.orderedItems.FETCH_RESELLER_INFO.sendSmsResponse=false
+menu.MICROCREDITREQUESTMENU.orderedItems.FETCH_RESELLER_INFO.endSession=false
+menu.MICROCREDITREQUESTMENU.orderedItems.FETCH_RESELLER_INFO.customParameters.fetchMicrocreditData=true
+
+## Fixed micro credit
+# For fixed amount in micro credit just define defaultAmount
+menu.MICROCREDITREQUESTMENU.1.id=MICROCREDIT_REQUEST_ID
+menu.MICROCREDITREQUESTMENU.1.classname=USSDMicrocreditRequestOperation
+menu.MICROCREDITREQUESTMENU.1.product=Microcredit
+menu.MICROCREDITREQUESTMENU.1.isSubscriberDialog=false
+menu.MICROCREDITREQUESTMENU.1.sendSmsResponse=false
+menu.MICROCREDITREQUESTMENU.1.orderedItems=FETCH_RESELLER_INFO microcreditConfirmation password
+
+# FETCH_RESELLER_INFO is to fetch reseller information such as eligibility, reseller type etc.
+menu.MICROCREDITREQUESTMENU.1.orderedItems.FETCH_RESELLER_INFO.childBalance=false
+menu.MICROCREDITREQUESTMENU.1.orderedItems.FETCH_RESELLER_INFO.requirePassword=false
+menu.MICROCREDITREQUESTMENU.1.orderedItems.FETCH_RESELLER_INFO.sendSmsResponse=false
+menu.MICROCREDITREQUESTMENU.1.orderedItems.FETCH_RESELLER_INFO.endSession=false
+menu.MICROCREDITREQUESTMENU.1.orderedItems.FETCH_RESELLER_INFO.customParameters.fetchMicrocreditData=true
+
+menu.MICROCREDITREQUESTMENU.1.defaultCreditProvider=SMCREDIT
+menu.MICROCREDITREQUESTMENU.1.defaultCreditProviderType=RESELLERID
+menu.MICROCREDITREQUESTMENU.1.defaultAmount=100
+
+## Micro credit based on customer input
+# For taking input from customer just add amount in ordered items
+menu.MICROCREDITREQUESTMENU.2.id=MICROCREDIT_REQUEST_ID
+menu.MICROCREDITREQUESTMENU.2.classname=USSDMicrocreditRequestOperation
+menu.MICROCREDITREQUESTMENU.2.product=Microcredit
+menu.MICROCREDITREQUESTMENU.2.isSubscriberDialog=false
+menu.MICROCREDITREQUESTMENU.2.sendSmsResponse=false
+menu.MICROCREDITREQUESTMENU.2.orderedItems=amount microcreditConfirmation password
+menu.MICROCREDITREQUESTMENU.2.defaultCreditProvider=SMCREDIT
+menu.MICROCREDITREQUESTMENU.2.defaultCreditProviderType=RESELLERID
+
+## Dynamic micro credit amount based on customer profile
+# For dynamic, make sure default amount is not defined and amount is not added in ordered items
+menu.MICROCREDITREQUESTMENU.3.id=MICROCREDIT_REQUEST_ID_DYNAMIC
+menu.MICROCREDITREQUESTMENU.3.classname=USSDMicrocreditRequestOperation
+menu.MICROCREDITREQUESTMENU.3.product=Microcredit
+menu.MICROCREDITREQUESTMENU.3.isSubscriberDialog=false
+menu.MICROCREDITREQUESTMENU.3.sendSmsResponse=false
+menu.MICROCREDITREQUESTMENU.3.orderedItems=microcreditConfirmation password
+menu.MICROCREDITREQUESTMENU.3.defaultCreditProvider=SMCREDIT
+menu.MICROCREDITREQUESTMENU.3.defaultCreditProviderType=RESELLERID
+
+### config global menu
+#rootmenu.list=155, 102, 150
+rootmenu.104=RESSELLER_REVERSAL_MENU
+rootmenu.155=RESSELLERMENU
+rootmenu.102=SUBSCRIBERMENU
+rootmenu.150=FAFMENU
+rootmenu.131=SUBSCRIBERCMBKMENU
+rootmenu.434=MICROCREDITREQUESTMENU
+
+
+## CONFIGURATION FOR DYNAMIC VOUCHER LISTING
+
+
+#useDynamicVoucherTypes=false
+#enable_voucher_over_sms=false
+#enable_voucher_over_terminal=false
+#useStaticDataBundleTypes=false
+#vos.defalut_sender_account_type=RESELLER
+#vos.defalut_receiver_account_type=AIRTIME
+#vos.default_sender_principaltype=RESELLERMSISDN
+#vos.default_receiver_principal_type=SUBSCRIBERMSISDN
+
+#vot.defalut_sender_account_type=RESELLER
+#vot.defalut_receiver_account_type=RESELLER
+#vot.default_sender_principaltype=RESELLERMSISDN
+#vot.default_receiver_principal_type=RESELLERMSISDN
+
+
+## CONFIGURATION FOR Static VOUCHER LISTING
+voucher_type.1.id=PURCHASE_VOUCHER
+voucher_type.1.products.1.SKU=7100014
+voucher_type.1.products.1.amount=100.00 USD
+voucher_type.1.products.2.SKU=7100015
+voucher_type.1.products.2.amount=200.00 USD
+voucher_type.1.products.3.SKU=7100016
+voucher_type.1.products.3.amount=500.00 USD
+voucher_type.1.currency=USD
+
+
+##Properties to sort the productListing
+##value of 'field' will only support if the field is a primitive type available in ProductData
+sort.field=productKey
+sort.enable=false

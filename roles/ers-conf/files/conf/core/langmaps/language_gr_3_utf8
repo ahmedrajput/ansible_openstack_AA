@@ -1,0 +1,2142 @@
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+90 = <menu name="Φόρτωση"><choice id="12" name="Ενεργοποίηση"><choice id="13" name="Imprint"><choice id="14" name=""><choice id="1" name="Πώληση"><choice id="2" name="Βάρδια"><choice id="9" name="Επανεκτύπωση"><choice id="3" name="Διαχείριση"><choice id="4" name="Επίδειξη"><choice id="5" name="Συντήρηση"><choice id="6" name="Σύνδεση"><choice id="8" name="Έξοδος"><choice id="10" name="Σύστημα"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+100 = <vs><small><center>ʼγνωστος ταμείας!<br><bottom><large><hs><invert>~OK~
+101 = <center><large>Κλειδωμένος ταμείας!<vs><small>Ο ταμείας είναι κλειδωμένος!<br>Καλέστε την τεχνική υποστήριξη.<bottom><hs><large><invert>~OK~
+102 = <vs><small><center>Λάθος κωδικός PIN<br><bottom><large><hs><invert>~OK~
+103 = <vs><small><center>ʼρνηση πρόσβασης<br><bottom><large><hs><invert>~OK~
+104 = <vs><small><center>Ταμείο υπάρχει ήδη<br><bottom><large><hs><invert>~OK~
+105 = <vs><small><center>Ο κωδικός PIN δεν ταιριάζει<br><bottom><large><hs><invert>~OK~
+106 = <vs><small><center>Η κάρτα υπάρχει ήδη<br><bottom><large><hs><invert>~OK~
+107 = <vs><small><center>Πρόβλημα σύνδεσης<br>δοκιμάστε αργότερα<br><bottom><large><hs><invert>~OK~
+108 = <vs><small><br>Έτοιμο για χειροκίνητο<br>Κατεβάστε τώρα!<br><button id="ok" name="OK">
+109 = <vs><small><center>Λάθος κωδικός ενεργοποίησης<br><bottom><large><hs><invert>~OK~
+110 = <vs><small><center>Λάθος κωδικός έναρξης!<br><bottom><large><hs><invert>~OK~
+111 = <vs><small><center>Λανθασμένη ημερομηνία<br><bottom><large><hs><invert>~OK~
+112 = <vs><small><center>ʼρνηση συναλλαγής, καλέστε τεχνική υποστήριξη!<br><bottom><large><hs><invert>~OK~
+113 = <vs><small><center>Απασχολημένος διακομιστής, δοκιμάστε αργότερα!<br><bottom><large><hs><invert>~OK~
+114 = <vs><small><center>Το προϊόν προσωρινά δεν είναι διαθέσιμο!<br><bottom><large><hs><invert>~OK~
+115 = <vs><small><center>Παρουσιάστηκε σφάλμα!<br><bottom><large><hs><invert>~OK~
+116 = <vs><small><center>Αίτημα απορρίφθηκε<br><bottom><large><hs><invert>~OK~
+117 = <vs><small><center>Έλλειψη τηλεφωνικού τόνου, ελέγξτε γραμμή ή πρόθεμα!<br><bottom><large><hs><invert>~OK~<br>
+118 = <vs><small><center>Έλλειψη τόνου κλήσης, ελέγξτε γραμμή ή πρόθεμα!<br><bottom><large><hs><invert>~OK~<br>
+119 = <vs><small><center>Η γραμμή είναι απασχολημένη, κάποιος την χρησιμοποιεί!<br><bottom><large><hs><invert>~OK~<br>
+120 = <vs><small><center>ʼκυρη κάρτα<br><bottom><large><hs><invert>~OK~<br>
+121 = <menu name="Διαχείριση"><choice id="1" name="Πώληση"><choice id="2" name="Περίοδος"><choice id="3" name="Γίνεται επανεκτύπωση"></menu>
+122 = <vs><small><center>Σύστημα κλειστό!<br>Ζητήστε από διαχειριστή να ανοίξει το σύστημα.<bottom><large><hs><invert>~OK~<br>
+123 = <center><large>Σφάλμα<vs><small>Χαλασμένη φόρμα προγράμματος!<br><bottom><large><hs><invert>~OK~<br>
+124 = <center><large>Σφάλμα<vs><small>Ελλιπής φόρμα προγράμματος!<br><bottom><large><hs><invert>~OK~<br>
+125 = <center><large>Σφάλμα<vs><small>Κακή κατάσταση τερματικού για αυτή την λειτουργία!<br><bottom><large><hs><invert>~OK~<br>
+126 = <center><large>Πολλά!<br><small>Μπορείτε να αγοράσετε έως~$max_count$~Από αυτό το προϊόν, τη φορά.<bottom><large><hs><invert>~OK~<br>
+127 = <center><large>Λάθος<br><small>Λανθασμένος αριθμός τηλεφώνου<bottom><large><hs><invert>~OK~<br>
+128 = <center><large>Λάθος<br><small>Λανθασμένη ποσότητα<bottom><large><hs><invert>~OK~<br>
+129 = <center><large>Λάθος<br><small>Λάθος κωδικός επιβεβαίωσης<bottom><large><hs><invert>~OK~<br>
+130 = <center><large>Δεν βρέθηκε<br><small>Ο σειριακός αριθμός δεν βρέθηκε<bottom><large><hs><invert>~OK~<br>
+131 = <center><large>Λάθος<br><small>Ο κωδικός δεν ακυρώνετε<bottom><large><hs><invert>~OK~<br>
+132 = <center><large>Λάθος<br><small>Λάθος σειριακός αριθμός<bottom><large><hs><invert>~OK~<br>
+133 = <vs><small><center>Credit limit reached, not enough credit!<br><bottom><large><hs><invert>~OK~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+200 = <menu name="Διαχείριση"><choice id="4" name="Ρυθμίσεις"><choice id="5" name="Συγχρονισμός"><choice id="6" name="Νέος Ταμείας"><choice id="7" name="Τροποποίηση ταμεία"><choice id="8" name="Στατιστικά αποθεμάτων"><choice id="9" name="Ξεκλείδωμα ταμεία"><choice id="10" name="Συντήρηση"><choice id="11" name="Εκσφαλμάτωση"><choice id="12" name="Μηνύματα"></menu>
+201 = <menu name="Ρυθμίσεις"><choice id="7" name="Επιλογή προϊόντος"><choice id="9" name="ʼνοιγμα/κλείσιμο ταμείου"><choice id="1" name="Εκτύπωση εικόνων"><choice id="2" name="Εκτύπωση αποδείξεων"><choice id="3" name="Επιβεβαίωση εκτύπωσης"><choice id="4" name="Εκτύπωση Barcode"><choice id="5" name="Γρήγορη πολλαπλή πώληση"><choice id="6" name="Κατάσταση λειτουργίας"><choice id="10" name="Μενού προϊόντων"><choice id="12" name="Χρήση pin pad"></menu>
+202 = <menu name="Βάρδια"><choice id="4" name="Κλείσιμο συστήματος"><choice id="5" name="ʼνοιγμα συστήματος"><choice id="6" name="Εξαγωγή συγκεντρωτικής αναφοράς"><choice id="1" name="Έναρξη βάρδιας"><choice id="2" name="Κλείσιμο βάρδιας"><choice id="3" name="Συγκεντρωτική αναφορά"></menu>
+203 = <menu name="Αναφορές"><choice id="1" name="Ατομικό"><choice id="2" name="Περίληψη"><choice id="3" name="Προϊόν"></menu>
+204 = <menu name="Συντήρηση"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Απενεργοποιώ"><choice id="3" name="Φορτώνω το σύστημα"><choice id="4" name="Κλείδωμα τερματικού"><choice id="5" name="Συγχρονισμός"><choice id="6" name="Ξεκλείδωμα ταμεία"><choice id="7" name="Αναβάθμιση γλώσσας"><choice id="8" name="Έξοδος στο bios"><choice id="9" name="Unimprint"></menu>
+205 = <menu name="Εκσφαλμάτωση"><choice id="1" name="Συντήρηση"><choice id="2" name="Σύστημα"><choice id="3" name="Λίστα καταγραφής"><choice id="4" name="Προϊόντα"><choice id="5" name="Com"><choice id="6" name="Χρήστες"> <choice id="7" name="Πόροι"><choice id="8" name="Μεγάλη ποσότητα"><choice id="9" name="Παράμετρος"><choice id="10" name="Μηνύματα"><choice id="11" name="Εφαρμογές ελέγχου"></menu>
+206 = <menu name="Φορτώνω το σύστημα"><choice id="1" name="Κατεβάστε τώρα!"><choice id="3" name="Διακοπή φόρτωσης συστήματος"></menu>
+207 = <menu name="Εφαρμογές ελέγχου"><choice id="2" name="Εκτύπωση ascii λίστας"><choice id="3" name="Εμφάνιση ascii λίστας"><choice id="5" name="Δοκιμαστική εκτύπωση"></menu>
+208 = <menu name="Σύστημα"><choice id="1" name="Πληροφορίες εκτύπωσης"><choice id="2" name="Έλεγχος λειτουργίας"><choice id="5" name="ʼμεση φόρτωση συστήματος"></menu>
+209 = <menu name="Χρήστες"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Απορριπτέοι χρήστες"><choice id="3" name="Βάρδια"></menu>
+210 = <menu name="Παράμετρος"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Απόρριψη"><choice id="3" name="Αναζήτηση"></menu>
+211 = <menu name="Πόροι"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Απόρριψη"><choice id="3" name="Ενημέρωση"><choice id="4" name="Εξάρτηση"></menu>
+212 = <menu name="Λίστα καταγραφής"><choice id="2" name="Απόρριψη"><choice id="3" name="Αρχικές ρυθμίσεις"><choice id="4" name="Φίλτρο λίστας καταγραφής"><choice id="5" name="Verbose filter"><choice id="6" name="Φίλτρο αναφοράς"><choice id="7" name="Πληροφορία"></menu>
+213 = <menu name="Com"><choice id="1" name="Reset"><choice id="2" name="Dump"></menu>
+214 = <menu name="Μεγάλη ποσότητα"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Κατανομή"><choice id="3" name="Διαθέσιμο"><choice id="4" name="Απόρριψη"><choice id="5" name="Αναδιοργάνωση"></menu>
+215 = <menu name="Προϊόντα"><choice id="1" name="Αρχικές ρυθμίσεις"><choice id="2" name="Κατάλογος"><choice id="4" name="Στατιστικά αποθεμάτων"><choice id="5" name="Απορριπτέος χώρος"><choice id="6" name="Απορριπτέος χώρος"><choice id="7" name="Κατάσταση χώρου"></menu>
+216 = <menu name="Σύνδεση"><choice id="1" name="Κατάσταση"><choice id="2" name="Ταχύτητα"><choice id="3" name="Πρόθεμα"><choice id="4" name="Δοκιμαστική κλήση"><choice id="5" name="Αναβάθμιση γλώσσας"></menu>
+217 = <menu name="Κατάσταση σύνδεσης"><choice id="3" name="Συνδεδεμένος"><choice id="1" name="Προγραμματισμός σύνδεσης"><choice id="2" name="Αποσύνδεση"></menu>
+218 = <menu name="Τύπος"><choice id="1" name="Ταμίας"><choice id="2" name="Διαχειριστής"><choice id="3" name="Βάση"></menu>
+219 = <menu name="Εύκολο μενού"><choice id="1" name="Πώληση"><choice id="2" name="Διαχείριση"><choice id="3" name="Βάρδια"><choice id="4" name="Εκσφαλμάτωση"></menu>
+220 = <menu name="Reports"><choice id="1" name="Individual"><choice id="2" name="Summary"><choice id="3" name="Product"><choice id="100" name="Pr. Week DL"><choice id="101" name="This Week DL"><choice id="102" name="Credit Balance"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+300 = POS Memory full
+301 = MPOS bad order ack
+302 = MPOS buffer problem
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+400 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~ΔΙΑΧΕΙΡΙΣΤΗ~~<hs><invert>~~ΒΑΡΔΙΑ~~<br><bottom><invert>~~ΜΕΝΟΥ~~<hs><invert>~~ΠΩΛΗΣΗ~~
+401 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~ΣΥΝΔΕΣΗ~~<hs><br><bottom><invert>~~ΜΕΝΟΥ~~<hs>
+402 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br>Cashier:~$cashier_id$<br><vs height="2"><small><invert>~~ΕΞΟΔΟΣ~~<hs><invert>~~ΒΑΡΔΙΑ~~<br><bottom><invert>~~ΜΕΝΟΥ~~<hs><invert>~~ΠΩΛΗΣΗ~~
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><bottom><invert>~~ΔΙΑΧΕΙΡΙΣΤΗ~~<hs><invert>~~ΜΕΝΟΥ~~<hs><invert>~~ΠΩΛΗΣΗ~~
+404 = <center><normal>Φόρτωση $system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~ΔΙΑΧΕΙΡΙΣΤΗ~~<hs><invert>~~ΒΑΡΔΙΑ~~<br><bottom><invert>~~ΜΕΝΟΥ~~<hs><invert>~~ΠΩΛΗΣΗ~~
+405 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br>Balance: <output id="balance" align="center" width="50"><br><bottom><small><invert>~~ΔΙΑΧΕΙΡΙΣΤΗ~~<hs><invert>~~ΒΑΡΔΙΑ~~<br><bottom><invert>~~ΜΕΝΟΥ~~<hs><invert>~~ΠΩΛΗΣΗ~~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+500 = <center><large>Καλός ήλθατε!<br><small>Το τερματικό δεν είναι ενεργό!<left><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+501 = <small><left>Ταυτότητα τερματικό:~$terminal_id$<br>Κωδικός έναρξης:~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+502 = <center><large>Ενεργοποίηση<vs><small><left>Κωδικός ενεργοποίησης:<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+503 = <large><center><output id="main_task" align="center" width="120"><br><small><output id="sub_task" align="center" width="120"><br><bottom><right><output id="task_status" align="right" width="64"><br>
+504 = <center><large>Εκτύπωση OK;<vs><bottom><large><invert>~Όχι~<hs><invert>~Ναι~
+505 = <center><large>Εκτύπωση απόδειξη;<vs><bottom><large><invert>~Όχι~<hs><invert>~Ναι~
+506 = <small><left>Service code: $service_code$<br>Verification: <input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+507 = <center><large>Πώληση<br><small> $category_name$~ $product_value$<br> Αξία: $product_price$ <br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+508 = <center><large>Φορτώνω το σύστημα<vs><small>Φόρτωση συστήματος σε <output id="count" length="2" align="right" width="20"> Δευτερόλεπτα...<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+509 = <center><large>Συγχρονισμός<vs><small>Συγχρονισμός σε <output id="count" length="2" align="right" width="20"> Δευτερόλεπτα...<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+510 = <center><large>Μπλοκαρισμένος!<vs><small>Το τερματικό είναι μπλοκαρισμένο! Επικοινωνήστε με τεχνική υποστήριξη για οδηγίες.<bottom><large><invert>~Ακύρωση~<hs><invert>~Απεμπλοκή~
+511 = <center><large>Εκτύπωση απόδειξης<vs><bottom><large><invert>~OK~
+512 = <center><large>Ατελής εκτύπωση<vs><small>Επανεκτύπωση τελευταίας απόδειξη<bottom><large><hs><invert>~OK~
+513 = <center><large>Θέλετε επανεκτύπωση;<vs><small> $product_long_name$ <br> Αξία: $product_price$ <br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+	
+515 = <center><large>Πώληση<br><small> $category_name$~ $product_value$ <br> Αξία: $product_price$ <br> Μέτρηση: <input id="count" length="2"><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+516 = <center><large>Πώληση<br><small> $category_name$~ $product_value$ <br> Αξία: $product_price$ <br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+517 = <center><large>Θέλετε επανεκτύπωση;<vs><small> $category_name$~ $product_value$ <br> Αξία: $product_price$ <br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+518 = <center><large>Επιβεβαίωση<br><small> Πραγματοποιείτε πώληση <br>$count$x~$category_name$~ $product_value$ <br> Αξία: $product_price$ <br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+519 = <center><large>ʼμεσο top-up<br><small> $product_long_name$ <br> Αριθμός τηλεφώνου:<br> <input id="phone_nr" length="14"><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+520 = <center><large>ʼμεσο top-up<br><small> $product_long_name$ <br> Ποσότητα ($currency$):<br> <input id="amount" length="5"> <bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+521 = <center><large>ʼμεσο top-up<br><small> Αναμονή για εισαγωγή πελάτη...<bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+522 = <center><large>Ακύρωση άϋλης κάρτας<br><small> Σειριακός αριθμός:<br> <input id="serial" length="14"><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+523 = <center><large>Ακύρωση άϋλης κάρτας<br><small> Επιβεβαίωση κωδικού<br> <input id="reference" length="14"><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+524 = <center><large>Unimprint<br><small>Are you sure you want to unimprint?<bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+525 = <center><normal>Users unlocked!<br><invert><center><large><invert>~OK~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+600 = <menu name="MPos"><choice id="1" name="Synchronize"><choice id="2" name="Unlock Vouchers"></menu>
+601 = <center><large>Accept download?<br><small>MPos:$mpos_ser$<br>Tot.Value: $value$<bottom><large><invert>~Cancel~<hs><invert>~OK~
+602 = <center><large>Download completed!<bottom><large><invert><center>~OK~
+603 = <center><large>Sync. completed!<bottom><large><invert><center>~OK~
+604 = <center><large>Sync. failed!<br><br><center>$result_code$<bottom><large><invert><center>~OK~
+605 = <center><large>Download failed!<br><br><center>$reason$<bottom><large><invert><center>~OK~
+606 = <center><large>Activating MPOS<br><small>$mpos_ser$<br><vs><small><left>CNP:<input id="cnp" length="8" width="40"><br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+607 = <large><center>Requested codes<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+608 = <small><tr><td>$name$</td><td align="right">$count$</td><td align="right">$amount$</td></tr>
+609 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+610 = <center><large>Ack. Restock<br><small>MPos:$mpos_ser$<br><small><left>Ref:<input id="ref" length="12" width="40"><br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+611 = <center>Act. failed<br><br><center>$result_code$<br>Retry?<bottom><large><invert>~Cancel~<hs><invert>~OK~
+612 = Restock cancelled<br><small>MPos:$mpos_ser$<br><bottom><large><invert><center>~OK~
+613 = Activation failed<br><small>MPos:$mpos_ser$<br><bottom><center><large><invert>~OK~
+614 = Unlock all products?<br><bottom><large><invert>~Cancel~<hs><invert>~OK~
+615 = <large><center>Restock summary<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+616 = <large><center>Missing products<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<br>Restock value:$restock_value$<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Amount</td></tr><hr>
+617 = <large><center>Products unlocked<br><small><center>Count:$count$<br><bottom><center><large><invert>~OK~
+618 = <large><center>Missing products<br><small>Wanted:$restock_value$<vs>Missing:$turnover$<br>Continue restock?<br><bottom><center><large><invert>~NO~<hs><invert>~YES~
+619 = <large><center>Lost codes<hr><small><left><vs><table><tr><td>Product</td><td align="right">Serial</td><td align="right">Value</td></tr><hr>
+620 = <small><tr><td>$product_name$</td><td align="right">$serial$</td><td align="right">$product_resprice$</td></tr>
+621 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+622 = <hr><tr><td>Total</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><small><br>Wanted restock value:$restock_value$<br><normal>Refund value:$refund_value$
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+700 = <center><large>Προσθήκη ταμεία;<br><small>Ταμείας: $user_id$<br>Ομάδα: $user_group$<br>Χρήση κάρτας: $use_card$<bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+701 = <center><large>Τροποποίηση ταμεία;<br><small>Ταμείας: $user_id$<br>Ομάδα: $user_group$<br>Χρήση κάρτας: $use_card$<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+702 = <center><large>Μηδενικό απόθεμα!<br><small>Σύνδεση για απόκτηση αποθέματος; Η διαδικασία διαρκεί από 1 έως 5 λεπτά.<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+703 = <center><large>Κλειστό σύστημα<vs><small>Να ανοίξει το σύστημα;<bottom><large><invert>~Όχι~<hs><invert>~Ναι~
+704 = <center><large>Επιβεβαίωση<vs><small>Να κλείσει το σύστημα;<bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+705 = <center><large>Δεν υπάρχει βάρδια<vs><small>Έναρξη βάρδιας<bottom><large><invert>~Όχι~<hs><invert>~Ναι~
+706 = <center><large>Προσθήκη ταμεία;<br><large><bottom><invert>~Όχι~<hs><invert>~Ναι~
+707 = <center><large>Επιβεβαίωση<vs><small>Κλείσιμο βάρδιας<bottom><large><invert>~Όχι~<hs><invert>~Ναι~
+	
+	
+710 = <center><large>Νέο μήνυμα<vs><small>Εκτύπωση $count$ Νέο μήνυμα;<bottom><large><invert>~Αργότερα~<hs><invert>~OK~
+711 = <center><large>Φορτώνω το σύστημα<vs><small>Ακύρωση φόρτωσης;<bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+712 = <center><large>Σύνδεση;<vs><small>Ελέγξτε την τηλεφωνική γραμμή και πατήστε OK για σύνδεση.<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+713 = <center><large>Χαμηλό απόθεμα<br><small>Σύνδεση για απόκτηση αποθέματος; Η διαδικασία διαρκεί από 1 έως 5 λεπτά.<br><bottom><large><invert>~Ακύρωση~<hs><invert>~OK~
+	
+715 = <large>Reset detected!<br><small>Weekly report contents are not accurate!
+716 = <large><center>$product_status$<hr><small><hr><table><tr><td align="left" width="24">Product</td><td>Count</td></tr>
+717 = <tr><td>$name$</td><td>$count$</td></tr>
+718 = </table><hr>Total count:$count$<vs><vs>
+719 = <menu name="ComType"><choice id="0" name="KYLIK"><choice id="65" name="Landline"><choice id="73" name="ISDN"><choice id="71" name="GPRS"><choice id="84" name="LAN"><choice id="77" name="GSM"><choice id="87" name="WIFI"><choice id="67" name="CDMA"><choice id="80" name="Landline-PPP"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+800 = <large><center>Βάρδια<hr><small><left>Έναρξη:~~~$start_date$~$start_time$<br>Τέλος:~~~~~$end_date$~$end_time$<br>Ταμείας:~$cashier_id$<vs>
+801 = <large><center>Σύνολο<br><small><left>
+802 = <small><table><tr><td width="24">Προϊόν</td><td width="5">#</td><td align="right">Έσοδα (Τζίρος)</td></tr><hr>
+803 = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+804 = <hr><tr><td>Σύνολο</td><td>$count$</td><td align="right">$turnover$</td></tr></table><vs><vs>
+805 = <br><br><hr><hr><hr><large><center>Εξαγωγή συγκεντρωτικής αναφοράς<br><small><left>Σύστημα ανοιχτό: $system_open$<br>Σύστημα κλειστό: $system_close$<br><vs>
+806 = <hr><hr><hr><vs><vs><vs>
+	
+808 = <normal><center>Till $cashier_id$<hr>
+809 = <tr><small><td>$date(5,10)$~$time$</td><td align="left">$product_name$</td><td align="right">$product_value$</td></tr>
+810 = <large><center>System information<br><hr><small><left>Reseller: $reseller_name$<br>Address: $reseller_addr$<br>Zip: $reseller_zip$<br>Phone: $reseller_phone$<br>WWW $reseller_www$<br><br>TERMINAL: $terminal_id$<br>$open_status$<br>System state: $state$<br><br><br><br>
+811 = <small><table><tr><td width="14">Date</td><td>Product</td><td align="right">Value</td></tr>
+812 = <center><large>User Information<left><normal><br><table><tr><td>ID<td>Name<td>State</tr>
+813 = <tr><td>$user_id$</td><td>$user_name$</td><td>$user_locked$</td></tr>
+814 = </table><br>Users:$user_count$ of $max_user_count$<vs><vs><vs>
+	
+	
+	
+	
+	
+820 = <large><center>Αναφορά<br><small><left>Έναρξη: $system_open$<br>Τέλος:~~ $system_close$<br>Ταμείας: $cashier_id$<br><vs>
+821 = <small><table><tr><td width="24">Προϊόν</td><td width="5">#</td><td align="right">Έσοδα (Τζίρος)</td></tr><hr>
+822 = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+823 = <hr><tr><td>Σύνολο</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+	
+	
+	
+	
+	
+	
+830 = <large><center>Αναφορά<hr><hr><small><left>Έναρξη: $system_open$<br>Τέλος: $system_close$<vs>
+831 = <small><table><tr><td width="24">Ταμίας</td><td width="5">#</td><td align="right">Έσοδα (Τζίρος)</td></tr><hr>
+832 = <small><tr><td>$cashier_id$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+833 = <hr><tr><td>Σύνολο</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+834 = <hr></table><br>
+835 = <br>
+	
+	
+	
+	
+840 = <vs><large><center>Απόδειξη<hr><normal>(Αντίγραφο πωλητή)<vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Αξία:</td><td>$product_price$</td></tr><tr><td>Ταμείας:</td><td>$cashier_id$</td></tr><tr><tr><td>Σειριακός αριθμός:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+841 = <vs><large><center>ΠΑΡΑΤΗΡΗΣΗ!<br>Επανεκτύπωση<hr><normal>Έλεγχος ημέρας και ώρας αρχικής εκτύπωσης κωδικού!<vs>Copy #$copy_no$<br>
+842 = <vs><large><center>Εκτύπωση<br>Διακοπή!<hr><br><vs><vs><vs>
+843 = <vs><large><center>Εκτύπωση<br>Λάθος!<hr><br><vs><vs><vs>
+844 = <vs><large><center>Απόδειξη<hr><normal>(Αντίγραφο πωλητή)<vs><left>$count$~x~$product_long_name$<br>$date$~$time$<br><table><tr><td>Αξία:</td><td>$sum_amount$</td></tr><tr><td>Ταμείας:</td><td>$cashier_id$</td></tr><tr><tr><td>Σειριακός αριθμός:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+845 = <vs><large><center>Cancel instructions<hr><normal>This is how you do a cancel...<vs><vs><vs><vs><vs>
+846 = <vs><large><center>Cancel receipt<hr><normal><vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Cashier:</td><td>$cashier_id$</td></tr><tr><tr><td>Serial:</td><td>$serial$</td></tr><tr><td>Confirmation code</td><td>$reference$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+	
+	
+	
+850 = <large><center>Αποθήκη κωδικών<hr><small><table><tr><td width="10">Ποσότητα</td><td align="left" width="30">Προϊόν</td></tr><hr>
+851 = <small><tr><td>$product_count$</td><td>$product_name$</td></tr>
+852 = <hr></table><vs><vs>
+853 = <hr><small><tr><td>$product_total$</td><td>Σύνολο</td></tr>
+	
+	
+	
+	
+	
+	
+860 = <vs><hr><center>Συγχρονισμός<br><hr><small>Έναρξη:<hs>~$date$~$time$<br>
+861 = <left><small>Τερματισμός:<hs>~$date$~$time$<br>Επόμενος Συγχρονισμός:<hs>~$next_sync_date$~$next_sync_time$<br><hr><vs><vs><vs>
+862 = <small>Ο συγχρονισμός διακόπηκε!<br><hr><vs><vs><vs>
+863 = <vs><vs><hr><center>Πρόβλημα σύνδεσης<br><small>Συνεχείς προσπάθειες συγχρονισμού απέτυχαν! <br>Ελέγξτε την τηλεφωνική γραμμή και συγχρονίστε χειροκίνητα επιλέγοντας "συγχρονισμό" από το μενού διαχείρισης..<br>Αν το πρόβλημα συνεχιστεί καλέστε την τεχνική υποστήριξη.<vs><vs><vs>
+864 = <left><small>Dialled:<hs>~$num$<br>rsp<hs>~$rsp$<br><hr><vs><center><invert>~OK~<vs>
+865 = <hr><left><small>Dialled:<hs>~$num$<br>rsp<hs>~$rsp$<br><hr><vs><center>
+866 = <large>Λάθος στο πιστωτικό όριο!<br><normal>Επικοινωνίστε με την τεχνική υποστήριξη για το πιστωτικό όριο.<hr><vs><vs><vs>
+	
+	
+	
+870 = <large><center>Κωδικοί που πουλήθηκαν<hr><small><left><table><tr><td>Έναρξη περιόδου:</td><td>$from_date$~$from_time$</td></tr><tr><td>Τέλος περιόδου:</td><td>$to_date$~$to_time$</td></tr></table><vs><table><tr><td>Προϊόν</td><td align="right">#</td><td align="right">Ποσότητα</td></tr><hr>
+871 = <small><tr><td>$product_name$</td><td align="right">$count$</td><td align="right">$turnover$</td></tr>
+872 = <hr><tr><td>Σύνολο</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+873 = <br><center>Δεν υπάρχουν προηγούμενες αγορές <br>Αγορές!<br><br><center><invert>~OK~
+	
+	
+	
+	
+	
+	
+880 = <large><center><hr><hr><hr>Prepaid terminal<hr><normal><vs><table><tr><td>Buy</td><td>Buy vouchers</td></tr><tr><td>Workshift</td><td>Start/End your workshift</td></tr><td>Print again</td><td>Re-print a previous purchase</td></tr></table><vs>Having problems with the terminal?<br>Call jeroen! 0174-123 456<br><hr><hr><hr>
+881 = <vs><hr><center>System Information<br><hr><br>
+882 = <br><hr><vs><vs><vs><vs><vs>
+883 = <center>Λάθος<br><left>Λάθος λειτουργία modem<vs><center><invert>~OK~
+884 = Workshift Overflow<br>Κλείσε το σύστημα και συγχρόνισε!<vs><center><invert>~OK~
+	
+	
+	
+	
+	
+890 = Printer error<vs>Check paper!<vs><center><invert>~OK~
+891 = Printer OK again
+892 = <center><large>Printer low on paper!<br><small>Continue anyway?<left><bottom><large><invert>~Cancel~<hs><invert>~OK~
+	
+	
+895 = Activating MPOS
+896 = Deact. MPOS
+897 = Restocking MPOS
+898 = Waiting for MPOS
+899 = MPOS Unblocked!
+900 = Σύνδεση
+901 = Κλήση
+902 = Αποστολή
+903 = Αποδοχή
+904 = Ενεργοποίηση
+905 = Απενεργοποίηση
+906 = Ενημέρωση
+907 = Συγχρονισμός
+908 = Μηδενισμός
+909 = Φόρτωση
+910 = Αναφορά
+911 = Αγορά
+912 = Δοκιμή
+913 = Εκτύπωση
+914 = Ολοκλήρωση αγοράς
+915 = Imprinting
+916 = Καταχώρηση
+917 = Φόρτωση πληροφορίας
+918 = Φόρτωση κωδικών
+919 = Φόρτωση αναφοράς
+920 = Φόρτωση πληροφορίας
+921 = Προσθήκη ταμεία
+922 = Προσαρμογή στοιχείων ταμεία
+923 = Επεξεργασία
+924 = Δίκτυα κιν. τηλ.
+925 = Κωδικός PIN:
+926 = Επιβεβαίωση κωδικού PIN:
+927 = Πρόθεμα
+928 = Παραγγελία κλειδιού:
+929 = Από:
+930 = Σε:
+931 = Προορισμός:
+932 = Ταμείας:
+933 = Swipe card:
+934 = Διαχειριστής
+935 = Ταμίας
+936 = Βασικός χρήστης
+937 = Ναι
+938 = Όχι
+939 = Επιλογή προθέματος
+940 = Προηγούμενη αγορά
+941 = Προετοιμασία
+942 = Ολοκλήρωση
+943 = Επιβεβαίωση
+944 = Εκτύπωση εικόνων
+945 = Εκτύπωση αποδείξεων
+946 = Επιβεβαίωση εκτύπωσης
+947 = Εκτύπωση Barcode
+948 = Πολλαπλή πώληση
+949 = Κατάσταση λειτουργίας
+950 = Πάντα
+951 = Ποτέ
+952 = Να ρωτάει κάθε φορά
+953 = τυπικό
+954 = Βασική λειτουργία
+955 = Βασική + είσοδος
+956 = Επιλογή προϊόντος
+957 = Λίστα προϊόντων
+958 = Όλα τα προϊόντα
+959 = Προϊόντα
+960 = Πίσω
+961 = Έξοδος
+962 = Ρυθμίσεις...
+963 = Predictive dial
+964 = 
+965 = 
+966 = ʼνοιγμα/κλείσιμο ταμείου
+967 = Καθόλου
+968 = Μόνο κλείσιμο
+969 = ʼνοιξε και κλείσε
+970 = Μενού προϊόντων
+971 = Τιμή
+972 = Αξία
+973 = Όνομα
+974 = Χρήση PIN-pad
+975 = Αυτόματη purch sum
+976 = Εισαγωγή στο modem
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1000 = Buy
+1001 = Workshift
+1002 = Print again
+1003 = Admin
+1004 = Demo
+1005 = Service
+1006 = Settings
+1007 = Activate
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1040 = Back to main menu
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1100 = Cancel
+1101 = Ok
+1102 = Print
+1103 = Printer settings
+1104 = Demo voucher
+1105 = Voucher
+1106 = Print
+1107 = Reprint
+1108 = <center><normal>Language selected<br>$language$<bottom><invert>~OK~
+1109 = <center><large>$reason$<br><small>$action$<br>please wait$progress$<bottom><small><input type="cancel" text="Abort operation">
+1110 = Purchasing vouchers from main ERS server
+1111 = <menu name="Settings"><choice id="1" name="Mode"><choice id="2" name="Speed"><choice id="3" name="Prefix"><choice id="4" name="Make testcall"><choice id="5" name="Select language"><choice id="6" name="Printer settings"></menu>
+1112 = Restocking
+1113 = Blocking
+1114 = Unblocking
+1115 = Downloading language list
+1116 = Downloading language
+1117 = Upgrading application
+1118 = <center><large>Invalid date<small><br>Invalid date specified<bottom><invert>~OK~
+1119 = Initializing prepaid client
+1120 = Sold time
+1121 = Cashier
+1122 = Product type
+1123 = Serial
+1124 = Receipt
+1125 = Receipt margins (in percent)
+1126 = Left
+1127 = Width
+1128 = Receipt fonts
+1129 = Small
+1130 = Normal
+1131 = Large
+1132 = Name
+1133 = Size
+1134 = Selected printer
+1135 = Change
+1136 = Refill Main menu
+1137 = All
+1138 = Synchronizing with main ERS system
+1139 = <center><large>Activate<vs><small><center>ERS IP address:<br><input id="ers_address" length="40" width="200p"><br>Store ID:<br><input id="store_id" length="40" width="200p"><br>Activation code:<br><input id="activation_code" length="6" width="40"><vs><vs><bottom><large><invert>~Cancel~<hs><invert>~Activate~
+1140 = <center><large>Operation failed<br><small>$error_str$<wbr>($error_code$)<vs><vs><bottom><large><center><invert>~Continue~
+1141 = Landscape mode
+1142 = Portrait only
+1143 = Landscape on request
+1144 = Still running
+1145 = Still open
+1146 = <center><large>Error<br><small>Mandatory field '$field$' has to be entered!<vs><bottom><large><center><invert>~Continue~
+1147 = <center><large>Error<br><small>Mandatory field '$field$' is invalid!<br>$error$<vs><bottom><large><center><invert>~Continue~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1900 = Unknown error
+1901 = User cancelled operation
+1902 = User timeout
+1903 = Access deined
+	
+	
+	
+	
+	
+	
+1910 = Invalid PrepaidClient response
+1911 = Invalid request data
+1912 = Out of memory
+1913 = Invalid shared secret
+1914 = Disk write error
+1915 = Codepage translation failed
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1990 = PrepaidClient unreachable
+1991 = Server connect failed
+	
+	
+	
+	
+	
+	
+	
+1999 = Transaction lost(socket closed)
+2000 = Success
+2001 = Invalid/unregistred cashier ID
+2002 = Prepaid Client is busy
+2003 = Bad/non-unique transaction ID
+	
+	
+	
+	
+	
+	
+2010 = Product unavailable/out of stock on ERS
+2011 = Product out of local stock
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+2031 = Product not scheduled to be available yet
+2032 = Product not available any more
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+2080 = No product with the specified ID/EAN/SKU
+2081 = Resource(typically bitmap) not found
+2082 = Given order id is unknown
+2083 = Pay limit exceeded, please contact support
+2084 = This PrepaidClient is blocked at ERS
+2085 = Given order ID reserved by another cashier
+2086 = Invalid order id state (reservation timeout)
+2087 = Invalid/unknown voucher serial
+2088 = Bad verification code for voiding voucher
+2089 = Voucher serial not unieuq, please specify product type
+	
+	
+	
+2093 = Operation failed unexpectedly, see log file
+2094 = Connection with main ERS (server) failed
+2095 = Invalid formatted request message
+	
+	
+	
+	
+2100 = Bad PrepaidClient internal state for requested operation
+2101 = Bad PrepaidClient state at the ERS (Server) side
+2102 = Bad user id or password
+2103 = Not logged on, please log in
+2104 = Access denied for the current user
+2105 = Operation ignored, invalid request data
+2106 = Unknown language
+2107 = User/cashier type is invalid
+2108 = Too many users/cashiers
+2109 = Invalid service verification code
+2110 = ERS sync sequence number mismatching, access denied!
+2111 = Workshift already started
+2112 = Workshift already stopped
+2113 = Workshifts are not used on this PrepaidClient
+2114 = Too many running workshifts
+2115 = User not permitted to open system
+2116 = System already opened
+2117 = System already closed
+2118 = One or more workshifts are in a bad state
+2119 = No PrepaidClients ready for activation at the given store
+2120 = New user/cashier id is bad, must be 4-16 characters
+2121 = New user password bad, must be 4-8 characters
+2122 = The report that was requested is unknown
+2123 = Missing mandatory report input fields
+2124 = Voucher printout already acknowledged
+2125 = Voucher reprints are not permitted
+2126 = Deactivation failed, vouchers locked in PAID state
+2127 = Invalid (non existing) user specified
+2128 = ERS denied access
+2129 = All products passed last sell date
+2130 = Lock : Mismatching network card MAC
+2131 = Lock : Mismatching computer (Netbios) name
+2132 = Lock : Mismatching harddisk (volume) serial
+2133 = Lock : Mismatching restart counter
+2134 = Syntax error in receipt template
+2135 = Activation denied (unauthorized IP address)
+2136 = report incomplete, some langmap entries are missing
+2137 = Wrong activation code
+2138 = Store-id is incorrect or unauthorized
+2139 = Report has no matching language
+2140 = ERS still processing. please retry sooon
+2141 = ERS invalid/unexpected voucherless state
+2142 = Credit limit reached, please contact support

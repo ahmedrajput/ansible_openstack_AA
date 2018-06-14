@@ -1,0 +1,53 @@
+---
+# tasks file for ers_installtion
+- name: Placing ers repo file
+  copy:
+   src: ers-repo
+   dest: /etc/yum.repos.d/ers.repo
+- name: Placing mariadb repo file
+  copy:
+   src: mariadb-repo
+   dest: /etc/yum.repos.d/mariadb.repo
+- name: Installing Maria DB
+  yum: name=MariaDB-server state=installed
+  when: '"db" in inventory_hostname' or '"trs" in inventory_hostname'
+- name: Installing ers for txe server
+  yum: name={{ item }} state=installed
+  with_items:
+  - cellidsimulator
+  - cs3simulator
+  - ers-accountsystem
+  - ers-businesslogic
+  - ers-regionsdb
+  - ers-smsapp
+  - ers-subscribersystem
+  - ers-supportsystem
+  - ers-topup-service-rest
+  - ers-topup-service-soap
+  - ers-txe
+  - ers-txe-transaction-exporter
+  - ers-uciplink
+  - ers-ussdapp
+  - ers-vasmanager
+  - ers-voucher-factory
+  - mcs-profiling-system
+  when: '"trs" in inventory_hostname'
+- name: Installing ers for web server
+  yum: name={{ item }} state=installed
+  with_items:
+  - contrib-kannel
+  - ers-agentportal
+  - ers-alertapp
+  - ers-core
+  - ers-data-aggregator
+  - ers-promotionsystem
+  - ers-regionsdbui
+  - ers-report-engine
+  - ers-reportui
+  - ers-stdreports
+  - ers-supportui
+  - ers-tdrapp
+  - ers-ussdgw
+  - std-data-aggregators
+  - std-data-aggregators-reports
+  when: '"web" in inventory_hostname'

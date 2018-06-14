@@ -1,0 +1,205 @@
+90 = <menu name="Reincarcare"><choice id="1" name="Cumpara"><choice id="2" name="Schimb de lucru"><choice id="9" name="Tipareste din nou"><choice id="3" name="Administrare"><choice id="4" name="Demo"><choice id="5" name="Service"><choice id="6" name="Conectare"><choice id="8" name="Deconecteaza-te"><choice id="10" name="Sistem"></menu>
+100 = <vs><small><center>Casier nerecunoscut<br><bottom><large><hs><invert>~Ok~
+101 = <center><large>Casier blocat<vs><small>Casierul a fost blocat<br>Contacteaza admininistratorul sau echipa suport<bottom><hs><large><invert>~Ok~
+102 = <vs><small><center>Cod PIN invalid<br><bottom><large><hs><invert>~Ok~
+103 = <vs><small><center>Acces refuzat<br><bottom><large><hs><invert>~Ok~
+104 = <vs><small><center>Casier deja existent<br><bottom><large><hs><invert>~Ok~
+105 = <vs><small><center>Cod PIN gresit<br><bottom><large><hs><invert>~Ok~
+106 = <vs><small><center>Card deja existent<br><bottom><large><hs><invert>~Ok~
+107 = <vs><small><center>Probleme cu conectarea<br>Incercati mai tarziu<br><bottom><large><hs><invert>~Ok~
+108 = <vs><small><br>Pregatit pentru conectare manuala<br>Descarca acum<br><button id="ok" name="OK">
+109 = <vs><small><center>Cod de activare gresit<br><bottom><large><hs><invert>~Ok~
+110 = <vs><small><center>Cod de incepere gresit<br><bottom><large><hs><invert>~Ok~
+111 = <vs><small><center>Date invalide<br><bottom><large><hs><invert>~Ok~
+112 = <vs><small><center>Achizitionare refuzata contactati echipa suport<br><bottom><large><hs><invert>~Ok~
+113 = <vs><small><center>Server ocupat va rugam reveniti<br><bottom><large><hs><invert>~Ok~
+114 = <vs><small><center>Produs temporar nedisponibil<br><bottom><large><hs><invert>~Ok~
+115 = <vs><small><center>A aparut o eroare<br><bottom><large><hs><invert>~Ok~
+116 = <vs><small><center>Cerere respinsa<br><bottom><large><hs><invert>~Ok~
+117 = <vs><small><center>Numarul nu se formeaza verificati linia telefonica sau prefixul<br><bottom><large><hs><invert>~Ok~<br>
+118 = <vs><small><center>Nu aveti ton de apel verificati numarul de telefon sau prefixul<br><bottom><large><hs><invert>~Ok~<br>
+119 = <vs><small><center>Linie ocupata cineva foloseste deja linia telefonica<br><bottom><large><hs><invert>~Ok~<br>
+120 = <vs><small><center>Card invalid<br><bottom><large><hs><invert>~Ok~<br>
+121 = <menu name="Administrare"><choice id="1" name="Cumpara"><choice id="2" name="Sesiune de lucru"><choice id="3" name="Tipareste din nou"></menu>
+122 = <vs><small><center>Sistemul este inchis<br>Roaga administratorul sa-l deschida<bottom><large><hs><invert>~Ok~<br>
+123 = <center><large>Eroare<vs><small>Macheta de produs nepotrivita<br><bottom><large><hs><invert>~Ok~<br>
+124 = <center><large>Eroare<vs><small>Lipsa machetei de produs<br><bottom><large><hs><invert>~Ok~<br>
+125 = <center><large>Eroare<vs><small>Terminalul nu este in conditii bune de functionare<br><bottom><large><hs><invert>~Ok~<br>
+126 = <center><large>Prea multe<br><small>Puteti achizitiona maximul~$max_count$~Din acest produs o data<bottom><large><hs><invert>~Ok~<br>
+127 = <center><large>Invalid<br><small>Numar de telefon invalid<bottom><large><hs><invert>~Ok~<br>
+128 = <center><large>Invalid<br><small>Suma invalida<bottom><large><hs><invert>~Ok~<br>
+
+
+200 = <menu name="Administrare"><choice id="4" name="Setari"><choice id="5" name="Sincronizeaza"><choice id="6" name="Casier_nou"><choice id="7" name="Modificati casierul"><choice id="8" name="Statistici coduri obtinute"><choice id="9" name="Deblocheaza casieri"><choice id="10" name="Service"><choice id="11" name="Depanati"><choice id="12" name="Mesaje"></menu>
+201 = <menu name="Setari"><choice id="7" name="Selecteaza produsul"><choice id="9" name="Casier activat dezactivat"><choice id="1" name="Tipareste imaginile"><choice id="2" name="Tipareste chitantele"><choice id="3" name="Confirmare tiparire"><choice id="4" name="Tipareste codul de bare"><choice id="5" name="Cumparare multipla rapida"><choice id="6" name="Mod de aplicare"><choice id="10" name="Meniuri cu produse"><choice id="12" name="Foloseste pin padul"></menu>
+202 = <menu name="Schimb de lucru"><choice id="4" name="Dezactivare sistem"><choice id="5" name="Activare sistem"><choice id="6" name="Raport de inchidere"><choice id="1" name="Incepe schimb de lucru"><choice id="2" name="Termina schimbul de lucru"><choice id="3" name="Rapoarte generale"></menu>
+203 = <menu name="Rapoarte"><choice id="1" name="Individual"><choice id="2" name="Rezumat"><choice id="3" name="Produs"></menu>
+204 = <menu name="Service"><choice id="1" name="Restabilire"><choice id="2" name="Dezactivare"><choice id="3" name="Descarca"><choice id="4" name="Blocare terminal"><choice id="5" name="Sincronizeaza"><choice id="6" name="Deblocheaza casieri"><choice id="7" name="Actualizeaza limba utilizata"><choice id="8" name="Iesire catre BIOS"></menu>
+205 = <menu name="Depanati"><choice id="1" name="Service"><choice id="2" name="Sistem"><choice id="3" name="Log"><choice id="4" name="Produse"><choice id="5" name="Com"><choice id="6" name="Utilizatori"> <choice id="7" name="Resurse"><choice id="8" name="Structura date"><choice id="9" name="Parametri"><choice id="10" name="Mesaje"><choice id="11" name="Testare functiuni"></menu>
+206 = <menu name="Descarca"><choice id="1" name="Descarca acum"><choice id="3" name="Intrerupe descarcare"></menu>
+207 = <menu name="Testare functiuni"><choice id="2" name="Tipareste lista Ascii"><choice id="3" name="Afiseaza lista ascii"><choice id="5" name="Tipareste un test"></menu>
+208 = <menu name="Sistem"><choice id="1" name="Tipareste informatiile"><choice id="2" name="Verificarea integritatii"><choice id="5" name="Descarcare rapida"></menu>
+209 = <menu name="Utilizatori"><choice id="1" name="Restabilire"><choice id="2" name="Descarcare utilizatori"><choice id="3" name="Schimburi de lucru"></menu>
+210 = <menu name="Parametri"><choice id="1" name="Restabilire"><choice id="2" name="Descarcare"><choice id="3" name="Cautare cuvinte"></menu>
+211 = <menu name="Resurse"><choice id="1" name="Restabilire"><choice id="2" name="Descarcare"><choice id="3" name="Actualizare"><choice id="4" name="Verificarea dependentei"></menu>
+212 = <menu name="Log"><choice id="2" name="Descarcare"><choice id="3" name="Restabilire"><choice id="4" name="Filtru la conectare"><choice id="5" name="Filtru complex"><choice id="6" name="Raport filtru"><choice id="7" name="Informatii"></menu>
+213 = <menu name="Com"><choice id="1" name="Restabilire"><choice id="2" name="Descarcare"></menu>
+214 = <menu name="Structura date"><choice id="1" name="Restabilire"><choice id="2" name="Alloc"><choice id="3" name="Liber"><choice id="4" name="Descarcare"><choice id="5" name="Reorg"></menu>
+215 = <menu name="Produse"><choice id="1" name="Restabilire"><choice id="2" name="Catalog"><choice id="4" name="Statistici coduri obtinute"><choice id="5" name="Tiparire coduri descarcate"><choice id="6" name="Tiparire coduri descarcate mai rar"><choice id="7" name="Prezentare coduri"></menu>
+216 = <menu name="Conectare"><choice id="1" name="Mod"><choice id="2" name="Viteza"><choice id="3" name="Prefix"><choice id="4" name="Realizati un test de conectare"><choice id="5" name="Actualizeaza limba utilizata"></menu>
+217 = <menu name="Mod de conectare"><choice id="3" name="Sunteti conectati"><choice id="1" name="Interval de conectare online"><choice id="2" name="Sunteti deconectati"></menu>
+218 = <menu name="Tip"><choice id="1" name="Casier"><choice id="2" name="Administrator"><choice id="3" name="Radacina"></menu>
+219 = <menu name="Meniu rapid"><choice id="1" name="Cumpara"><choice id="2" name="Administrare"><choice id="3" name="Schimb de lucru"><choice id="4" name="Depanati"></menu>
+
+400 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~SCHIMB DE LUCRU~~<br><bottom><invert>~~MENIU~~<hs><invert>~~CUMPARA~~
+401 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~CONECTEAZA-TE~~<hs><br><bottom><invert>~~MENIU~~<hs>
+402 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br>Cashier:~$cashier_id$<br><vs height="2"><small><invert>~~DECONECTEAZA-TE~~<hs><invert>~~SCHIMB DE LUCRU~~<br><bottom><invert>~~MENIU~~<hs><invert>~~CUMPARA~~
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><bottom><invert>~~ADMIN~~<hs><invert>~~MENIU~~<hs><invert>~~CUMPARA~~
+404 = <center><normal>Reincarcare $system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~SCHIMB DE LUCRU~~<br><bottom><invert>~~MENIU~~<hs><invert>~~CUMPARA~~
+
+500 = <center><large>Bine ati venit!<br><small>Terminal neactivat contactati echipa suport<bottom><large><invert>~Anulare~<hs><invert>~Ok~
+501 = <center><large>Activati<br><small><left>Cod de identificare terminal: $terminal_id$<br>Introduceti codul de inceput:~~~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+502 = <center><large>Activati<vs><small><left>Introduceti codul de activare:<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+503 = <large><center><output id="main_task" align="center" width="120"><br><small><output id="sub_task" align="center" width="120"><br><bottom><right><output id="task_status" align="right" width="64"><br>
+
+504 = <center><large>Tiparire reusita?<vs><bottom><large><invert>~Nu~<hs><invert>~Da~
+505 = <center><large>Tiparire chitanta?<vs><bottom><large><invert>~Nu~<hs><invert>~Da~
+506 = <center><large>Service<vs><small><left>Cod pentru service: $service_code$<br>Cod de verificare: ~~~<input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+507 = <center><large>Cumpara<br><small> $category_name$~ $product_value$<br> Pretul: $product_price$ <br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+508 = <center><large>Descarca<vs><small>Descarcare in: <output id="count" length="2" align="right" width="20"> Secunde...<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+509 = <center><large>Sincronizare<vs><small>Sincronizare in <output id="count" length="2" align="right" width="20"> Secunde...<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+510 = <center><large>Blocat!<vs><small>Terminalul a fost blocat! Apelati echipa suport pentru instructiuni!<bottom><large><invert>~Anulare~<hs><invert>~DEBLOCARE~
+511 = <center><large>Tiparire chitanta?<vs><bottom><large><invert>~Ok~
+512 = <center><large>Tiparire incompleta<vs><small>Retipareste ultimul material tiparit<bottom><large><hs><invert>~Ok~
+513 = <center><large>Tipariti din nou?<vs><small> $product_long_name$ <br> Pretul: $product_price$ <br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+515 = <center><large>Cumpara<br><small> $category_name$~ $product_value$ <br> Pretul: $product_price$ <br> Numarare: <input id="count" length="2"><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+516 = <center><large>Cumpara<br><small> $category_name$~ $product_value$ <br> Pretul: $product_price$ <br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+517 = <center><large>Tipariti din nou?<vs><small> $category_name$~ $product_value$ <br> Pretul: $product_price$ <br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+518 = <center><large>Confirmare<br><small> Dumneavoastra cumparati <br>$count$x~$category_name$~ $product_value$ <br> Pretul: $product_price$ <br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+519 = <center><large>Incarcare directa top up<br><small> $product_long_name$ <br> Numar de telefon:<br> <input id="phone_nr" length="14"><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+520 = <center><large>Incarcare directa top up<br><small> $product_long_name$ <br> Suma ($currency$):<br> <input id="amount" length="5"> <bottom><large><invert>~Anulare~<hs><invert>~Ok~
+521 = <center><large>Incarcare directa top up<br><small> In asteptarea datelor de la client<bottom><large><invert>~Anulare~<hs><invert>~Ok~
+
+700  = <center><large>Adaugare casier?<br><small>Casier: $user_id$<br>Grup: $user_group$<br>Folositi cardul: $use_card$<bottom><large><invert>~Anulare~<hs><invert>~Ok~
+701  = <center><large>Modificati casierul?<br><small>Casier: $user_id$<br>Grup: $user_group$<br>Folositi cardul: $use_card$<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+702  = <center><large>Stoc epuizat!<br><small>Conectare sau restocare? Aceasta operatie dureaza intre 1 si 5 minute.<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+703  = <center><large>Sistem dezactivat<vs><small>Doriti sa activati sistemul?<bottom><large><invert>~Nu~<hs><invert>~Da~
+704  = <center><large>Confirmare<vs><small>Doriti sa_dezactivati sistemul?<bottom><large><invert>~Anulare~<hs><invert>~Ok~
+705  = <center><large>Fara schimb de lucru<vs><small>Incepi schimbul de lucru?<bottom><large><invert>~Nu~<hs><invert>~Da~
+706  = <center><large>Adaugare casier?<br><large><bottom><invert>~Nu~<hs><invert>~Da~
+707  = <center><large>Confirmare<vs><small>Termini schimbul de lucru?<bottom><large><invert>~Nu~<hs><invert>~Da~
+710  = <center><large>Mesaje noi<vs><small>Tipareste $count$ Mesaje noi?<bottom><large><invert>~Mai tarziu~<hs><invert>~Ok~
+711  = <center><large>Descarca<vs><small>Anulati descarcarea?<bottom><large><invert>~Anulare~<hs><invert>~Ok~
+712  = <center><large>Doriti sa va conectati?<vs><small>Verificati linia telefonica si apasati ok pentru conectare.<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+713  = <center><large>Nivel scazut al stocului<br><small>Conectare sau restocare? Aceasta operatie dureaza intre 1 si 5 minute.<br><bottom><large><invert>~Anulare~<hs><invert>~Ok~
+
+800 = <large><center>Schimb de lucru<hr><small><left>Inceput:~~~$start_date$~$start_time$<br>Final:~~~~~$end_date$~$end_time$<br>Casier:~$cashier_id$<vs>
+801  = <large><center>Total<br><small><left>
+802  = <small><table><tr><td width="24">Produs</td><td width="5">#</td><td align="right">Incasari</td></tr><hr>
+803  = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+804  = <hr><tr><td>Suma</td><td>$count$</td><td align="right">$turnover$</td></tr></table><vs><vs>
+805  = <br><br><hr><hr><hr><large><center>Raport de inchidere<br><small><left>Sistem activat: $system_open$<br>Sistem dezactivat: $system_close$<br><vs>
+806  = <hr><hr><hr><vs><vs><vs>
+810 = <large><center>Informatii despre sistem<br><hr><small><left>Reseller: $reseller_name$<br>Adresa: $reseller_addr$<br>Cod postal: $reseller_zip$<br>Telefon: $reseller_phone$<br>www: $reseller_www$<br><br>Cod de identificare terminal: $terminal_id$<br>$open_status$<br>Status sistem $state$<br><br><br><br>
+820  = <large><center>Raport<br><small><left>Inceput: $system_open$<br>Final:~~ $system_close$<br>Casier: $cashier_id$<br><vs>
+821  = <small><table><tr><td width="24">Produs</td><td width="5">#</td><td align="right">Incasari</td></tr><hr>
+822  = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+823  = <hr><tr><td>Suma</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+
+
+830  = <large><center>Raport<hr><hr><small><left>Inceput: $system_open$<br>Final: $system_close$<vs>
+831  = <small><table><tr><td width="24">Casier</td><td width="5">#</td><td align="right">Incasari</td></tr><hr>
+832  = <small><tr><td>$cashier_id$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+833  = <hr><tr><td>Suma</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+834  = <hr></table><br>
+
+840  = <vs><large><center>Chitanta<hr><normal>(Copie pentru retailer)<vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Pretul:</td><td>$product_price$</td></tr><tr><td>Casier:</td><td>$cashier_id$</td></tr><tr><tr><td>Seria:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+841  = <vs><large><center>NOTA!<br>Retiparire<hr><normal>Verifica data si timpul pentru prima tiparire de coduri<br>
+842  = <vs><large><center>Material tiparit<br>Intrerupt!<hr><br><vs><vs><vs>
+843  = <vs><large><center>Material tiparit<br>Eroare!<hr><br><vs><vs><vs>
+844  = <vs><large><center>Chitanta<hr><normal>(Copia retailer-ului)<vs><left>$count$~x~$product_long_name$<br>$date$~$time$<br><table><tr><td>Pretul:</td><td>$sum_amount$</td></tr><tr><td>Casier:</td><td>$cashier_id$</td></tr><tr><tr><td>Seria:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+850 = <large><center>Coduri obtinute<hr><small><table><tr><td width="10">Suma</td><td align="left" width="30">Produs</td></tr><hr>
+851  = <small><tr><td>$product_count$</td><td>$product_name$</td></tr>
+852  = <hr></table><vs><vs>
+853  = <hr><small><tr><td>$product_total$</td><td>Total</td></tr>
+860  = <vs><hr><center>Sincronizare<br><hr><small>Inceput:<hs>~$date$~$time$<br>
+861  = <left><small>Finalizat:<hs>~$date$~$time$<br>Urmatoarea sincronizare:<hs>~$next_sync_date$~$next_sync_time$<br><hr><vs><vs><vs>
+862  = <small>Sincronizare intrerupta!<br><hr><vs><vs><vs>
+863  = <vs><vs><hr><center>Probleme cu conectarea<br><small>Incercari repetate de sincronizare esuate <br>Verificati linia telefonica si realizati sincronizarea manuala intrand in meniul administratorului si selectand optiunea ?sincronizare?..<br>Daca problema persista contactati echipa suport<vs><vs><vs>
+864  = <large>Eroare privind limita de plata!<br><normal>Contactati echipa support pentru informatii privind limita dumneavoastra de plata.<hr><vs><vs><vs>
+900 = Conectare
+901 = Apelare
+902 = Trimitere
+903 = Primire
+904 = Activare
+905 = Deactivare
+906 = Actualizare
+907 = Sincronizare
+908 = Restabilire parametri
+909 = Reincarcare
+910 = Raportare
+911 = Achizitionare
+912 = Testare
+913 = Tiparire
+914 = Completare cumparare
+915 = Tiparire
+916 = Inregistrare
+917 = Descarcare resurse pentru terminal
+918 = Descarcare coduri
+919 = Descarcare rapoarte
+920 = Descarcare informatii
+921 = Adaugare casier
+922 = Modificare casier
+923 = Procesare
+924 = Operatori
+925 = Cod PIN:
+926 = Verificati codul PIN:
+927 = Prefix
+928 = Cheie unica de ordine
+929 = De la:
+930 = Catre:
+931 = Destinatia:
+932 = Casier:
+933 = Trecere card prin dispozitiv:
+934 = Administrator
+935 = Casier
+936 = Utilizator initial
+937 = Da
+938 = Nu
+939 = Alegeti prefixul
+940 = Achizitii anterioare
+941 = Pregatire
+942 = Completare
+943 = Verificare
+944 = Tipareste imaginile
+945 = Tipareste chitantele
+946 = Confirmare materiale tiparite
+947 = Tipareste codul de bare
+948 = Cumparare multipla rapida
+949 = Mod de aplicare
+950 = Intotdeauna
+951 = Niciodata
+952 = Intrebati de fiecare data
+953 = Standard
+954 = Master mode
+955 = Master+logon
+956 = Selecteaza produsul
+957 = Ramura de produse
+958 = Toate produsele
+959 = Produse
+960 = Inapoi
+961 = Iesire
+962 = Setari...
+963 = Formare din oficiu
+964 = 
+965 = 
+966 = Casier activat dezactivat
+967 = Nici unul
+968 = Doar inchide
+969 = Deschide si inchide
+970 = Meniuri cu produse
+971 = Pret
+972 = Valoare
+973 = Nume
+974 = Folositi PINPAD-ul
+

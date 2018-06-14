@@ -1,0 +1,25 @@
+---
+# tasks file for neutron_compute
+- name: Installing Neutron for compute
+  yum: name={{ item }} state=installed
+  with_items:
+  - openstack-neutron-linuxbridge
+  - ebtables
+  - ipset
+- name: Populating Neutron For Compute Config
+  template:
+   src: neutron-compute-conf.j2
+   dest: /etc/neutron/neutron.conf
+  notify: Restart neutron-linuxbridge-agent
+- name: Populating linux bridge agent for compute config
+  copy:
+   src: linuxbridge-agent-compute-ini
+   dest: /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+  notify: Restart neutron-linuxbridge-agent
+- name: Populating Nova After Neutron Config
+  template:
+   src: nova-conf-neutron-compute.j2
+   dest: /etc/nova/nova.conf
+  notify: Restart Nova Compute Service
+- name: Start Neutron for Compute
+  service: name=neutron-linuxbridge-agent state=started enabled=yes

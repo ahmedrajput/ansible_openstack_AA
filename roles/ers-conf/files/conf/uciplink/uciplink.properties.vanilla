@@ -1,0 +1,316 @@
+# UCIPLink is a connection between UCIP server and TXE. It implements
+# ERS Account Link interface.
+#
+# These are the default settings; should work out of the box if every thing
+# is installed on the same machine.
+# The URL for AIR is first candidate of change.
+#
+# $Id$
+#NODE ID
+node_id=01
+# UCIPLink publish URL's
+servicesURL=http://localhost:8010/UCIPLink/services
+operationsURL=http://localhost:8010/UCIPLink/operations
+managementURL=http://localhost:8010/UCIPLink/management
+businesRuleURL=http://localhost:8010/UCIPLink/BusinessRuleLink
+
+## Msisdn significant digits formatting
+## should be configured according to the charging system.
+msisdn_significant=11
+
+# Msisdn prefixes that should be removed if they are prefixed to the number
+# This is eg to remove local country code or network codes 
+# from the incoming E.164 formatted number.
+#
+#msisdn_strip_prefixes=46
+
+# After formatting the number, stripping any prefixes etc 
+# this will also add a prefix to the number before passing on to UCIP.
+# This can eg be used to re-add a zero before the network code if 
+# CS requires it.
+#msisdn_add_prefix=0
+
+# The response message formatting for dates set in extra fields.
+message.date_format=yyyy-MM-dd HH:mm:ss
+
+# If enabled mapps the account status based on SupervisionExpiryDate 
+# and serviceFeeExpiryDate on exact time in milliseconds instead of 
+# later day matching/mapping.
+account_status.exact_time_matching=false
+
+# Charging system server address
+ucip.serverURL=http://localhost:9080/Air
+
+# Added for Round Robin. This is the number of times a particular CS request will retry if any
+# CS server is down before dying
+# comment/uncomment depending upon Round robin is required or not.
+ucip.requestRetry=2
+
+# Set to true if a connection should fail after a socket timeout. 
+ucip.disableRetriesAfterTimeout=false
+
+# Added for Round Robin configuration
+# comment/uncomment depending upon Round robin is required or not.
+ucip.serverSelectorConfig=/opt/seamless/conf/uciplink/ServerSelectorConfig.xml
+
+# ERS Refill profile ID
+refillProfileID=PURCHASE_PRODUCT
+
+# Should self topup be allowed
+allowSelfTopup=false
+
+# User name and password for authentication on UCIP server
+ucip.userName=user
+ucip.password=user
+
+# UCIP version to use for charging system communication 
+ucip.ucipVersion=3.1
+
+# UserAgent header parameters
+ucip.ucipClientId=UGw Server
+ucip.ucipClientVersion=1.0
+ucip.userAgentUcipVersion=3.3
+
+# Charging system connection settings
+ucip.replyTimeout=5000
+ucip.connectionTimeout=5000
+
+# Date format setting. False for simulator and true for real CS
+ucip.fullISO8601=true
+
+ucip.originHostName=TestClient
+ucip.originNodeType=TEST
+ucip.originTransactionID=5
+ucip.profileId=1
+ucip.serviceClassAction=Set
+ucip.requestedOwner=1
+ucip.selectedOption=1
+ucip.chargingType=101
+ucip.originOperatorID=100
+ucip.subscriberNumberNAI=2
+
+#originNodeType for UpdateBalanceAndDate and Refill based on productSKU
+#for P2P and R2S
+#ucip.originNodeType.<productSKU>=<value>
+ucip.originNodeType.52=ERSR2S
+ucip.originNodeType.72=ERSP2P
+
+#originNodeType for UpdateBalanceAndDate and Refill based on ProfileID
+#for FAF 
+ucip.originNodeType.CUSTOM_OPERATION_FAF_ADD=ERSFAF
+ucip.originNodeType.CUSTOM_OPERATION_FAF_REMOVE=ERSFAF
+
+# originOperatorID add parameter to  refill request
+# originOperatorID_refill_enable=true 
+originOperatorID_refill_enable=true
+
+# originOperatorID skip parameter to  refill request
+# originOperatorID_refill_enable=false
+
+# originOperatorID skip parameter to updateBalance request
+# originOperatorID_updateBalance_enable=false
+originOperatorID_updateBalance_enable=false
+
+# originTransactionID 
+# native reference in <Date.Time=13 digits>
+# native_reference_length_check=false length remains 13
+# native_reference_length_check=true length should be 19
+# native reference in <Date.Time=13 digits>+<NN>+<CCCCCC> format
+# where <NN> is the node id and <CCCCCC> is a 6-digit sequence counter
+native_reference_length_check=false
+
+# Update Service Class settings
+ucip.UpdateServiceClass.charge=true
+ucip.UpdateServiceClass.chargingType=2
+ucip.UpdateServiceClass.chargingIndicator=1
+ucip.UpdateServiceClass.reservationCorrelation=5
+
+# UpdateBalanceAndDate setting
+ucip.UpdateBalanceAndDate.dedicatedAccountUnitType=1
+
+# Test parameter. "ucip" prefix and false for simulator and no prefix and true
+# for real CS
+ucip.ucipMethodPrefix=
+
+# If set to true charging system gets a ping for connectivity test. No connection
+# test is performed if it is set to false
+ucip.useFakedPing=false
+
+# Operator specific languages 1 using ISO-6391 for language code
+ucip.operatorSpecificLanguage1=en
+
+# Operator specific languages 2 using ISO-6391 for language code
+ucip.operatorSpecificLanguage2=fr
+
+# Operator specific languages 3 using ISO-6391 for language code
+ucip.operatorSpecificLanguage3=en
+
+# Operator specific languages 4 using ISO-6391 for language code
+ucip.operatorSpecificLanguage4=en
+
+# Flow control configuration
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=10000
+flowcontrol.default.max_parallel_requests=40
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# Mappings of service class values to account link type id.
+# A link type id can use a list of values or ranges.
+#
+# service_class_range.<LINK_TYPE_ID>.<index>.values=<value>,...
+# service_class_range.<LINK_TYPE_ID>.<index>.range=<min>,<max>
+#
+# Example:
+# service_class_range.NORMAL_PREPAID.1.range=70, 79
+# service_class_range.BULK_SMS.1.values=15
+# service_class_range.LCR.1.values=60
+# service_class_range.CTS.1.values=5
+# service_class_range.INTERNET.1.range=10, 11
+
+# Extra fields names for dedicated accounts in refill information refill value total
+# These names has to match the txe language mapping file as they are set as
+# extra fields in the response message.
+# The comma separated list are in ordered number from 1 to 5 and spaces are trimmed. 
+refill_response.refill_value_total.extra_fields_da_names=rvtDA1, rvtDA2, rvtDA3, rvtDA4, rvtDA5
+
+# Sequenced extra fields to specify dedicated accounts names and IDs
+# Those fields will match and add to the ones provided in refill_response.refill_value_total.extra_fields_da_names.
+# They also can have additional values not mentioned in refill_response.refill_value_total.extra_fields_da_names.
+#refill_response.1.da_name=rvtDA14
+#refill_response.1.da_id=14
+
+#refill_response.2.da_name=rvtDA19
+#refill_response.2.da_id=19
+
+# Extra fields names for dedicated accounts in refill information refill value promotion
+# These names has to match the txe language mapping file as they are set as
+# extra fields in the response message.
+# The comma separated list are in ordered number from 1 to 5 and spaces are trimmed. 
+refill_response.refill_value_promotion.extra_fields_da_names=rvpDA1, rvpDA2, rvpDA3, rvpDA4, rvpDA5
+
+# Perform an extra call to the CS to fetch balance before and after for
+# topup reversal in addition to the update balance and date to the CS.
+#
+reverse_topup_want_balance=true
+
+# Defines product-specific settings
+# - validate_topup_account - Call GetBalanaceAndDate for every validateTopup with this product
+# - requires_active_account - In addition to calling GetBalanceAndDate result should be checked 
+#                             to verify that the topped up account is active.
+#
+
+topup_products.default.validate_topup_account=false
+topup_products.default.requires_active_account=false
+
+# Below is a sample config that requires active account for a regular topup
+# and has a separate topup product that accepts an inactive account
+#topup_products.default.validate_topup_account=true
+#topup_products.default.requires_active_account=true
+#topup_products.TOPUP_FIRST_CALL.validate_topup_account=true
+#topup_products.TOPUP_FIRST_CALL.requires_active_account=false
+
+# Perform an extra call to CS to fetch balance after for makeAccountTransaction 
+fetch_balance_after=true
+
+# To strip off leading zeros set the value greater than 0.
+# Note that it will only strip zeros not any other digit.
+#strip_msisdn_zeros=2
+
+# Send validateSubscriberLocation in Refill request (supported in UCIP 3.1, 3.4, 4.0, 4.2)
+# true -> <name>validateSubscriberLocation</name><value><boolean>1</boolean></value>
+# false -> <name>validateSubscriberLocation</name><value><boolean>0</boolean></value>
+# commented out -> no validateSubscriberLocation flag in request
+#validate_subscriber_location=true
+
+# Set the following following properties to change currency code sent to CS
+# By default no change is made.
+# One example to change any currency to XOF has to be done as follows (used in Telecel BF)
+#ucip.transformCurrency.enabled=true
+#ucip.transformCurrency.code=XOF
+
+# Set the following following properties to change faf indicator sent to CS
+# default value is 1.
+ucip.UpdateFaFList.faf_indicator=1
+
+
+
+######################################## DATA BUNDLE PROPERTIES ######################################
+
+# This property basically enable the dataBundle feature, bydefault it should be false, and our request
+# flow will go as normal.but if we turn it true, then the below property must be necessary and mapping
+# file should be there. In case of false simple refill will be called while in case of true, it call
+# UpdateBalanceAndDate and after that updateOffer
+#
+#data_bundles.enabled=false
+#
+# If above property will be false then this mappingFileName property has no use, but its above property
+# true then it should be there and in our config we should have that mapping.properties file.
+#
+#data_bundles.mappingFileName=vas_mapping.properties
+
+# This property used to exclude updateOffer call in for DATA_BUNDLES , If we put this into null , this
+# wont effect existing funtionality.
+#
+#data_bundles.exculde_update_offer_calls=
+
+################################ DATA BUNDLE CONFIGURATIONS ###########################################
+data_bundles.enabled=false
+data_bundles.name_list=COMBO_BUNDLE,DATA_BUNDLE,IDD_BUNDLE,SMS_BUNDLE
+data_bundles.mappingFileName=vas_mapping.properties
+data_bundles.exculde_update_offer_calls=
+data_bundles.4g.enabled=false
+data_bundles.4g.channels=ADC,HSS
+
+################################ EXTERNAL DATA CONFIGURATIONS #########################################
+
+################################################################
+#                        EXTERNAL DATA 1
+################################################################
+
+#externalData1 add parameter for UpdateBalanceAndDate and Refill
+externalData1_enable=true
+profile_based_externalData1_enable=true
+
+
+#externalData1 for UpdateBalanceAndDate and Refill based on productSKU
+#and transactionType for P2P and R2S
+#keeping these fields empty means that MSISDN will be sent in externalData1
+ucip.externalData1.72.Credit=
+ucip.externalData1.72.Debit=
+ucip.externalData1.52.Credit=
+# Default value in case refill SENDER_MSISDN is null
+ucip.externalData1.default=123
+#externalData1 for UpdateBalanceAndDate based on ProfileID
+#and transactionType for FAF
+#keeping these fields empty means that MSISDN will be sent in externalData1
+ucip.externalData1.CUSTOM_OPERATION_FAF_ADD.Debit=
+ucip.externalData1.CUSTOM_OPERATION_FAF_REMOVE.Debit=
+
+
+################################################################
+#                        EXTERNAL DATA 2
+################################################################
+
+
+#externalData2 add parameter for UpdateBalanceAndDate and Refill
+externalData2_enable=true
+profile_based_externalData2_enable=true
+# If true then externalData2=ERS reference in refill call
+is_externalData2_ersreference_enable=false
+
+#externalData2 for UpdateBalanceAndDate and Refill based on productSKU
+#and transactionType for P2P and R2S
+#ucip.externalData2.<productSKU>.<transactionType>=<value>
+ucip.externalData2.52.Credit=R2S_REFILL
+ucip.externalData2.72.Credit=P2P_REFILL
+ucip.externalData2.72.Debit=P2P_DEDUCTION
+
+#externalData2 for UpdateBalanceAndDate based on ProfileID and transactionType for FAF
+
+ucip.externalData2.CUSTOM_OPERATION_FAF_ADD.Debit=FAF_DEDUCTION
+ucip.externalData2.CUSTOM_OPERATION_FAF_REMOVE.Debit=FAF_DEDUCTION
+
+############################## END OF EXTERNAL DATA CONFIGURATIONS ###################################

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ERS:CS3SimulatorConfig xmlns:ERS="http://www.seamless.se/ERSTestSuite"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.seamless.se/ERSTestSuite ../src/main/resources/xsd/CS3SimulatorConfig.xsd "
+	portNumber="9080" prefix="ucip" protocolVersion="3.4"
+	defaultCurrency="IRR" delayResponse="1000">
+	<ERS:SubscriberDatabase filename="/opt/seamless/conf/cs3simulator/SubscriberDatabase.xml" />
+</ERS:CS3SimulatorConfig>

@@ -1,0 +1,676 @@
+# CLASSIFIER TAGS
+#  
+# This section defines a set of classifier tags that can be applied to transactions
+# If the tag expression evaluates to "true" (using freemarker) the tag will
+# be applied to the transaction
+# 
+# The business rule mappings can later use the tags to determine which rules to apply to which transaction
+#
+businesslogic.classifier_tags.SUPPORT_TRANSFER.expression=${(transaction.profileId?matches("CREDIT_TRANSFER") && transaction.principal.principalType?string == "AdminUser")?string}
+businesslogic.classifier_tags.TRANSFER_TO_UNREGISTERED_RECEIVER.expression=${(transaction.profileId?matches("CREDIT_TRANSFER") && transaction.resultCode?string == "INVALID_RECEIVER_PRINCIPAL")?string}
+businesslogic.classifier_tags.TRANSFER.expression=${(transaction.profileId?matches("CREDIT_TRANSFER") && transaction.productSKU == "TRANSFER")?string}
+businesslogic.classifier_tags.REVERSE_TRANSFER.expression=${(transaction.profileId?matches("REVERSE_CREDIT_TRANSFER"))?string}
+businesslogic.classifier_tags.REFUND.expression=${(transaction.profileId?matches("REFUND"))?string}
+businesslogic.classifier_tags.WEBCHANNEL_AGENT_PORTAL.expression=${(transaction.clientType?? && transaction.clientType?matches('WEB', 'i') && transaction.clientId?? && transaction.clientId?matches('ers-agentportal', 'i'))?string}
+
+businesslogic.classifier_tags.GRATIFICATION.expression=${(transaction.profileId?matches("GRATIFICATION"))?string}
+
+businesslogic.classifier_tags.COLLECTOR_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "COLLECTOR" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+businesslogic.classifier_tags.BANANA_BANK_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "BANANA_BANK" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+businesslogic.classifier_tags.EDENRED_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "EDENRED" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+businesslogic.classifier_tags.GARANTI_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "GARANTI" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+businesslogic.classifier_tags.GOTHIA_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "GOTHIA" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+
+businesslogic.classifier_tags.DATA_BUNDLE_TRANSACTION.expression=${(transaction.profileId?matches("DATA_BUNDLE"))?string}
+businesslogic.classifier_tags.REGISTER_AGENT_VISIT_TRANSACTION.expression=${(transaction.profileId?matches("REGISTER_RESELLER_VISIT"))?string}
+
+businesslogic.classifier_tags.COLLECTOR_GRATIFICATION.expression=${(transaction.profileId?matches("GRATIFICATION") && (transaction.receiverAccount)?? && transaction.receiverAccount.accountTypeId?string == "COLLECTOR")?string}
+businesslogic.classifier_tags.GOTHIA_GRATIFICATION.expression=${(transaction.profileId?matches("GRATIFICATION") && (transaction.receiverAccount)?? && transaction.receiverAccount.accountTypeId?string == "GOTHIA")?string}
+
+businesslogic.classifier_tags.RESELLER_REQUERY_VOUCHER_VOS.expression=${(transaction.profileId?matches("REPORT") && transaction.reportId?string == "misc/RESELLER_REP_VOUCHER_REQUERY.xml" && transaction.reportContent?? && transaction.reportContent?contains("VOS_PURCHASE"))?string}
+
+
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.classname=AuthenticationLevelCheck
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.exclude_profile_ids=CUSTOM_OPERATION_RECEIPT, REFUND, REVERSE_CREDIT_TRANSFER
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.no_password_level=99
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.min_level=1
+
+businesslogic.rules.VALIDATE_CEN_GROUP.classname=ValidateCenGroupRule
+# default value of censystem_url : http://localhost:9010/cen/
+businesslogic.rules.VALIDATE_CEN_GROUP.censystem_url=http://localhost:9010/cen/
+# default value of censystem_validateGroup_method : validateCenGroup
+businesslogic.rules.VALIDATE_CEN_GROUP.censystem_validateGroup_method=validateCenGroup
+businesslogic.rules.VALIDATE_CEN_GROUP.excluded_client_types=
+businesslogic.rules.VALIDATE_CEN_GROUP.included_reseller_types=
+businesslogic.rules.VALIDATE_CEN_GROUP.excluded_reseller_type_ids=
+#Default value is false
+businesslogic.rules.VALIDATE_CEN_GROUP.fail_on_network_error=false
+businesslogic.rules.VALIDATE_CEN_GROUP.fail_on_validate_cen_error=false
+# Connection/Read timeout
+businesslogic.rules.VALIDATE_CEN_GROUP.connection_timeout=1000
+
+### SEPA ###
+businesslogic.classifier_tags.SEPA_P2P_TRANSACTION.expression=${((transaction.senderAccount)?? && transaction.senderAccount.accountTypeId?string == "SEPA" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+
+# RESELLER_VALIDATE 
+# General rule for validating reseller transactions
+businesslogic.rules.RESELLER_VALIDATE.classname=ValidateResellerTransaction
+
+
+# P2P RULES
+#
+#
+# Rules per account type
+#
+
+### SEPA ###
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=SEPA_P2P_TRANSFER
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=WEEK
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=100
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=1
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=100
+# If null fallback to locale.default_currency
+businesslogic.rules.SEPA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=EUR
+
+businesslogic.rules.COLLECTOR_DECIMAL_CHECK.classname=DecimalPlaceCheck
+businesslogic.rules.COLLECTOR_DECIMAL_CHECK.max_decimal_places=2
+
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=50
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=2000
+# If null fallback to locale.default_currency
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=
+
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=COLLECTOR_P2P_TRANSFER
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=MONTH
+businesslogic.rules.COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=2000
+
+businesslogic.rules.BANANA_BANK_DECIMAL_CHECK.classname=DecimalPlaceCheck
+businesslogic.rules.BANANA_BANK_DECIMAL_CHECK.max_decimal_places=2
+
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=50
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=2000
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=
+
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=BANANA_BANK_P2P_TRANSFER
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=MONTH
+businesslogic.rules.BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=2000
+
+businesslogic.rules.EDENRED_DECIMAL_CHECK.classname=DecimalPlaceCheck
+businesslogic.rules.EDENRED_DECIMAL_CHECK.max_decimal_places=2
+
+#businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+#businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=50
+#businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=2000
+# If null fallback to locale.default_currency
+#businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=
+
+businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=EDENRED_P2P_TRANSFER
+businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=MONTH
+businesslogic.rules.EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=2000
+
+businesslogic.rules.GARANTI_DECIMAL_CHECK.classname=DecimalPlaceCheck
+businesslogic.rules.GARANTI_DECIMAL_CHECK.max_decimal_places=0
+
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=20
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=2500
+# If null fallback to locale.default_currency
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=
+
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=GARANTI_P2P_TRANSFER
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=MONTH
+businesslogic.rules.GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=5000
+
+
+businesslogic.rules.GOTHIA_DECIMAL_CHECK.classname=DecimalPlaceCheck
+businesslogic.rules.GOTHIA_DECIMAL_CHECK.max_decimal_places=0
+
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=50
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=2000
+# If null fallback to locale.default_currency
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=
+
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.classname=BusinessCounterCheck
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_type_id=GOTHIA_P2P_TRANSFER
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_owner=SENDER_ID
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.counter_period=MONTH
+businesslogic.rules.GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD.max_sum=2000
+
+# Deposit mobile money request
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.classname=DepositMobileMoneyRequest
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.exclude_purchase_stock_from=MTN
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.is_rollback_allow=true
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.service_id_to_unlock=CREDIT_TRANSFER
+
+# Validate mobile money accounts
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.classname=ValidateMobileMoneyAccounts
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.excluded_client_types=
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_sender_momo_account=false
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_receiver_momo_account=false
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_sub_reseller_momo_account=false
+#businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.receiver_account_type=MOBILEMONEY
+#businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.sender_account_type=MOBILEMONEY
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.fall_back_account=2255520000000
+
+# FALLBACK_PARENT_BALANCE_CHECK
+# Check account balance of sender
+businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.classname=FallbackPurchase
+businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.balance_owner=SENDER
+#businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.commission_pct_value=
+businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.min_value=10
+# Sender balance is too low and fall_back_enabled = true, replace the parent to fall back reseller.
+# Sender balance is too low and fall_back_enabled = false, skip replace the parent to fall back reseller.
+# Default value is true
+businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.fall_back_enabled=true
+businesslogic.rules.FALLBACK_PARENT_BALANCE_CHECK.fall_back_account=260961100000
+
+# VALIDATE_BLOCK_RESELLER_TYPE
+# Check reseller type
+businesslogic.rules.VALIDATE_BLOCK_RESELLER_TYPE.classname=ValidateBlockResellerType
+businesslogic.rules.VALIDATE_BLOCK_RESELLER_TYPE.excluded_client_types=
+businesslogic.rules.VALIDATE_BLOCK_RESELLER_TYPE.allowed_reseller_type=Tamanga
+
+###################################
+# Refund Allowed By Reseller Check
+###################################
+# Checks if a reseller has been marked as being allowed to do refunds.
+# WARNING! If this rule is excluded then all resellers can do refunds.
+#
+businesslogic.rules.REFUND_ALLOWED_BY_RESELLER_CHECK.classname=RefundAllowedByResellerCheck
+
+###################################
+# Recovery notification to seamless credit service
+###################################
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.classname=TransactionNotification
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.message_id=TRANSFER_NOTIFICATION_QUEUE
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_name=micro-credit-recovery.exchange
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_type=direct
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_durable=true
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_name=micro-credit-recovery.queue
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_durable=true
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_exclusive=false
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_autoDelete=false
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.routing_key=micro-credit-recovery.queue
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.default_language=en
+# Allowed receiver reseller types comma (,) separated
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.allowed_reseller_type=pos
+
+# Resend Notification to subscriber after executing RESELLER_REP_VOUCHER_REQUERY.xml report.
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.classname=ReceiverSMSNotification
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.message_id=REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.default_language=en
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.sender=MTN
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.receiver_principal=EXPRESSION
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.expression=<#if transaction.reportContent?trim?has_content>${transaction.reportContent?trim?split(",")[0]}<#else>NULL</#if>
+
+# COMMIT_TRANSACTION
+# Check which transaction operations (request, approve, deny) a user is
+# permitted to do by checking user role for the user.
+# There are three rules that can be configured: request_rule, commit_rule,
+# and cancel_rule. If they are omitted the rule will reject the corresponding
+# step at execution. Each rule uses two methods: userHasRole and samePrincipal
+# where the available principal arguments are initiator, sender, and receiver.
+# the two rule methods can be combined with && (and) and || (or) in any 
+# combinations. 
+#
+businesslogic.rules.COMMIT_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.COMMIT_TRANSACTION.request_rule=samePrincipal(initiator, receiver)
+businesslogic.rules.COMMIT_TRANSACTION.commit_rule=samePrincipal(initiator, receiver)
+businesslogic.rules.COMMIT_TRANSACTION.cancel_rule=samePrincipal(initiator, receiver)
+
+
+# ADD_RECONCILIATION_PERIOD_MARKER
+# Adds a marker for every transfer/reverse transaction with reconciliation period marker
+businesslogic.rules.ADD_RECONCILIATION_PERIOD_MARKER.classname=AddTransactionPeriodMarker
+businesslogic.rules.ADD_RECONCILIATION_PERIOD_MARKER.marker_format=yyyyMMdd
+
+# SET_DESTINATION_ACCOUNT_TO_GIVEN
+# Set destination account in transaction to the one configurend.
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN.classname=SetDestinationAccountToGiven
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN.source_account_type_filter=GARANTI
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN.destination_account=900000000009
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN.destination_account_type=GARANTI
+
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN_GOTHIA.classname=SetDestinationAccountToGiven
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN_GOTHIA.source_account_type_filter=GOTHIA
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN_GOTHIA.destination_account=900000000010
+businesslogic.rules.SET_DESTINATION_ACCOUNT_TO_GIVEN_GOTHIA.destination_account_type=GOTHIA
+
+# SET_SOURCE_ACCOUNT_TO_GIVEN
+# Set destination account in transaction to the one configurend.
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN.classname=SetSourceAccountToGiven
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN.destination_account_type_filter=COLLECTOR
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN.source_account=SEQR_ACCOUNT_AT_COLLECTOR
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN.source_account_type=COLLECTOR
+
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI.classname=SetSourceAccountToGiven
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI.destination_account_type_filter=GARANTI
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI.source_account=900000000009
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI.source_account_type=GARANTI
+
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK.classname=SetSourceAccountToGiven
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK.destination_account_type_filter=BANANA_BANK
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK.source_account=1234567890
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK.source_account_type=BANANA_BANK
+
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA.classname=SetSourceAccountToGiven
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA.destination_account_type_filter=SEPA
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA.source_account=5416a69c3004a7359d43c869
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA.source_account_type=SEPA
+
+## Configurations where sender and receiver is fetched using cell tower information
+#businesslogic.rules.LOCATION_CHECK_RULE.classname=ResellerLocationRule
+#businesslogic.rules.LOCATION_CHECK_RULE.regions_db_url=http://localhost:55432/regions/
+#businesslogic.rules.LOCATION_CHECK_RULE.region_lookup_connect_timeout=200
+#businesslogic.rules.LOCATION_CHECK_RULE.region_lookup_read_timeout=400
+#businesslogic.rules.LOCATION_CHECK_RULE.excluded_reseller_type_ids=TOPLEVEL,D,SD_SC
+#businesslogic.rules.LOCATION_CHECK_RULE.store_region_only=false
+#businesslogic.rules.LOCATION_CHECK_RULE.fail_on_network_error=false
+#businesslogic.rules.LOCATION_CHECK_RULE.fail_on_no_receiver_region=false
+#businesslogic.rules.LOCATION_CHECK_RULE.fail_on_no_sender_region=false
+#businesslogic.rules.LOCATION_CHECK_RULE.subscriber_allowed_transfer_flag=false
+#businesslogic.rules.LOCATION_CHECK_RULE.default_region_id=NO_REGION
+#businesslogic.rules.LOCATION_CHECK_RULE.default_region_name=NO_REGION
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.regionid_url=http://localhost:55432/cells/
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_lookup_connect_timeout=200
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_lookup_read_timeout=1500
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.region_lookup_connect_timeout=200
+#businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.region_lookup_read_timeout=400
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.regionid_url=http://localhost:55432/cells/
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_lookup_connect_timeout=200
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_lookup_read_timeout=1500
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.region_lookup_connect_timeout=200
+#businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.region_lookup_read_timeout=400
+#businesslogic.rules.LOCATION_CHECK_RULE.excluded_client_types=web
+
+
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.classname=ResellerRegionLockRule
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.regions_db_url=http://localhost:55432/regions/
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.region_lookup_connect_timeout=200
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.region_lookup_read_timeout=400
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.excluded_reseller_level_type_ids=TOPLEVEL,D,SD_SC
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_network_error=false
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.store_region_only=false
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_no_stored_region=false
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_no_cell_id_region=false
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.default_region_id=NO_REGION
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.default_region_name=NO_REGION
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.resellerType=sender
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.stored_region_lookup_method.class_name=com.seamless.ers.txe.location.ResellerDataRegionLookupPlugin
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.stored_region_lookup_method.region_group_index=1
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.regionid_url=http://localhost:55432/cells/
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_lookup_connect_timeout=200
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_lookup_read_timeout=1500
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.region_lookup_connect_timeout=200
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.region_lookup_read_timeout=400
+#businesslogic.rules.SENDER_REGION_LOCK_RULE.excluded_client_types=web
+
+
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.classname=MultipleOVAAccountRule
+##businesslogic.rules.MULTIPLE_OVA_ACCOUNT.mode=region
+
+##################################################################################################################
+######If mode is set to file then for all resellers mentioned in momoResellers.txt, defaultOVAAccount will be used.
+###### If its set to resellertype, then for all resellers of that typle,defaultOVAAccount will be used.
+##################################################################################################################
+##businesslogic.rules.MULTIPLE_OVA_ACCOUNT.exclude_resellers.enabled=false
+##businesslogic.rules.MULTIPLE_OVA_ACCOUNT.exclude_resellers.mode=resellertype
+##businesslogic.rules.MULTIPLE_OVA_ACCOUNT.exclude_resellers.reseller_type=resellers
+##################################################################################################################
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.ova_principalTypeId=RESELLERID
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.default_ova_principalId=DEFAULT_OVA
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.ova_account_type_Id=OVA
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.fail_on_no_balance=false
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.fail_on_no_initiator_location=false
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.fail_on_network_error=true
+#
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.regions_db_url=http://10.10.3.70:55432/regions/
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.cellid_url=http://10.10.3.70:9000/cellid/
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.regionid_url=http://10.10.3.70:55432/cells/cellname/
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.ova_url=http://10.10.3.70:55432/region/ova/
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.cellid_lookup_connect_timeout=20000
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.cellid_lookup_read_timeout=40000
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.region_lookup_connect_timeout=20000
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.initiator_region_lookup_method.region_lookup_read_timeout=40000
+#
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.mode=reseller
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type_check=receiver
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.fail_on_no_reseller_type_matched=false
+#
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.D=MTNATL_MOMO
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.SD_SC=D_MOMO
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.SK=MTNATL_MOMO
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.SD_SK=D_MOMO
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.SD=D_MOMO
+#businesslogic.rules.MULTIPLE_OVA_ACCOUNT.reseller_type.ova.POS=SD_MOMO
+
+
+
+businesslogic.rules.LOG_SUBSCRIBER_ACTIVITY.classname=LogSubscriberActivity
+businesslogic.rules.LOG_SUBSCRIBER_ACTIVITY.includeTransaction=TOPUP,CREDIT_TRANSFER
+businesslogic.rules.LOG_SUBSCRIBER_ACTIVITY.excludeTransaction=REPORTS
+
+## Configurations where sender and receiver is fetched using cell tower information
+# Validate the cell Id's of the sender and receiver if are in same location for gb-mtn's agent visit CR
+
+#businesslogic.rules.VALIDATE_LOCATION_RULE.classname=ResellerVisitLocationRule
+
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.class_name=com.seamless.ers.txe.location.ValidateCellLocationPlugin
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.cellid_url=http://localhost:9000/cellid/
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.regionid_url=http://localhost:55432/cells/
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.validate_cellLocationUrl=http://localhost:55432/cellLocation/validate
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.cellLocation_url=http://localhost:55432/cellLocation
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.cellid_lookup_connect_timeout=200
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.cellid_lookup_read_timeout=1500
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.region_lookup_connect_timeout=1200
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.region_lookup_read_timeout=1400
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.validate_cellLocation_connect_timeout=500
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.validate_cellLocation_read_timeout=600
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.failOnRegionMismatch=false
+## This property decide whether to skip the network error thrown while looking up cellid's of sender and receiver
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.sender_failOnNetworkError=false
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.receiver_failOnNetworkError=false
+## This property helps in fetching and storing only CellInformation for particular transactions. 
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.storeOnlyCellInformationForTxns=TRANSFER,TOPUP
+## This property helps in skipping query to HLR to get the Receivers cell information
+#businesslogic.rules.VALIDATE_LOCATION_RULE.validate_cell_location_method.receiver_skipCellIdForPrincipalType=SUBSCRIBERMSISDN
+
+
+# STOCK_NOTIFICATION_TO_SENDER
+businesslogic.actions.STOCK_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.STOCK_NOTIFICATION_TO_SENDER.message_id=STOCK_NOTIFICATION_TO_SENDER
+businesslogic.actions.STOCK_NOTIFICATION_TO_SENDER.receiver_principal=sender
+businesslogic.actions.STOCK_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.STOCK_NOTIFICATION_TO_SENDER.sender=MTN
+
+# INVOICEID COUNTER
+# Counts the usage of invoiceid and if it is reused, then the transaction will be failed
+# with result code = DUPLICATED_EXTRAFIELD_VALUE(2003)
+businesslogic.rules.INVOICEID_COUNTER.classname=DuplicatedExtraFieldValueCheck
+businesslogic.rules.INVOICEID_COUNTER.counter_type_id=INVOICE_COUNTER
+businesslogic.rules.INVOICEID_COUNTER.counter_period=TOTAL
+businesslogic.rules.INVOICEID_COUNTER.field_id=invoiceId
+
+
+
+# TRANSFER_NOTIFICATION
+# Sends an SMS notification to the receiver of a transfer
+businesslogic.actions.TRANSFER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.TRANSFER_NOTIFICATION.message_id=TRANSFER_NOTIFICATION
+businesslogic.actions.TRANSFER_NOTIFICATION.default_language=en
+businesslogic.actions.TRANSFER_NOTIFICATION.sender=SEQR
+
+# PENDING_TRANSFER_NOTIFICATION
+# Sends an SMS notification to the unregistered receiver of a transfer
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.message_id=PENDING_TRANSFER_NOTIFICATION
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.default_language=en
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.sender=SEQR
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.receiver_principal=expression
+businesslogic.actions.PENDING_TRANSFER_NOTIFICATION.expression=${transaction.receiverPrincipal.principalId.id}
+
+# REFUND_NOTIFICATION
+# Sends an SMS notification to the receiver of a refund
+businesslogic.actions.REFUND_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.REFUND_NOTIFICATION.message_id=REFUND_NOTIFICATION
+businesslogic.actions.REFUND_NOTIFICATION.default_language=en
+businesslogic.actions.REFUND_NOTIFICATION.sender=SEQR
+businesslogic.actions.REFUND_NOTIFICATION.receiver_principal=expression
+businesslogic.actions.REFUND_NOTIFICATION.expression=${transaction.receiverPrincipal.subscriberData.subscriberMSISDN}
+
+###################################
+# Update reseller's payment account while linking
+###################################
+businesslogic.actions.ASSOCIATE_RESELLER_WITH_PARENT_ACCOUNT.classname=UpdateResellerAccountAssociation
+businesslogic.actions.ASSOCIATE_RESELLER_WITH_PARENT_ACCOUNT.included_reseller_types=strategicdelegate,dealerdelegate
+
+
+####################################
+# Stock Alert Event Action
+####################################
+businesslogic.actions.STOCK_ALERT_EVENT.classname=StockAlertEventAction
+businesslogic.actions.STOCK_ALERT_EVENT.eventmanager.url=http://0.0.0.0:9876/eventmanager/create
+businesslogic.actions.STOCK_ALERT_EVENT.accountTypes=RESELLER_AIRTIME
+
+# GRATIFICATION
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_COLLECTOR_TRANSACTION_REFERENCE.classname=SetSourceAccountToTransactionReference
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_COLLECTOR_TRANSACTION_REFERENCE.source_account_type=COLLECTOR
+
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GOTHIA_TRANSACTION_REFERENCE.classname=SetSourceAccountToTransactionReference
+businesslogic.rules.SET_SOURCE_ACCOUNT_TO_GOTHIA_TRANSACTION_REFERENCE.source_account_type=GOTHIA
+
+###################################
+# Unlink Reseller Balance Check
+###################################
+businesslogic.rules.UNLINK_RESELLER_BALANCE_CHECK.classname=UnlinkResellerBalanceCheck
+#These properties are related to Unlink reseller functionality
+#define min_threshold_value threshold for a reseller type.Only resellers having balance less than threshold can be unlinked
+#If you do not specify value then system will use default value 0
+businesslogic.rules.UNLINK_RESELLER_BALANCE_CHECK.1.reseller_type=dealer
+businesslogic.rules.UNLINK_RESELLER_BALANCE_CHECK.1.min_threshold_value=10
+
+###################################
+# Unlink Reseller have children
+###################################
+businesslogic.rules.UNLINK_RESELLER_CHILDREN_CHECK.classname=ParentResellerChildrenCheck
+businesslogic.rules.UNLINK_RESELLER_CHILDREN_CHECK.1.excluded_reseller_types=
+
+###################################
+# Parent Reseller Account sharing status check
+###################################
+businesslogic.rules.RESELLER_ACCOUNT_SHARING_STATUS_CHECK.classname=GetResellerAccountSharingStatus
+businesslogic.rules.RESELLER_ACCOUNT_SHARING_STATUS_CHECK.included_reseller_types=strategicdealer,dealer
+
+###################################
+# Update reseller's payment account while unlinking
+###################################
+businesslogic.rules.DE_ASSOCIATE_RESELLER_WITH_PARENT_ACCOUNT.classname=UpdateDeLinkResellerRegisteredAccount
+businesslogic.rules.DE_ASSOCIATE_RESELLER_WITH_PARENT_ACCOUNT.included_reseller_types=strategicdelegate,dealerdelegate
+
+###################################
+
+###################################
+# Client IDs based terminal auto generation while register sub-reseller
+###################################
+businesslogic.rules.REGISTER_SUB_RESELLER_AUTO_TERMINAL_CREATION.classname=SubResellerTerminalCreationCheck
+businesslogic.rules.REGISTER_SUB_RESELLER_AUTO_TERMINAL_CREATION.included_client_ids=ers-agentportal,ers-ussdapp,ers-topup-service
+
+#OTP Generation Rule
+businesslogic.rules.GENERATE_OTP.classname=OTPGenerateRule
+#providers, RANDOM,TOTP,HOTP
+businesslogic.rules.GENERATE_OTP.providers=TOTP
+#HmacSHA1, HmacSHA256, HmacSHA512
+#Secure Random algorithm SHA1PRNG,NativePRNG
+businesslogic.rules.GENERATE_OTP.algorithm=HmacSHA1
+#Key
+businesslogic.rules.GENERATE_OTP.encryption_key=abcd@123
+#Pin length, Minimum value is 6
+businesslogic.rules.GENERATE_OTP.otp_pin_length=8
+
+##############################################################################################################################################
+#                                                TRANSFORM TRANSACTION PROFILE RULE                                                          #
+##############################################################################################################################################
+
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.classname=TransformTransactionProfileRule
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.1.id = TOPUP_TO_CASHIN
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.1.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.1.new_profile = CASHIN
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.1.criteria = <#if transaction.productSKU??><#if transaction.productSKU="CASHIN">true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.2.id = TOPUP_TO_DATA_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.2.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.2.new_profile = DATA_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.2.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("DB_.*")>true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.3.id = TOPUP_TO_P2P
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.3.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.3.new_profile = P2P
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.3.criteria = <#if transaction.productSKU??><#if transaction.productSKU="P2P">true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.4.id = TOPUP_TO_SMS_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.4.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.4.new_profile = SMS_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.4.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("SMS_.*")>true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.5.id = TOPUP_TO_COMBO_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.5.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.5.new_profile = COMBO_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.5.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("COMBO_.*")>true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.6.id = TOPUP_TO_IDD_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.6.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.6.new_profile = IDD_BUNDLE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.6.criteria = <#if transaction.productSKU??><#if transaction.productSKU?matches("IDD_.*")>true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.7.id = TOPUP_TO_CRBT
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.7.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.7.new_profile = CRBT
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.7.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "CRBT" >true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.8.id = TOPUP_TO_REDEEM
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.8.old_profile = TOPUP
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.8.new_profile = VOUCHER_REDEEM
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.8.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "REDEEM" >true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.9.id = PURCHASE_TO_VOT
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.9.old_profile = PURCHASE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.9.new_profile = VOT_PURCHASE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.9.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "VOT" >true</#if></#if>
+##############################################################################################################################################
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.10.id = PURCHASE_TO_VOS
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.10.old_profile = PURCHASE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.10.new_profile = VOS_PURCHASE
+businesslogic.rules.TRANSFORM_TRANSACTION_PROFILE.10.criteria = <#if transaction.productSKU??><#if transaction.productSKU = "VOS" >true</#if></#if>
+##############################################################################################################################################
+
+###################################
+
+# MAPPING
+#
+# This section maps which rules and actions should be applied to a specific 
+# transaction. All mappings are cumulative, so all mappings that match a specific 
+# transaction will be applied in the order defined below (order given by numbering). 
+# This will result in a chain of rules and actions that will be applied to the 
+# transaction. The rule chain will be applied during the validation phase and 
+# the actions will be performed after the payment phase.
+# Note: Gaps between mapping numbers are allowed.
+#
+# Each mapping defines the following fields:
+# classifier_match        - If the classifier path matches this expression, the mapping will be applied
+#                           to the transaction
+# rule_chain              - List of rule ids of the rules to apply to the transaction 
+# action_chain            - List of action ids of the actions to apply to the transaction
+# final_action_chain      - List of action ids to be executed at the end of transaction processing
+# classifier_tags         - (optional) if defined, this mapping will ONLY be applied if at least one of
+#                           the classifier tags is present on the transaction
+# exclude_classifier_tags - (optional) if defined, this mapping will not be applied if at least
+#                           one of the exclude tags is present on the transaction
+#
+# All reseller transactions should be validated for reseller state, password etc
+businesslogic.mappings.10.classifier_match=.*/Reseller/.*
+businesslogic.mappings.10.rule_chain=RESELLER_PRINCIPAL_AUTH
+
+businesslogic.mappings.90.classifier_match=.*
+businesslogic.mappings.90.classifier_tags=TRANSFER
+businesslogic.mappings.90.action_chain=TRANSFER_NOTIFICATION
+
+businesslogic.mappings.91.classifier_match=.*
+businesslogic.mappings.91.classifier_tags=REFUND
+businesslogic.mappings.91.action_chain=REFUND_NOTIFICATION
+
+# Check user role privileges when doing transfer reversals
+businesslogic.mappings.140.classifier_match=.*/REVERSE_.*TRANSFER/.*
+businesslogic.mappings.140.rule_chain=COMMIT_TRANSACTION
+
+businesslogic.mappings.200.classifier_match=.*
+businesslogic.mappings.200.classifier_tags=TRANSFER_TO_UNREGISTERED_RECEIVER
+businesslogic.mappings.200.final_action_chain=PENDING_TRANSFER_NOTIFICATION
+
+businesslogic.mappings.220.classifier_match=.*
+businesslogic.mappings.220.classifier_tags=COLLECTOR_P2P_TRANSACTION
+businesslogic.mappings.220.rule_chain=COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD COLLECTOR_SUBSCRIBER_TRANSFER_AMOUNT_CHECK COLLECTOR_DECIMAL_CHECK
+
+businesslogic.mappings.221.classifier_match=.*
+businesslogic.mappings.221.classifier_tags=EDENRED_P2P_TRANSACTION
+businesslogic.mappings.221.rule_chain=EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD EDENRED_DECIMAL_CHECK
+#businesslogic.mappings.221.rule_chain=EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_CHECK EDENRED_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD EDENRED_DECIMAL_CHECK
+
+businesslogic.mappings.222.classifier_match=.*
+businesslogic.mappings.222.classifier_tags=GARANTI_P2P_TRANSACTION
+#businesslogic.mappings.222.rule_chain=GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD GARANTI_DECIMAL_CHECK
+businesslogic.mappings.222.rule_chain=GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_CHECK GARANTI_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD GARANTI_DECIMAL_CHECK
+
+businesslogic.mappings.223.classifier_match=.*
+businesslogic.mappings.223.classifier_tags=TRANSFER REVERSE_TRANSFER GRATIFICATION REFUND
+businesslogic.mappings.223.rule_chain=ADD_RECONCILIATION_PERIOD_MARKER
+
+businesslogic.mappings.224.classifier_match=.*
+businesslogic.mappings.224.classifier_tags=TRANSFER REVERSE_TRANSFER
+businesslogic.mappings.224.rule_chain=SET_DESTINATION_ACCOUNT_TO_GIVEN
+
+businesslogic.mappings.225.classifier_match=.*
+businesslogic.mappings.225.classifier_tags=GOTHIA_P2P_TRANSACTION
+businesslogic.mappings.225.rule_chain=GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK GOTHIA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD GOTHIA_DECIMAL_CHECK
+
+businesslogic.mappings.226.classifier_match=.*
+businesslogic.mappings.226.classifier_tags=TRANSFER REVERSE_TRANSFER
+businesslogic.mappings.226.rule_chain=SET_DESTINATION_ACCOUNT_TO_GIVEN_GOTHIA
+
+businesslogic.mappings.227.classifier_match=.*
+businesslogic.mappings.227.classifier_tags=REFUND
+businesslogic.mappings.227.rule_chain=SET_SOURCE_ACCOUNT_TO_GIVEN REFUND_ALLOWED_BY_RESELLER_CHECK SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA
+
+businesslogic.mappings.228.classifier_match=.*
+businesslogic.mappings.228.classifier_tags=BANANA_BANK_P2P_TRANSACTION
+businesslogic.mappings.228.rule_chain=BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD BANANA_BANK_SUBSCRIBER_TRANSFER_AMOUNT_CHECK BANANA_BANK_DECIMAL_CHECK
+
+businesslogic.mappings.229.classifier_match=.*
+businesslogic.mappings.229.classifier_tags=COLLECTOR_GRATIFICATION
+businesslogic.mappings.229.rule_chain=SET_SOURCE_ACCOUNT_TO_COLLECTOR_TRANSACTION_REFERENCE
+
+businesslogic.mappings.230.classifier_match=.*
+businesslogic.mappings.230.classifier_tags=GRATIFICATION
+businesslogic.mappings.230.rule_chain=SET_SOURCE_ACCOUNT_TO_GIVEN_BANANA_BANK SET_SOURCE_ACCOUNT_TO_GIVEN_GARANTI SET_SOURCE_ACCOUNT_TO_GIVEN_SEPA
+
+businesslogic.mappings.231.classifier_match=.*
+businesslogic.mappings.231.classifier_tags=GOTHIA_GRATIFICATION
+businesslogic.mappings.231.rule_chain=SET_SOURCE_ACCOUNT_TO_GOTHIA_TRANSACTION_REFERENCE
+
+businesslogic.mappings.232.classifier_match=.*
+businesslogic.mappings.232.classifier_tags=SEPA_P2P_TRANSACTION
+businesslogic.mappings.232.rule_chain=SEPA_SUBSCRIBER_TRANSFER_AMOUNT_PERIOD SEPA_SUBSCRIBER_TRANSFER_AMOUNT_CHECK
+
+businesslogic.mappings.233.classifier_match=.*
+businesslogic.mappings.233.rule_chain=LOG_SUBSCRIBER_ACTIVITY
+
+#businesslogic.mappings.250.classifier_match=.*
+#businesslogic.mappings.250.classifier_tags=REGISTER_AGENT_VISIT_TRANSACTION
+#businesslogic.mappings.250.rule_chain=VALIDATE_LOCATION_RULE
+#businesslogic.mappings.250.action_chain=STOCK_NOTIFICATION_TO_SENDER
+
+# Validate Transfer for MM2ERS - calling BusinessLogic interface of SDPLink
+businesslogic.mappings.850.classifier_match=ERSTransferTransaction/Reseller/MM2ERS/REQUEST/Completed/resultCode=0
+businesslogic.mappings.850.classifier_tags=MM2ERS_TRANSACTION
+businesslogic.mappings.850.rule_chain=MULTIPLE_OVA_ACCOUNT
+

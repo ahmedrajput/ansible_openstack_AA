@@ -1,0 +1,12 @@
+---
+# handlers file for nova_controller
+- name: Restart httpd
+  service: name=httpd state=restarted
+- name: Restart Nova Services
+  service: name={{ item }} state=restarted
+  with_items:
+  - openstack-nova-api
+  - openstack-nova-consoleauth
+  - openstack-nova-scheduler
+  - openstack-nova-conductor
+  - openstack-nova-novncproxy

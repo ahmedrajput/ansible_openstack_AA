@@ -1,0 +1,9 @@
+---
+# tasks file for horizon
+- name: Installing Openstack dashboard
+  yum: name=openstack-dashboard state=installed
+- name: Populating Horizon Config File
+  template:
+   src: horizon-local-settings.j2
+   dest: /etc/openstack-dashboard/local_settings
+  notify: Restart Memcached and httpd

@@ -1,0 +1,35 @@
+90 = <menu name="Refill"><choice id="1" name="Buy"><choice id="2" name="Workshift"><choice id="9" name="Print again"><choice id="3" name="Administration"><choice id="4" name="Demo"><choice id="5" name="Service"><choice id="6" name="Connection"><choice id="8" name="Log out"><choice id="10" name="System"></menu>
+100 = <vs><small><center>Unknown cashier!<br><bottom><large><hs><invert>~OK~
+101 = <center><large>Blocked cashier!<vs><small>This cashier has been locked!<br>Ask your administrator or call support.<bottom><hs><large><invert>~OK~
+102 = <vs><small><center>Invalid PIN-code<br><bottom><large><hs><invert>~OK~
+103 = <vs><small><center>Access denied<br><bottom><large><hs><invert>~OK~
+104 = <vs><small><center>Cashier already exists<br><bottom><large><hs><invert>~OK~
+105 = <vs><small><center>PIN-code missmatch<br><bottom><large><hs><invert>~OK~
+106 = <vs><small><center>Card already exists<br><bottom><large><hs><invert>~OK~
+107 = <vs><small><center>Connection problem,<br>try later<br><bottom><large><hs><invert>~OK~
+108 = <vs><small><br>Ready for manual<br>download now!<br><button id="ok" name="OK">
+109 = <vs><small><center>Bad activation code<br><bottom><large><hs><invert>~OK~
+110 = <vs><small><center>Bad start code!<br><bottom><large><hs><invert>~OK~
+111 = <vs><small><center>Not a valid date<br><bottom><large><hs><invert>~OK~
+112 = <vs><small><center>Purchases denied, contact support!<br><bottom><large><hs><invert>~OK~
+113 = <vs><small><center>Server busy, try later!<br><bottom><large><hs><invert>~OK~
+114 = <vs><small><center>This product is temporarily unavailable!<br><bottom><large><hs><invert>~OK~
+115 = <vs><small><center>An error occurred!<br><bottom><large><hs><invert>~OK~
+116 = <vs><small><center>Request denied<br><bottom><large><hs><invert>~OK~
+117 = <vs><small><center>No dial tone, check phone line or prefix!<br><bottom><large><hs><invert>~OK~<br>
+118 = <vs><small><center>No ring tone, check phone line or prefix!<br><bottom><large><hs><invert>~OK~<br>
+119 = <vs><small><center>Line is busy, someone uses the phone line!<br><bottom><large><hs><invert>~OK~<br>
+120 = <vs><small><center>Invalid card<br><bottom><large><hs><invert>~OK~<br>
+121 = <menu name="Administration"><choice id="1" name="Buy"><choice id="2" name="Session"><choice id="3" name="Impring again"></menu>
+122 = <vs><small><center>System is closed!<br>Tell administrator to open system.<bottom><large><hs><invert>~OK~<br>
+123 = <center><large>Error<vs><small>Bad product template!<br><bottom><large><hs><invert>~OK~<br>
+124 = <center><large>Error<vs><small>Missing product template!<br><bottom><large><hs><invert>~OK~<br>
+125 = <center><large>Error<vs><small>Bad terminal state for this operation!<br><bottom><large><hs><invert>~OK~<br>
+126 = <center><large>Too many!<br><small>You can purchase max~$max_count$~of this product at a time.<bottom><large><hs><invert>~OK~<br>
+127 = <center><large>Invalid<br><small>Invalid phone number<bottom><large><hs><invert>~OK~<br>
+128 = <center><large>Invalid<br><small>Invalid amount<bottom><large><hs><invert>~OK~<br>
+129 = <center><large>Invalid<br><small>Invalid confirmation code<bottom><large><hs><invert>~OK~<br>
+130 = <center><large>Not found<br><small>Serial not found<bottom><large><hs><invert>~OK~<br>
+131 = <center><large>Invalid<br><small>Code cannot be cancelled<bottom><large><hs><invert>~OK~<br>
+132 = <center><large>Invalid<br><small>Invalid serial<bottom><large><hs><invert>~OK~<br>
+

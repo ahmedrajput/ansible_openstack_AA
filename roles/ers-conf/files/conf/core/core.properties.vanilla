@@ -1,0 +1,627 @@
+#
+# $Id$
+
+# Location of the event scheduler interface.
+eventschedulerconnection.url=http://localhost:8337/eventscheduler
+
+# Location of the system admin interface
+systemadminconnection.url=http://localhost:8777/txe/systemadmin
+
+# Location of the subscriber database transaction interface
+subscribertransactionconnection.url=http://localhost:8087/subscribers/transaction
+
+# Location of the subscriber database management interface
+subscribermanagementconnection.url=http://localhost:8087/subscribers/management
+
+# Location of the report transaction interface
+reporttransactionconnection.url=http://localhost:8081/eire/ws/reportTransaction
+
+# URL to the transaction processing service
+ers.connections.transaction_processing.url=http://localhost:8777/txe/transactionProcessing
+
+accountconnection.classname=FixedAccountClientConnection
+accountconnection.server_url=http://localhost:8092/accountsystem
+# Minimum deposit value to account system using webadmin>account
+accountconnection.min_deposit_value=1
+# Maximum deposit value to account system using webadmin>account
+accountconnection.max_deposit_value=1000000000
+# Minimum withdraw value to account system using webadmin>account
+accountconnection.min_withdraw_value=1
+# Maximum withdraw value to account system using webadmin>account
+accountconnection.max_withdraw_value=1000000000
+
+# Direct account transactions are deposits and withdrawals on accounts
+# through the web admin ui. If disabled the buttons for doing
+# deposits and withdrawal are deactivated.
+accountconnection.enable_direct_account_transactions=false
+
+
+# Maps internal service id:s in subscriber system to a more "user friendly"
+# display name that are used in web admin. The display name is both
+# used when listing services that a subscriber are linked to and
+# when a new service is added to a user.
+#
+# Example of configuration:
+# subscribermanagement.service_id.ETOPUP=Me2U
+# 
+# The above configuration means that the service with internal service id
+# ETOPUP will be be called Me2U in web admin.
+#
+subscribermanagement.service_id.ALL=Default
+subscribermanagement.service_id.ETOPUP=E-topup
+
+
+# Transaction profile for search mollet transaction.
+# The ordering of the transaction profiles in the interfaces are 
+# not based on the ordering in this configuration file. 
+transactionprofile.1.key=TOPUP
+transactionprofile.1.value=TOPUP
+transactionprofile.2.key=AIRTIME_TRANSFER
+transactionprofile.2.value=AIRTIME TRANSFER
+transactionprofile.3.key=CREDIT_TRANSFER
+transactionprofile.3.value=CREDIT TRANSFER
+transactionprofile.4.key=REVERSE_TRANSFER
+transactionprofile.4.value=REVERSE TRANSFER
+transactionprofile.5.key=CHANGE_PASSWORD
+transactionprofile.5.value=CHANGE PASSWORD
+transactionprofile.6.key=GET_ANONYMOUSID
+transactionprofile.6.value=GET ANONYMOUSID
+transactionprofile.7.key=ETOPUP_CHANGE_PASSWORD
+transactionprofile.7.value=ETOPUP CHANGE PASSWORD
+transactionprofile.8.key=REGISTER_ETOPUP_SERVICE
+transactionprofile.8.value=REGISTER ETOPUP SERVICE
+transactionprofile.9.key=RESELLER_BALANCE
+transactionprofile.9.value=RESELLER BALANCE
+transactionprofile.10.key=BLOCK_RESELLER
+transactionprofile.10.value=BLOCK RESELLER
+transactionprofile.11.key=UNBLOCK_RESELLER
+transactionprofile.11.value=UNBLOCK RESELLER
+transactionprofile.12.key=REPORT
+transactionprofile.12.value=REPORT
+transactionprofile.13.key=TRANSACTIONS_SEARCH
+transactionprofile.13.value=TRANSACTIONS SEARCH
+transactionprofile.14.key=ETOPUP_LAST_TRANSACTION
+transactionprofile.14.value=ETOPUP LAST TRANSACTION
+transactionprofile.15.key=ETOPUP_TRANSACTION_STATUS
+transactionprofile.15.value=ETOPUP TRANSACTION STATUS
+transactionprofile.16.key=AIRTIME_BALANCE
+transactionprofile.16.value=AIRTIME BALANCE
+transactionprofile.17.key=SUB_RESELLER_TYPES
+transactionprofile.17.value=SUB RESELLER TYPES
+transactionprofile.18.key=REGISTER_SUB_RESELLER
+transactionprofile.18.value=REGISTER SUB RESELLER
+transactionprofile.19.key=RESELLER_INFO
+transactionprofile.19.value=RESELLER INFO
+transactionprofile.20.key=SUB_RESELLER_SEARCH
+transactionprofile.20.value=SUB RESELLER SEARCH
+transactionprofile.21.key=RESET_BUSINESS_COUNTER
+transactionprofile.21.value=RESET BUSINESS COUNTER
+
+
+# Default user role id when adding new user for reseller thru
+# ERSWSResellerManagementLink
+resellermanagement.user_role_id=POS
+
+# Default user password when adding new user for reseller thru
+# ERSWSResellerManagementLink. This is used only password policy is set to use
+# 'Admin defined' password.
+resellermanagement.user_password=2009
+resellermanagement.web_user_password=20162016
+
+# Auto activation when assigning terminal to reseller thru
+# ERSWSResellerManagementLink
+resellermanagement.terminal_auto_activation=true
+
+# Default terminal type when adding new terminal for reseller thru
+# ERSWSResellerManagementLink. 
+resellermanagement.terminal_type=Phone
+
+# Default terminal serial flag when adding new terminal for reseller thru
+# terminal_serial_auto_generated=true, system will generate for you.
+# terminal_serial_auto_generated=false, system will assign MSISDN by default. 
+# ERSWSResellerManagementLink. 
+resellermanagement.terminal_serial_auto_generated=false
+
+# Reseller type which have shared account and want skip validation while registering reseller.
+# monitored_shared_account_reseller_types=
+# ERSWSResellerManagementLink. 
+resellermanagement.monitored_shared_account_reseller_types=
+
+# Stategy used for id generation
+# Possible options: counter_based, reseller_key_based
+#
+# For counter_based strategy, first value of counter is generated using below
+# configuration. Subsequent values are loaded from database. So later change
+# in configuration will not affect the generated values of reseller id.
+#
+# For reseller_key_based strategy, reseller id is always generated using
+# below configuration. So change in configuration will affect the generated
+# values of reseller id.
+#resellermanagement.id_generation=reseller_key_based
+
+# Prefix that will be part of auto generated reseller id.
+resellermanagement.id_prefix=RES
+
+# Number of digits for suffix that will be part of 
+# auto generated reseller id.
+#resellermanagement.id_digits=7
+
+# Default user password when performing a user reset for a user having the 
+# password change policy AdminChange_ResetSMS or AdminChange_ResetEmail.
+# with no value then the system generates a password.
+# IdServiceImpl
+resellermanagement.reset_pin=0000
+
+# Upon de-activating an agent whether a sms notification
+# should be sent or not
+resellermanagement.sms_on_deactivation=false
+
+# Report that contains the format of the SMS that is sent
+# when a reseller is deactivated if sms_on_deactivation is set to true.
+#
+report.reseller_deactivate_service=REP_0508
+
+# Reseller event notification scheduler. 
+# When enabled, reseller user password expiry events will be 
+# scheduled in the ers eventscheduler and when triggered do a callback
+# back to core that will if the reseller still is active generate a 
+# formatted SMS.
+#
+# When the events are sent to the event scheduler its provides the follwing
+# information:
+# eventJobId=<job_id>
+# eventCallbackId=<resellerId>/<userId>
+# eventCallbackType=<handler_name>/<callback_type>
+#
+# Enable or disable the event scheduling mechanism.
+reseller_event_scheduler.enabled=false
+# The core internal handler name for sending and receiving events.
+reseller_event_scheduler.events.1.handler_name=ResellerUserPasswordExpiryEvent
+# The job id that should much the job configured in the ers eventscheduler.
+reseller_event_scheduler.events.1.job_id=ResellerCallbackJob
+# Enable or disable a scheduling.
+reseller_event_scheduler.events.1.schedule.1.enabled=true
+# The callback job type post fix. 
+reseller_event_scheduler.events.1.schedule.1.callback_type=RESELLER_USER_PASSWORD_EXPIRED
+# The time before for triggering the generated event.
+reseller_event_scheduler.events.1.schedule.1.time_before_expiry=0s
+#
+# Enable or disable a scheduling. (disabled in this example)
+reseller_event_scheduler.events.1.schedule.2.enabled=false
+# The callback job type post fix. 
+reseller_event_scheduler.events.1.schedule.2.callback_type=RESELLER_USER_PASSWORD_EXPIRE_ONE_HOUR_BEFORE
+# The time before for triggering the generated event.
+reseller_event_scheduler.events.1.schedule.2.time_before_expiry=1h
+
+# CMS settings, used to resolve the request result message texts
+#
+cms.classname=SimpleFileCMS
+cms.languages=en
+cms.en.filename=core_messages_english.properties
+cms.en.encoding=UTF-8
+
+
+
+# There are two kinds of reseller search we can do using
+# ERSWSResellerManagementLink.searchResellers():
+# 
+# * a so called classic search where we search among children of the
+# parentReseller 
+# * a search using allowed types mapping for a reseller type of the
+# initiatorReseller 
+#
+# Before choosing one of them we check whether initiatorReseller and
+# parentReseller exist.
+# 
+# We then look into core.properties for resellermanagement.search_resellers.*
+# variables. We want to find out if a variable allowed_types exists for the
+# reseller type of initiatorReseller. For example, if reseller type of
+# initiatorResellers is 'agent', the property could look like this: 
+# 
+# resellermanagement.search_resellers.agent.allowed_types=agent, subagent 
+# 
+# If this allowed_types property doesn't exist for the reseller type of
+# initiatorReseller we use the classic search.
+# 
+# In the classic search we first check if parentReseller is a child of
+# initiatorReseller or we return an empty result. We then search using the
+# specified search criteria.
+# 
+# In the allowed_types search, we look up the reseller types specified in the
+# allowed_types property. We will only return resellers of the allowed_types.
+# 
+# If the parentReseller is different from initiatorReseller we assume the search
+# should only be performed on children of parentReseller.
+#
+#resellermanagement.search_resellers.distributor.allowed_types=distributor, agent, subagent
+#resellermanagement.search_resellers.agent.allowed_types=agent, subagent
+
+
+# Flow control configuration
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+# Report used to format SMS that is sent to subscriber if password is
+# reset for a subscriber service (web admin menu support->subscribers)
+#
+report.subscriber_reset_password=REP_0506
+
+# Report used to format SMS that is sent to subscriber if a service 
+# is de-activated (web admin menu support->subscribers)
+#
+report.subscriber_deactivate_service=REP_0507
+
+# Report used to format SMS that is sent when a reseller is approved 
+# (support->resellers menu, tab information, button "Approve registration").
+# This button is only displayed if a reseller is in a state ResellerRequiresApproval. 
+#
+report.reseller_approval_service=REP_0509
+
+# Business counter id for unlock wrong pin attempts counter
+# Systax is businesscounter.usertype.<serviceId>=businessCounterTypeId
+# Ex: business counter id for ETOPUP service for subscriber  
+# businesscounter.subscriber.ETOPUP=WRONG_PIN_ATTEMPTS
+# Ex: business counter id for MOLLET service for subscriber
+# businesscounter.subscriber.MOLLET=WRONG_PIN_ATTEMPTS
+# Ex: business counter id for any service for subscriber
+# businesscounter.subscriber=WRONG_PIN_ATTEMPTS
+# Ex: business counter id for any service for reseller
+# businesscounter.reseller=WRONG_PIN_ATTEMPTS
+
+businesscounter.subscriber=WRONG_PIN_ATTEMPTS
+
+
+
+
+# These are the Default Terminal Properties that can be configured. These
+# properties are certain to default terminal parameters like barcode to be
+# printed, workshift needed or not etc.
+
+# This corresponds to "Log Out" property. The name/value pair it has is
+# ("0","Logout after every action") ("3600","Stays logged on up to 1 hour"),
+# ("36000","Stays logged on up to 10 hrs")
+terminals.log_out=0
+
+# This corresponds to "WorkShift Policy" property. The name/value pair it has is
+# ("N","Don't use workshifts") ("A","Use workshifts"), ("S","Silent workshifts")
+terminals.workshift_policy=A
+
+# This corresponds to "Print Images" property. The name/value pair it has is
+# ("A","Always") ("N","Never")
+terminals.print_images=N
+
+# This corresponds to "Print Barcodes" property. The name/value pair it has is
+# ("A","Always") ("N","Never")
+terminals.print_barcodes=Y
+
+# This corresponds to "Confirm Printouts" property. The name/value pair it has
+# is  ("A","Always") ("N","Never")
+terminals.confirm_printouts=N
+
+# This corresponds to "Application Mode" property. The name/value pair it has is
+# ("M","Master") ("S","Standard")
+terminals.application_mode=M
+
+# This corresponds to "Cashier Open/Close" property. The name/value pair it has
+# is  ("N","None") ("C","Only Close"), ("B","Open and Close")
+terminals.cashier_open_close=N
+
+# This corresponds to "Print Again" property. The name/value pair it has is
+# ("Y","Yes") ("N","No")
+terminals.print_again=Y
+
+# This corresponds to "Buy Menu Timeout" property. The name/value pair it has is
+# ("Y","Yes") ("N","No")
+terminals.buy_timeout=Y
+
+# This corresponds to "Confirm Messages" property. The name/value pair it has is
+# ("Y","Yes") ("N","No")
+terminals.confirm_msg=Y
+
+# This corresponds to "Print Receipts" property. The name/value pair it has is
+# ("A","Always") ("N","Never"),("Q","Ask every Time")
+terminals.print_receipts=Q
+
+# This corresponds to "Product Presentation" property. The name/value pair it
+# has is  ("P","Price") ("V","Value"),("N","Name")
+terminals.product_presentation=N
+
+# If reseller group values are specified then a drop-down with the specified 
+# groups will be displayed when editing reseller details. A reseller group must
+# then be selected for each reseller If no group values are specified then a
+# free text field will be available and no verification of group input will be performed.
+#
+# When importing resellers this check will also be done only permitting importing
+# resellers with a valid reseller group.
+#
+# Use "," to separate the reseller groups.
+#
+fields.reseller.group_values=
+
+## WebAdmin properties 
+
+# If you omit the http://host part when defining URLs below, the host
+# will be set automatically.
+
+# URL to bonus system which will be used under /admin/bonus management
+# If you dont mention full URL and set useSSL to be true
+# then https will be appended instead of http
+webadmin.bonussystemURL=:8081/bonussystem/bonussystem/index.html
+webadmin.bonussystemURLUseSSL=false
+
+# URL to the support UI search page
+webadmin.transactionsearchURL=:8081/supportui/supportui/Application.html
+webadmin.transactionsearchURLUseSSL=false
+
+# URL to the report UI
+webadmin.reportengineURL=:8081/reportui/reportui/Application.html
+webadmin.show_legacy_report_tabs=false
+webadmin.reportengineURLUseSSL=false
+
+# URL to the CEN UI
+webadmin.cenUiURL=:8081/censystemui/
+webadmin.cenUiURLUseSSL=false
+
+# URL to the VoucherImportClient
+webadmin.voucherimportclientURL=:8081/voucherimportclient/voucherimport/Application.html
+webadmin.voucherimportclientURLUseSSL=false 
+
+# URL to the RegionsDB
+webadmin.regionsURL=:8081/regionsdbui/index.jsp
+webadmin.regionsURLUseSSL=false
+
+# URL to the businesslogic exchange rates
+webadmin.pricingURL=:8081/businesslogicui/businesslogicui/Application.html
+webadmin.pricingURLUseSSL=false
+
+# URL to the cluster management
+webadmin.clustermanagementURL=:9909/index.html
+webadmin.clustermanagementURLUseSSL=false
+
+# Enable or Disable Second Level authentication for web admin  on Block,Deactivate and Freez operations
+webadmin.allowSecondLevelAction=false
+webadmin.allowed_user_roles=Administrator,Admin
+
+
+## Request Context Parameters
+request_context.channel=WEB
+request_context.clientId=webadmin
+request_context.timeout=3000
+request_context.isPrepareOnly=false
+
+
+# Show or hide decommissioned product in webadmin, this can be found under
+# operators -> products, by default decommissioned products are not shown
+#webadmin.showDecommissionedProduct=false
+#webadmin.showDecommissionedProductMaxDays=0
+# Allow or disallow decommissioning of a product on existing stock, by default 
+# it is allowed
+#webadmin.allowDecommissionOnExistingStock=true
+
+webadmin.one_step_batch_deposit_transactions=false
+
+# maxCountOfScheduledReceipts is maximum number of receipt formats added for a certain template type.
+# System will not allow to add further receipt formats.
+# This limit is just to force user to delete old receipts and keeping DB light.
+# If this property is not enabled a default value of 5 receipts will be considered. 
+# maxCountOfScheduledReceipts = 10
+
+# locale for amount formatting from link
+locale.custom_currency.EUR=2
+
+# USSDLink settings
+ussdlink.url=http://localhost:4567/ussdgw/
+ussdlink.reseller_password_change_command=rpc
+ussdlink.subscriber_password_change_command=spc
+ussdlink.protocol_version=2
+ussdlink.application_id=ers
+ussdlink.password=ers
+
+#Defautl Date for voucher Bach Import format 'ddMMyyyy'
+voucherbatch.defaultDate = 31122099
+#config settings we want to make serials unique per operator or uniequ per product.
+#One of these should be true and one should be false.if both set
+#to true then uniqueVoucherSerialPerProduct will be applied.
+voucherbatch.uniqueVoucherSerialPerOperator = false
+voucherbatch.uniqueVoucherSerialPerProduct = true
+
+
+#Stock voucher batch reason field optional/mandatory
+#When reason_field_optional=true means it is optional
+#When reason_field_optional=false means it is mandatory
+voucherbatch.reason_field_optional = false
+
+# voucherImportBatchSize is batch size added for a voucher import batch.
+# If this property is not enabled a default value of 1000 will be considered. 
+voucherbatch.voucherImportBatchSize = 1000
+
+# voucherImportUsingCSVFile is added for a voucher import batch.
+#When voucherImportUsingCSVFile=true means during voucher batch import, system will generate CSV files = 
+#(total voucher in single batch)/voucherImportBatchSize
+#When voucherImportUsingCSVFile=false means old behavour
+# If this property is not enabled a default value of false will be considered. 
+voucherbatch.voucherImportUsingCSVFile=false
+
+# voucherImportGeneratedCSVDirectory is a directory for generate csv files
+# If this property is not enabled a default value /var/seamless will be considered. 
+voucherbatch.voucherImportGeneratedCSVDirectory=/var/seamless
+
+# Pass parameters to load data infile query
+voucherbatch.loadCSVFileParameters=--compress CHARACTER SET utf8
+
+# Keeps batch imports generated csv file at path = {voucherImportGeneratedCSVDirectory} 
+voucherbatch.keepBatchImportCSVFiles=true
+
+# Status codes are comma separated
+# Available=1
+# Reserved=2
+# Sold=3
+# SoldDelivered=4
+# Invalid=5
+# ToBeCredited=40
+# Credited=41
+# CreditDenied=42
+# ReturningRevoked=43
+# ReturnedNotCredited=44
+# voucher_states.status_codes=1,2,3
+voucher_states.status_codes=1
+
+# Coshop database connection
+coshop_system.db_driver=org.mariadb.jdbc.Driver
+coshop_system.db_url=jdbc:mysql://localhost/Coshop
+coshop_system.db_user=
+coshop_system.db_password=
+
+# Billing database connection
+billing_system.db_driver=org.mariadb.jdbc.Driver
+billing_system.db_url=jdbc:mysql://localhost/Billing
+billing_system.db_user=refill
+billing_system.db_password=refill
+
+# Refill database connection
+webadmin.db_driver=org.mariadb.jdbc.Driver
+webadmin.db_url=jdbc:mysql://localhost/Refill
+webadmin.db_user=refill
+webadmin.db_password=refill
+
+#voucherkey_index_url=http://0.0.0.0:8989/
+#httpclient.max_total_connections=200
+#httpclient.default_max_connections_per_reoute=20
+#httpclient.max_connections_per_reoute=50
+
+resellermanagement.contract_auto_creation=false
+
+#Set default reseller type id for delinked reseller.If you donot specify a value then
+#delinked reseller type will not change
+unlinkResellerDefaultTypeId=pos
+#Setting it true will change existing reseller type while linking it to a reseller.
+shouldChangeExistingLinkingResellerType=false
+
+#########################################################
+# Database Settings for Hash Modulus Mechanism
+# Galera nodes should be listening on following ports
+# In case of different ports please update configs
+
+# Node-1 = 4401
+# Node-2 = 4402
+# Node-3 = 4403
+#########################################################
+
+connection.1.db_user=refill
+connection.1.db_password=refill
+connection.1.db_driver=org.mariadb.jdbc.Driver
+connection.1.db_url=//localhost:3306/Refill
+connection.1.db_stat_interval_seconds=0
+connection.1.db_query_timeout=120
+connection.1.pool_min_size=40
+connection.1.pool_max_size=100
+
+connection.1.db_zeroDateTimeBehavior=convertToNull
+connection.1.db_pool_timeout_millis=300000
+connection.1.db_autoReconnect=false
+connection.1.db_autoCommit=false
+connection.1.db_connectTimeout=false
+
+
+#########################################################################
+# Database settings for Round Robin Mechanism
+# These settings are separate for the time being but can be removed later
+#########################################################################
+roundrobin.db_user=refill
+roundrobin.db_password=refill
+roundrobin.db_driver=org.mariadb.jdbc.Driver
+roundrobin.db_url=//localhost:3306/Refill
+roundrobin.db_stat_interval_seconds=0
+roundrobin.db_query_timeout=120
+roundrobin.pool_min_size=40
+roundrobin.pool_max_size=100
+roundrobin.db_zeroDateTimeBehavior=convertToNull
+roundrobin.db_pool_timeout_millis=300000
+roundrobin.db_autoReconnect=false
+roundrobin.db_autoCommit=false
+roundrobin.db_connectTimeout=false
+#########################################################################
+
+
+session.sessionmanagelocally=false
+#########################################################################
+# Database settings for Refill session on localhost
+#Enabling session.sessionmanagelocally=true, session managment can be done on 
+#local server where core is installed or any server mentioned in db url
+#########################################################################
+sessionmanager.db_user=refill
+sessionmanager.db_password=refill
+sessionmanager.db_driver=org.mariadb.jdbc.Driver
+sessionmanager.db_url=//localhost:3306/RefillSessions
+sessionmanager.db_stat_interval_seconds=0
+sessionmanager.db_query_timeout=120
+sessionmanager.pool_min_size=40
+sessionmanager.pool_max_size=100
+sessionmanager.db_zeroDateTimeBehavior=convertToNull
+sessionmanager.db_pool_timeout_millis=300000
+sessionmanager.db_autoReconnect=false
+sessionmanager.db_autoCommit=false
+sessionmanager.db_connectTimeout=false
+#########################################################################
+
+#################################################################################
+# These properties are used when Reseller Link/Unlink bulk opertaion is performed
+# These are used to call txe reseller service
+#Currently these are being used for ci-mtn customer 
+#################################################################################
+ersconnection_reseller.url=http://localhost:8777/txe/reseller
+ersconnection_reseller.user=core
+ersconnection_reseller.password=core
+
+#########################################################################
+
+webadmin.commissionmanagementURL=:8081/bonussystem/bonussystem/index.html
+webadmin.commissionmanagementURLUseSSL=false
+
+############################################
+### Reseller Target UI Configuration #######
+
+webadmin.resellerTargetURL=:8081/bonussystem/bonussystem/index.html
+webadmin.resellerTargetURLUseSSL=false
+
+#Below Properties are used for exporting audit log information using their mime types
+#URL to talk to report engine custom operations interface
+#it is used for running reports without going through TXE
+reportEngine.url=http://localhost:8920/reportengine/customOperations
+reportEngine.receiveTimeout=0
+
+#URL to expose report resource provider URL
+#resourceProviderURL=http://localhost:8921/reportengine/resources
+reportEngine.resourceProviderURL=http://localhost:8081/supportui/supportui/report
+#Audit log export report id
+reportEngine.auditLogDataExportReport=Support/Audit Log Report.rptdesign
+#format supported in audit log export report
+reportEngine.auditLogMimeTypes=text/html,text/csv,application/pdf
+session.enabledAuditLogExport=false
+ssl.enabledCookie=false
+
+account_count_restriction.enabled=false
+account_count_restriction.1.exclude_reseller_id=
+account_count_restriction.1.account_type=REWARD_ACCOUNT
+account_count_restriction.1.max_count=1
+account_count_restriction.2.account_type=RESELLER_AIRTIME
+account_count_restriction.2.exclude_reseller_id=
+account_count_restriction.2.max_count=1
+
+account_type_for_expirydate=RESELLER_REWARDS
+
+### properties to be added when coreproxy is installed as a separate component
+use_optimized_price_handlers=true
+
+# Pricing margin_roundup will be used to round 
+# up reseller margin, customer margin and customer bonus.
+# HALF_UP 7.222-> 7.22 & 7.226 -> 7.23 
+# FLOOR 7.222-> 7.22 & 7.226 -> 7.22 
+# CEILING 7.222-> 7.23 & 7.226 -> 7.23 
+pricing.margin_roundup=HALF_UP
+#pricing.margin_roundup=HALF_DOWN
+#pricing.margin_roundup=FLOOR
+#pricing.margin_roundup=CEILING
+
+

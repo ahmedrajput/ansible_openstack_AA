@@ -1,0 +1,233 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+import com.seamless.common.RegexpHashtable;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+import com.seamless.ers.interfaces.ersifcommon.dto.Amount;
+import com.seamless.ers.txe.businesslogic.interfaces.TXETransaction;
+import com.seamless.ers.txe.transaction.model.ERSTopupTransaction;
+
+
+RegexpHashtable segments = new RegexpHashtable();
+List rechargeProfiles = new ArrayList();
+List topupProfiles = new ArrayList();
+Object topupProductSKU;
+String topupFlexiTypeName;
+Object rechargeProductSKU;
+String rechargeTypeName;
+String refillProfileIdKey;
+String topupFixedTypeName;
+String segmentIdKey;
+	
+	
+public class ProfileSegment
+{
+	public String segmentName;
+	public String profileId;
+	public Amount minAmount;
+	public Amount maxAmount;
+	
+	public ProfileSegment(String segmentName, String profileId, Amount minAmount,
+			Amount maxAmount)
+	{
+		this.segmentName = segmentName;
+		this.profileId = profileId;
+		this.minAmount = minAmount;
+		this.maxAmount = maxAmount;
+	}
+	
+	public boolean isFlexi()
+	{
+		return !maxAmount.equals(minAmount);
+	}
+}	
+	
+	
+	
+	
+public void addRecharge(String segment, String profile, Amount value)
+{
+	rechargeProfiles.add(new ProfileSegment(segment, profile, value, value));
+}
+
+public void addTopup(String segment, String profile, Amount min,
+		Amount max)
+{
+	topupProfiles.add(new ProfileSegment(segment, profile, min, max));
+}
+
+public void addSegment(String regexp, String segmentName)
+{
+	segments.put(regexp, segmentName);
+}
+
+public ProfileSegment findTopup(String msisdn, Amount amount)
+{
+	return findProfile(topupProfiles, msisdn, amount);
+}
+
+public ProfileSegment findRecharge(String msisdn, Amount amount)
+{
+	return findProfile(rechargeProfiles, msisdn, amount);
+}
+
+
+// O(n) search
+private ProfileSegment findProfile(List profiles, String msisdn,
+		Amount amount)
+{
+	String segment = (String) segments.get(msisdn);
+	if (segment == null)
+	{
+		return null;
+	}
+
+	ProfileSegment result = null;
+	for (Iterator iter = profiles.iterator(); iter.hasNext();)
+	{
+		ProfileSegment pm = (ProfileSegment) iter.next();
+		if (!segment.equals(pm.segmentName))
+		{
+			continue;
+		}
+
+		int comparison1 = amount.getValue().compareTo(
+				pm.minAmount.getValue());
+		if (comparison1 < 0)
+		{
+			break;
+		}
+
+		int comparison2 = amount.getValue().compareTo(
+				pm.maxAmount.getValue());
+		if (comparison2 <= 0)
+		{
+			result = pm;
+			break;
+		}
+
+	}
+
+	return result;
+
+}
+
+public void initialize()
+{
+	// Sort algorithm according to sweep and prune 1D algorithm
+
+	Comparator sweepAndPruneComparator = new Comparator()
+	{
+
+		public int compare(Object o1, Object o2)
+		{
+			ProfileSegment profile1 = (ProfileSegment) o1;
+			ProfileSegment profile2 = (ProfileSegment) o2;
+
+			int comparison = profile1.minAmount.getValue().compareTo(
+					profile2.minAmount.getValue());
+
+			if (comparison == 0)
+			{
+				if (profile1.isFlexi())
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+
+			return comparison;
+		}
+
+	};
+
+	Collections.sort(rechargeProfiles, sweepAndPruneComparator);
+	Collections.sort(topupProfiles, sweepAndPruneComparator);
+
+}
+
+
+public boolean validate(TXETransaction transaction)
+{	
+	
+	ERSTopupTransaction topupTransaction = (ERSTopupTransaction)transaction;
+		ProfileSegment profile = null;
+	boolean result = false;
+		if (topupTransaction.getProductSKU().equals(topupProductSKU))
+	{
+		profile = findTopup(transaction.getReceiverId(), transaction.getTransactionAmount());
+		if (profile != null)
+		{
+			topupTransaction.putField(refillProfileIdKey, profile.profileId);
+			transaction.putField(segmentIdKey, profile.segmentName);
+			if (profile.isFlexi())
+			{
+				topupTransaction.setTopupType(topupFlexiTypeName);					
+			}
+			else
+			{
+				topupTransaction.setTopupType(topupFixedTypeName);										
+			}
+			result = true;
+		}
+		else
+		{
+			logger.error("Failed to resolve topup for productSKU: " + topupTransaction.getProductSKU());				
+			transaction.setResultCode(ResultCodes.INTERNAL_ERROR);
+		}
+		
+	}
+	else if (topupTransaction.getProductSKU().equals(rechargeProductSKU))
+	{
+		profile = findRecharge(transaction.getReceiverId(), transaction.getTransactionAmount());
+		if (profile != null)
+		{
+			topupTransaction.setTopupType(rechargeTypeName);
+			topupTransaction.putField(refillProfileIdKey, profile.profileId);
+			transaction.putField(segmentIdKey, profile.segmentName);
+			result = true;
+		}
+		else
+		{
+			logger.error("Failed to resolve recharge for productSKU: " + topupTransaction.getProductSKU());				
+			transaction.setResultCode(ResultCodes.INTERNAL_ERROR);
+		}
+		}
+	else
+	{
+		transaction.setResultCode(ResultCodes.INTERNAL_ERROR);
+		logger.error("Unsupported productSKU: " + topupTransaction.getProductSKU());
+		return false;
+	}
+	
+	
+	return result;
+}
+
+topupProductSKU = "TOPUP";
+topupFlexiTypeName ="topup_flexi";
+topupFixedTypeName = "topup_fixed";
+rechargeProductSKU = "RECHARGE";
+rechargeTypeName = "recharge";
+refillProfileIdKey = "refillProfileId";;
+segmentIdKey = "segmentName";
+	
+	
+addSegment("^467.*", "circle1");
+
+// Add recharge profiles
+
+addRecharge("circle1", "QN", new Amount(20, "EUR"));
+
+// Add topup profiles
+
+addTopup("circle1", "6W", new Amount(15, "EUR"), new Amount(15, "EUR"));
+addTopup("circle1", "6W1", new Amount(15, "EUR"), new Amount(19, "EUR"));
+
+initialize();

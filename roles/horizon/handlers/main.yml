@@ -1,0 +1,7 @@
+---
+# handlers file for horizon
+- name: Restart Memcached and httpd
+  service: name={{ item }} state=restarted
+  with_items:
+  - memcached
+  - httpd

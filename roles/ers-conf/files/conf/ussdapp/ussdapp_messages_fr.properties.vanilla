@@ -1,0 +1,170 @@
+unknown_command=Commande invalide! Merci de verifiez l'utilisation du service USSD.
+internal_error=Erreur code $result_code$\n
+SYNTAX_ERROR=Commande invalide! Merci de verifiez l'utilisation du service USSD.
+TOPUP_SENDER_MESSAGE=Vous avez recharge le $receiver_MSISDN$ de $amount$, votre solde est $balance$. ref: $transaction_id$ \n
+TOPUP_RECEIVER_MESSAGE=Vous avez ete recharge par $sender_MSISDN$ avec le montant de $amount$.\n
+
+MENU_MAIN=1 Enregistrer\n2 Recharger\n3 Transferer\n4 Solde \n5 Statut transaction\n6 Derniere Operation\n7 Rapports\n8 Changement de PIN\n9 Transfert meme parent\n
+MENU_REGISTER_1=Entrez votre code d'activation:\n
+MENU_REGISTER_2=Entrez votre mot de passe:\n
+MENU_REGISTER_3=Entrez a nouveau votre mot de passe:
+REGISTRATION_DONE=Vous avez ete enregistre avec succes.\n
+
+
+MENU_TOPUP_1=Numero tel:\n
+MENU_TOPUP_2=Montant:\n
+MENU_TOPUP_3=Mot de passe:\n
+TOPUP_RESULT=Vous avez recharge le $receiver_MSISDN$ de $amount$, votre solde est $balance$. ref: $transaction_id$\n
+
+MENU_STOCK_TRANS_1=Numero tel:\n
+MENU_STOCK_TRANS_2=Montant:\n
+MENU_STOCK_TRANS_3=Mot de passe:\n
+STOCK_TRANS_RESULT=Vous avez transfere $SenderPrice$ au $receiver_MSISDN$, votre solde est $balance$. ref: $transaction_id$\n
+
+MENU_SIB_TRANS_1=Enter receiver MSISDN:\n
+MENU_SIB_TRANS_2=Enter amount:\n
+MENU_SIB_TRANS_3=Enter your PIN:\n
+SIB_TRANS_RESULT=You have transfered $amount$ to $receiver_MSISDN$, your balance is $balance$.\n
+SELF_TOPUP_BLOCKED=Desole, vous ne pouvez pas transferer de credit vers votre propre numero.\n
+
+MENU_REPORTS=1 Rapport journalier des ventes\n2 Rapport periodique des ventes\n3 Ventes par periode par numero\n4 Mes versements journaliers\n5 Mes versements periodiques
+
+MENU_CHANGE_PIN_1=Ancien mot de passe:\n
+MENU_CHANGE_PIN_2=Nouveau mot de passe:\n
+MENU_CHANGE_PIN_3=Rentrez nouveau mot de passe:\n
+CHANGE_PIN_DONE=Votre mot de passe a ete change avec succes.\n
+
+MENU_TRANS_STATUS_1=Entrez le numero de la transaction:\n
+
+SHOW_BALANCE=Votre solde actuel est de $balance$\n
+
+REPORT=$report_data$
+FAF_OFF_NET_change=Ce numero $friend_MSISDN$  ne peut etre ajoute dans votre liste de numeros favoris.
+MENU_BAD_CHOICE=Menu alternatif incorrect
+TOPUP_SENDER_MSG=Vous avez transfere $amount$ au $receiver_MSISDN$. Votre solde est $balance$. ref: $transaction_id$\n
+STOCK_TRANS_SENDER_MSG=Vous avez transfere $SenderPrice$ au $receiver_MSISDN$. Votre solde est $balance$. ref: $transaction_id$\n
+STOCK_TRANS_RECEIVER_MSG= Le numero $sender_MSISDN$ vous a transfere $ReceiverAmount$ avec success.\n
+
+CONTRACT_OUT_OF_RANGE=Vous n etes pas autorise a transferer ce montant. Transferer selon les limites  autorises\n
+SUPERVISION_PERIOD_EXPIRED=Receiver Number is in Grace Period\n
+SERVICE_FEE_PERIOD_EXPIRED=Receiver Number is Expired\n
+ACCOUNT_INACTIVE=Receiver Number is inactive, please ask the subscriber to make first call.\n
+
+
+
+SIB_TRANS_SENDER_MSG=You have transfered $amount$ to $receiver_MSISDN$.\n
+SIB_TRANS_RECEIVER_MSG=You have been transfered $amount$ by $sender_MSISDN$.\n
+
+
+BLOCK_ACCOUNT=Votre est bloque
+SMALL_AMOUNT=Ce montant est insuffisant pour recharger de votre compte
+LARGE_AMOUNT=Ce montant depasse la limite autorisee par Areeba.
+BAD_PIN=Vote mot de passe est incorrect
+PWD_FAIL=Mot de passe incorrect
+UNREG_ACCOUNT=Votre compte n'est pas enregistre pour ce type de transaction
+CREDIT_LIMIT=Vous avez atteint le montant limite a transferer aujourd'hui
+LOCKED_ACCOUNT=Votre compte a ete bloque!
+
+AMOUNT_TOO_LARGE=Vous ne pouvez transferer que les montants entre 2000 et 900000000
+AMOUNT_TOO_SMALL=Vous ne pouvez transferer que les montants entre 2000 et 900000000
+AMOUNT_WRONG_DIVISIBILITY=Vous ne pouvez transferer que les montants entre 2000 et 900000000
+OPERATOR_NOT_AVAILABLE=Le service est provisoirement hors service. Veuillez reessayer ulterieurement.
+INVALID_AMOUNT=Vous ne pouvez transferer que les montants entre 2000 et 900000000
+OPERATOR_INTERNAL_ERROR=Erreur de l operateur
+INVALID_ETOPUP_PRODUCT=Vous ne pouvez pas utiliser ce service
+
+INSUFFICIENT_CREDIT=Vous n'avez pas assez de credit pour effectuer ce transfert
+
+
+PAYMENT_ACCOUNT_NOT_ACTIVE=Votre compte n'est pas actif
+PAYMENT_REJECTED=Ce transfer n'a pas abouti. Veuillez reessayer plutard.
+PAYMENT_ACCOUNT_DOES_NOT_EXIST =Votre compte n'existe pas
+PERIODIC_ACTION_LIMIT_REACHED=Vous avez depasse le nombre limite de transfer
+PAYMENT_NEW_PINS_DONT_MATCH=Votre nouveau mot de passe est incorrecte
+PAYMENT_NEW_PIN_BAD_FORMAT =Le mot de passe doit etre de 4 chiffres.
+PAYMENT_ACCOUNT_ALREADY_ACTIVE =Votre compte est deja actif
+RESELLER_DOES_NOT_EXIST =Ce revendeur n'existe pas
+RESELLER_IS_NOT_ACTIVE =Ce revendeur est inactif
+#NO_DEVICE=Votre compte
+NO_DEVICE=Votre numero n'est pas enregistre dans le systeme
+DEVICE_BLOCKED=Votre numero est bloque. Veuillez contacter votre service clientele
+DEVICE_WRONG_STATE=Votre mobile n'est pas actif dans le systeme
+DEVICE_WRONG_STATE_REGISTER=Votre mobile n'est pas encore pret ou deja actif dans le systeme
+RESELLER_BLOCKED=Votre compte est bloque
+WRONG_ACTIVATION_CODE=Le code d'activation entre est incorrecte
+
+ACCOUNT_NUMBER_WRONG_LENGTH =Le numero du destinataire est incorrecte
+ACCOUNT_NUMBER_WRONG_PREFIX =Le numero du destinataire a un prefixe incorrecte
+ACCOUNT_NUMBER_DOES_NOT_EXIST =Le numero du destinataire n'existe pas chez l'operateur
+ACCOUNT_IN_WRONG_STATUS =Le numero du destinataire est inactif
+ACCOUNT_BLOCKED =Le numero du destinataire est bloque
+SUBSCRIBER_MAX_COUNT_TOPUPS_REACHED =Ce numero a depasse le nombre limite de transfer
+SUBSCRIBER_MAX_AMOUNT_TOPUPS_REACHED =Ce numero a depasse le montant limite de transfer
+SUBSCRIBER_NOT_SUBRESELLER =Le destinataire n'est pas un de vos sous distributeur
+SUBSCRIBER_IS_BLOCKED =Cet abonne a ete bloque par Areeba
+SUBSCRIBER_NOT_RESELLER =Cet abonne n'est pas un revendeur
+SUBSCRIBER_NOT_SIBLING =Ce destinataire n'existe pas dans votre chaine de distribution
+NOT_IN_PRODUCT_RANGE=Ce produit ne fait pas partie de la liste de vos produits
+MENU_REP_SALES_PERIOD_1=Entrez date de debut:\n
+MENU_REP_SALES_PERIOD_2=Entrez date de fin:\n
+MENU_REP_DEPOSITS_PERIOD_1=Entrez date de debut:\n
+MENU_REP_DEPOSITS_PERIOD_2=Entrez date de fin:\n
+
+MENU_REP_CHANNEL_SALES_PERIOD_1=Entrez le numero:\n
+MENU_REP_CHANNEL_SALES_PERIOD_2=Entrez date de debut:\n
+MENU_REP_CHANNEL_SALES_PERIOD_3=Entrez date de fin:\n
+
+
+
+#MESSAGE FOR S2S (Subscriber To Subscriber) menu
+S2S_MENU_MAIN=1 s enregistrer\n Recharger\n3 Derniere transaction\n4 Changement de code PIN
+MENU_S2S_REGISTER_1=Choisissez votre code PIN:\n
+MENU_S2S_REGISTER_2=Entrez a nouveau votre code PIN:
+
+#FAF#
+FAF_LIST_success=Votre liste de numeros favoris est: $friend_list$
+FAF_ADD_success=Le $friend_MSISDN$ a ete ajoute avec succes a vos numeros favoris. Vous avez ete facture 500 GNF.
+FAF_REMOVE_success=Le $friend_MSISDN$ a ete desactive avec succes de vos numeros favoris. Pour ajouter un numero tapez:*150*1*numero Areeba#
+FAF_LIST_empty=Votre liste de numeros favoris est vide
+FAF_LIST_full=Desole, vous ne pouvez pas ajouter plus de 3 numeros. Pour plus d'informations, appelez le 111
+FAF_LIST_max_offnetwork=You can have maximum 3 off-net numbers in your friend list!(to be confrmed)
+FAF_Number_Exist=Ce numero existe deja dans votre liste de numeros favoris. Merci de choisir un autre.
+FAF_REMOVE_not_in_list=  Ce numero ne fait pas parti de votre liste de numeros favoris.
+FAF_Insufficient_Funds=Desole, vous n'avez pas assez de credit pour effectuer cette requete. Veuillez recharger votre compte Areeba. Plus d'info au 111.
+FAF_limit_change=You have reached the periodic limit to change Friend List
+
+
+
+#SCS#
+SCC_success=You have now changed to service class $service_class$
+SCC_INFO_success=You are in service class $current_service_class$
+
+#CMB#
+CMB_success=Sent call me back notification to $destination_MSISDN$
+CMB_message=Please call $sender_MSISDN$
+
+#BIC#
+BIC_ACTIVATE_success=Your Bonus on Incoming Calls has been activated
+BIC_DEACTIVATE_success=Your Bonus on Incoming Calls has been deactivated
+BIC_INFO_success=$bic_information$
+BIC_STATUS_active=Bonus on Incoming Calls Service is activated in your account
+BIC_STATUS_inactive=Bonus on Incoming Calls Service is inactive in your account
+BIC_STATUS_exceeds_subscriber=Bonus on Incoming Calls Service exceeds number of subscribers
+BIC_UNKNOWN_account=Sorry the account is unknown
+BIC_INVALID_TRANSACTION_CURRENCY=The currency used in the requested transaction is not a valid currency for the account
+BIC_ROLLBACK_NOT_POSSIBLE=Rollback not possible for this transaction
+BIC_INVALID_VOUCHER=The specified account class is not an allowed change
+BIC_INVALID_VOUCHER_STATE=The specified account class is not an allowed change
+
+############ Sudhanshu ###############
+SUBSCRIBER_NUMBER_MISMATCH=Subscriber numbers do not match
+MENU_TOPUP_1_1=Confirm receiver MSISDN:\n
+MENU_STOCK_TRANS_1_1=Confirm receiver MSISDN:\n
+MENU_SIB_TRANS_1=Receiver MSISDN:\n
+MENU_SIB_TRANS_1_1=Confirm receiver MSISDN:\n
+topuptoitself=Self topup not permitted
+wrong_PIN_LENGTH=PIN should be four digit long.
+Wrong_Dest_Length=Length of your friend's number should be 8 digits.
+Self_FAF_ADD_NOT_ALL=Vous ne pouvez pas ajouter votre propre numero.
+######################################
+

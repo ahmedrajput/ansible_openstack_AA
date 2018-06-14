@@ -1,0 +1,21 @@
+---
+# tasks file for rabbit_clustering
+- name: Installing RabbitMQ
+  yum: name=rabbitmq-server state=installed
+- name: Synchronisation Rabbit MQ Cookie file
+  copy:
+   src: erlang.cookie
+   dest: /var/lib/rabbitmq/.erlang.cookie
+   owner: rabbitmq
+   group: rabbitmq
+   mode: 0400
+- name: Start and Enable RabbitMQ
+  service: name=rabbitmq-server state=started enabled=yes
+- name: Getting RabbitMQ Cluster Status
+  shell: "rabbitmqctl cluster_status| grep -c controller1 | cat"
+  register: rabbitmq_cluster_status
+  changed_when: false
+- name: Start the cluster on all nodes
+  shell: "rabbitmqctl stop_app && rabbitmqctl join_cluster --ram rabbit@controller1 && rabbitmqctl start_app"
+  when: rabbitmq_cluster_status.stdout == 0
+...

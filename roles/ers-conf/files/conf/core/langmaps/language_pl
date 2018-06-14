@@ -1,0 +1,317 @@
+# Written by Seamless Technicians.
+# Last updated by Seamless: 2004-01-22
+# Description: Language translation for text used in terminal.
+# Language: Polish
+#
+# Instructions step by step for new translation:
+#   1. Change the name of this file to the string "language" postfixed with a
+#   abbreviation for the language (country) you are making the translation to
+#   e.g. "language_it" for Italy.
+
+DONE
+#
+#   2. Change the parameter language that are stated in this file heading
+#   above to the language you are making the translation for. Use the English
+#   name for the country.
+#
+DONE
+
+#   3. Every row that should be translated have the following form: print_again== Print again
+#   Please do not alter anything apart from the text to the right of the == signs. Just change
+#   the current text to your translation. Work through the file.
+#   e.g. print_again== terutskrift   (translation to Swedish)
+#   Try to keep the translations as short as possible since the terminals have
+#   a limited display.
+#
+#   4. Send the translated file to Seamless. We will process the translation
+#   and put it on a suitable server for testing. 
+ 
+
+refill == Wypelnij ponownie
+buy == Kup
+workshift == Zmiana
+print_again == Ponowny wydruk
+administration == Administracja
+demo == Demonstracja
+service == Serwis
+connection == Polaczenie
+log_out == Wylogowanie
+system == System
+unknown_cashier == Nieznany kasjer!
+ok == OK
+blocked_cashier == Zablokowany kasjer!
+cashier_has_been_locked == Ten kasjer jest zablokowany!
+ask_admin_or_support == Zapytaj administratora lub zadzwon do serwisu.
+invalid_pin_code == Niepoprawny kod PIN 
+access_denied == Dostep zabroniony
+cashier_already_exists == Kasjer juz istnieje
+pin_code_mismatch == Bledny kod PIN 
+card_already_exists == Karta juz istnieje 
+connection_problem == Problem z polaczeniem,
+try_later == Sprobuj pozniej
+ready_for_manual == Gotowy do instrukcji
+download_now == Pobierz teraz!
+bad_activation_code == Zly kod aktywacji
+bad_start_code == Zly kod startu!
+not_a_valid_date == Niepoprawna data
+purchases_denied_contact_support == Zakup zabroniony, skontaktuj sie z serwisem!
+server_busy_try_later == Zajety serwer, sprobuj pozniej!
+product_is_temporarily_unavailable == Ten produkt jest chwilowo niedostepny!
+an error occurred == Wystapil blad!
+request_denied == Zapytanie odrzucone
+no_dial_tone_check_phone_line_or_prefix == Brak sygnalu tonowego, sprawdz linie telefoniczna lub prefiks!
+no_ring_tone_check_phone_line_or_prefix == Brak sygnalu dzwonienia, sprawdz linie telefoniczna lub prefiks!
+line_is_busy_someone_uses_the_phone_line == Linia jest zajeta, ktos uzywa linii telefonicznej!
+invalid_card == Niepoprawna karta
+achat == Kupuj
+session == Sesja
+imprim_a_nouveau == Wczytaj ponownie
+system_is_closed == System jest zamkniety!
+tell_administrator_to_open == Popros administratora o otwarcie systemu.
+error == Blad
+bad_product_template == Zly szablon produktu!
+missing_product_template == Zgubiony szablon produktu!
+bad_terminal_state == Zly stan terminala dla tej operacji!
+too_many == Zbyt wiele!
+you_can_purchase_max == Mozesz zakupic maksymalnie
+of_this_product_at_a_time == tego produktu obecnie.
+invalid == Niepoprawny
+invalid_phone_nr == Niepoprawny numer telefonu
+invalid_amount == Niepoprawna kwota
+settings == Ustawienia
+synchronize == Synchronizuj
+new_cashier == Nowy kasjer
+modify_cashier == Modyfikuj kasjera
+buffer_stats == Statystyki bufora
+unlock_cashiers == Odblokuj kasjerow
+debug == Debuguj
+messages == Wiadomosci
+product_select == Wobor produktu
+cashier_open_close == Kasjer otwarty/zamkniety
+print_images == Drukuj obrazy
+print_receipts == Drukuj paragony
+confirm_printout == Potwierdz wydruk
+
+print_barcodes == Drukuj kody
+quick_multi_buy == Szybki multizakup
+application_mode == Tryb aplikacji
+product_menus == Menu produktow
+use_pin_pad == Uzyj klawiatury
+close_system == Zamknij system
+open_system == Otworz system
+close_report == Zamknij raport
+begin_workshift == Rozpocznij zmiane
+end_workshift == Zakoncz zmiane
+general_reports == Raporty generalne
+reports == Raporty
+individual == Indywidualny
+summary == Zbiorczy 
+product == Produkt
+reset == wyzeruj
+deactivate == Deaktywuj
+download == Pobierz
+block_terminal == Zablokuj terminal
+update_language == Zmien jezyk
+exit_to_bios == Wyjscie do bios
+log == Log
+products == Produkty
+com == Komunikacja
+users == Uzytkownicy
+resources == Zasoby
+heap == Stos
+parameters == Parametry 
+test_utils == Narzedzia testowe 
+abort_download == Zaniechaj pobieranie
+print_ascii_list == Drukuj liste ascii
+display_ascii_list == Pokaz liste ascii
+print_test == Drukuj test 
+print_info == Drukuj info
+integrity_check == Sprawdz poprawnosc
+brute_download == Pobierz Brute
+dump_users == Odrzuceni uzytkownicy
+workshifts == Zmiany
+dump == Odrzucenie
+lookup == Sprawdzanie
+update == Uaktualnienie
+dependency_check == Sprawdzenie zaleznosci 
+log_filter == Filtr logow
+verbose_filter == Filtr Verbose
+report_filter == Filtr raportow
+info == Info
+alloc == Przydzial
+free == Wolny
+reorg == Reorg
+catalogue == Katalog
+dump_buffers == Odrzucone bufory
+dump_buffers_raw == Odrzucone bufory nie przetworzone
+show_buffer == Pokaz bufor
+mode == Tryb
+speed == Szybkosc
+prefix == Prefiks
+make_testcall == Nawiaz probne polaczenie 
+connection_mode == Tryb polaczenia
+online == Podlaczony
+planned_online == Planowane podlaczenie
+offline == Nie podlaczony
+type == Typ
+cashier == Kasjer
+administrator == Administrator
+root == Zrodlo
+quickmenu == Szybkie menu 
+ADMIN == ADMIN
+WORKSHIFT == ZMIANA
+MENU == MENU
+BUY == ZAKUP
+LOGON == ZALOGUJ
+LOGOFF == WYLOGUJ
+welcome == Witamy!
+terminal_not_activated_call_support == Ten terminal jeszcze nie zostal aktywowany! Zadzwon do serwisu po instrukcje.  
+cancel == Anuluj
+activate == Aktywuj
+terminal_id: == TERMINAL ID:
+enter_start_code: == Podaj kod startowy:
+enter_activation_code: == Podaj kod aktywacji:
+printout_ok? == Wydruk OK?
+no == Nie
+yes == Tak
+print_receipt? == Wydrukowac paragon?
+service_code: == Kod serwisowy:
+verification_code: == Kod weryfikacji:
+price: == Cena:
+downloading_in == Pobieranie
+seconds... == sekund...
+synchronizing == Synchronizowanie
+synchronizing_in == Synchronizowanie w
+blocked! == Zablokowany!
+terminal_has_been_blocked! == Ten terminal jest zablokowany! 
+call_support_for_instructions. == Zadzwon do serwisu po instrukcje.
+UNBLOCK == ODBLOKUJ
+print_receipt == Wydrukuj paragon
+incomplete_print == Niekompletny wydruk
+restarting_last_printout == Ponowienie ostatniego wydruku
+print_again? == Wydrukowac ponownie?
+count: == Licznik:
+confirm == Potwierdz
+you_are_buying == Kupujesz 
+direct_top-up == Bezposredni top-up
+phone_nr: == Numer telefonu: 
+amount == Kwota
+waiting_for_customer_input... == Oczekiwanie na podanie klienta... 
+add_cashier? == Dodac kasjera?
+cashier: == Kasjer:
+group: == Grupa:
+use card: == Uzycie karty:
+modify_cashier? == Zmodyfikuj kasjera?
+use_card: == Uzyj karty:
+out_of_stock! == Koniec towaru!
+connect_and_restock? == Polacz i pobierz towar?
+this_takes_between_1to5_minutes. == To potrwa od 1 do 5 minut.
+system_closed == System zamkniety
+open_system? == Otworzyc system?
+close_system? == Zamknac system?
+no_workshift == Brak zmiany
+begin_workshift? == Rozpocznij zmiane
+end_workshift? == Zakoncz zmiane
+new_messages == Nowa wiadomosc
+print == Drukuj
+new_messages? == Nowe wiadomosci? 
+later == Pozniej
+cancel_download? == Anuluj pobieranie? 
+Connect? == Polacz?
+verify_phone_line_and_press_OK_to_connect. == Zweryfikuj linie telefoniczna I wcisnij OK aby polaczyc.
+low_stock_level == Mala ilosc towaru
+start: == Start:
+end: == Koniec:
+total == Razem
+turnover == Strata
+sum == Suma
+system_opened: == System otwarty: 
+system closed: == System zamkniety:
+system_information == Informacja systemowa
+reseller: == Sprzedajacy:
+address: == Adres:
+zip: == Kod:
+phone: == Telefon:
+www: == WWW
+system_state: == Stan systemu: 
+report == Raport
+receipt == Paragon
+retailer copy == Kopia sprzedawcy
+serial: == Seryjny:
+NOTE! == UWAGA!
+reprint == Ponowny wydruk
+check_date_and_time_for_first_printout_of_code! == Sprawdz date i czas dla pierwszego wydruku kodu! 
+printout == Wydruk
+interrupted! == Przerwany!
+error! == Blad!
+retailer_copy == Kopia sprzedawcy 
+buffered_codes == Kody buforowane
+syncronizing == Synchronizowanie
+started: == Rozpoczety:
+finished: == Zakonczony:
+next_syncronize: == Nastepna synchronizacja:
+syncronize_interrupted! == Synchronizacja przerwana!
+repeated_tries_to_syncronize_failed! == Ponowiona proba synchronizacji przerwana!
+check_phone_line_and_syncronize_manually_by_entering_the_administration_meny_and_select_"syncronize" == Sprawdz linie telefoniczna i recznie synchronizuj poprzez wprowadzenie menu administracyjnego i wybranie "synchronizuj".
+if_the_problem_remains,contact_support == Jesli problem powtarza sie, skontaktuj sie z serwisem.
+paylimit_error! == Blad platnosci! 
+contact_support_to_for_information_about_your_paylimit. == Skontaktuj sie z serwisem aby poznac twoj limit platnosci. 
+connecting == Laczenie
+calling == Dzwonienie
+sending == Wysylanie
+receiving == Przyjmowanie
+activation == Aktywacja
+deactivating == Deaktywacja
+updating == Wznawianie
+resetting == Zerowanie
+refilling == Ponowne wypelnianie
+reporting == Raportowanie
+purchasing == Zakup
+testing == Testowanie
+printing == Drukowanie
+completing_purchase == Kompletowanie zakupu 
+imprinting == Drukowanie
+registering == Rejestracja
+fetch_resources == Zasoby uzupelnien
+fetching_buffers == Bufory uzupelnien
+fetching_report == Raport uzupelnien 
+fetching_info == Informacja o uzupelnieniu
+adding_cashier == Dodawanie kasjera
+modifying_cashier == Modyfikacja kasjera
+processing == Przetwarzanie
+operators == Operatorzy
+PIN-code: == Kod PIN:
+verify_PIN-code: == Zweryfikuj kod PIN:
+order_key: == Klawisz wyboru:
+from: == Od:
+to: == Do:
+destination: == Przeznaczenie: 
+swipe_card: == Karta zblizeniowa:
+root_user == Uzytkownik zrodlowy
+choose_prefix == Wybierz prefiks
+previous_purchases == Poprzednie zakupy
+preparing == Przygotowywanie
+completing == Kompletowanie
+verifying == Weryfikacja
+confirm_printouts == Potwierdz wydruki
+quick_multibuy ==  Szybki multizakup
+always == Zawsze
+never == Nigdy
+ask_every_time == Pytaj za kazdym razem
+standard == Standard
+master_mode == Tryb glowny 
+master+logon == Glowny + logowanie
+product_tree == Drzewo produktow
+all_products == Wszystkie produkty
+back == Wstecz
+exit == Wyjscie
+settings... == Ustawienia...
+predictive_dial == Przewidywany wybor
+cashier_open/close == Kasjer otworz/zamknij
+none == Zaden
+only_close == Tylko zamknij 
+open_and_close == Otworz i zamknij
+price == Cena 
+value == Wartosc
+name == Nazwa
+use_PIN-pad == Uzyj klawiatury

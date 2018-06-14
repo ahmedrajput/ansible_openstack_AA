@@ -1,0 +1,416 @@
+import b2.lib.xml.XMLElement;
+
+String getFullMSISDN(String msisdn, int significantDigit, String defaultCountryCode,String defaultNetworkCode)
+{
+//    if(msisdn.startsWith("0"))
+//    {
+//        msisdn = msisdn.substring(1);
+//    }
+    if(msisdn.length() < significantDigit)
+    {
+        //logError("MSISDN " + msisdn + " is too short. Mininmum length is " + significantDigit);
+        return null;
+    }
+    if (msisdn.length() > (significantDigit + defaultNetworkCode.length() + defaultCountryCode.length() ) )
+    {
+        //logError("MSISDN " + msisdn + " is too long. Maximum length is " + (significantDigit + defaultNetworkCode.length() + defaultCountryCode.length() ) );
+        return null;
+    }
+    if (msisdn.length() < (significantDigit + defaultNetworkCode.length()))
+    {
+        msisdn = defaultCountryCode + defaultNetworkCode + msisdn.substring(msisdn.length() - significantDigit);
+    }
+    if (msisdn.length() < (significantDigit + defaultNetworkCode.length() + 1))
+    {
+        msisdn = defaultCountryCode + msisdn.substring(msisdn.length() - significantDigit - defaultNetworkCode.length());
+    }
+    return msisdn;
+}
+
+String getToken(StringTokenizer tok)
+{
+    if (!tok.hasMoreTokens())
+        return "";
+    String tmp = tok.nextToken();
+    if (tmp.equals("-"))
+        return "";
+    return tmp;
+}
+
+void checkFieldLength(String field_value,
+                String field_name, 
+                int max_length)
+{
+    if (field_value.length() > max_length){
+        logError(field_name + " too long : \"" + field_value + "\" max is " + max_length + " characters!");
+	System.out.println(field_name + " too long : \"" + field_value + "\" max is " + max_length + " characters!");
+throw new Exception(field_name + " too long : \"" + field_value + "\" max is " + max_length + " characters!");
+	}
+}
+
+void checkFieldMinLength(String field_value,
+                String field_name, 
+                int min_length)
+{
+    if (field_value.length() < min_length)
+        logError(field_name + " too short : \"" + field_value + "\" min is " + min_length + " characters!");
+}
+
+String getField(StringTokenizer tok,
+                String field_name, 
+                int    max_length)
+{
+    String field_value = getToken(tok);
+    if(!field_value.equals(""))
+    {
+        checkFieldLength(field_value, field_name, max_length);
+    }
+    return field_value;
+}
+
+String getFieldMinMax(StringTokenizer tok,
+                String field_name,
+                int    min_length,
+                int    max_length)
+{
+    String field_value = getToken(tok);
+    if(!field_value.equals(""))
+    {
+        checkFieldMinLength(field_value, field_name, min_length);
+        checkFieldLength(field_value, field_name, max_length);
+    }
+    return field_value;
+}
+
+void checkRequiredField(String field_name,String field_value, String resellerId)
+{
+    if(field_value == null || field_value.length() == 0 || field_value.equals("") || field_value.equals("-"))
+    {
+         logError(field_name + " is required to create reseller: " + resellerId);
+         return;
+    }
+    return;
+}
+
+XMLElement root = new XMLElement(null, "Resellers");
+String first_line = files[0].in.readLine();
+StringTokenizer tokenizer = new StringTokenizer(first_line, "\t");
+String file_id = getToken(tokenizer);
+String version = getToken(tokenizer);
+int num_rows = Integer.parseInt(getToken(tokenizer));
+
+if (!file_id.equals("TABSIMPORT"))
+{
+    logError("Incorrect header! Not a TABS import file!");
+    return;
+}
+
+if (!version.equals("2"))
+{
+    logError("Incorrect file version! Expected version 2!");
+    return;
+}
+
+int row_count = 0;
+
+for (int i = 0 ; i < files.length ; ++i) 
+{
+    while (true)
+    {
+        String line = files[i].in.readLine();
+        if (line == null)
+            break;
+        line = line.trim();
+        if (line.length() == 0)
+            continue;
+
+        tokenizer = new StringTokenizer(line, "\t");
+        String TABSID = getField(tokenizer, "TABSID", 32);
+        String TYPE = getField(tokenizer, "TYPE", 20);
+        String PARENTID = getField(tokenizer, "PARENTID", 32);
+        String CONTRACT = getField(tokenizer, "CONTRACT", 20);
+        String GROUP = getField(tokenizer, "GROUP", 96);
+        String SUBGROUP = getField(tokenizer, "SUBGROUP", 96);
+        String SUBSUBGROUP = getField(tokenizer, "SUBSUBGROUP", 96);
+        String NAME = getField(tokenizer, "NAME", 80);
+        String BNAME = getField(tokenizer, "BNAME", 80);
+        String CITY = getField(tokenizer, "CITY", 32);
+        String ADDRESS = getField(tokenizer, "ADDRESS", 64);
+        String ZIP = getField(tokenizer, "ZIP", 20);
+        String CREATEDATE = getField(tokenizer, "CREATEDATE", 19);
+        String ACTIVATIONDATE = getField(tokenizer, "ACTIVATIONDATE", 19);
+        String STATUS = getField(tokenizer, "STATUS", 10);
+        String LANGUAGE = getField(tokenizer, "LANGUAGE", 2);
+        String ACCOUNTID="";
+
+        row_count++;
+        
+        XMLElement reseller = new XMLElement(root, "Reseller");
+        if (!TABSID.equals(""))
+        {
+            reseller.addAttribute("reseller_id", TABSID);
+        }
+        if (!TYPE.equals(""))
+        {
+            reseller.addAttribute("reseller_type_id", TYPE);
+        }
+        if (!PARENTID.equals(""))
+        {
+            reseller.addAttribute("parent_reseller_id", PARENTID);
+        }
+      
+        if (!CONTRACT.equals(""))
+        {
+            reseller.addAttribute("contract_id", CONTRACT);
+        }
+        if (!NAME.equals(""))
+        {
+            reseller.addAttribute("name", NAME);
+        }
+        if (!BNAME.equals(""))
+        {
+            reseller.addAttribute("legal_name", BNAME);
+        }
+       
+        if (!GROUP.equals(""))
+        {
+            reseller.addAttribute("group", GROUP);
+        }
+        if (!SUBGROUP.equals(""))
+        {
+            reseller.addAttribute("subgroup", SUBGROUP);
+        }
+        if (!SUBSUBGROUP.equals(""))
+        {
+            reseller.addAttribute("subsubgroup", SUBSUBGROUP);
+        }
+        if (!CREATEDATE.equals(""))
+        {
+            reseller.addAttribute("create_date", CREATEDATE);
+        }
+        if (!ACTIVATIONDATE.equals(""))
+        {
+            reseller.addAttribute("activation_date", ACTIVATIONDATE);
+        }
+        if (!STATUS.equals(""))
+        {
+            reseller.addAttribute("status", STATUS);
+        }
+        
+        if (!LANGUAGE.equals(""))
+        {
+        	reseller.addAttribute("language", LANGUAGE);
+        }
+        else
+        {
+        	reseller.addAttribute("language", "en");
+        }
+
+
+        XMLElement address = new XMLElement(reseller, "AddressInfo");
+        if (!CITY.equals(""))
+        {
+            address.addAttribute("city", CITY);
+        }
+        if (!ADDRESS.equals(""))
+        {
+            address.addAttribute("street", ADDRESS);
+        }
+        if (!ZIP.equals(""))
+        {
+            address.addAttribute("zip", ZIP);
+        }
+
+        String NOOFUSER = getField(tokenizer, "NOOFUSER", 2);
+        int num_user = Integer.parseInt(NOOFUSER);
+        String USERAUTOCREATE = getFieldMinMax(tokenizer, "USERAUTOCREATE", 4, 5);
+        XMLElement users = new XMLElement(reseller, "Users");
+        if (USERAUTOCREATE.equalsIgnoreCase("true"))
+        {
+            users.addAttribute("create", "true");
+        }
+        else
+        {
+            users.addAttribute("create", "false");
+        }
+        
+        boolean isposuserpresent=false;
+        for(int x = 0; x < num_user; x++)
+        {
+            String USERID = getField(tokenizer, "USERID", 32);
+            String ROLEID = getField(tokenizer, "ROLEID", 32);
+            String PIN = getFieldMinMax(tokenizer, "PIN", 4,32);
+            String PROFILENAME = getField(tokenizer, "PROFILENAME", 32);
+            String USERNAME = getField(tokenizer, "USERNAME", 32);  
+            String USEREMAIL = getField(tokenizer, "USEREMAIL", 32);
+            String USERPHONE = getField(tokenizer, "USERPHONE", 32);
+            //checkRequiredField("user phone ",USERPHONE,TABSID + ":" + USERID);
+            XMLElement user = new XMLElement(users, "User");
+            if(USERID.equals(""))
+            {
+                user.addAttribute("user_id", "9900");
+                USERID = "9900";
+            }
+            else
+            {
+                user.addAttribute("user_id", USERID);
+            }
+            if(ROLEID.equals(""))
+            {
+                user.addAttribute("role_id", "POS");
+                ROLEID = "POS";
+            }
+            else
+            {
+                user.addAttribute("role_id", ROLEID);
+            }
+            if (!PIN.equals(""))
+            {
+                user.addAttribute("password",PIN);
+            }
+            if (!PROFILENAME.equals(""))
+            {
+                user.addAttribute("profile_name", PROFILENAME);
+            }
+                if (!USERNAME.equals(""))
+            {
+                user.addAttribute("name",USERNAME);
+            } 
+            if (!USEREMAIL.equals(""))
+            {
+                user.addAttribute("email",USEREMAIL);
+            }
+            if (!USERPHONE.equals(""))
+            {
+                user.addAttribute("telephone",USERPHONE);
+            } 
+            if(USERID.equals("9900") && ROLEID.equalsIgnoreCase("POS"))
+            {
+                isposuserpresent=true;
+            }
+        }
+        
+        XMLElement terminals = new XMLElement(reseller, "Terminals");
+                
+        String PRODRANGE = getField(tokenizer, "PRODRANGE", 20);
+
+        
+        if(!PRODRANGE.equals(""))
+            terminals.addAttribute("product_range", PRODRANGE);
+
+        String NOOFTERMINAL = getField(tokenizer, "NOOFTERMINAL", 1);
+        int num_term = Integer.parseInt(NOOFTERMINAL);
+        for(int x = 0; x < num_term; x++)
+        {
+            String SERIAL = getField(tokenizer, "SERIAL", 32);
+            String ADDRESSLOCK = getField(tokenizer, "ADDRESSLOCK", 32);
+            String ACTIVATIONCODE = getField(tokenizer, "ACTIVATIONCODE", 32);
+            String DEFAULTUSERID = getField(tokenizer, "DEFAULTUSERID", 32);
+            String PREACTIVATE = getFieldMinMax(tokenizer, "PREACTIVATE", 4,5);
+            XMLElement assign_terminal = new XMLElement(terminals, "AssignTerminal");
+            if (!SERIAL.equals(""))
+            {
+                assign_terminal.addAttribute("serial", SERIAL);
+            } 
+            if (!ADDRESSLOCK.equals(""))
+            {
+                assign_terminal.addAttribute("address_lock", ADDRESSLOCK);
+            }
+            if (!ACTIVATIONCODE.equals(""))
+            {
+                assign_terminal.addAttribute("activation_code", ACTIVATIONCODE);
+            }
+            if (!DEFAULTUSERID.equals(""))
+            {
+                assign_terminal.addAttribute("default_user_id", DEFAULTUSERID);
+            }
+            if (!PREACTIVATE.equals(""))
+            {
+                assign_terminal.addAttribute("pre_activate", PREACTIVATE);
+            }
+        }
+
+        XMLElement accounts = new XMLElement(reseller, "Accounts");
+        String ACCOUNTSAUTOCREATE = getField(tokenizer, "ACCOUNTSAUTOCREATE", 32);
+        
+        if(ACCOUNTSAUTOCREATE.equalsIgnoreCase("true"))
+        {
+            accounts.addAttribute("auto_create", "true");
+        }
+        else
+        {
+            accounts.addAttribute("auto_create", "false");
+            String ISACCOUNTPRESENT = getField(tokenizer, "ISACCOUNTPRESENT", 32);
+            if (!ISACCOUNTPRESENT.equals(""))
+            {
+            	int account_count = 0;
+                ACCOUNTID=ISACCOUNTPRESENT;
+                while(!ACCOUNTID.equals("")&& account_count<50)
+                {
+                    String ACCOUNTUNIQUE = getField(tokenizer, "ACCOUNTUNIQUE", 32);
+                    String ACCOUNTCREDITLIMIT = getField(tokenizer, "ACCOUNTCREDITLIMIT", 32);
+                    String ACCOUNTCREDITLIMITPERIOD = getField(tokenizer, "ACCOUNTCREDITLIMITPERIOD", 32);
+                    String ACCOUNTAUTOCREATE = getField(tokenizer, "ACCOUNTAUTOCREATE", 32);
+                    String ACCOUNTCREDITLIMITCOUNTER = getField(tokenizer, "ACCOUNTCREDITLIMITCOUNTER", 32);
+                    String ACCOUNTTYPEID = getField(tokenizer, "ACCOUNTTYPEID", 32);
+                    /*if(ACCOUNTUNIQUE.equalsIgnoreCase("true"))
+                        ACCOUNTUNIQUE="true";
+                    else
+                        ACCOUNTUNIQUE="false";
+
+                    if(ACCOUNTAUTOCREATE.equalsIgnoreCase("false"))
+                        ACCOUNTAUTOCREATE="false";
+                    else
+                        ACCOUNTAUTOCREATE="true";
+                        
+                    if(ACCOUNTTYPEID.equals(""))
+                        ACCOUNTTYPEID="RESELLER_PREPAID";
+
+                    checkRequiredField("account id",ACCOUNTID,TABSID);
+                    */
+                    XMLElement account = new XMLElement(accounts, "Account");
+                    if(!ACCOUNTID.equals(""))
+                        account.addAttribute("account_id", ACCOUNTID);
+                    if(!ACCOUNTUNIQUE.equals(""))
+                        account.addAttribute("unique", ACCOUNTUNIQUE);
+                    if(!ACCOUNTCREDITLIMIT.equals(""))
+                        account.addAttribute("credit_limit", ACCOUNTCREDITLIMIT);
+                    if(!ACCOUNTCREDITLIMITPERIOD.equals(""))
+                        account.addAttribute("credit_limit_period", ACCOUNTCREDITLIMITPERIOD);
+                    if(!ACCOUNTAUTOCREATE.equals(""))
+                        account.addAttribute("auto_create", ACCOUNTAUTOCREATE);
+                    if(!ACCOUNTCREDITLIMITCOUNTER.equals(""))
+                        account.addAttribute("transaction_limit_count", ACCOUNTCREDITLIMITCOUNTER);
+                    if(!ACCOUNTTYPEID.equals(""))
+                        account.addAttribute("account_type_id", ACCOUNTTYPEID);
+                    ACCOUNTID = getField(tokenizer, "ACCOUNTID", 32);
+			account_count++;
+                }
+		if (account_count==50){
+			logError("Infinite loop for: " + resellerId);
+		}
+            }
+            /*else
+            {
+                logError("Accountid is required to create reseller: " + resellerId);
+ 
+            }*/
+                
+        }
+        //Check required fields for adding new resellers
+        {
+        
+            //checkRequiredField("product range",PRODRANGE,TABSID);
+            //checkRequiredField("contract",CONTRACT,TABSID);
+            //checkRequiredField("msisdn",TERMINALID,TABSID);
+        }
+    }
+}
+
+if (row_count != num_rows)
+{
+    logError("Incorrect row count! Expected " + num_rows + " rows, actual # rows: " + row_count);
+    return;
+}
+
+print(root.toXMLString());

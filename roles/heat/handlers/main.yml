@@ -1,0 +1,8 @@
+---
+# handlers file for heat
+  - name: Restart Heat Services
+    service: name={{ item }} state=started enabled=yes
+    with_items:
+    - openstack-heat-api
+    - openstack-heat-api-cfn
+    - openstack-heat-engine

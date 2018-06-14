@@ -1,0 +1,74 @@
+---
+# tasks file for glance
+- name: Installing glance DB
+  mysql_db:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: glance
+   state: present
+- name: Creating user glance with privileges on glance DB
+  mysql_user:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: glance
+   password: "{{ GLANCE_DBPASS }}"
+   host: "{{ item }}"
+   priv: "glance.*:ALL,GRANT"
+   state: present
+  with_items:
+  - "%"
+  - localhost
+- name: Creating glance user on openstack
+  os_user:
+   name: glance
+   domain: default
+   password: "{{ GLANCE_PASS }}"
+   state: present
+- name: Adding glance to admin role
+  os_user_role:
+   role: admin
+   user: glance
+   project: service
+   state: present
+- name: Creating Glance Service
+  os_keystone_service:
+   name: glance
+   service_type: image
+   description: "Openstack Image"
+   state: present
+- name: Creating Endpoint for glance
+  os_keystone_endpoint:
+   endpoint_interface: "{{ item }}"
+   service: glance
+   url: "http://{{ VIP }}:9292"
+   region: "{{ REGION }}"
+   state: present
+  with_items:
+  - internal
+  - public
+  - admin
+- name: Installing Glance
+  yum: name=openstack-glance state=present
+- name: Populating Glance api Config file
+  template:
+   src: templates/glance-api-conf.j2
+   dest: /etc/glance/glance-api.conf
+  notify: Restart Glance API
+- name: Populating Glance registry Config file
+  template:
+   src: templates/glance-registry-conf.j2
+   dest: /etc/glance/glance-registry.conf
+  notify: Restart Glance Registry
+- name: Getting glance DB status
+  shell: mysql -uglance -p{{ GLANCE_DBPASS }} -Dglance -e 'show tables;'| wc -l
+  register: glance_db_status
+  changed_when: false
+- name: Populating glance DB
+  become: true
+  become_user: glance
+  shell: "glance-manage db_sync"
+  when: glance_db_status.stdout == "0"
+- name: Starting and enabling glance api
+  service: name=openstack-glance-api state=started enabled=yes
+- name: Starting and enabling glance registry
+  service: name=openstack-glance-registry state=started enabled=yes

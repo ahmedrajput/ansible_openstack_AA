@@ -1,0 +1,12 @@
+# Message used for sending to resellers
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.reseller=message template
+# If there is no message specified for specific resellerTypeId, then default.reseller will be used.
+default.reseller=Votre compte ERS a atteint la limite de ${amountUtils.formatAmount(reseller.balance)}, veuillez recharger
+# Message used for sending to parent
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.parent=message template
+# If there is no message specified for specific resellerTypeId, then default.parent will be used.
+default.parent=Le compte de votre Client ${reseller.resellerMSISDN} a atteint la limite de ${amountUtils.formatAmount(reseller.balance)}, veuillez le recharger
+
+unknown_resource=Unknown resource id ${resourceId}

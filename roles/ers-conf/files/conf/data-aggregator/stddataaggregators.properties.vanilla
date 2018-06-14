@@ -1,0 +1,299 @@
+db.url=jdbc:mysql://localhost/stddataaggregators
+db.username=refill
+db.password=refill
+
+
+StdCalendarDatesAggregator.enabled=true
+StdCalendarDatesAggregator.cron=0 1 0 * * ?
+
+StdHourlyUsageStatisticsAggregator.enabled=true
+StdHourlyUsageStatisticsAggregator.cron=0 30 0 * * ?
+StdHourlyUsageStatisticsAggregator.batch=10000
+
+StdLastTransactionAggregator.enabled=true
+StdLastTransactionAggregator.cron=0 0 1 * * ?
+StdLastTransactionAggregator.batch=10000
+
+StdDormantResellerAggregator.enabled=true
+StdDormantResellerAggregator.cron=0 0 1 * * ?
+StdDormantResellerAggregator.batch=10000
+
+StdTopTenResellersAggregator.enabled=true
+StdTopTenResellersAggregator.cron=0 30 1 * * ?
+StdTopTenResellersAggregator.batch=10000
+
+StdTransactionsFailuresAggregator.enabled=true
+StdTransactionsFailuresAggregator.cron=0 0 2 * * ?
+StdTransactionsFailuresAggregator.batch=10000
+StdTransactionsFailuresAggregator.monetaryCategories=TOPUP,REVERSE_TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,DATA_BUNDLE,VOT_PURCHASE,VOS_PURCHASE,VOUCHER_REDEEM,SUPPORT_TRANSFER,REVERSE_VOT_PURCHASE,REVERSE_VOS_PURCHASE,PRODUCT_RECHARGE,PURCHASE,CUSTOM_OPERATION_PREPAID_DATA_BUNDLE,CUSTOM_OPERATION_POSTPAID_DATA_BUNDLE,CUSTOM_OPERATION_HYBRID_DATA_BUNDLE,DATA_BUNDLE
+
+StdTransactionsStatisticsAggregator.enabled=true
+StdTransactionsStatisticsAggregator.cron=0 30 2 * * ?
+StdTransactionsStatisticsAggregator.batch=10000
+
+StdUSSDSalesAggregator.enabled=true
+StdUSSDSalesAggregator.cron=0 0/1 * * * ?
+StdUSSDSalesAggregator.batch=10000
+
+StdResellerAccountStatementAggregator.enabled=true
+StdResellerAccountStatementAggregator.cron=0 30 1 * * ?
+StdResellerAccountStatementAggregator.batch=10000
+
+StdRegionResellerAccountStatementAggregator.enabled=true
+StdRegionResellerAccountStatementAggregator.cron=0 30 1 * * ?
+StdRegionResellerAccountStatementAggregator.batch=10000
+
+StdResellerDailyBalanceAggregator.enabled=true
+StdResellerDailyBalanceAggregator.cron=0 30 1 * * ?
+StdResellerDailyBalanceAggregator.batch=10000
+
+StdTerminalEventAggregator.enabled=true
+StdTerminalEventAggregator.cron=0/1 * * * * ?
+StdTerminalEventAggregator.batch=10000
+
+StdTerminalTransactionsAggregator.enabled=true
+StdTerminalTransactionsAggregator.cron=0/1 * * * * ?
+StdTerminalTransactionsAggregator.batch=10000
+
+StdEVoucherSaleSummaryAggregator.enabled=true
+StdEVoucherSaleSummaryAggregator.cron=0 0/30 * * * ?
+StdEVoucherSaleSummaryAggregator.batch=10000
+
+StdAlertAppParentResellerAggregator.enabled=true
+StdAlertAppParentResellerAggregator.cron=0/1 * * * * ?
+StdAlertAppParentResellerAggregator.batch=1000
+
+StdAlertAppActualParentResellerAggregator.enabled=false
+StdAlertAppActualParentResellerAggregator.cron=0/1 * * * * ?
+
+
+StdSalesTrendAggregator.enabled=true
+StdSalesTrendAggregator.cron=0 0/2 * * * ?
+StdSalesTrendAggregator.batch=1000
+#This property is used to aggregate monthly data and delete older {days} data
+StdSalesTrendAggregator.days=30
+StdSalesTrendAggregator.allowed_profiles=TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,REVERSAL,PURCHASE,CASHIN,VOS_PURCHASE,VOT_PURCHASE,REVERSE_VOS_PURCHASE,REVERSE_VOT_PURCHASE,PRODUCT_RECHARGE,SUPPORT_TRANSFER,REVERSE_TOPUP,DATA_BUNDLE
+StdSalesTrendAggregator.vodProfiles=VOS_PURCHASE,VOT_PURCHASE,REVERSE_VOS_PURCHASE,REVERSE_VOT_PURCHASE
+
+#This Aggregation done per day wise then its good to run once a day
+#cron for running this job in production is 0 50 23 * * ?
+StdPromotionSystemTransactionStatisticsAggregator.enabled=true
+StdPromotionSystemTransactionStatisticsAggregator.cron=0 0/2 * * * ?
+StdPromotionSystemTransactionStatisticsAggregator.batch=10000
+# isDynamic=false means fetch region from transaction.<sender/receiver>Principal.groupIds
+# isDynamic=true means fetch region from transaction.transactionProperties.map.<sender/receiver>RegionId
+StdPromotionSystemTransactionStatisticsAggregator.isDynamic=true
+# StdPromotionSystemTransactionStatisticsAggregator.resellerLevels=<string-value1:int-value1>,<string-value2:int-value2>
+StdPromotionSystemTransactionStatisticsAggregator.resellerLevels=distributor:1,subdistributor:2,reseller:3,subscriber:4
+# Comma separated profile IDs allowed
+StdPromotionSystemTransactionStatisticsAggregator.allowed_profiles=TOPUP,CREDIT_TRANSFER,REVERSE_TOPUP,REVERSE_CREDIT_TRANSFER,REVERSAL,SUPPORT_TRANSFER
+StdSearchTransactionAggregator.allowed_profiles=DATA_BUNDLE,TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,REVERSE_TOPUP,BLOCK_VOUCHER,UNBLOCK_VOUCHER,VOS_PURCHASE,VOT_PURCHASE,VOUCHER_REDEEM,REVERSE_VOS_PURCHASE,REVERSE_VOT_PURCHASE,REVERSE_VOT_PURCHASE,PRODUCT_RECHARGE,PURCHASE,REVERSAL
+
+#This Aggregation done per day wise then its good to run once a day
+#cron for running this job in production is 0 50 23 * * ?
+StdPromotionSystemResellerActivationAggregator.enabled=true
+StdPromotionSystemResellerActivationAggregator.cron=0 0/2 * * * ?
+
+#This Aggregation done per day wise that is, good to run once a day
+#cron for running this job in production is 0 50 23 * * ?
+StdPromotionSystemResellersAggregator.enabled=true
+StdPromotionSystemResellersAggregator.cron=0 0/2 * * * ?
+
+#This Aggregation done per day wise that is, good to run once a day
+#cron for running this job in production is 0 50 23 * * ?
+StdPurchaseTrendAggregator.enabled=true
+StdPurchaseTrendAggregator.cron=0 0/2 * * * ?
+StdPurchaseTrendAggregator.batch=100
+StdPurchaseTrendAggregator.allowed_profiles=CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,REVERSE_TOPUP,REVERSAL,SUPPORT_TRANSFER,MM2ERS,DATA_BUNDLE
+
+StdTopSubscribersAggregator.enabled=true
+StdTopSubscribersAggregator.cron=0 0/2 * * * ?
+StdTopSubscribersAggregator.batch=100
+
+StdResellersBonusAggregator.enabled=true
+StdResellersBonusAggregator.cron=0 0/2 * * * ?
+StdResellersBonusAggregator.batch=100
+
+StdSmsNotificationAggregator.enabled=true
+StdSmsNotificationAggregator.cron=0 0/1 * * * ?
+StdSmsNotificationAggregator.batch=10000
+
+StdRollBackFailReconciliationAggregator.enabled=true
+StdRollBackFailReconciliationAggregator.cron=0 30 1 * * ?
+StdRollBackFailReconciliationAggregator.batch=10000
+
+StdNewActivationAggregator.enabled=true
+StdNewActivationAggregator.cron=0 0/2 * * * ?
+StdNewActivationAggregator.batch=10000
+
+
+StdDailyTransactionSummaryAggregator.enabled=true
+StdDailyTransactionSummaryAggregator.cron=0 0/2 * * * ?
+StdDailyTransactionSummaryAggregator.batch=10000
+
+StdVoucherOnDemandAggregator.enabled=true
+StdVoucherOnDemandAggregator.cron=0 * * * * *
+StdVoucherOnDemandAggregator.batch=100
+StdVoucherOnDemandAggregator.voucher.expiry.format=dd-MM-yyyy
+
+#This Aggregation done per day wise that is, good to run once a day
+#cron for running this job in production is 0 50 23 * * ?
+StdEVouchersStatusSummaryAggregator.enabled=true
+StdEVouchersStatusSummaryAggregator.cron=0 50 23 * * ?
+StdEVouchersStatusSummaryAggregator.lastNDays=90
+
+StdBulkTransactionsDetailAggregator.enabled=true
+StdBulkTransactionsDetailAggregator.cron=0 30 * * * ?
+StdBulkTransactionsDetailAggregator.batch=10000
+
+#Transaction Summary Report
+#The report of this aggregator is dependant on StdBalanceReportAggregator and StdBalanceReportInformationAggregator.
+StdTransactionsSummaryAggregator.enabled=true
+StdTransactionsSummaryAggregator.cron=0 5 0 * * ?
+StdTransactionsSummaryAggregator.batch=1000
+StdTransactionsSummaryAggregator.allowed_profiles=TOPUP,CREDIT_TRANSFER,PURCHASE,SUPPORT_TRANSFER,DATA_BUNDLE
+
+StdTransactionDetailsAggregator.enabled=true
+StdTransactionDetailsAggregator.cron=0 5 0 * * ?
+StdTransactionDetailsAggregator.batch=1000
+StdTransactionDetailsAggregator.allowed_profiles=DATA_BUNDLE,TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,REVERSE_TOPUP,BLOCK_VOUCHER,UNBLOCK_VOUCHER,VOS_PURCHASE,VOT_PURCHASE,VOUCHER_REDEEM,REVERSE_VOS_PURCHASE,REVERSE_VOT_PURCHASE,REVERSE_VOT_PURCHASE,PRODUCT_RECHARGE,PURCHASE,REVERSAL,MM2ERS
+
+StdClerkTransactionDetailsAggregator.enabled=true
+StdClerkTransactionDetailsAggregator.cron=0 0/1 * * * ?
+StdClerkTransactionDetailsAggregator.batch=1000
+
+StdUserTransactionSummaryAggregation.enabled=true
+StdUserTransactionSummaryAggregation.cron=0 0/2 * * * ?
+StdUserTransactionSummaryAggregation.batch=1000
+
+StdVasSalesSummaryAggregator.enabled=true
+StdVasSalesSummaryAggregator.cron=0 0/2 * * * ?
+StdVasSalesSummaryAggregator.batch=1000
+StdVasSalesSummaryAggregator.allowed_profiles= DATA_BUNDLE,COMBO_BUNDLE,CRBT,SMS_BUNDLE,IDD_BUNDLE,PRODUCT_RECHARGE
+    
+# Agent Portal Balance Report Aggregator
+#This Aggregator run before StdBalanceReportAggregator Aggregator
+StdBalanceReportInformationAggregator.enabled=true
+StdBalanceReportInformationAggregator.cron=0 30 * * * ?
+StdBalanceReportInformationAggregator.batch=10000
+
+# Agent Portal Balance Report Aggregator
+#This Aggregator should always run after StdBalanceReportInformationAggregator Aggregator
+StdBalanceReportAggregator.enabled=true
+StdBalanceReportAggregator.cron=0 0/50 0 * * ?
+StdBalanceReportAggregator.batch=10000
+
+#Added Voucher Stock report
+StdStockReportAggregator.enabled=true
+StdStockReportAggregator.cron=0 0 0/2 * * ?
+StdStockReportAggregator.batch=10000
+
+StdVasSalesSummaryAggregator.enabled=true
+StdVasSalesSummaryAggregator.cron=0 0/2 * * * ?
+StdVasSalesSummaryAggregator.batch=1000
+
+StdReverseTransactionsAggregator.enabled=true
+StdReverseTransactionsAggregator.cron=0 0/2 * * * ?
+StdReverseTransactionsAggregator.batch=1000
+
+
+StdSearchTransactionAggregator.enabled=true
+StdSearchTransactionAggregator.cron=0/1 * * * * ?
+StdSearchTransactionAggregator.batch=10
+
+#Defautl cron execute everyday at midnight
+StdResellerGrandParentBalanceAggregator.enabled=false
+StdResellerGrandParentBalanceAggregator.cron=0 0 * * * ?
+
+StdLowStockThresholdAggregator.enabled=false
+StdLowStockThresholdAggregator.cron=0 55 23 * * ?
+StdLowStockThresholdAggregator.batch=1000
+
+StdDealerDetailsAggregator.enabled=true
+StdDealerDetailsAggregator.cron=0 30 * * * ?
+StdDealerDetailsAggregator.batch=1000
+StdDealerDetailsAggregator.allowed_profiles=TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,SUPPORT_TRANSFER,PURCHASE
+StdDealerDetailsAggregator.transfer_in_profiles=CREDIT_TRANSFER,SUPPORT_TRANSFER
+StdDealerDetailsAggregator.topup_profiles=TOPUP
+StdDealerDetailsAggregator.purchase_profiles=PURCHASE
+StdDealerDetailsAggregator.reversal_profiles=REVERSE_CREDIT_TRANSFER
+
+StdDetailBalanceReportAggregator.enabled=true
+StdDetailBalanceReportAggregator.cron=0 30 2 * * ?
+StdDetailBalanceReportAggregator.batch=10000
+
+StdAgentMarketVisitAggregator.enabled=true
+StdAgentMarketVisitAggregator.cron=0 0 0 * * ?
+StdAgentMarketVisitAggregator.batch=1000
+
+StdResellerDetailedPurchaseReport.enabled=true
+StdResellerDetailedPurchaseReport.cron=0 30 23 * * ?
+StdResellerDetailedPurchaseReport.batch=1000
+StdResellerDetailedPurchaseReport.creditTransfersToResellerTypes=tamanga,vendor
+StdResellerDetailedPurchaseReport.creditTransfersFromResellerIds=mm2ers,dist1
+#e.g: StdResellerDetailedPurchaseReport.transferInTransactionProfiles={CREDIT_TRANSFER:[MM_TRANSFER],TOPUP:null,DATA_BUNDLE:[]}
+StdResellerDetailedPurchaseReport.transferInTransactionProfiles={CREDIT_TRANSFER:[]}
+StdResellerDetailedPurchaseReport.transferOutTransactionProfiles=TOPUP
+StdResellerDetailedPurchaseReport.commissionPercent=3
+
+StdCustomTransactionsSummaryAggregator.enabled=true
+StdCustomTransactionsSummaryAggregator.cron=0 0 0 * * ?
+StdCustomTransactionsSummaryAggregator.batch=1000
+StdCustomTransactionsSummaryAggregator.transferInProfiles=CREDIT_TRANSFER
+StdCustomTransactionsSummaryAggregator.transferOutProfiles=TOPUP
+
+StdSalesVisitTransferReport..enabled=true
+StdSalesVisitTransferReport.cron=0 0 0 * * ?
+StdSalesVisitTransferReport.batch=1000
+StdSalesVisitTransferReport.transferInProfiles=CREDIT_TRANSFER
+StdSalesVisitTransferReport.transferOutProfiles=REGISTER_NO_STOCK_SALE
+
+StdVoucherReversalAggregator.enabled=true
+StdVoucherReversalAggregator.cron=0 0 0 * * ?
+StdVoucherReversalAggregator.batch=1000
+StdVoucherReversalAggregator.reverseInProfiles=REVERSE_PURCHASE
+
+#Audit Log information aggregator, this aggregator will run after every second
+StdAuditLogInformationAggregator.enabled=true
+StdAuditLogInformationAggregator.cron=0/1 * * * * ?
+StdAuditLogInformationAggregator.batch=10000
+
+StdTransactingResellersAggregator.enabled=false
+StdTransactingResellersAggregator.cron=0 5 0 * * ?
+StdTransactingResellersAggregator.batch=1000
+StdTransactingResellersAggregator.allowed_profiles=DATA_BUNDLE,TOPUP,CREDIT_TRANSFER,REVERSE_CREDIT_TRANSFER,REVERSE_TOPUP,VOS_PURCHASE,VOT_PURCHASE,VOUCHER_REDEEM,REVERSE_VOS_PURCHASE,REVERSE_VOT_PURCHASE,PRODUCT_RECHARGE,PURCHASE,REVERSAL,MM2ERS
+
+StdMobileTransactionSumAggregator.enabled=true
+StdMobileTransactionSumAggregator.cron=0 5 0 * * ?
+StdMobileTransactionSumAggregator.batch=1000
+
+StdEVoucherDetailedSaleAggregator.enabled=true
+StdEVoucherDetailedSaleAggregator.cron=0 0/30 * * * ?
+StdEVoucherDetailedSaleAggregator.batch=1000
+
+StdTransactionDetailsStatisticAggregator.enabled=true
+StdTransactionDetailsStatisticAggregator.cron=0 0/2 * * * ?
+StdTransactionDetailsStatisticAggregator.batch=1000
+
+StdPendingTransactionAggregator.enabled=false
+StdPendingTransactionAggregator.cron=0/1 * * * * ?
+StdPendingTransactionAggregator.batch=10
+StdPendingTransactionAggregator.allowed_profiles=CREDIT_TRANSFER
+
+StdDailyTopupSalesAggregator.enabled=true
+StdDailyTopupSalesAggregator.cron=0 0/2 * * * ?
+StdDailyTopupSalesAggregator.batch=1000
+
+StdTopupDenominationsAggregator.enabled=true
+StdTopupDenominationsAggregator.cron=0 0 1 * * *
+StdTopupDenominationsAggregator.denominations=155,240,410,575,830,1250,2500,5000,7500,10000
+
+## Mobile App E-I-S Aggregators
+
+StdMobileAppResellerTransactionDepositAggregator.enabled=true
+StdMobileAppResellerTransactionDepositAggregator.cron=0 0/1 * * * ?
+StdMobileAppResellerTransactionDepositAggregator.batch=1000
+
+StdMobileAppResellerTransactionSalesAggregator.enabled=true
+StdMobileAppResellerTransactionSalesAggregator.cron=0/30 * * * * ?
+StdMobileAppResellerTransactionSalesAggregator.batch=1000

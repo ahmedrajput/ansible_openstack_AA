@@ -1,0 +1,18 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level [%logger{15}:%thread] - %message%n%xException{5}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="play" level="INFO"/>
+    <logger name="http" level="TRACE"/>
+    <logger name="client" level="DEBUG"/>
+    <logger name="application" level="DEBUG"/>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

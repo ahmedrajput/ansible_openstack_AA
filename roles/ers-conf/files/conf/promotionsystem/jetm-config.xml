@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jetm-config PUBLIC "-// void.fm //DTD JETM Config 1.2//EN"
+                             "http://jetm.void.fm/dtd/jetm_config_1_2.dtd">
+<!--  
+	The WIB application uses JETM for performance monitoring (http://jetm.void.fm)
+	This can be used for real-time monitoring of response times etc but also to export monitoring to RRDTool databases etc
+	(see JETM documentation for more information)
+	
+	By default, JETM monitoring is turned on and also opens a monitoring http application (on port 40000) which is very useful.
+	To turn off JETM altogether (if performance degradation is suspected etc) then simply set autostart="false" below.
+	Also if the HTTP console is not desired, simply remove or commend away the plugin below. 
+-->
+<jetm-config autostart="false">
+  <aggregator-chain>
+
+    <chain-element class="etm.core.aggregation.BufferedTimedAggregator">
+      <!-- Set aggregation interval to 1 second -->
+      <property name="aggregationInterval">1000</property>
+    </chain-element>
+
+    <chain-element class="etm.contrib.aggregation.log.Log4jAggregator">
+      <!-- Set commons-logging log category -->
+      <property name="logName">etm-result</property>
+    </chain-element>
+
+  </aggregator-chain>
+  <extension>
+     <plugin class="etm.contrib.console.HttpConsoleServerPlugin">
+     	<property name="listenPort">48077</property>
+     	<property name="workerSize">2</property>
+     </plugin>
+  </extension>
+</jetm-config>

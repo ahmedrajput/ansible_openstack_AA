@@ -1,0 +1,217 @@
+input {
+#  beats {
+#    port => 5044
+#    type => "log"
+#  }
+	file {
+       path => "/var/seamless/spool/tdr/TDR_PS*.csv"
+	   start_position => beginning
+	   type => "log"
+	}
+
+  jdbc {
+     jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+     jdbc_driver_class => "com.mysql.jdbc.Driver"
+     jdbc_connection_string => "jdbc:mysql://localhost:3306/Refill"
+     jdbc_user => "refill"
+     jdbc_password => "refill"
+     schedule => "* * * * *"
+     last_run_metadata_path => "/var/seamless/log/logstash/.logstash_refill_last_run"
+     statement => "SELECT cr.tag as user_id, dev.address as user_msisdn, UPPER(rt.id) as user_type, cr.rgroup as group1, cr.subrgroup as group2, cr.subsubrgroup as group3, DATE_FORMAT(IF(cr.time_first_terminal_activation = '0000-00-00 00:00:00','1971-01-01 00:00:00', cr.time_first_terminal_activation), '%Y-%m-%dT%H:%i:%s.000') as activation_date, DATE_FORMAT(cr.time_created, '%Y-%m-%dT%H:%i:%s.000') as created_date, DATE_FORMAT(cr.last_modified, '%Y-%m-%dT%H:%i:%s.000') as modified_date,cr.name as user_name from commission_receivers as cr inner join reseller_types as rt using(type_key) left outer join extdev_devices dev on(cr.receiver_key = dev.owner_key) where rt.id <> 'TOPLEVEL' and rt.id <> 'operator' and cr.last_modified > ADDTIME(:sql_last_value, TIMEDIFF(NOW(), UTC_TIMESTAMP)) order by modified_date"
+     type => "users"
+     codec => "json"
+   }
+   jdbc {
+     jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+     jdbc_driver_class => "com.mysql.jdbc.Driver"
+     jdbc_connection_string => "jdbc:mysql://localhost:3306/regionsdb"
+     jdbc_user => "refill"
+     jdbc_password => "refill"
+     schedule => "* * * * *"
+     last_run_metadata_path => "/var/seamless/log/logstash/.logstash_regionsdb_last_run"
+     statement => "SELECT c.id as cell_id, r.name as group1, c.district as group2, c.town as group3 from cells as c inner join regions as r on(c.region = r.id) where c.last_modified > ADDTIME(:sql_last_value, TIMEDIFF(NOW(), UTC_TIMESTAMP)) order by last_modified"
+     type => "groups"
+     codec => "json"
+   }
+   
+}
+
+filter {
+	if [type] == "log" {
+		csv {
+        	columns => ["transaction_id", "transaction_type", "start_time", "end_time", "transaction_amount", "transaction_amount_curency", "client_type", "sender_id", "sender_msisdn", "sender_type", "sender_balance_before","sender_balance_after", "receiver_id", "receiver_msisdn", "receiver_type", "receiver_amount", "receiver_cell_id", "receiver_region_id", "sender_cell_id", "sender_region_id" ]
+        	separator => ","
+        	remove_field => ["message"]
+        	remove_field => ["beat"]
+        	remove_field => ["fields"]
+        	remove_field => ["input_type"]
+        	remove_field => ["count"]
+        	remove_field => ["offset"]
+        	remove_field => ["source"]
+        	remove_field => ["host"]
+    	}
+    	
+    	jdbc {
+    		jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+			jdbc_driver_class => "com.mysql.jdbc.Driver"
+			jdbc_connection_string => "jdbc:mysql://localhost:3306/Refill"
+			jdbc_user => "refill"
+			jdbc_password => "refill"
+			statement => "SELECT DATE_FORMAT(time_first_terminal_activation, '%Y-%m-%dT%H:%i:%s.000') as activation_date from commission_receivers where time_first_terminal_activation<>'0000-00-00 00:00:00' and tag = :resellerid"
+			parameters => { "resellerid" => "sender_id"}
+			target => "reseller_activation_date"
+		}
+		ruby { 
+			code => "
+			if event['reseller_activation_date'].length > 0
+				event['sender_activation_date'] = event['reseller_activation_date'][0]['activation_date'];
+			end
+			event.remove('reseller_activation_date');
+			"
+		}
+    	
+    	
+    	if[receiver_cell_id] == "" {
+    		jdbc {
+    			jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+				jdbc_driver_class => "com.mysql.jdbc.Driver"
+				jdbc_connection_string => "jdbc:mysql://localhost:3306/Refill"
+				jdbc_user => "refill"
+				jdbc_password => "refill"
+				statement => "SELECT rgroup as region, subrgroup as district, subsubrgroup as town from commission_receivers where tag = :resellerid"
+				parameters => { "resellerid" => "receiver_id"}
+				target => "receiver_group"
+			}
+			ruby { 
+				code => "
+				if event['receiver_group'].length > 0
+					event['receiver_group1'] = event['receiver_group'][0]['region'];
+					event['receiver_group2'] = event['receiver_group'][0]['district'];
+					event['receiver_group3'] = event['receiver_group'][0]['town'];
+				end
+				" 
+			}
+    	}
+    	else{
+			jdbc {
+    			jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+				jdbc_driver_class => "com.mysql.jdbc.Driver"
+				jdbc_connection_string => "jdbc:mysql://localhost:3306/regionsdb"
+				jdbc_user => "refill"
+				jdbc_password => "refill"
+				statement => "SELECT r.name as region, c.district as district, c.town as town from cells as c inner join regions as r on(c.region = r.id) where c.id = :cellid"
+				parameters => { "cellid" => "receiver_cell_id"}
+				target => "receiver_group"
+			}
+			ruby { 
+				code => "
+				if event['receiver_group'].length > 0
+					event['receiver_group1'] = event['receiver_group'][0]['region'];
+					event['receiver_group2'] = event['receiver_group'][0]['district'];
+					event['receiver_group3'] = event['receiver_group'][0]['town'];
+				end
+				" 
+			}
+    	}
+    	
+    	if[sender_cell_id] == "" {
+    		jdbc {
+    			jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+				jdbc_driver_class => "com.mysql.jdbc.Driver"
+				jdbc_connection_string => "jdbc:mysql://localhost:3306/Refill"
+				jdbc_user => "refill"
+				jdbc_password => "refill"
+				statement => "SELECT rgroup as region, subrgroup as district, subsubrgroup as town from commission_receivers where tag = :resellerid"
+				parameters => { "resellerid" => "sender_id"}
+				target => "sender_group"
+			}
+			ruby { 
+				code => "
+				if event['sender_group'].length > 0
+					event['sender_group1'] = event['sender_group'][0]['region'];
+					event['sender_group2'] = event['sender_group'][0]['district'];
+					event['sender_group3'] = event['sender_group'][0]['town'];
+				end
+				" 
+			}
+    	}
+    	else{
+			jdbc {
+    			jdbc_driver_library => "/opt/seamless/lib/logstash/mysql-connector-java-5.1.12.jar"
+				jdbc_driver_class => "com.mysql.jdbc.Driver"
+				jdbc_connection_string => "jdbc:mysql://localhost:3306/regionsdb"
+				jdbc_user => "refill"
+				jdbc_password => "refill"
+				statement => "SELECT r.name as region, c.district as district, c.town as town from cells as c inner join regions as r on(c.region = r.id) where c.id = :cellid"
+				parameters => { "cellid" => "sender_cell_id"}
+				target => "sender_group"
+			}
+			ruby { 
+				code => "
+				if event['sender_group'].length > 0
+					event['sender_group1'] = event['sender_group'][0]['region'];
+					event['sender_group2'] = event['sender_group'][0]['district'];
+					event['sender_group3'] = event['sender_group'][0]['town'];
+				end
+				" 
+			}
+    	}
+    	
+    	
+    	mutate {
+    		convert => ["transaction_amount", "float"]
+    		convert => ["sender_balance_before", "float"]
+    		convert => ["sender_balance_after", "float"]
+    		convert => ["receiver_amount", "float"]
+    		uppercase => ["sender_type"]
+    		uppercase => ["receiver_type"]
+		}
+		
+		ruby { 
+			code => "
+			event['sender_amount_curency'] = event['transaction_amount_curency'];
+			event['sender_amount'] = (event['sender_balance_before'] - event['sender_balance_after']).round(2);
+			event['receiver_amount_curency'] = event['transaction_amount_curency'];
+			event['transaction_count'] = 1;
+			event.remove('sender_balance_before');
+			event.remove('sender_balance_after');
+			event.remove('receiver_cell_id');
+			event.remove('receiver_region_id');
+			event.remove('receiver_group');
+			event.remove('sender_cell_id');
+			event.remove('sender_region_id');
+			event.remove('sender_group');
+			" 
+		}
+    }
+}
+
+output {
+	if [type] == "log" and [transaction_id] != "ersReference"  {
+		elasticsearch {
+  			hosts => ["localhost:9200"]
+  			index => "cs"
+  			document_type => "transactions"
+  			document_id => "%{transaction_id}"
+ 		}
+	}
+	if [type] == "users" {
+		elasticsearch {
+			codec => json
+			hosts => ["localhost:9200"]
+			index => "cs"
+			document_type => "users"
+			document_id => "%{user_id}"
+		}
+	}
+	if [type] == "groups" {
+		elasticsearch {
+			codec => json
+			hosts => ["localhost:9200"]
+			index => "cs"
+			document_type => "groups"
+			document_id => "%{cell_id}"
+		}
+	}
+	#stdout { codec => json }
+}

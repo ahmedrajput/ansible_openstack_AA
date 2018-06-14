@@ -1,0 +1,53 @@
+---
+# tasks file for galera
+- name: Install new repo
+  copy:
+   src: files/mariadb-repo
+   dest: /etc/yum.repos.d/Maria-DB.repo
+- name: Install Mysql
+  yum: name={{ item }} state=latest
+  with_items:
+  - mariadb
+  - mariadb-server
+  - galera
+  - rsync
+  - xinetd
+  - socat
+  - python2-PyMySQL
+  - MySQL-python
+- name: mysql conf
+  template:
+   src: my_cnf_galera.j2
+   dest: /etc/my.cnf
+- name: Checking status of mariaDB
+  command: service mariadb status
+  register: maria_db_status
+  changed_when: False
+  ignore_errors: True
+- name: Start galera cluster
+  command: "/usr/bin/galera_new_cluster"
+  when: 
+  - inventory_hostname == "controller1"
+  - maria_db_status.rc != '0'
+- name: mysql Start
+  service: name=mariadb state=started enabled=yes
+  when: inventory_hostname != "controller1"
+- name: Getting mysqlchk status in /etc/services
+  shell: "grep -c mysqlchk /etc/services | cat"
+  register: mysqlchk_status
+  changed_when: false
+- name: Putting mysqlchk in /etc/services
+  shell: "echo 'mysqlchk   9200/tcp' >> /etc/services"
+  when: mysqlchk_status.stdout == '0'
+- name: Putting clustercheck script
+  copy:
+   src: clustercheck
+   dest: /usr/bin/clustercheck
+   mode: 0755
+- name: Putting xinetd script
+  template:
+   src: mysqlchk.j2
+   dest: /etc/xinetd.d/mysqlchk
+  notify: Restart xinetd
+- name: Starting xinetd
+  service: name=xinetd state=started

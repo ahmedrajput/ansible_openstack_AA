@@ -1,0 +1,612 @@
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+env.jre.max_heap=512m
+#env.jre.opts=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,address=9010,suspend=n
+
+#Job manager configuration
+#There are currently two options for this parameter:
+# 1. For ERS 4 based systems, including 3.16, it should be com.seamless.ers.tools.ete.impl.ERS4Job
+# 2. For ERS 3.x based systems, it should be com.seamless.ers.tools.ete.impl.ERS3Job
+job_manager = com.seamless.ers.tools.ete.impl.ERS41Job
+
+
+# Transaction hosts/nodes jobs will connect to
+transactionhosts=txe1,refill1,accounts
+
+transactionhosts.txe1.archive.db_driver=org.mariadb.jdbc.Driver
+transactionhosts.txe1.archive.db_url=jdbc:mysql://localhost:3306/transactionlog
+transactionhosts.txe1.archive.db_user=refill
+transactionhosts.txe1.archive.db_password=refill
+transactionhosts.txe1.archive.pool_min_size=1
+transactionhosts.txe1.archive.pool_max_size=3
+transactionhosts.txe1.class_name=com.seamless.ers.txe.transactionlog.xmlbeans.XMLBeansTransactionLoggingFactory
+transactionhosts.txe1.log.active=false
+transactionhosts.txe1.archive.fetch_timeout=10
+transactionhosts.txe1.reference_sequence_digits=6
+transactionhosts.txe1.reference_timestamp_format=yyyyMMddHHmmssSSS
+
+transactionhosts.refill1.archive.db_driver=org.mariadb.jdbc.Driver
+transactionhosts.refill1.archive.db_url=jdbc:mysql://localhost:3306/Refill
+transactionhosts.refill1.archive.db_user=refill
+transactionhosts.refill1.archive.db_password=refill
+transactionhosts.refill1.archive.pool_min_size=1
+transactionhosts.refill1.archive.pool_max_size=2
+
+transactionhosts.accounts.archive.db_driver=org.mariadb.jdbc.Driver
+transactionhosts.accounts.archive.db_url=jdbc:mysql://localhost:3306/accounts
+transactionhosts.accounts.archive.db_user=refill
+transactionhosts.accounts.archive.db_password=refill
+transactionhosts.accounts.archive.pool_min_size=1
+transactionhosts.accounts.archive.pool_max_size=2
+
+# Jobs run on this scheduler
+# if want to export resellers registration from Refill then enable ers_tdr_manualadjustment
+jobs=ers_tdr_reconciliation,ers_tdr_manualadjustment,ers_tdr_reseller_balance,ers_tdr_microcredit,ers_reseller_sales_mc
+
+# locale settings
+#locale.thousand_separator=.
+#locale.decimal_separator=,
+#locale.custom_currency.IRR=2
+
+######################################## BEGIN Job Configuration ##########################################
+#
+#
+#
+################################ Example cron schedules #############################
+
+# 0 0 12 * * ?                  Fire at 12pm (noon) every day
+# 0 15 10 ? * *                 Fire at 10:15am every day
+# 0 15 10 * * ?                 Fire at 10:15am every day
+# 0 15 10 * * ? *               Fire at 10:15am every day
+# 0 15 10 * * ? 2005    		Fire at 10:15am every day during the year 2005
+# 0 * 14 * * ?                  Fire every minute starting at 2pm and ending at 2:59pm, every day
+# 0 0/5 14 * * ?                Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day
+# 0 0-5 14 * * ?                Fire every minute starting at 2pm and ending at 2:05pm, every day
+# 0 15 10 ? * MON-FRI   		Fire at 10:15am Monday to Friday
+# 0 15 10 15 * ?                Fire at 10:15am on the 15th day of every month
+# 0 15 10 L * ?                 Fire at 10:15am on the last day of every month
+# 0 15 10 ? * 6L                Fire at 10:15am on the last Friday of every month
+# 0 15 10 ? * 6L                Fire at 10:15am on the last Friday of every month
+# 0 15 10 ? * 6#3               Fire at 10:15am on the third Friday of every month
+
+############################### START Reconciliation TDR #############################
+
+jobs.ers_tdr_reconciliation.schedule = 0 0/1 * * * ?;
+jobs.ers_tdr_reconciliation.exporter = com.seamless.ers.tools.ete.impl.CSVTransactionsExporter
+jobs.ers_tdr_reconciliation.provider = com.seamless.ers.components.tdrapp.TDRProvider
+jobs.ers_tdr_reconciliation.transactionhost = txe1
+jobs.ers_tdr_reconciliation.group=ers
+
+jobs.ers_tdr_reconciliation.provider.transaction_profiles = CREDIT_TRANSFER, RESELLER_WITHDRAW, RESELLER_DEPOSIT, REVERSE_CREDIT_TRANSFER, RESELLER_ACTIVATE, TOPUP, ACTIVATE_SERVICE, DEACTIVATE_SERVICE, REVERSE_TOPUP, AIRTIME_TOPUP, CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_CHANGE, CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_GENERATE, AIRTIME_TRANSFER, CHANGE_PASSWORD, RESELLER_ACTIVATE, LAST_TRANSACTIONS, TRANSACTION_STATUS, RESELLER_USER_CHANGE_PASSWORD, REGISTER_WEB_USER, REPORT, CUSTOM_OPERATION_SC_CHANGE, GET_SUBSCRIBER_INFO,RESELLER_DELINK_SUB_RESELLER, RESELLER_LINK_SUB_RESELLER, PURCHASE, VOS_PURCHASE, VOT_PURCHASE, VOUCHER_REDEEM, BLOCK_VOUCHER, UNBLOCK_VOUCHER, REVERSE_VOT_PURCHASE, REVERSE_VOS_PURCHASE, VOUCHER_REQUERY
+
+# Here we will apply additional filter condition after the transactions are filtered using transaction_profiles configuration
+# By default this is set to true, it means no additional filtering is done
+jobs.ers_tdr_reconciliation.provider.transaction_profile_filter =true
+
+# Here we are transforming transactions based on following conditions
+#jobs.ers_tdr_reconciliation.provider.transaction_profile_translation =${transaction.profileId}
+jobs.ers_tdr_reconciliation.provider.transaction_profile_translation =<#if transaction.profileId="CREDIT_TRANSFER" && transaction.getProductSKU()?? && transaction.getProductSKU()="MM2ERS">MM2ERS<#elseif transaction.profileId="TOPUP" && transaction.getProductSKU()?? && transaction.getProductSKU()="CASHIN">CASHIN<#elseif transaction.profileId="REVERSE_CREDIT_TRANSFER" && transaction.clientType?? && transaction.clientType="USSD" && transaction.transactionOperation?? && transaction.transactionOperation="CANCEL">USSD_DENY_REVERSAL<#elseif transaction.profileId="REVERSE_CREDIT_TRANSFER" && transaction.clientType?? && transaction.clientType="USSD" && transaction.transactionOperation?? && transaction.transactionOperation="REQUEST_REVERSAL">USSD_REQUEST_REVERSAL<#elseif transaction.profileId="REVERSE_CREDIT_TRANSFER" && transaction.clientType?? && transaction.clientType="USSD" && transaction.transactionOperation?? && transaction.transactionOperation="APPROVE">USSD_APPROVE_REVERSAL<#elseif transaction.profileId="PURCHASE" && transaction.receiverPrincipal?? && transaction.receiverPrincipal.principalType?? && transaction.receiverPrincipal.principalType="Subscriber">VOUCHER_OVER_SMS<#elseif transaction.profileId="PURCHASE" && transaction.receiverPrincipal?? && transaction.receiverPrincipal.principalType?? && transaction.receiverPrincipal.principalType="Reseller">VOUCHER_OVER_USSD<#else>${transaction.profileId}</#if>
+
+##
+# To include the transactions having particular status add the status in the list below
+# Note! Commenting the property will have the effect of including ALL
+##
+#jobs.ers_tdr_reconciliation.provider.include_transaction_status = SUCCESS, PENDING, ONGOING
+
+##
+# To exclude transactions having particular status add the status in the list below
+# Note! Comment the property will have the effect of excluding NONE
+##
+#jobs.ers_tdr_reconciliation.provider.exclude_transaction_status = SUCCESS
+
+# how date formatting should be done on date fields?
+jobs.ers_tdr_reconciliation.provider.dateFormat = yyyy-MM-dd HH:mm:ss
+
+##
+# The column specification file for this TDR
+##
+jobs.ers_tdr_reconciliation.provider.columnspecs = columnspecs_reconciliation.properties
+
+# Mapping for reseller types to reseller type keys
+jobs.ers_tdr_reconciliation.provider.reseller_typekeys = operator=1, strategicdealer=2, dealer=3, agent=4
+
+##
+# Enable or disable amount value written in lowest currency in the TDR
+# possible values: true/false
+# By default false: i.e. amounts are not converted in lowest currency
+##
+#jobs.ers_tdr_reconciliation.provider.enableLowestCurrency=true
+
+
+#This property is job specific and if does not exist, then no amount format is applied.
+#The amount format string pattern is based on java.text.DecimalFormat and for cg-mtn the
+#format string should be like the following
+#The following configuration together with the locale settings
+#jobs.ers_tdr_reconciliation.exporter.amountFormat = ###.##0,00
+#jobs.ers_tdr_reconciliation.exporter.amountFormat = #####000
+#jobs.ers_tdr_reconciliation.provider.amountFormat = #####000
+jobs.ers_tdr_reconciliation.provider.amountFormat = ###,##0.00
+
+## Additional Filtering Conditions.
+#
+#jobs.ers_tdr_reconciliation.provider.additionalFilterCondition.1=<#if (transaction.getReceiverAccountData().getAccountLinkTypeId())?? && transaction.getReceiverAccountData().getAccountLinkTypeId() == "PREPAID" && (transaction.getReceiverAccountData().getStatus())?? && transaction.getReceiverAccountData().getStatus() == "Disabled">true<#else>false</#if>
+
+# The number of rows to export in a single execution of the job
+jobs.ers_tdr_reconciliation.max_rows_to_export = 5000
+
+# Filename pattern in ``printf'' format (see java.util.Formatter)
+# 1. First paramter is the starting seqence no
+# 1. Second paramter is the ending seqence no
+# 2. Third is the date
+jobs.ers_tdr_reconciliation.exporter.filenamepattern = ReconciliationTDR-%3$05d-%4$s.csv
+jobs.ers_tdr_reconciliation.exporter.exportpath = /var/seamless/spool/tdr/Reconciliation
+jobs.ers_tdr_reconciliation.exporter.filename_date_format = yyyyMMddHHmmss
+# The separator used between each field.
+jobs.ers_tdr_reconciliation.exporter.csv_separator=,
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_reconciliation.exporter.csv_quotechar=
+
+# Waiting minutes for completing ERS transaction
+#jobs.ers_tdr_reconciliation.delay_to_complete_transaction = 15
+
+##
+# To write the column names in each CSV file, uncomment this property
+jobs.ers_tdr_reconciliation.exporter.csv_write_column_names=true
+
+
+##
+# Whether to export files with no transaction records, by default we do not export empty files
+#
+jobs.ers_tdr_reconciliation.exporter.export_empty_files=false
+
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_reconciliation.exporter.csv_quotechar=
+
+# Format amount in natural currency.
+#jobs.ers_tdr_reconciliation.format_amount=false
+#jobs.ers_tdr_reconciliation.exporter.amountFormat=true
+
+
+##
+# Place holder for fields those does not have value or NULL
+# Default value is ""(Blank) if it does not set to something else
+# DO NOT FORGET TO ESCAPE ANY ELIGIBLE CHARACTERS
+jobs.ers_tdr_reconciliation.exporter.replace_no_value_fields=
+
+
+##
+# CSV Compression option. By default we do not compress the CSV output.
+# Currently only one compression method is available - GZIP
+# This is recommended for large exports
+# jobs.ers_tdr_reconciliation.exporter.enable_compression=true
+# jobs.ers_tdr_reconciliation.exporter.compression_method=GZIP
+
+# Following configuration can be use to provide custom expression to show or hide
+# account transaction list associated with a transaction
+# By default, false - it will show account list for every transactions
+# jobs.ers_tdr_reconciliation.provider.hide_account_transaction_list=false
+
+############################### END Reconciliation TDR #############################
+
+
+###############################  START Adjustment TDR  #############################
+
+jobs.ers_tdr_manualadjustment.schedule =0 0/1 * * * ?;
+jobs.ers_tdr_manualadjustment.exporter = com.seamless.ers.tools.ete.impl.CSVTransactionsExporter
+jobs.ers_tdr_manualadjustment.provider = com.seamless.ers.components.tdrapp.TDRProvider
+jobs.ers_tdr_manualadjustment.transactionhost = txe1
+jobs.ers_tdr_manualadjustment.group=ers
+
+jobs.ers_tdr_manualadjustment.provider.transaction_profiles = CREDIT_TRANSFER
+
+# Here we will apply additional filter condition after the transactions are filtered using transaction_profiles configuration
+# By default this is set to true, it means no additional filtering is done
+#jobs.ers_tdr_manualadjustment.provider.transaction_profile_filter =true
+#jobs.ers_tdr_manualadjustment.provider.transaction_profile_filter = <#if transaction.profileId="CREDIT_TRANSFER" && transaction.principal.principalType?string == "AdminUser" && transaction.senderPrincipal.principalId.id == "OPERATOR" || transaction.profileId="CREDIT_TRANSFER" && transaction.principal.principalType?string == "AdminUser" && transaction.receiverPrincipal.principalId.id == "OPERATOR">true<#else>false</#if>
+jobs.ers_tdr_manualadjustment.provider.transaction_profile_filter = <#if transaction.profileId="CREDIT_TRANSFER" && transaction.principal.principalType?string == "AdminUser" && transaction.senderPrincipal ?? && transaction.senderPrincipal.principalId ?? && transaction.senderPrincipal.principalId.id ?? && transaction.senderPrincipal.principalId.id == "OPERATOR" || transaction.profileId="CREDIT_TRANSFER" && transaction.principal.principalType?string == "AdminUser" && transaction.receiverPrincipal ?? && transaction.receiverPrincipal.principalId ?? && transaction.receiverPrincipal.principalId.id ?? && transaction.receiverPrincipal.principalId.id == "OPERATOR">true<#else>false</#if>
+
+# Here we are transforming transactions based on following conditions
+#jobs.ers_tdr_manualadjustment.provider.transaction_profile_translation =${transaction.profileId}
+jobs.ers_tdr_manualadjustment.provider.transaction_profile_translation = <#if transaction.senderPrincipal.principalId.id == "OPERATOR">BILLING_DEPOSIT<#elseif transaction.receiverPrincipal.principalId.id == "OPERATOR">BILLING_WITHDRAWAL</#if>
+
+##
+# To include the transactions having particular status add the status in the list below
+# Note! Commenting the property will have the effect of including ALL
+##
+jobs.ers_tdr_manualadjustment.provider.include_transaction_status = SUCCESS
+
+##
+# To exclude transactions having particular status add the status in the list below
+# Note! Comment the property will have the effect of excluding NONE
+##
+#jobs.ers_tdr_manualadjustment.provider.exclude_transaction_status = SUCCESS
+
+# how date formatting should be done on date fields?
+jobs.ers_tdr_manualadjustment.provider.dateFormat = yyyy-MM-dd HH:mm:ss
+
+##
+# The column specification file for this TDR
+##
+jobs.ers_tdr_manualadjustment.provider.columnspecs = columnspecs_manualadjustment.properties
+jobs.ers_tdr_manualadjustment.provider.reseller_typekeys = operator=1, strategicdealer=2, dealer=3, agent=4
+
+##
+# Enable or disable amount value written in lowest currency in the TDR
+# possible values: true/false
+# By default false: i.e. amounts are not converted in lowest currency
+##
+#jobs.ers_tdr_manualadjustment.provider.enableLowestCurrency=true
+
+#This property is job specific and if does not exist, then no amount format is applied.
+#The amount format string pattern is based on java.text.DecimalFormat and for af-mtn the
+#format string should be like the following
+#The following configuration together with the locale settings only applicable
+#for columns which does not support expression in column specification file
+#jobs.ers_tdr_manualadjustment.exporter.amountFormat = ###.##0,00
+#jobs.ers_tdr_manualadjustment.exporter.amountFormat = #####000
+jobs.ers_tdr_manualadjustment.provider.amountFormat = ###,##0.00
+
+## Additional Filtering Conditions.
+#
+#jobs.ers_tdr_manualadjustment.provider.additionalFilterCondition.1=<#if (transaction.getReceiverAccountData().getAccountLinkTypeId())?? && transaction.getReceiverAccountData().getAccountLinkTypeId() == "PREPAID" && (transaction.getReceiverAccountData().getStatus())?? && transaction.getReceiverAccountData().getStatus() == "Disabled">true<#else>false</#if>
+
+# The number of rows to export in a single execution of the job
+jobs.ers_tdr_manualadjustment.max_rows_to_export = 10000
+
+# Filename pattern in ``printf'' format (see java.util.Formatter)
+# 1. First paramter is the starting seqence no
+# 1. Second paramter is the ending seqence no
+# 2. Third is the date
+jobs.ers_tdr_manualadjustment.exporter.filenamepattern = ManualAdjustmentTDR-%3$05d-%4$s.csv
+jobs.ers_tdr_manualadjustment.exporter.exportpath = /var/seamless/spool/tdr/Manual_Adjustment
+jobs.ers_tdr_manualadjustment.exporter.filename_date_format = yyyyMMdd-HHmmss
+
+# The separator used between each field.
+jobs.ers_tdr_manualadjustment.exporter.csv_separator=,
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_manualadjustment.exporter.csv_quotechar=
+
+##
+# To write the column names in each CSV file, uncomment this property
+jobs.ers_tdr_manualadjustment.exporter.csv_write_column_names=true
+
+##
+# Whether to export files with no transaction records, by default we do not export empty files
+#
+jobs.ers_tdr_manualadjustment.exporter.export_empty_files=false
+
+
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_manualadjustment.exporter.csv_quotechar=
+# Format amount in natural currency.
+# If it is set to be 'false', then it will show in lowest currency
+#jobs.ers_tdr_manualadjustment.format_amount=false
+#jobs.ers_tdr_manualadjustment.exporter.amountFormat=true
+##
+# Place holder for fields those does not have value or NULL
+# Default value is ""(Blank) if it does not set to something else
+# DO NOT FORGET TO ESCAPE ANY ELIGIBLE CHARACTERS
+jobs.ers_tdr_manualadjustment.exporter.replace_no_value_fields=
+# END billing manual adjustment job
+
+
+##
+# CSV Compression option. By default we do not compress the CSV output.
+# Currently only one compression method is available - GZIP
+# This is recommended for large exports
+# jobs.ers_tdr_manualadjustment.exporter.enable_compression=true
+# jobs.ers_tdr_manualadjustment.exporter.compression_method=GZIP
+
+# Following configuration can be use to provide custom expression to show or hide
+# account transaction list associated with a transaction
+# By default, false - it will show account list for every transactions
+# jobs.ers_tdr_manualadjustment.provider.hide_account_transaction_list=false
+
+
+###############################   END Adjustment TDR   #############################
+
+###############################    START Balance TDR   #############################
+
+# START Reseller Balance job configuration
+#Configuration Reference 20
+jobs.ers_tdr_reseller_balance.job_manager = com.seamless.ers.components.tdrapp.ResellerExporterJob
+jobs.ers_tdr_reseller_balance.schedule = 0 0/2 * * * ?;
+jobs.ers_tdr_reseller_balance.exporter = com.seamless.ers.tools.ete.impl.CSVTransactionsExporter
+jobs.ers_tdr_reseller_balance.provider = com.seamless.ers.components.tdrapp.AccountBalanceProvider
+#jobs.ers_tdr_reseller_balance.provider.columnspecs = columnspecs.properties
+jobs.ers_tdr_reseller_balance.provider.columnspecs = columnspecs_reseller_balance.properties
+#jobs.ers_tdr_reseller_balance.provider.enableLowestCurrency=true
+#jobs.ers_tdr_reseller_balance.provider.amountFormat = #####000
+jobs.ers_tdr_reseller_balance.provider.amountFormat = ###,##0.00
+jobs.ers_tdr_reseller_balance.transactionhost = accounts
+jobs.ers_tdr_reseller_balance.group=tdr
+
+# To write the column names in each CSV file, uncomment this property
+jobs.ers_tdr_reseller_balance.exporter.csv_write_column_names=true
+
+# Filename pattern in ``printf'' format (see java.util.Formatter)
+# %1 - The starting sequence no
+# %2 - Second paramter is the ending sequence no
+# %3 - Third is the job execution number
+# %4 - The job execution date
+jobs.ers_tdr_reseller_balance.exporter.filenamepattern = BalanceTDR-%3$05d-%4$s.csv
+jobs.ers_tdr_reseller_balance.exporter.exportpath = /var/seamless/spool/tdr/Balance
+jobs.ers_tdr_reseller_balance.exporter.filename_date_format = yyyyMMddHHmmss
+jobs.ers_tdr_reseller_balance.exporter.replace_no_value_fields=
+
+#jobs.ers_tdr_reseller_balance.exporter.csv_write_column_names=true
+# Whether or not to export empty files, default is `true'
+jobs.ers_tdr_reseller_balance.export_empty_files = false
+
+
+###############################    END Balance TDR   ##############################
+
+
+############################### START Microcredit TDR #############################
+
+jobs.ers_tdr_microcredit.schedule = 0 0/1 * * * ?;
+jobs.ers_tdr_microcredit.exporter = com.seamless.ers.tools.ete.impl.CSVTransactionsExporter
+jobs.ers_tdr_microcredit.provider = com.seamless.ers.components.tdrapp.TDRProvider
+jobs.ers_tdr_microcredit.transactionhost = txe1
+jobs.ers_tdr_microcredit.group=ers
+
+jobs.ers_tdr_microcredit.provider.transaction_profiles = MICROCREDIT, MICROCREDIT_RECOVERY
+
+# Here we will apply additional filter condition after the transactions are filtered using transaction_profiles configuration
+# By default this is set to true, it means no additional filtering is done
+jobs.ers_tdr_microcredit.provider.transaction_profile_filter =true
+
+# Here we are transforming transactions based on following conditions
+#jobs.ers_tdr_microcredit.provider.transaction_profile_translation =${transaction.profileId}
+##
+# To include the transactions having particular status add the status in the list below
+# Note! Commenting the property will have the effect of including ALL
+##
+#jobs.ers_tdr_microcredit.provider.include_transaction_status = SUCCESS, PENDING, ONGOING
+
+##
+# To exclude transactions having particular status add the status in the list below
+# Note! Comment the property will have the effect of excluding NONE
+##
+#jobs.ers_tdr_microcredit.provider.exclude_transaction_status = SUCCESS
+
+# how date formatting should be done on date fields?
+jobs.ers_tdr_microcredit.provider.dateFormat = yyyy-MM-dd HH:mm:ss
+
+##
+# The column specification file for this TDR
+##
+jobs.ers_tdr_microcredit.provider.columnspecs = columnspecs_microcredit.properties
+
+# Mapping for reseller types to reseller type keys
+jobs.ers_tdr_microcredit.provider.reseller_typekeys = operator=1, distributor=2, subdistributor=3, reseller=4
+
+##
+# Enable or disable amount value written in lowest currency in the TDR
+# possible values: true/false
+# By default false: i.e. amounts are not converted in lowest currency
+##
+#jobs.ers_tdr_microcredit.provider.enableLowestCurrency=true
+
+
+#This property is job specific and if does not exist, then no amount format is applied.
+#The amount format string pattern is based on java.text.DecimalFormat and for cg-mtn the
+#format string should be like the following
+#The following configuration together with the locale settings
+#jobs.ers_tdr_microcredit.exporter.amountFormat = ###.##0,00
+#jobs.ers_tdr_microcredit.exporter.amountFormat = #####000
+#jobs.ers_tdr_microcredit.provider.amountFormat = #####000
+jobs.ers_tdr_microcredit.provider.amountFormat = ###,##0.00
+
+## Additional Filtering Conditions.
+#
+
+# The number of rows to export in a single execution of the job
+jobs.ers_tdr_microcredit.max_rows_to_export = 5000
+
+# Filename pattern in ``printf'' format (see java.util.Formatter)
+# 1. First paramter is the starting seqence no
+# 1. Second paramter is the ending seqence no
+# 2. Third is the date
+
+jobs.ers_tdr_microcredit.exporter.filenamepattern = Microcredit_ReconcilliationTDR-%3$05d-%4$s.csv
+jobs.ers_tdr_microcredit.exporter.exportpath = /var/seamless/spool/tdr/Microcredit
+jobs.ers_tdr_microcredit.exporter.filename_date_format = yyyyMMddHHmmss
+# The separator used between each field.
+jobs.ers_tdr_microcredit.exporter.csv_separator=,
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_microcredit.exporter.csv_quotechar=
+
+# Waiting minutes for completing ERS transaction
+#jobs.ers_tdr_microcredit.delay_to_complete_transaction = 15
+
+##
+# To write the column names in each CSV file, uncomment this property
+jobs.ers_tdr_microcredit.exporter.csv_write_column_names=true
+
+
+##
+# Whether to export files with no transaction records, by default we do not export empty files
+#
+jobs.ers_tdr_microcredit.exporter.export_empty_files=false
+
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_tdr_microcredit.exporter.csv_quotechar=
+
+# Format amount in natural currency.
+#jobs.ers_tdr_microcredit.format_amount=false
+#jobs.ers_tdr_microcredit.exporter.amountFormat=true
+
+
+##
+# Place holder for fields those does not have value or NULL
+# Default value is ""(Blank) if it does not set to something else
+# DO NOT FORGET TO ESCAPE ANY ELIGIBLE CHARACTERS
+jobs.ers_tdr_microcredit.exporter.replace_no_value_fields=
+
+
+##
+# CSV Compression option. By default we do not compress the CSV output.
+# Currently only one compression method is available - GZIP
+# This is recommended for large exports
+# jobs.ers_tdr_microcredit.exporter.enable_compression=true
+# jobs.ers_tdr_microcredit.exporter.compression_method=GZIP
+
+# Following configuration can be use to provide custom expression to show or hide
+# account transaction list associated with a transaction
+# By default, false - it will show account list for every transactions
+# jobs.ers_tdr_microcredit.provider.hide_account_transaction_list=false
+
+############################### END Microcredit TDR #############################
+
+################## START Reseller Sales MC tdr job configuration ################
+#
+
+# Example cron schedules:
+# 0 0 12 * * ?                  Fire at 12pm (noon) every day
+# 0 15 10 ? * *                 Fire at 10:15am every day
+# 0 15 10 * * ?                 Fire at 10:15am every day
+# 0 15 10 * * ? *               Fire at 10:15am every day
+# 0 15 10 * * ? 2005    Fire at 10:15am every day during the year 2005
+# 0 * 14 * * ?                  Fire every minute starting at 2pm and ending at 2:59pm, every day
+# 0 0/5 14 * * ?                Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day
+# 0 0-5 14 * * ?                Fire every minute starting at 2pm and ending at 2:05pm, every day
+# 0 15 10 ? * MON-FRI   Fire at 10:15am Monday to Friday
+# 0 15 10 15 * ?                Fire at 10:15am on the 15th day of every month
+# 0 15 10 L * ?                 Fire at 10:15am on the last day of every month
+# 0 15 10 ? * 6L                Fire at 10:15am on the last Friday of every month
+# 0 15 10 ? * 6L                Fire at 10:15am on the last Friday of every month
+# 0 15 10 ? * 6#3               Fire at 10:15am on the third Friday of every month
+jobs.ers_reseller_sales_mc.schedule = 0 0/1 * * * ?;
+jobs.ers_reseller_sales_mc.exporter = com.seamless.ers.tools.ete.impl.CSVTransactionsExporter
+jobs.ers_reseller_sales_mc.provider = com.seamless.ers.components.tdrapp.TDRProvider
+jobs.ers_reseller_sales_mc.transactionhost = txe1
+jobs.ers_reseller_sales_mc.group=ers
+
+jobs.ers_reseller_sales_mc.provider.transaction_profiles = TOPUP
+
+# Here we will apply additional filter condition after the transactions are filtered using transaction_profiles configuration
+# By default this is set to true, it means no additional filtering is done
+jobs.ers_reseller_sales_mc.provider.transaction_profile_filter =true
+
+# Here we are transforming transactions based on following conditions
+#jobs.ers_reseller_sales_mc.provider.transaction_profile_translation =${transaction.profileId}
+
+jobs.ers_reseller_sales_mc.provider.transaction_profile_translation =<#if transaction.profileId="TOPUP" && transaction.getProductSKU()?? && transaction.getProductSKU()="72">P2P<#elseif transaction.profileId="TOPUP" &&   transaction.getProductSKU()?? && transaction.getProductSKU()="P2W">P2W<#else>${transaction.profileId}</#if>
+##
+# To include the transactions having particular status add the status in the list below
+# Note! Commenting the property will have the effect of including ALL
+##
+jobs.ers_reseller_sales_mc.provider.include_transaction_status = SUCCESS
+
+##
+# To exclude transactions having particular status add the status in the list below
+# Note! Comment the property will have the effect of excluding NONE
+##
+#jobs.ers_reseller_sales_mc.provider.exclude_transaction_status = SUCCESS
+
+# how date formatting should be done on date fields?
+jobs.ers_reseller_sales_mc.provider.dateFormat = yyyy-MM-dd HH:mm:ss
+
+##
+# The column specification file for this TDR
+##
+jobs.ers_reseller_sales_mc.provider.columnspecs = columnspecs_resellers_sales.properties
+
+# Mapping for reseller types to reseller type keys
+jobs.ers_reseller_sales_mc.provider.reseller_typekeys = TOPLEVEL= 1, MD=2, SD=3, POS=4, P2P=5, SC=6, SSC=7
+
+##
+# Enable or disable amount value written in lowest currency in the TDR
+# possible values: true/false
+# By default false: i.e. amounts are not converted in lowest currency
+##
+#jobs.ers_reseller_sales_mc.provider.enableLowestCurrency=true
+
+
+#This property is job specific and if does not exist, then no amount format is applied.
+#The amount format string pattern is based on java.text.DecimalFormat and for cg-mtn the
+#format string should be like the following
+#The following configuration together with the locale settings
+jobs.ers_reseller_sales_mc.exporter.amountFormat = ###.##0,00
+#jobs.ers_reseller_sales_mc.exporter.amountFormat = #####000
+
+
+## Additional Filtering Conditions.
+#
+#jobs.ers_reseller_sales_mc.provider.additionalFilterCondition.1=<#if (transaction.getReceiverAccountData().getAccountLinkTypeId())?? && transaction.getReceiverAccountData().getAccountLinkTypeId() == "PREPAID" && (transaction.getReceiverAccountData().getStatus())?? && transaction.getReceiverAccountData().getStatus() == "Disabled">true<#else>false</#if>
+
+# The number of rows to export in a single execution of the job
+#jobs.ers_reseller_sales_mc.max_rows_to_export = 5000
+#jobs.ers_reseller_sales_mc.max_rows_to_export = 2000
+jobs.ers_reseller_sales_mc.max_rows_to_export = 1918
+
+# Filename pattern in ``printf'' format (see java.util.Formatter)
+# 1. First paramter is the starting seqence no
+# 1. Second paramter is the ending seqence no
+# 2. Third is the date
+jobs.ers_reseller_sales_mc.exporter.filenamepattern = ResellerSalesTDR-%s-%s.csv
+jobs.ers_reseller_sales_mc.exporter.exportpath = /var/seamless/spool/tdr/Reseller_Sales_MC
+jobs.ers_reseller_sales_mc.exporter.filename_date_format = yyyyMMddHHmmss
+# The separator used between each field.
+jobs.ers_reseller_sales_mc.exporter.csv_separator=,
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_reseller_sales_mc.exporter.csv_quotechar=
+
+# Waiting minutes for completing ERS transaction
+#jobs.ers_reseller_sales_mc.delay_to_complete_transaction = 15
+
+##
+# To write the column names in each CSV file, uncomment this property
+jobs.ers_reseller_sales_mc.exporter.csv_write_column_names=true
+
+
+##
+# Whether to export files with no transaction records, by default we do not export empty files
+#
+jobs.ers_reseller_sales_mc.exporter.export_empty_files=false
+
+# The quote character used around each field to support newlines.
+# Quote characters inside a field are by default escaped by ".
+#jobs.ers_reseller_sales_mc.exporter.csv_quotechar=
+# Format amount in natural currency.
+# If it is set to be 'false', then it will show in lowest currency
+#jobs.ers_reseller_sales_mc.format_amount=false
+jobs.ers_reseller_sales_mc.exporter.amountFormat=true
+
+
+##
+# Place holder for fields those does not have value or NULL
+# Default value is ""(Blank) if it does not set to something else
+# DO NOT FORGET TO ESCAPE ANY ELIGIBLE CHARACTERS
+jobs.ers_reseller_sales_mc.exporter.replace_no_value_fields=
+# END ERS3 billing manual adjustment job
+
+
+
+##
+# CSV Compression option. By default we do not compress the CSV output.
+# Currently only one compression method is available - GZIP
+# This is recommended for large exports
+# jobs.ers_reseller_sales_mc.exporter.enable_compression=true
+# jobs.ers_reseller_sales_mc.exporter.compression_method=GZIP
+
+# Following configuration can be use to provide custom expression to show or hide
+# account transaction list associated with a transaction
+# By default, false - it will show account list for every transactions
+# jobs.ers_reseller_sales_mc.provider.hide_account_transaction_list=false
+
+
+
+
+
+# End of Reseller Sales MC tdr job configuration

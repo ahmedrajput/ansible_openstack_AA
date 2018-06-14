@@ -1,0 +1,109 @@
+GLOBAL:
+currency=IRR
+
+
+#Last Transactions
+#COMMAND:LT
+#type=RESELLER_TRANSACTIONLIST
+#TRLIST_rows=3
+#syntaxErrorMessageId=RTRLIST_SYNTAX_ERROR
+
+#REGISTER
+#COMMAND:REGISTER <password> <activationCode> | REGISTER <password> <password2> <activationCode>
+COMMAND:REG <activationCode> <password> 
+type=RESELLER_MOLLET_ACTIVATE
+syntaxErrorMessageId=REGISTER_SYNTAX_ERROR
+
+
+#R2R
+COMMAND:CREDIT <amount> <destinationMSISDN> <password>  
+type=RESELLER_REQTRANSFER
+duplicationDetectionFields=destinationMSISDN destinationId amount
+duplicationDetectionTimeout=60
+productSKU=TRANSFER
+senderAccountType=RESELLER
+receiverAccountType=RESELLER
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+
+# R2S
+COMMAND:TRANSFER <amount> <destination> <password> 
+type=RESELLER_REQTOPUP
+duplicationDetectionFields=destination amount
+duplicationDetectionTimeout=60
+productSKU=TOPUP
+senderAccountType=RESELLER
+receiverAccountType=AIRTIME
+anonymousIdPrefix=26
+syntaxErrorMessageId=RTOPUP_SYNTAX_ERROR
+
+# Reseller Balance check
+COMMAND:BALANCE <password>
+type=RESELLER_QUERY_BALANCE
+syntaxErrorMessageId=BALANCE_SYNTAX_ERROR
+
+# Reseller PIN Change
+COMMAND:CHANGE <password> <newPassword> <newPassword2>
+type=RESELLER_CHANGE_PASSWORD
+syntaxErrorMessageId=RCPIN_SYNTAX_ERROR
+
+#Subscriber P2P Registration
+COMMAND:SREGISTER <password>
+type=SUBSCRIBER_SERVICE_ACTIVATION
+serviceId=P2P_SERVICE
+syntaxErrorMessageId=REGISTERTOPUP_SYNTAX_ERROR
+
+#P2P
+COMMAND:STRANSFER <amount> <destination> <password>
+type=SUBSCRIBER_REQTOPUP
+#duplicationDetectionFields=destination amount password
+#duplicationDetectionTimeout=60
+productSKU=P2P
+senderAccountType=AIRTIME
+receiverAccountType=AIRTIME
+initiatorIdType=SUBSCRIBERMSISDN
+destinationIdType=SUBSCRIBERMSISDN
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:SCHANGE <password> <newPassword> <newPassword2> 
+type=SUBSCRIBER_CHANGE_SERVICE_PASSWORD
+serviceId=P2P_SERVICE
+syntaxErrorMessageId=CPIN_SYNTAX_ERROR
+
+#COMMAND:ACT
+#type=SUBSCRIBER_REQCUSTOMOP
+#operationId=SUBSCRIBER_ANONYMOUS_ID_QUERY
+#senderAccountType=AIRTIME
+
+#Activation of Anonymous Id
+COMMAND:ACT | ACT <password> | 1
+type=SUBSCRIBER_ACT_ANONYMOUSID
+syntaxErrorMessageId=ACTANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:DEACT | DEACT <password> | 2
+type=SUBSCRIBER_DEACT_ANONYMOUSID
+syntaxErrorMessageId=DEACTANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:ENQ | ENQ <password> | GETANONYMOUSID | GETANONYMOUSID <password> | 3
+type=SUBSCRIBER_GET_ANONYMOUSID
+syntaxErrorMessageId=GETANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:CHID
+type=SUBSCRIBER_REQCUSTOMOP
+operationId=SUBSCRIBER_ANONYMOUS_ID_CHANGE
+senderAccountType=AIRTIME
+
+# Voucher Enquiry on SMS channel keyword configuration
+COMMAND:VOU
+type=SUBSCRIBER_REPORT
+reportId=SUP_VOUCHER_ENQUIRY
+param_1_name=LIMIT
+param_1_value=5
+syntaxErrorMessageId=VOU_SYNTAX_ERROR
+
+# Single Voucher Enquiry on SMS channel keyword configuration
+COMMAND:VENQ <param_1_value>
+type=SUBSCRIBER_REPORT
+reportId=SUP_SINGLE_VOUCHER_ENQUIRY
+param_1_name=VOUCHERPIN
+syntaxErrorMessageId=VOU_SYNTAX_ERROR

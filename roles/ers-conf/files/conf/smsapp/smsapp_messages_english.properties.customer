@@ -1,0 +1,53 @@
+# smsapp_messages_english.properties
+#
+
+# errorId mapping
+SYSTEM_BUSY=Server busy, try again later!
+INCORRECT_NUM_COMMAND_PARAMETERS=A valid command was received, but its syntax usage is incorrect
+UNKNOWN_KEYWORD_COMMAND=A command that the server has not been configured to handle was received, nothing is being done
+NUMBER_FORMAT_ERROR=The amount was not correctly formated, please try again
+ERS_CONNECTION_ERROR=Request could not be executed, please try again
+INTERNAL_ERROR=Request could not be executed, please try again
+TRANSACTION_DUPLICATE=Your transaction has been blocked due to duplicity. We are processing your previous transaction.
+REGISTERTOPUP_SYNTAX_ERROR=Incorrect syntax, proper syntax is: REGISTERTOPUP <password>
+
+# ResultCodes mapping
+100=Invalid destination number
+102=Protocol error
+666=You have entered new password and new password confirmation that do not match, please try again
+1020=Decimal amounts are not supported, please try without decimal
+1042=The date was incorrect, please format as YYYY-MM-DD and try again
+1043=The identity type of the document is incorrect, you have to specify a valid one.
+8000=Operation unsupported
+
+# Response messages for request based commands. Command keyword should be used along with the result code. 
+# Format:
+#	RESPONSE/<keyword>/<resultCode>
+# Warning! If the message is not configured for any keyword, response message from TXE will be used instead.
+
+RESPONSE/.*/501=You entered wrong PIN code.
+
+RESPONSE/RESELLER_REQTOPUP/0=You topped up ${responseUtil.formatAmount(response.topupAmount)} to ${response.topupPrincipal.submittedPrincipalId.id}. <#if responseUtil.formatSenderAccountBalance(response)??>Your balance is now ${responseUtil.formatSenderAccountBalance(response)}. </#if>The transaction ID: ${response.ersReference}
+
+RESPONSE/RESELLER_REQTRANSFER/0=You successfully transferred ${responseUtil.formatAmount(response.requestedTransferAmount)} to ${response.receiverPrincipal.resellerId}. <#if responseUtil.formatSenderAccountBalance(response)??>Your balance is now ${responseUtil.formatSenderAccountBalance(response)}. </#if>The transaction ID: ${response.ersReference}
+
+RESPONSE/RESELLER_REQCPIN/0=You have successfully changed your PIN.
+
+RESPONSE/SUBSCRIBER_REQCPIN/0=You have successfully changed your PIN.
+
+RESPONSE/RESELLER_REQBALANCE/0=Your current balance is ${responseUtil.formatAccountBalance(responseUtil.findAccount(response.requestedPrincipal, "RESELLER"))}.
+
+RESPONSE/SUBSCRIBER_REQBALANCE/0=Your current balance is ${responseUtil.formatAccountBalance(responseUtil.findAccount(response.requestedPrincipal, "AIRTIME"))}.
+
+RESPONSE/SUBSCRIBER_GENERATE_ANONYMOUSID/0=Your new anonymous id is ${response.operationResultParameters.anonymousId}.
+RESPONSE/SUBSCRIBER_GENERATE_ANONYMOUSID/701=You already have generated an anonymous id.
+
+RESPONSE/SUBSCRIBER_QUERY_ANONYMOUSID/0=<#if response.operationResultParameters.anonymousId??>Your anonymous id is ${response.operationResultParameters.anonymousId}<#else>Your anonymous id is not active</#if>.
+
+RESPONSE/SUBSCRIBER_REQTRANSFER/0=You successfully transferred ${responseUtil.formatAmount(response.requestedTransferAmount)} to ${response.receiverPrincipal.subscriberId}. <#if responseUtil.formatSenderAccountBalance(response)??>Your balance is now ${responseUtil.formatSenderAccountBalance(response)}. </#if>The transaction ID: ${response.ersReference}.
+
+RESPONSE/REQPURCHASE/0=You successfully purchased <#if transaction.transactionAmount??>${amountUtils.formatAmount(transaction.getTransactionAmount())}</#if>
+
+#For overwrite the FAF operation response message 
+#RESPONSE/FAF.*/.*=<#if response.operationResultParameters??><#if response.operationResultParameters.resultDescription??>${response.operationResultParameters.resultDescription}.<#else>Your FAF service is not active</#if><#else>The service is currently unavailable, please try again later.</#if>.
+

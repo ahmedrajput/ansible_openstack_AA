@@ -1,0 +1,53 @@
+---
+# tasks file for post_install
+- name: Upgrade all packages
+  yum: name=* state=latest
+  ignore_errors: yes
+- block:
+  - name: Install shade with pip
+    pip: name=shade state=present
+  - name: rabbitmq user add
+    rabbitmq_user:
+     user: openstack
+     password: "{{ RABBIT_PASS }}"
+     permissions:
+     - vhost: /
+       configure_priv: .*
+       read_priv: .*
+       write_priv: .*
+     state: present
+  - name: Remove empty users
+    mysql_user:
+     login_user: root
+     login_password: "{{ DB_PASS }}"
+     check_implicit_admin: yes
+     user: ""
+     host: "{{ item }}"
+     state: absent
+    with_items:
+    - localhost
+    - ""
+    - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    - localhost.localdomain
+    - "::1"
+    - 127.0.0.1
+  - name: Change root password of mysql
+    mysql_user:
+     login_user: root
+     login_password: "{{ DB_PASS }}"
+     check_implicit_admin: yes
+     user: root
+     password: "{{ DB_PASS }}"
+     host: "{{ item }}"
+     priv: "*.*:ALL,GRANT"
+    with_items:
+    - localhost
+    - "%"
+    - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+  - name: Remove test DB
+    mysql_db:
+     name: test
+     login_user: root
+     login_password: "{{ DB_PASS }}"
+     state: absent
+  when: "'controller' in inventory_hostname"

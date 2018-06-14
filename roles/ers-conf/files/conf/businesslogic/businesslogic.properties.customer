@@ -1,0 +1,114 @@
+#
+# Businesslogic properties
+#
+# $Id$
+
+# Node id for this proxy, required since the proxy now starts doing 
+# write transactions (voucher db)
+#
+node_id=01
+
+# Configuration for the voucher encryption settings
+#
+keystore_filename=/opt/seamless/conf/core/digitalwarehouse.key
+keystore_keyname=DigitalWarehouse
+keystore_password=hemligt
+key_password=hemligt
+
+# WS settings
+ws_coreproxy_businesslogic_url=http://0.0.0.0:8922/businessLogic
+ws_businesslogic_exchangerate_url=http://0.0.0.0:8923/exchangeRate
+
+# Database settings
+businesslogic.db_user=refill
+businesslogic.db_password=refill
+#businesslogic.db_driver=org.gjt.mm.mysql.Driver
+businesslogic.db_driver=org.mariadb.jdbc.Driver
+businesslogic.db_url=jdbc:mysql://localhost:3306/Refill
+businesslogic.db_stat_interval_seconds=0
+businesslogic.db_query_timeout=120
+businesslogic.pool_min_size=40
+businesslogic.pool_max_size=100
+
+# Proxool properties
+businesslogic.db_pool_implementation=proxool
+businesslogic.db_pool_proxool_house_keeping_sleep_time=30000
+businesslogic.db_pool_proxool_maximum_active_time=3600000
+businesslogic.db_pool_proxool_prototype_count=2
+businesslogic.db_pool_proxool_simultaneous_build_throttle=40
+
+# DB pool common properties
+businesslogic.db_zeroDateTimeBehavior=convertToNull
+businesslogic.db_pool_timeout_millis=300000
+
+# Flow control configuration
+#flowcontrol.default.asynchronous=false
+#flowcontrol.default.cooldown_time=100
+#flowcontrol.default.max_parallel_requests=40
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,address=9020,suspend=n
+
+# PRICING CONFIGURATION
+# Business logic engine reseller tag for P2P transfer.
+pricing.transfer_tag_p2p=P2P
+
+# Business logic engine reseller tag for P2P topup.
+pricing.topup_tag_p2p=P2P
+
+#Business logic engine reseller tag for MM2ERS transfer
+pricing.transfer_tag_MM2ERS=MM2ERS
+
+# Pricing margin_roundup will be used to round 
+# up reseller margin, customer margin and customer bonus.
+# HALF_UP 7.222-> 7.22 & 7.226 -> 7.23 
+# FLOOR 7.222-> 7.22 & 7.226 -> 7.22 
+# CEILING 7.222-> 7.23 & 7.226 -> 7.23 
+pricing.margin_roundup=HALF_UP
+#pricing.margin_roundup=HALF_DOWN
+#pricing.margin_roundup=FLOOR
+#pricing.margin_roundup=CEILING
+
+pricing.accounts.exchange.irr=BOOKKEEPING:EXCH
+
+pricing.accounts.microcredit.bonus.irr=RESELLER:MC_FEE00000001
+
+pricing.accounts.transfer.operator.irr=BOOKKEEPING:OPERATOR
+pricing.accounts.transfer.commission.irr=BOOKKEEPING:COMMISSION
+pricing.accounts.transfer.bonus.irr=BOOKKEEPING:BONUS
+pricing.accounts.transfer.cash.commission.irr=BOOKKEEPING:CASH_COMMISSION
+pricing.accounts.transfer.cash.irr=BOOKKEEPING:CASH
+pricing.accounts.transfer.cash.adjustment.irr=BOOKKEEPING:CASH_ADJUSTMENT
+
+pricing.accounts.topup.operator.irr=BOOKKEEPING:OPERATOR
+pricing.accounts.topup.commission.irr=BOOKKEEPING:COMMISSION
+pricing.accounts.topup.bonus.irr=BOOKKEEPING:BONUS
+
+pricing.accounts.voucher.operator.irr=BOOKKEEPING:OPERATOR
+pricing.accounts.voucher.commission.irr=BOOKKEEPING:COMMISSION
+
+#This account will be used for VOUCHER_ON_DEMAND related transactions
+#Any reseller type account can be configured which will later be used
+#for redeeming the voucher on demand type purchase transactions
+pricing.accounts.voucher_on_demand.payment_provider=RESELLER:PAYMENTPROVIDER
+
+###############################################################################
+# EXCHANGE RATE CONFIGURATION - Start
+#
+###############################################################################
+# Enable or disable exchange rate service
+exchangeRate.enabled=true
+
+zookeeper.address=localhost:2181
+
+# Zookeeper specific configurations
+# Location of zookeeper, If null will fallback to zookeeper.address
+exchangeRate.zookeeper.address=
+exchangeRate.zookeeper.root_directory=exchangerates
+###############################################################################
+#
+# EXCHANGE RATE CONFIGURATION - End
+###############################################################################

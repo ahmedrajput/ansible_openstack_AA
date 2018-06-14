@@ -1,0 +1,66 @@
+# Message used for sending to resellers
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.reseller=message template
+# If there is no message specified for specific resellerTypeId, then default.reseller will be used.
+default.reseller=Your ERS account balance is ${amountUtils.formatAmount(reseller.balance)}, please refill it
+# Message used for sending to parent
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.parent=message template
+# If there is no message specified for specific resellerTypeId, then default.parent will be used.
+default.parent=Your Reseller ${reseller.resellerMSISDN} account has reached ${amountUtils.formatAmount(reseller.balance)}, please refill it
+
+# Message used for sending to account manager
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.accountManager=message template
+# If there is no message specified for specific resellerTypeId, then default.accountManager will be used.
+default.accountManager=Your Reseller ${reseller.resellerMSISDN} account has reached ${amountUtils.formatAmount(reseller.balance)}, please refill it
+
+# Message used for sending to region representative
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.accountManager=message template
+# If there is no message specified for specific resellerTypeId, then default.regionRepresentive will be used.
+default.regionRepresentative=regionRepresentive:  Your Reseller ${reseller.resellerMSISDN} account has reached ${amountUtils.formatAmount(reseller.balance)}, please refill it
+
+
+# Message used for sending to zone representative
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.accountManager=message template
+# If there is no message specified for specific resellerTypeId, then default.zoneRepresentive will be used.
+default.zoneRepresentative=zoneRepresentive: Your Reseller ${reseller.resellerMSISDN} account has reached ${amountUtils.formatAmount(reseller.balance)}, please refill it
+
+
+# Message used for sending to sector representative
+# It is possible to customize message for each reseller type by
+# {resellerTypeId}.accountManager=message template
+# If there is no message specified for specific resellerTypeId, then default.sectorRepresentive will be used.
+default.sectorRepresentative=sectorRepresentive: Your Reseller ${reseller.resellerMSISDN} account has reached ${amountUtils.formatAmount(reseller.balance)}, please refill it
+
+
+# Message used for sending to MTN
+# It is possible to customize message for each voucher product by
+# {voucherStock}.parent=message template
+# If there is no message specified for specific resellerTypeId, then default.parent will be used.
+#default.voucherstock=Alert! Stock of ${voucherStock.productName} voucher is low. Count at ${voucherStock.now} is ${voucherStock.totalStock}.
+default.voucherstock=Alert! Stock of ${voucherStock.productName} voucher is low. Count at ${voucherStock.now} is ${voucherStock.totalStock}. Required Threshold is ${voucherStock.requiredThreshold}
+
+
+# Message used for sending to supervisors
+# It is possible to customize message for each agent
+# {agentPerformance}.parent=message template
+# If there is no message specified for specific resellerTypeId, then default.parent will be used.
+default.agentperformancesms=----- Market Visit SMS Report----, Date : ${agentPerformance.date}, Period: ${agentPerformance.period} , MSISDN: ${agentPerformance.agentMSISDN}, Location: ${agentPerformance.agentLocation}, Target: ${agentPerformance.target}, Achievement: ${agentPerformance.achievement}, Achievement %: ${agentPerformance.achieveementPercentage}%, Name of FS: ${agentPerformance.agnetName} , Name of L2: ${agentPerformance.supervisorName}
+
+# Message used for sending to supervisors
+# It is possible to customize message for each supervisor
+# {supervisorPerformance}.parent=message template
+# If there is no message specified for specific resellerTypeId, then default.parent will be used.
+default.supervisorperformancesms=----- Market Visit SMS Report----, Date : ${supervisorPerformance.date}, Period: ${supervisorPerformance.period} , MSISDN: ${supervisorPerformance.supervisorMSISDN}, Target: ${supervisorPerformance.target}, Achievement: ${supervisorPerformance.achievement}, Achievement %: ${supervisorPerformance.achieveementPercentage}%, Name of L2: ${supervisorPerformance.supervisorName}
+
+# Email used for sending to sales team
+# If there is no mail specified for specific resellerTypeId, then default.parent will be used.
+default.agentperformanceemail=<table border="1" style="border-collapse:collapse" width="100%"><tr><th colspan="7">Hourly Sales Market Visit report</th></tr><tr><th>Date</th><th>${agentPerformanceDate}</th><th></th><th>From</th><th>${agentPerformanceStartTime}</th><th>To</th><th>${agentPerformanceEndTime}</th></tr><tr><td>MSISDN of FS</td><td>Name of FS</td><td>Name of L2</td><td>Location of FS</td><td>Target</td><td>Achievement</td><td>% Achievement</td></tr>${agentPerformaceData}</table>
+
+# Email used for sending to support team
+default.credit_transfer_pending=Credit transfer transaction ID: ${reseller.fields.transactionReference} 
+
+unknown_resource=Unknown resource id ${resourceId}

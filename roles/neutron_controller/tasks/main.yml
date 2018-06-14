@@ -1,0 +1,107 @@
+---
+# tasks file for neutron_controller
+- name: Installing neutron DB
+  mysql_db:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: neutron
+   state: present
+- name: Creating user neutron with privileges on neutron DB
+  mysql_user:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: neutron
+   password: "{{ NEUTRON_DBPASS }}"
+   host: "{{ item }}"
+   priv: "neutron.*:ALL,GRANT"
+   state: present
+  with_items:
+  - "%"
+  - localhost
+- name: Creating neutron user on openstack
+  os_user:
+   name: neutron
+   domain: default
+   password: "{{ NEUTRON_PASS }}"
+   state: present
+- name: Adding neutron to admin role
+  os_user_role:
+   role: admin
+   user: neutron
+   project: service
+   state: present
+- name: Creating neutron Service
+  os_keystone_service:
+   name: neutron
+   service_type: network
+   description: "Openstack Networking"
+   state: present
+- name: Creating Endpoint for network
+  os_keystone_endpoint:
+   endpoint_interface: "{{ item }}"
+   service: neutron
+   url: "http://{{ VIP }}:9696"
+   region: "{{ REGION }}"
+   state: present
+  with_items:
+  - internal
+  - public
+  - admin
+- name: Installing Neutron components for controller
+  yum: name={{ item }} state=present
+  with_items:
+  - openstack-neutron
+  - openstack-neutron-ml2
+  - openstack-neutron-linuxbridge
+  - ebtables
+- name: Populating Neutron Controller Config
+  template:
+   src: neutron-controller-conf.j2
+   dest: /etc/neutron/neutron.conf
+  notify: Restart Neutron Server
+- name: Populating ml2 Config
+  copy:
+   src: ml2-conf-ini
+   dest: /etc/neutron/plugins/ml2/ml2_conf.ini
+  notify: Restart Neutron Server
+- name: Populating Linux Bridge Agent Config
+  copy:
+   src: linuxbridge-agent-ini
+   dest: /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+  notify: Restart neutron-linuxbridge-agent
+- name: Populating DHCP Agent Config
+  copy:
+   src: dhcp_agent-ini
+   dest: /etc/neutron/dhcp_agent.ini
+  notify: Restart neutron-dhcp-agent
+- name: Populating MetaAgent Config
+  template:
+   src: metadata-agent-ini.j2
+   dest: /etc/neutron/metadata_agent.ini
+  notify: Restart neutron-metadata-agent
+- name: Changing Neutron block in Nova
+  template:
+   src: nova-conf-neutron.j2
+   dest: /etc/nova/nova.conf
+  notify: Restart Nova API
+- name: Linking ml2 file in plugins
+  file:
+   src: /etc/neutron/plugins/ml2/ml2_conf.ini
+   dest: /etc/neutron/plugin.ini
+   state: link
+- name: Getting neutron DB status
+  shell: mysql -uneutron -p{{ NEUTRON_DBPASS }} -Dneutron -e 'show tables;'| wc -l
+  register: neutron_db_status
+  changed_when: false
+- name: Populating neutron DB
+  become: true
+  become_user: neutron
+  shell: "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head"
+  when: neutron_db_status.stdout == "0"
+- name: Starting and Enabling Neutron Controller Services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+  - neutron-server
+  - neutron-linuxbridge-agent
+  - neutron-dhcp-agent
+  - neutron-metadata-agent

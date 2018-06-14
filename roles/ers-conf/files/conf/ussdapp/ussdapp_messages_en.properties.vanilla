@@ -1,0 +1,441 @@
+# ussdapp_messages_en.properties
+
+# The main menu choices
+main_menu=
+main_menu/REGISTRATION=Register
+main_menu/TOPUP=Top Up
+main_menu/TRANSFER=Transfer
+main_menu/BALANCE_INQUIRY=Balance
+main_menu/TRANSACTION_STATUS=Transaction status
+main_menu/LAST_TRANSACTIONS=Last Operation
+main_menu/report_menu=Reports
+main_menu/CHANGE_PIN=Change PIN
+main_menu/CASH_IN=Cash In
+main_menu/TRANSFER_TO_SIBLING=Transfer to Sibling
+main_menu/PURCHASE_VOUCHER=V-Vou
+main_menu/BUNDLE=Bundle TopUp
+
+main_menu_reversal=
+main_menu_reversal/REVERSAL_REQUEST=Request Reversal
+main_menu_reversal/REVERSAL_APPROVE=Approve Reversal
+main_menu_reversal/REVERSAL_DENY=Deny Reversal
+
+# Report submenu
+report_menu=
+report_menu/SALES_TODAY=Sales report today
+report_menu/SALES_PERIOD=Sales report by period
+report_menu/SALES_PERIOD_CHANNEL=Channel user sales by period
+report_menu/DEPOSIT_TODAY=My deposits today
+report_menu/DEPOSIT_PERIOD=My deposits by period
+
+subscriber_menu=
+subscriber_menu/REGISTRATION=Registration
+subscriber_menu/SUBSCRIBER_TRANSFER=Top Up
+subscriber_menu/CHANGE_PIN=Change PIN
+subscriber_menu/LAST_TRANSACTIONS=Last transaction
+ 
+
+# Generic messages
+".*/amount"=Enter amount:
+".*/password"=Enter your PIN:
+".*/receiverMSISDN"=Enter receiver MSISDN:
+".*/confirmReceiverMSISDN"=Confirm receiver MSISDN:
+".*/from_date"=Enter the start period:
+".*/to_date"=Enter the end period:
+".*/futurePlanRecharge"=Press 1 to buy as future plan
+".*/transactionId"=Enter Transaction Id:
+
+# Choice specific messages
+REGISTRATION/activationCode=Enter your activation code:
+REGISTRATION/password=Choose your PIN:
+REGISTRATION/repeatPassword=Re-enter your PIN:
+
+TRANSACTION_STATUS/ers_reference=Enter the transaction id:
+
+CHANGE_PIN/oldPassword=Enter your PIN:
+CHANGE_PIN/newPassword=Enter the new PIN:
+CHANGE_PIN/repeatPassword=Enter the new PIN again:
+
+SALES_PERIOD_CHANNEL/target_MSISDN=Enter MSISDN:
+
+faf_menu=
+faf_menu/FAF_ADD=Add number to FAF
+faf_menu/FAF_REMOVE=Remove number from FAF
+FAF_ADD/fafNumber=Enter valid number
+FAF_ADD=Number added.
+FAF_REMOVE/fafNumber=Enter valid number
+FAF_REMOVE=Number removed.
+
+#Subscriber CMBK menu
+subscriber_cmbk_menu=
+SUBSCRIBER_CMBK/recipientMSISDN=Enter recipient subscriber number:
+
+############## Response messages ###############################
+REGISTRATION=You have successfully registered to the system.
+TOPUP=${result.transaction.resultMessage}
+TRANSFER=${result.transaction.resultMessage}
+BALANCE_INQUIRY=<#setting locale="en_US">Your current balance is ${result.accountInformationList[0].balance.value?string("0.00")} ${result.accountInformationList[0].balance.currency}
+CHANGE_PIN=Your PIN has been changed.
+SUBSCRIBER_TRANSFER=${result.transaction.resultMessage}
+LAST_TRANSACTIONS=${result.transaction.resultMessage}
+SUBSCRIBER_CMBK=CMBK request successful
+BUNDLE=${result.transaction.resultMessage}
+
+############## Validation messages ###############################
+".*/validate_fail\?rule=password_validation"=PIN should be four digit long.
+".*/validate_fail\?rule=password_repeat_validation"=You have entered new password and new password confirmation that do not match, please try again
+".*/validate_fail\?rule=.*amount_validation"=Rejected: ${fields.amount} GNF is invalid amount.!
+".*/validate_fail\?rule=.*decimal_validation"=Rejected: ${fields.amount}.${(fields.decimal)} GNF is invalid amount.!
+".*/validate_fail\?rule=date_validation"=Invalid date format, must be in the format DDMMYY!
+".*/validate_fail\?rule=ers_reference_validation"=Invalid ERS reference!
+".*/validate_fail\?rule=.*destination_validation"=Rejected: Phone number must be 9-12 digits
+".*/validate_fail\?rule=.*msisdn_validation"=Rejected: Phone number must be 9-12 digits
+".*/validate_fail\?rule=.*sim_serial_validation"=Invalid sim serial number!
+".*/validate_fail\?rule=.*reseller_id_validation"=Invalid reseller id format!
+".*/validate_fail\?rule=.*initiator_receiver_validation"=Initiator and receiver should not be same!
+".*/validate_fail\?rule=cmbk_recipient_validation"=You have provided invalid receiver MSISDN!
+
+############## Error code messages ###############################
+".*/fail.*"=<#if result.resultMessage??>${result.resultMessage}<#else> <#if result.transaction.resultMessage??>${result.transaction.resultMessage}<#else>Unknown error, code ${result.resultCode}</#if></#if>
+ers_connection_error=The service is currently down, please try again later
+access_denied=Access Denied
+unknown_resource=<unknown resource "${resourceId}">
+exception=<exception ${exception.message}>
+invalid_command=Unknown command "*${command}*"! Please check the usage of USSD service.
+invalid_denomination_choice=Invalid choice
+.*/invalid_choice=Invalid choice: ${choice}
+".*/exception"=Exception: ${exception.message}
+internal_error=Unmapped error code
+
+
+# The main menu choices
+main_menu=
+main_menu/REGISTRATION=Register
+main_menu/TOPUP=Top Up
+main_menu/TRANSFER=Transfer
+main_menu/BALANCE_INQUIRY=Balance
+main_menu/TRANSACTION_STATUS=Transaction status
+main_menu/LAST_TRANSACTIONS=Last Operation
+main_menu/REPORTS=Reports
+main_menu/CHANGE_PIN=Change PIN
+main_menu/TRANSFER_TO_SIBLING=Transfer to Sibling
+
+# Report submenu
+report_menu=
+report_menu/SALES_TODAY=Sales report today
+report_menu/SALES_PERIOD=Sales report by period
+report_menu/SALES_PERIOD_CHANNEL=Channel user sales by period
+report_menu/DEPOSIT_TODAY=My deposits today
+report_menu/DEPOSIT_PERIOD=My deposits by period
+
+subscriber_menu=
+subscriber_menu/REGISTRATION=Registration
+subscriber_menu/SUBSCRIBER_TRANSFER=Top Up
+subscriber_menu/CHANGE_PIN=Change PIN
+subscriber_menu/LAST_TRANSACTIONS=Last transaction
+
+#Microcredit Request Menu
+microcredit_request_menu=
+microcredit_request_menu/MICROCREDIT_REQUEST_ID=Custom Amount
+microcredit_request_menu/MICROCREDIT_REQUEST_ID_100=100 FCFA
+microcredit_request_menu/MICROCREDIT_REQUEST_ID_DYNAMIC=Auto Calculated
+ 
+
+# Generic messages
+".*/amount"=Enter amount:
+".*/password"=Enter your PIN:
+".*/receiverMSISDN"=Enter receiver MSISDN:
+".*/confirmReceiverMSISDN"=Confirm receiver MSISDN:
+".*/from_date"=Enter the start period:
+".*/to_date"=Enter the end period:
+
+# Choice specific messages
+REGISTRATION/activationCode=Enter your activation code:
+REGISTRATION/password=Choose your PIN:
+REGISTRATION/repeatPassword=Re-enter your PIN:
+
+TRANSACTION_STATUS/ers_reference=Enter the transaction id:
+
+CHANGE_PIN/oldPassword=Enter your PIN:
+CHANGE_PIN/newPassword=Enter the new PIN:
+CHANGE_PIN/repeatPassword=Enter the new PIN again:
+
+SALES_PERIOD_CHANNEL/target_MSISDN=Enter MSISDN:
+
+faf_menu=
+faf_menu/FAF_ADD=Add number to FAF
+faf_menu/FAF_REMOVE=Remove number from FAF
+FAF_ADD/fafNumber=Enter valid number
+FAF_ADD=Number added.
+FAF_REMOVE/fafNumber=Enter valid number
+FAF_REMOVE=Number removed.
+
+############## Response messages ###############################
+REGISTRATION=You have successfully registered to the system.
+TOPUP=${result.transaction.resultMessage}
+TRANSFER=${result.transaction.resultMessage}
+BALANCE_INQUIRY=<#setting locale="en_US">Your current balance is ${result.accountInformationList[0].balance.value?string("0.00")} ${result.accountInformationList[0].balance.currency}
+CHANGE_PIN=Your PIN has been changed.
+SUBSCRIBER_TRANSFER=${result.transaction.resultMessage}
+LAST_TRANSACTIONS=${result.transaction.resultMessage}
+
+############## Validation messages ###############################
+".*/validate_fail\?rule=password_validation"=PIN should be four digit long.
+".*/validate_fail\?rule=password_repeat_validation"=You have entered new password and new password confirmation that do not match, please try again
+".*/validate_fail\?rule=.*amount_validation"=Rejected: ${fields.amount} GNF is invalid amount.!
+".*/validate_fail\?rule=.*decimal_validation"=Rejected: ${fields.amount}.${(fields.decimal)} GNF is invalid amount.!
+".*/validate_fail\?rule=date_validation"=Invalid date format, must be in the format DDMMYY!
+".*/validate_fail\?rule=ers_reference_validation"=Invalid ERS reference!
+".*/validate_fail\?rule=.*destination_validation"=Rejected: Phone number must be 9-12 digits
+".*/validate_fail\?rule=.*msisdn_validation"=Rejected: Phone number must be 9-12 digits
+".*/validate_fail\?rule=.*sim_serial_validation"=Invalid sim serial number!
+".*/validate_fail\?rule=.*reseller_id_validation"=Invalid reseller id format!
+
+############## Error code messages ###############################
+".*/fail.*"=<#if result.resultMessage??>${result.resultMessage}<#else> <#if result.transaction.resultMessage??>${result.transaction.resultMessage}<#else>Unknown error, code ${result.resultCode}</#if></#if>
+ers_connection_error=The service is currently down, please try again later
+access_denied=Access Denied
+unknown_resource=<unknown resource "${resourceId}">
+exception=<exception ${exception.message}>
+invalid_command=Unknown command "*${command}*"! Please check the usage of USSD service.
+invalid_denomination_choice=Invalid choice
+.*/invalid_choice=Invalid choice: ${choice}
+".*/exception"=Exception: ${exception.message}
+internal_error=Unmapped error code
+
+
+##### ERS3 - NOT MOVED
+
+
+#TOPUP_SENDER_MESSAGE=You have topped up $receiver_MSISDN$ with $amount$, your balance is $balance$. ref: $transaction_id$ \n
+#TOPUP_RECEIVER_MESSAGE=You have been topped up $sender_MSISDN$ with $amount$.\n
+#
+#
+#FAF_OFF_NET_change=The number $friend_MSISDN$ is not allowed to add to your friend list!
+#
+#
+#REPORT=$report_data$
+#
+#MENU_BAD_CHOICE=Incorrect menu alternative
+#TOPUP_SENDER_MSG=You have topped up $receiver_MSISDN$ with $amount$.\n
+#STOCK_TRANS_SENDER_MSG=You have transfered $SenderPrice$ to $receiver_MSISDN$.\n
+#STOCK_TRANS_RECEIVER_MSG=You have been transfered $ReceiverAmount$ by $sender_MSISDN$.\n
+#
+#CONTRACT_OUT_OF_RANGE=Please transfer money as per the allowed limits\n
+#SUPERVISION_PERIOD_EXPIRED=Receiver Number is in Grace Period\n
+#SERVICE_FEE_PERIOD_EXPIRED=Receiver Number is Expired\n
+#ACCOUNT_INACTIVE=Receiver Number is inactive, please ask the subscriber to make first call.\n
+#
+#SIB_TRANS_SENDER_MSG=You have transfered $amount$ to $receiver_MSISDN$.\n
+#SIB_TRANS_RECEIVER_MSG=You have been transfered $amount$ by $sender_MSISDN$.\n
+#
+#BLOCK_ACCOUNT=Your payment account is blocked
+#SMALL_AMOUNT=That amount is too small for your payment account
+#LARGE_AMOUNT=That amount is too large for your payment account
+#PWD_FAIL=You failed the password check to your payment account
+#UNREG_ACCOUNT=Your account is not registred for payment
+#CREDIT_LIMIT=Your periodic credit limit has been reached
+#LOCKED_ACCOUNT=Account locked due to incorrect attempts!
+#
+#AMOUNT_TOO_LARGE=The amount you tried is too large
+#AMOUNT_TOO_SMALL=The amount you tried is too small
+#AMOUNT_WRONG_DIVISIBILITY=The amount you tried to topup with is not even enough
+#OPERATOR_NOT_AVAILABLE=We can not reach the operator currently
+#INVALID_AMOUNT=The amount you tried to topup with it not in an approved range
+#OPERATOR_INTERNAL_ERROR=The operator returned an internal error code
+#INVALID_ETOPUP_PRODUCT=The product you tried to use is not an etopup product
+#
+#INSUFFICIENT_CREDIT=You don't have enough credit to do that
+#
+#PAYMENT_ACCOUNT_NOT_ACTIVE=Your payment account is not active
+#PAYMENT_REJECTED=Your account could not be charged, the operation could not be completed
+#PAYMENT_ACCOUNT_DOES_NOT_EXIST =Your payment account does not exist
+#PERIODIC_ACTION_LIMIT_REACHED=Your periodic amount of actions has been exceeded
+#PAYMENT_NEW_PINS_DONT_MATCH=The repeated entry of the new pin didn't match the first one
+#PAYMENT_NEW_PIN_BAD_FORMAT = Your new PIN is too simple, try to make it more complex
+#PAYMENT_ACCOUNT_ALREADY_ACTIVE =The payment account you try to activate is already active
+#RESELLER_DOES_NOT_EXIST =The reseller you want does not exist
+#RESELLER_IS_NOT_ACTIVE =The reseller you want is not in an active state
+##NO_DEVICE=Your account has been blocked
+#NO_DEVICE=Your handset is not registred with the system
+#DEVICE_BLOCKED=Your handset has been blocked
+#DEVICE_WRONG_STATE=Your handset is not active in the system
+#DEVICE_WRONG_STATE_REGISTER=Your handset is either not ready in the system or already active
+#RESELLER_BLOCKED=Your account has been blocked
+#WRONG_ACTIVATION_CODE=The activation code you entered was wrong
+#
+#ACCOUNT_NUMBER_WRONG_LENGTH =The receiver number is of incorrect length
+#ACCOUNT_NUMBER_WRONG_PREFIX =The receiver number has a wrong prefix
+#ACCOUNT_NUMBER_DOES_NOT_EXIST =The receiver number does not exist at the operator
+#ACCOUNT_IN_WRONG_STATUS =The receiver number is in an inactive state
+#ACCOUNT_BLOCKED =The receiver number is blocked
+#SUBSCRIBER_MAX_COUNT_TOPUPS_REACHED =The receiver has reached his maximum topup count
+#SUBSCRIBER_MAX_AMOUNT_TOPUPS_REACHED =The receiver has reached his maximum topup amount
+#SUBSCRIBER_NOT_SUBRESELLER =The receiver is not a subreseller of yours
+#SUBSCRIBER_IS_BLOCKED =The receiver has been blocked by ERS
+#SUBSCRIBER_NOT_RESELLER =The subscriber is not a reseller 
+#SUBSCRIBER_NOT_SIBLING =The receiver is not a sibling to the reseller ie not the same parent reseller
+#NOT_IN_PRODUCT_RANGE=This product is not in your product list
+#
+##MESSAGE FOR S2S (Subscriber To Subscriber) menu
+#
+#S2S_MENU_MAIN=1 Registration\n Top Up\n3 Last transaction\n4 Change PIN
+#MENU_S2S_REGISTER_1=Choose your PIN:\n
+#MENU_S2S_REGISTER_2=Re-enter your PIN:
+#
+##FAF#
+#FAF_LIST_success=Numbers in your friend list is: $friend_list$
+#FAF_ADD_success=You have added $friend_MSISDN$ to your friend list. You have been deducted an amount of 500.00 GNF
+#FAF_REMOVE_success=You have removed $friend_MSISDN$ from your friend list
+#FAF_LIST_empty=Your friend list is empty.
+#FAF_LIST_full=Your friend list is full!
+#FAF_LIST_max_offnetwork=You can have maximum 3 off-net numbers in your friend list!
+#FAF_Number_Exist=The Number already exists in your Friend List
+#FAF_REMOVE_not_in_list=The Number does not exist in your Friend List
+#FAF_Insufficient_Funds=You do not have enough balance to ADD Friends.
+#FAF_limit_change=You have reached the periodic limit to change Friend List
+#
+##SCS#
+#SCC_success=You have now changed to service class $service_class$ 
+#SCC_INFO_success=You are in service class $current_service_class$
+#
+##CMB#
+#CMB_success=Sent call me back notification to $destination_MSISDN$
+#CMB_message=Please call $sender_MSISDN$
+#
+##BIC#
+#BIC_ACTIVATE_success=Your Bonus on Incoming Calls has been activated
+#BIC_DEACTIVATE_success=Your Bonus on Incoming Calls has been deactivated
+#BIC_INFO_success=$bic_information$
+#BIC_STATUS_active=Bonus on Incoming Calls Service is activated in your account
+#BIC_STATUS_inactive=Bonus on Incoming Calls Service is inactive in your account
+#BIC_STATUS_exceeds_subscriber=Bonus on Incoming Calls Service exceeds number of subscribers
+#BIC_UNKNOWN_account=Sorry the account is unknown
+#BIC_INVALID_TRANSACTION_CURRENCY=The currency used in the requested transaction is not a valid currency for the account
+#BIC_ROLLBACK_NOT_POSSIBLE=Rollback not possible for this transaction
+#BIC_INVALID_VOUCHER=The specified account class is not an allowed change
+#BIC_INVALID_VOUCHER_STATE=The specified account class is not an allowed change
+#
+#
+############# Sudhanshu ###############
+#SUBSCRIBER_NUMBER_MISMATCH=Subscriber numbers do not match
+#MENU_TOPUP_1_1=Confirm receiver MSISDN:\n
+#MENU_STOCK_TRANS_1_1=Confirm receiver MSISDN:\n
+#MENU_SIB_TRANS_1=Receiver MSISDN:\n
+#MENU_SIB_TRANS_1_1=Confirm receiver MSISDN:\n
+#topuptoitself=Self topup not permitted
+#wrong_PIN_LENGTH=PIN should be four digit long.
+#Wrong_Dest_Length=Length of your friend's number should be 8 digits.
+#Self_FAF_ADD_NOT_ALL=You cannot add your own Number
+######################################
+
+
+#RESELLER_DOES_NOT_EXIST =The reseller you want does not exist
+#RESELLER_IS_NOT_ACTIVE =The reseller you want is not in an active state
+##NO_DEVICE=Your account has been blocked
+#NO_DEVICE=Your handset is not registred with the system
+#DEVICE_BLOCKED=Your handset has been blocked
+#DEVICE_WRONG_STATE=Your handset is not active in the system
+#DEVICE_WRONG_STATE_REGISTER=Your handset is either not ready in the system or already active
+#RESELLER_BLOCKED=Your account has been blocked
+#WRONG_ACTIVATION_CODE=The activation code you entered was wrong
+#
+#ACCOUNT_NUMBER_WRONG_LENGTH =The receiver number is of incorrect length
+#ACCOUNT_NUMBER_WRONG_PREFIX =The receiver number has a wrong prefix
+#ACCOUNT_NUMBER_DOES_NOT_EXIST =The receiver number does not exist at the operator
+#ACCOUNT_IN_WRONG_STATUS =The receiver number is in an inactive state
+#ACCOUNT_BLOCKED =The receiver number is blocked
+#SUBSCRIBER_MAX_COUNT_TOPUPS_REACHED =The receiver has reached his maximum topup count
+#SUBSCRIBER_MAX_AMOUNT_TOPUPS_REACHED =The receiver has reached his maximum topup amount
+#SUBSCRIBER_NOT_SUBRESELLER =The receiver is not a subreseller of yours
+#SUBSCRIBER_IS_BLOCKED =The receiver has been blocked by ERS
+#SUBSCRIBER_NOT_RESELLER =The subscriber is not a reseller 
+#SUBSCRIBER_NOT_SIBLING =The receiver is not a sibling to the reseller ie not the same parent reseller
+#NOT_IN_PRODUCT_RANGE=This product is not in your product list
+#
+##MESSAGE FOR S2S (Subscriber To Subscriber) menu
+#
+#S2S_MENU_MAIN=1 Registration\n Top Up\n3 Last transaction\n4 Change PIN
+#MENU_S2S_REGISTER_1=Choose your PIN:\n
+#MENU_S2S_REGISTER_2=Re-enter your PIN:
+#
+##FAF#
+#FAF_LIST_success=Numbers in your friend list is: $friend_list$
+#FAF_ADD_success=You have added $friend_MSISDN$ to your friend list. You have been deducted an amount of 500.00 GNF
+#FAF_REMOVE_success=You have removed $friend_MSISDN$ from your friend list
+#FAF_LIST_empty=Your friend list is empty.
+#FAF_LIST_full=Your friend list is full!
+#FAF_LIST_max_offnetwork=You can have maximum 3 off-net numbers in your friend list!
+#FAF_Number_Exist=The Number already exists in your Friend List
+#FAF_REMOVE_not_in_list=The Number does not exist in your Friend List
+#FAF_Insufficient_Funds=You do not have enough balance to ADD Friends.
+#FAF_limit_change=You have reached the periodic limit to change Friend List
+#
+##SCS#
+#SCC_success=You have now changed to service class $service_class$ 
+#SCC_INFO_success=You are in service class $current_service_class$
+#
+##CMB#
+#CMB_success=Sent call me back notification to $destination_MSISDN$
+#CMB_message=Please call $sender_MSISDN$
+#
+##BIC#
+#BIC_ACTIVATE_success=Your Bonus on Incoming Calls has been activated
+#BIC_DEACTIVATE_success=Your Bonus on Incoming Calls has been deactivated
+#BIC_INFO_success=$bic_information$
+#BIC_STATUS_active=Bonus on Incoming Calls Service is activated in your account
+#BIC_STATUS_inactive=Bonus on Incoming Calls Service is inactive in your account
+#BIC_STATUS_exceeds_subscriber=Bonus on Incoming Calls Service exceeds number of subscribers
+#BIC_UNKNOWN_account=Sorry the account is unknown
+#BIC_INVALID_TRANSACTION_CURRENCY=The currency used in the requested transaction is not a valid currency for the account
+#BIC_ROLLBACK_NOT_POSSIBLE=Rollback not possible for this transaction
+#BIC_INVALID_VOUCHER=The specified account class is not an allowed change
+#BIC_INVALID_VOUCHER_STATE=The specified account class is not an allowed change
+#
+#
+############# Sudhanshu ###############
+#SUBSCRIBER_NUMBER_MISMATCH=Subscriber numbers do not match
+#MENU_TOPUP_1_1=Confirm receiver MSISDN:\n
+#MENU_STOCK_TRANS_1_1=Confirm receiver MSISDN:\n
+#MENU_SIB_TRANS_1=Receiver MSISDN:\n
+#MENU_SIB_TRANS_1_1=Confirm receiver MSISDN:\n
+#topuptoitself=Self topup not permitted
+#wrong_PIN_LENGTH=PIN should be four digit long.
+#Wrong_Dest_Length=Length of your friend's number should be 8 digits.
+#Self_FAF_ADD_NOT_ALL=You cannot add your own Number
+###################################### You are transferring
+
+#Block for VOUCHER PURCHASE
+PURCHASE_VOUCHER/receiverMSISDN=Enter subscriber number:
+PURCHASE_VOUCHER/amount=Denomination:
+PURCHASE_VOUCHER/numberOfVouchers=Number of Vouchers:
+PURCHASE_VOUCHER/password=PIN:
+PURCHASE_VOUCHER/confirm=Confirm purchase of ${fields.amount} YER to ${fields.receiverMSISDN} by pressing 1, any other key to abort
+PURCHASE_VOUCHER/confirm/abort=Purchase aborted!
+
+voucher_type=Denominations
+
+PURCHASE_VOUCHER=<#list result.transaction.purchasedProducts as purchasedProduct>You have transferred Voucher ${purchasedProduct.rows?size} x <#if purchasedProduct.product?? && purchasedProduct.product.itemPrice??>${amountUtils.formatAmount(amountUtils.parseAmount(purchasedProduct.product.itemPrice.value?string, purchasedProduct.product.itemPrice.currency))}</#if> to <#if result.transaction.receiverPrincipal?? && result.transaction.receiverPrincipal.submittedPrincipalId??>${result.transaction.receiverPrincipal.submittedPrincipalId.id}</#if>, Your remaining balance is <#list result.transaction.transactionRows as transactionRows><#if transactionRows.balanceAfter??>${amountUtils.formatAmount(amountUtils.parseAmount(transactionRows.balanceAfter.value?string, transactionRows.balanceAfter.currency))}</#if></#list>.</#list>
+
+
+## Enable it to show voucher amount with decimal
+show_voucher_amounts_with_decimal=true
+
+##
+# Microcredit
+MICROCREDIT_REQUEST_ID/microcreditConfirmation=Dear Customer, are you willing to get ${fields.amount} FCFA Microcredit, press 1.
+MICROCREDIT_REQUEST_ID/microcreditConfirmation/abort=The Microcredit request has been cancelled.
+
+MICROCREDIT_REQUEST_ID=${result.transaction.resultMessage}
+
+MICROCREDIT_REQUEST_ID_100/microcreditConfirmation=Dear Customer, are you willing to get 100 FCFA as Microcredit at 2% fee, press 1.
+MICROCREDIT_REQUEST_ID_100/microcreditConfirmation/abort=The Microcredit request has been cancelled.
+
+MICROCREDIT_REQUEST_ID_100=${result.transaction.resultMessage}
+
+MICROCREDIT_REQUEST_ID_DYNAMIC/microcreditConfirmation=Dear Customer, are you willing to get auto calculated Microcredit at 2% fee, press 1.
+MICROCREDIT_REQUEST_ID_DYNAMIC/microcreditConfirmation/abort=The Microcredit request has been cancelled.
+
+MICROCREDIT_REQUEST_ID_DYNAMIC=${result.transaction.resultMessage}
+
+##

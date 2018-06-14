@@ -1,0 +1,19 @@
+<configuration>
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/seamless/log/cellidsimulator/cellidsimulator.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/seamless/log/cellidsimulator/cellidsimulator.log.%d{yyyy-MM-dd}</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date{ISO8601} %-5level [%logger{15}:%thread] - %message%n%xException{5}</Pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>

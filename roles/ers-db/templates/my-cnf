@@ -1,0 +1,68 @@
+[mysqld]
+
+server-id=4011
+
+datadir=/var/lib/mysql
+
+default-storage-engine=INNODB
+character_set_server=utf8
+tmpdir=/var/tmp
+max_relay_log_size=0
+relay-log=/dbase/mysql/{{ inventory_hostname }}-relay-bin
+max_allowed_packet=16M
+key_buffer_size=16M
+wait_timeout=604800
+query_cache_size=0
+max_connect_errors=100000
+max_connections=2000
+table_cache=1000
+thread_cache_size=16
+
+innodb_buffer_pool_size = 6G
+innodb_thread_concurrency = 16
+innodb_flush_log_at_trx_commit = 0
+innodb_log_buffer_size = 8M
+innodb_log_file_size = 256M
+innodb_log_files_in_group = 3
+innodb_open_files = 2000
+innodb_commit_concurrency = 0
+innodb_file_per_table = 1
+innodb_write_io_threads = 8
+innodb_read_io_threads = 8
+innodb_flush_method=O_DIRECT
+innodb_io_capacity=400
+
+#GL: Do not log queries not using indexes on small tables
+min_examined_row_limit=10000
+
+#GL: Log connection warnings in error log
+log_warnings=2
+
+#GL: InnoDB Performance Improvement
+
+########Enable Slow query Logs
+slow_query_log=syedb01a-slow-query.log
+slow_query_log=1
+long-query-time=3
+log-queries-not-using-indexes
+
+
+# Whether the binary log is enabled - should be enabled on master if
+# replication is used.
+#
+log-bin={{ inventory_hostname }}-bin
+log-slave-updates
+skip-slave-start
+binlog_format='MIXED'
+sync_binlog=10
+##############
+#GL: Keep binlog for 14 days and purge rest
+expire_logs_days=14
+################Audit-Plugin
+plugin-load=server_audit=server_audit.so
+server_audit_output_type=file
+server_audit_logging=on
+server_audit_events="connect,table"
+server_audit_file_path='/dbase/mysql/{{ inventory_hostname }}_audit.log'
+server_audit_file_rotate_size=419430400 #size of file
+server_audit_file_rotations=20 #number of rotated files to keep

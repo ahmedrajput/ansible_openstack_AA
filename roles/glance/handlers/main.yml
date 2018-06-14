@@ -1,0 +1,6 @@
+---
+# handlers file for glance
+- name: Restart Glance API
+  service: name=openstack-glance-api state=restarted
+- name: Restart Glance Registry
+  service: name=openstack-glance-registry state=restarted

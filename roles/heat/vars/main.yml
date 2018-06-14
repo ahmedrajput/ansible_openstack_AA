@@ -1,0 +1,10 @@
+---
+# vars file for heat
+DB_PASS: 50f05373656451edbaf4
+ADMIN_PASS: 56dda5cced74f3168ba6
+HEAT_PASS: 4ced01e9d9322153ae65
+HEAT_DBPASS: 3ffd65d2783255a32c09
+HEAT_ADMIN_PASS: 9e2dca03b2f91b528c06
+VIP: 10.10.10.4
+HEAT_ENDPOINT: http://{{ VIP }}:8004/v1/%\(tenant_id\)s
+REGION: RegionOne

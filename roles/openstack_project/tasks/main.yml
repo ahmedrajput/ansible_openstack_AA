@@ -1,0 +1,31 @@
+---
+# tasks file for openstack_project
+- name: Service Project Creation
+  os_project:
+   domain: default
+   name: service
+   description: "Service Project"
+   state: present
+- name: Demo Project Creation
+  os_project:
+   domain_id: default
+   name: demo
+   description: "Demo Project"
+   state: present
+- name: Demo User Creation
+  os_user:
+   name: demo
+   domain: default
+   password: "{{ DEMO_PASS }}"
+   state: present
+- name: Creating a role user
+  os_keystone_role:
+   name: user
+   state: present
+- name: Assign demo project to demo user
+  os_user_role:
+   role: user
+   project: demo
+   user: demo
+   state: present
+

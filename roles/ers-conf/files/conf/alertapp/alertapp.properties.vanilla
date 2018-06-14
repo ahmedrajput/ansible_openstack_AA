@@ -1,0 +1,480 @@
+###############################################################################
+# ers alert app database holds view that returns all necessary data for reseller retrieval
+
+alertapp.db_driver=com.mysql.jdbc.Driver
+alertapp.db_url=jdbc:mysql://localhost:3306/alertapp
+alertapp.db_user=refill
+alertapp.db_password=refill
+alertapp.pool_min_size=1
+alertapp.pool_max_size=10
+alertapp.pool_query_timeout=300000
+alertapp.fetch_timeout=300000
+
+###############################################################################
+# dataaggregator database holds table std_parent_reseller_aggregation that
+# contains information about parent resellers
+
+dataaggregator.db_driver=com.mysql.jdbc.Driver
+dataaggregator.db_url=jdbc:mysql://localhost:3306/dataaggregator
+dataaggregator.db_user=refill
+dataaggregator.db_password=refill
+dataaggregator.pool_min_size=1
+dataaggregator.pool_max_size=10
+dataaggregator.pool_query_timeout=300000
+dataaggregator.fetch_timeout=300000
+
+###############################################################################
+# Refill database connection
+#
+refilldb.db_driver=com.mysql.jdbc.Driver
+refilldb.db_url=jdbc:mysql://localhost:3306/Refill
+refilldb.db_user=refill
+refilldb.db_password=refill
+refilldb.pool_min_size=1
+refilldb.pool_max_size=10
+refilldb.pool_query_timeout=300000
+refilldb.fetch_timeout=300000
+
+################################################################################
+# ERS principal service connection
+
+ersprincipalservice.url=http://localhost:8912/principalService
+ersprincipalservice.user=alertapp
+ersprincipalservice.password=alertapp
+
+################################################################################
+# URL to use to export suggested stock connection
+#suggestedstock.url=http://localhost:8765/suggestedstock
+suggestedstock.port= 8765
+
+###############################################################################
+# Monitored reseller type list separated by space. Only those resellers will
+# have balance checked.
+# NOTE: this should be kept in order of hierarchy in system
+
+monitored_reseller_types= operator treasury distributor subdistributor reseller p2p
+
+###############################################################################
+# Monitored account type list separated by space. Only those accounts will
+# have balance checked.
+
+#monitored_account_types= RESELLER_AIRTIME RESELLER_REWARDS
+
+###############################################################################
+#The reseller type mentioned here will use relative comparison for low stock alert
+relativeComparison = operator treasury distributor subdistributor reseller p2p
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to reseller himself
+# Stock level is the balance of the reseller in lowest currency
+# Ex: alert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+#
+# Assuming the following reseller types are defined in the system.
+# MTN (Top level Reseller)
+# SC (Service center Reseller)
+# SCC (Subservice center Reseller)
+# MD (Master dealer Reseller)
+# SD (Subdealer Reseller)
+# POS (Point of sale)
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+alert_stock_level.default=2000
+#alert_stock_level.SC=1000
+#alert_stock_level.SCC=900
+#alert_stock_level.MD=800
+#alert_stock_level.SD=700
+#alert_stock_level.POS=2000
+#alert_stock_level.default.region1.default.default=600
+#alert_stock_level.SC.region1.default.default=500
+#alert_stock_level.SC.default.zone1.default=400
+#alert_stock_level.SC.default.default.sector1=300
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to parent
+# Stock level is the balance of the reseller in lowest currency
+# Ex: parentalert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+# Normally parent alert level is higher than reseller alert level
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+parentalert_stock_level.default=25000
+#parentalert_stock_level.SC=1200
+#parentalert_stock_level.SCC=920
+#parentalert_stock_level.MD=820
+#parentalert_stock_level.SD=25000
+#parentalert_stock_level.POS=2000
+#parentalert_stock_level.default.region1.default.default=600
+#parentalert_stock_level.SC.region1.default.default=500
+#parentalert_stock_level.SC.default.zone1.default=400
+#parentalert_stock_level.SC.default.default.sector1=300
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to account manager
+# Stock level is the balance of the reseller in lowest currency
+# Ex: accountManageralert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+# Normally parent alert level is higher than reseller alert level
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+accountManageralert_stock_level.default=500
+#accountManageralert_stock_level.SC=1200
+#accountManageralert_stock_level.SCC=920
+#accountManageralert_stock_level.MD=820
+#accountManageralert_stock_level.SD=25000
+#accountManageralert_stock_level.POS=2000
+
+###############################################################################
+
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to region representative
+# Stock level is the balance of the reseller in lowest currency
+# Ex: regionRepresentativealert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+# Normally parent alert level is higher than reseller alert level
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+regionRepresentativealert_stock_level.default=500
+#regionRepresentativealert_stock_level.SC=1200
+#regionRepresentativealert_stock_level.SCC=920
+#regionRepresentativealert_stock_level.MD=820
+#regionRepresentativealert_stock_level.SD=25000
+#regionRepresentativealert_stock_level.POS=2000
+#regionRepresentativealert_stock_level.default.region1.default.default=600
+#regionRepresentativealert_stock_level.SC.region1.default.default=500
+#regionRepresentativealert_stock_level.SCC.region1.default.default=400
+#regionRepresentativealert_stock_level.SC.region2.default.default=300
+
+###############################################################################
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to zone representative
+# Stock level is the balance of the reseller in lowest currency
+# Ex: zoneRepresentativealert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+# Normally parent alert level is higher than reseller alert level
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+zoneRepresentativealert_stock_level.default=500
+#zoneRepresentativealert_stock_level.SC=1200
+#zoneRepresentativealert_stock_level.SCC=920
+#zoneRepresentativealert_stock_level.MD=820
+#zoneRepresentativealert_stock_level.SD=25000
+#zoneRepresentativealert_stock_level.POS=2000
+#zoneRepresentativealert_stock_level.default.default.zone1.default=600
+#zoneRepresentativealert_stock_level.SC.default.zone1.default=500
+#zoneRepresentativealert_stock_level.SCC.default.zone1.default=400
+#zoneRepresentativealert_stock_level.SC.default.zone1.default=300
+
+###############################################################################
+
+###############################################################################
+# Reseller stock level which will trigger alert sms to sector representative
+# Stock level is the balance of the reseller in lowest currency
+# Ex: sectorRepresentativealert_stock_level.default=100 means 100 XOF
+# The stock level can define per reseller type or global using default
+# Stock level for reseller type will override default one
+# Normally parent alert level is higher than reseller alert level
+#
+# When there is no level set per reseller type,
+# default value will be used.
+#NOTE: if relativeComparison is enabled for a reseller type then stock level for
+#that reseller type should be defined here in range 0-1. By default it should be 1,
+#any value less than 1 will be used to bring threshold level down
+#
+# default level must be set
+sectorRepresentativealert_stock_level.default=500
+#sectorRepresentativealert_stock_level.SC=1200
+#sectorRepresentativealert_stock_level.SCC=920
+#sectorRepresentativealert_stock_level.MD=820
+#sectorRepresentativealert_stock_level.SD=25000
+#sectorRepresentativealert_stock_level.POS=2000
+#sectorRepresentativealert_stock_level.default.default.default.sector1=600
+#sectorRepresentativealert_stock_level.SC.default.default.sector1=500
+#sectorRepresentativealert_stock_level.SCC.default.default.sector1=400
+#sectorRepresentativealert_stock_level.SC.default.default.sector1=300
+
+
+###############################################################################
+
+# SMS provider connection, by default assumes kannel is running on the same host
+# with standard configuration
+smsprovider.classname=HttpSMSProvider
+smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge&from=1234
+
+###############################################################################
+# Product SKU used by parents to transfer credits to resellers
+# These products used for fetching latest parents this reseller
+products_used_by_parent=62,63,162,64
+
+###############################################################################
+# Configuration for CMS
+default_language=en
+# This is the only supported CMS type right now, dont change this!
+cms.classname=SimpleFileCMS
+# The supported languages
+cms.languages=en fr
+# File containing the english(en) translations
+cms.en.filename=alertapp_messages_english.properties
+# Encoding for the english translations
+cms.en.encoding=ISO-8859-1
+# File containing the french translations
+cms.fr.filename=alertapp_messages_french.properties
+# Encoding for the french translations
+cms.fr.encoding=UTF-8
+
+############################# Locale configuration #############################
+default_encoding=UTF-8
+#default_encoding=ISO-8859-1
+#
+language_encodings.en=UTF-8
+#
+language_encodings.pt=UTF-8
+#language_encodings.pt=ISO-8859-1
+
+# MSISDN settings
+#Default network code padded to msisdn in case entered msisdn less than digits of default_country_code_digit + default_network_code_digits + subscriber_number_digits
+locale.default_country_code=245
+#Default network code padded to msisdn in case entered msisdn less than digits of default_network_code_digits + subscriber_number_digits
+locale.default_network_code=966
+#Length of msisdn excluding network code and country code
+locale.subscriber_number_digits=6
+#Optional properties to set range of allowed network_codes.
+locale.accepted_network_codes=969, 966
+
+# Does a number that starts with a network code require a leading '0'?
+# (0 will not be counted as part the the network code and will be removed from the MSISDN)
+locale.network_code_requires_0_prefix=false
+
+
+# The currency to use
+# All amounts entered will be assumed to be in this currency
+default_currency=FCFA
+
+locale.custom_currency.FCFA=2
+
+# Currency settings
+#Decimal separator
+locale.decimal_separator=.
+#Thousand separator
+locale.thousand_separator=,
+
+###############################################################################
+# Jobs
+#
+# Jobs to run on the scheduler
+#
+
+jobs = stock_alert,voucher_stock_alert,agent_supervisor_sms_alert,agent_supervisor_email_alert
+
+###############################################################################
+#------- Stock level alerts interval --------
+####
+## Example Quartz cron schedules:
+##
+## 0 0 12 * * ?			Fire at 12pm (noon) every day
+##
+## 0 15 10 ? * *		Fire at 10:15am every day
+##
+## 0 * 14 * * ?			Fire every minute starting at 2pm and ending at 2:59pm, every day
+##
+## 0 0/5 14 * * ?		Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day
+##
+## 0 15 10 ? * MON-FRI	Fire at 10:15am Monday to Friday
+##
+## 0 15 10 15 * ?		Fire at 10:15am on the 15th day of every month
+##
+## 0 15 10 L * ?		Fire at 10:15am on the last day of every month
+##
+## 0 15 10 ? * 6L		Fire at 10:15am on the last Friday of every month
+##
+## 0 15 10 ? * 6#3		Fire at 10:15am on the third Friday of every month
+##
+## Fire every hour Monday to Friday
+##
+# schedule = 0 0 0/1 ? * MON-FRI
+# stock_alert.group = STOCK_BALANCE stock level for reseller balance
+# stock_alert.group = VOUCHER_STOCK voucher stock for MTN
+
+stock_alert.group = STOCK_BALANCE
+# Simple subject line
+stock_alert.subjectLine = Low stock alert
+stock_alert.schedule=0 0/30 * * * ?
+# Top level's Email recipients separated by comma(,) in case of multiple emails, fill in and uncomment
+stock_alert.emailTo = <EMAIL TO>
+# Fill in valid mail server host
+stock_alert.mailServerHost = mailrelay.seamless.internal
+# Put the port that the SMTP server runs on
+stock_alert.mailServerPort = 25
+# Who the email is from
+stock_alert.fromEmail = mailrelay.seamless.internal
+stock_alert.actions = EMAIL, SMS
+stock_alert.currency = ZMK
+# An optional email password, the SMTP server may require this
+#alertapp.fromPassword =
+# Empty Body Line
+stock_alert.bodyLine =
+
+###############################################################################
+#------- Top Level Numbers --------
+
+#add top level MSISDN separated by comma(,) in case of multiple numbers, fill in and uncomment
+stock_alert.top_level_MSISDN =
+
+###############################################################################
+#------- Number of days for sampling --------
+stock_alert.number_of_days=4
+stock_alert.sampling_days=5
+stock_alert.estimated_days=7
+stock_alert.percentage=20
+
+###############################################################################
+#------- Voucher Stock alerts  --------
+####
+# voucher_stock_alert.1.denomination = <product in-price-value i.e 10.00>
+# voucher_stock_alert.1.threshold = <threshold values i.e 50>
+# voucher_stock_alert.actions = EMAIL, SMS Right now only EMAIL and SMS supported
+# stock_alert.group = STOCK_BALANCE stock level for reseller balance
+# stock_alert.group = VOUCHER_STOCK voucher stock for MTN
+
+voucher_stock_alert.group = VOUCHER_STOCK
+voucher_stock_alert.1.denomination = 10.00
+voucher_stock_alert.1.threshold = 10
+
+voucher_stock_alert.2.sku = 450016
+voucher_stock_alert.2.threshold = 985
+voucher_stock_alert.2.average_product_delivery_days = 1
+voucher_stock_alert.2.product_buffer_days = 1
+#Local action for this threshold.
+voucher_stock_alert.2.actions = EMAIL, SMS
+voucher_stock_alert.2.emailTo = evd.dk.testing@seamless.se
+voucher_stock_alert.2.smsTo=+4520010000
+
+voucher_stock_alert.3.supplier=IDT
+voucher_stock_alert.3.threshold = 995
+voucher_stock_alert.3.average_product_delivery_days = 1
+voucher_stock_alert.3.product_buffer_days = 1
+voucher_stock_alert.3.actions = EMAIL, SMS
+voucher_stock_alert.3.emailTo = evd.dk.testing@seamless.se
+voucher_stock_alert.3.smsTo=+4520010025
+
+voucher_stock_alert.schedule = 0 59 23 ? * *
+voucher_stock_alert.actions = EMAIL, SMS
+voucher_stock_alert.emailTo = <TO EMAIL ID>
+voucher_stock_alert.subjectLine = Alert! Low Voucher Stock-
+voucher_stock_alert.currency = ZMK
+voucher_stock_alert.fromEmail = <FROM EMAIL ID>
+voucher_stock_alert.mailServerHost = localhost
+voucher_stock_alert.mailServerPort = 25
+voucher_stock_alert.smsFrom=<FROM SMS ADDRESS>
+voucher_stock_alert.smsTo=<TO SMS ADDRESS>
+
+account_manager_expression=${groupIds[1]}
+region_representative_expression=${groupIds[0]}
+zone_representative_expression=${groupIds[1]}
+sector_representative_expression=${groupIds[2]}
+
+representative.region.region1.msisdn=
+representative.zone.zone1.msisdn=
+representative.sector.sector1.msisdn=
+
+representativemail.region.congo.emailid=
+representativemail.zone.zone1.emailid=
+representativemail.sector.sector1.emailid=
+
+#Allow alert corresponding to reseller type ID
+allowstockalert.region=
+allowstockalert.zone=
+allowstockalert.sector=
+#allowstockalert.reseller=operator,treasury,distributor,subdistributor,reseller,p2p
+allowstockalert.reseller.region=
+allowstockalert.reseller.zone=
+allowstockalert.reseller.sector=
+#allowstockalert.parent=operator,treasury,distributor,subdistributor,reseller,p2p
+allowstockalert.parent.region=
+allowstockalert.parent.zone=
+allowstockalert.parent.sector=
+#allowstockalert.accountmanager=distributor,reseller
+
+
+###############################################################################
+#------- Agent and Supervisor Performance Report --------
+###############################################################################
+
+agent_supervisor_sms_alert.group = AGENT_SUPERVISOR_SMS
+agent_supervisor_sms_alert.date.format = dd-MM-yyyy
+
+#Other Supported formats are {dd-MM-yyyy hh:mm}, {MM-dd-yyyy hh:mm:ss}, {yyyy-dd-MM hh:mm:ss}
+agent_supervisor_sms_alert.period.format = hh:mm
+agent_supervisor_sms_alert.period.second = 3600
+agent_supervisor_sms_alert.period.delimiter = -  
+
+agent_supervisor_sms_alert.schedule = 0 0 * * * ? 
+agent_supervisor_sms_alert.actions = SMS
+
+agent_supervisor_email_alert.group = AGENT_SUPERVISOR_EMAIL
+agent_supervisor_email_alert.date.format = dd-MM-yyyy
+agent_supervisor_email_alert.period.format = hh:mm:ss
+agent_supervisor_email_alert.period.second = 3600
+
+agent_supervisor_email_alert.schedule = 0 0 * * * ? 
+agent_supervisor_email_alert.actions = EMAIL
+#Multiple email id can be given by comma(,) separated values
+agent_supervisor_email_alert.emailTo = <FROM EMAIL ID LIST>
+agent_supervisor_email_alert.subjectLine = Hourly Sales Market Visit Report
+agent_supervisor_email_alert.fromEmail = mailrelay.seamless.internal
+agent_supervisor_email_alert.mailServerHost = localhost
+agent_supervisor_email_alert.mailServerPort = 25
+
+###############################################################################
+#------- Pending credit transfer alert to specified users --------
+###############################################################################
+
+credit_transfer_approval.group = credit_transfer_approval
+
+credit_transfer_approval.schedule = 0 0/1 * * * ? 
+credit_transfer_approval.actions = EMAIL
+#Multiple email id can be given by comma(,) separated values
+credit_transfer_approval.emailTo =root@localhost.localdomain
+credit_transfer_approval.subjectLine = Pending transaction awaiting
+credit_transfer_approval.fromEmail =root@localhost.localdomain
+credit_transfer_approval.mailServerHost = localhost
+credit_transfer_approval.mailServerPort = 2525
+credit_transfer_approval.profile =CREDIT_TRANSFER
+credit_transfer_approval.channel=webadmin

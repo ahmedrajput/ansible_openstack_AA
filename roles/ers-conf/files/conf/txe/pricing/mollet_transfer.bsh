@@ -1,0 +1,83 @@
+/*************************************************
+- BeanShell script pricing engine.
+-
+- Following is the list of available Utility and Transaction generation functions.
+-
+- percent	(Amount a, double p) : Returns a new Amount object, containing a percentage 'p' of given amount 'a'.
+- add		(Amount a, Amount b) : Returns a new Amount object containing the sum of 'a' and 'b'.
+- deduct	(Amount a, Amount b) : Returns a new Amount object containing the remaining value from 'a' after deducting 'b' from it.
+- negate	(Amount a) 			 : Returns a new Amount object containing the negative equivalent of 'a'. 
+-	
+- addSenderTransaction		(Account ac, Amount am, AccountTransactionClassifier classifier) : Adds a transaction to transaction list.
+-		
+- addReceiverTransaction	(Account ac, Amount am, AccountTransactionClassifier classifier) : Adds a transaction to transaction list.
+-			
+- addOtherFeeTransaction	(Account ac, Amount am, AccountTransactionClassifier classifier) : Adds a transaction to transaction list.
+-	
+- Third parameter in the above mentioned function could be one of the following.
+-
+- AccountTransactionClassifier.Fee
+- AccountTransactionClassifier.Commission
+- AccountTransactionClassifier.Purchase
+- AccountTransactionClassifier.Bonus
+- AccountTransactionClassifier.Transfer
+- AccountTransactionClassifier.Cash
+- AccountTransactionClassifier.Deposit
+- AccountTransactionClassifier.SetBalance
+- AccountTransactionClassifier.Tax
+-
+- You can use the above mentioned functions in any order and combination, as long as 
+- rule of zero sum is not broken, which is: "Sum of all transaction amounts should result in zero."
+-
+- A working example.
+
+// Define variables, initialized with appropriate values.
+TAX = "10";
+FEE = "5";
+
+// Calling one of the defined function, See below for a listing of 
+// available functions.
+
+calculate(Account sender, Account receiver, Amount amount)
+{
+	t_amount = percent(amount, TAX);	
+	f_amount = percent(amount, FEE);	
+	tf_amount = add(t_amount, f_amount);
+	s_amount = add(amount, tf_amount).negate();
+	r_amount = amount;
+	
+	tax_account = new Account("BOOKKEEPING", "TAX");
+	
+	addReceiverTransaction(receiver, r_amount, AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, s_amount, AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, f_amount, AccountTransactionClassifier.Bonus);
+	addOtherTransaction(tax_account, t_amount, AccountTransactionClassifier.Transfer);
+}
+
+**************************************************/
+
+
+
+// Define variables, initialized with appropriate values.
+TAX = "10";
+FEE = "5";
+
+// Calling one of the defined function, See below for a listing of 
+// available functions.
+
+calculate(Account sender, Account receiver, Amount amount)
+{
+	t_amount = percent(amount, TAX);	
+	f_amount = percent(amount, FEE);	
+	tf_amount = add(t_amount, f_amount);
+	s_amount = add(amount, tf_amount).negate();
+	r_amount = amount;
+	
+	tax_account = new Account("BOOKKEEPING", "TAX");
+	
+	addReceiverTransaction(receiver, r_amount, AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, s_amount, AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, f_amount, AccountTransactionClassifier.Bonus);
+	addOtherTransaction(tax_account, t_amount, AccountTransactionClassifier.Transfer);
+}
+	

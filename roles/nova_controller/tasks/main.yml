@@ -1,0 +1,142 @@
+---
+# tasks file for nova_controller
+- name: Installing Nova, api and cell DB
+  mysql_db:
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: "{{ item }}"
+   state: present
+  with_items:
+  - nova
+  - nova_api
+  - nova_cell0
+- name: Creating user nova with privileges on all nova DBs
+  mysql_user:
+   append_privs: yes
+   login_user: root
+   login_password: "{{ DB_PASS }}"
+   name: nova
+   password: "{{ NOVA_DBPASS }}"
+   host: "{{ item.host }}"
+   priv: "{{ item.db }}.*:ALL,GRANT"
+   state: present
+  with_items:
+  - {host: "%", db: "nova"}
+  - {host: "%", db: "nova_api"}
+  - {host: "%", db: "nova_cell0"}
+  - {host: "localhost", db: "nova"}
+  - {host: "localhost", db: "nova_api"}
+  - {host: "localhost", db: "nova_cell0"}
+- name: Creating nova user on openstack
+  os_user:
+   name: nova
+   domain: default
+   password: "{{ NOVA_PASS }}"
+   state: present
+- name: Adding nova to admin role
+  os_user_role:
+   role: admin
+   user: nova
+   project: service
+   state: present
+- name: Creating nova Service
+  os_keystone_service:
+   name: nova
+   service_type: compute
+   description: "Openstack Compute"
+   state: present
+- name: Creating Endpoint for nova
+  os_keystone_endpoint:
+   endpoint_interface: "{{ item }}"
+   service: nova
+   url: "http://{{ VIP }}:8774/v2.1"
+   region: "{{ REGION }}"
+   state: present
+  with_items:
+  - internal
+  - public
+  - admin
+- name: Creating placement user on openstack
+  os_user:
+   name: placement
+   domain: default
+   password: "{{ PLACEMENT_PASS }}"
+   state: present
+- name: Adding placement to admin role
+  os_user_role:
+   role: admin
+   user: placement
+   project: service
+   state: present
+- name: Creating placement Service
+  os_keystone_service:
+   name: placement
+   service_type: placement
+   description: "Placement API"
+   state: present
+- name: Creating Endpoint for Placement
+  os_keystone_endpoint:
+   endpoint_interface: "{{ item }}"
+   service: placement
+   url: "http://{{ VIP }}:8778"
+   region: "{{ REGION }}"
+   state: present
+  with_items:
+  - internal
+  - public
+  - admin
+- name: Installing Nova components
+  yum: name={{ item }} state=installed
+  with_items:
+  - openstack-nova-api
+  - openstack-nova-conductor
+  - openstack-nova-console
+  - openstack-nova-novncproxy
+  - openstack-nova-scheduler
+  - openstack-nova-placement-api
+- name: Populating Nova Config file
+  template:
+   src: nova-conf.j2
+   dest: /etc/nova/nova.conf
+  notify: Restart Nova Services
+- name: Changing httpd for placement
+  copy:
+   src: 00-nova-placement-api-conf
+   dest: /etc/httpd/conf.d/00-nova-placement-api.conf
+  notify: Restart httpd
+- name: Getting nova_api DB status
+  shell: mysql -unova -p{{ NOVA_DBPASS }} -Dnova_api -e 'show tables;'| wc -l
+  register: nova_api_db_status
+  changed_when: false
+- name: Populating nova_api DB
+  become: true
+  become_user: nova
+  shell: "nova-manage api_db sync"
+  when: nova_api_db_status.stdout == "0"
+- name: Getting nova DB status
+  shell: mysql -unova -p{{ NOVA_DBPASS }} -Dnova -e 'show tables;'| wc -l
+  register: nova_db_status
+  changed_when: false
+- name: Registering nova cell0 DB
+  become: true
+  become_user: nova
+  shell: "nova-manage cell_v2 map_cell0"
+  when: nova_db_status.stdout == "0"
+- name: Creating cell1 cell
+  become: true
+  become_user: nova
+  shell: "nova-manage cell_v2 create_cell --name=cell1"
+  ignore_errors: true
+- name: Populating nova DB
+  become: true
+  become_user: nova
+  shell: "nova-manage db sync"
+  when: nova_db_status.stdout == "0"
+- name: Starting nova controller services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+  - openstack-nova-api
+  - openstack-nova-consoleauth
+  - openstack-nova-scheduler
+  - openstack-nova-conductor
+  - openstack-nova-novncproxy

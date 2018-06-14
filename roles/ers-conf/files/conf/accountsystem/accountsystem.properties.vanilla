@@ -1,0 +1,149 @@
+# True if stored procedures should be used 
+#
+useProcedures=false
+
+# If set to true, all transactions are logged in the database.
+# If set to false, transactions will only be logged for accounts without balance
+# tracking (account.balance is NULL).
+#
+alwaysLogTransactions=true
+
+# Default currency is used when activating accounts
+#
+locale.default_currency=EUR
+
+
+# Database connection settings
+accountsystem.database.name=AccountSystemDB
+accountsystem.database.sdb_pool_implementation=proxool
+accountsystem.database.db_driver=org.mariadb.jdbc.Driver
+accountsystem.database.db_url=jdbc:mariadb://localhost/accounts
+accountsystem.database.db_user=refill
+accountsystem.database.db_password=refill
+accountsystem.database.pool_max_size=100
+accountsystem.database.pool_min_size=1
+accountsystem.database.pool_test_while_idle=false
+accountsystem.database.pool_test_on_borrow=false
+accountsystem.database.pool_test_on_return=false
+accountsystem.database.pool_time_between_eviction_runs_millis=120000
+accountsystem.database.pool_min_evictable_idle_time_millis=60000
+accountsystem.database.pool_num_tests_per_eviction_run=10
+accountsystem.database.pool_validation_query=SELECT 1
+accountsystem.database.pool_timeout=300000
+accountsystem.database.pool_query_timeout=12000
+accountsystem.database.pool_simultaneous_build_throttle=20
+
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=
+
+# This is the URL under which the operations interface is exported, 
+# the client must use this URL to connect to the operations interface.
+# If the client is on another host, it has to replace localhost with the IP or 
+# the host name of the accountsystem host.
+#
+operationsURL=http://0.0.0.0:8092/accountsystem/operations
+
+# This is the URL under which the service interface is exported, 
+#  the client must use this URL to connect to the service interface.
+# If the client is on another host, it has to replace localhost with the IP or 
+# the host name of the accountsystem host.
+#
+servicesURL=http://0.0.0.0:8092/accountsystem/services
+
+# This is the URL under which the service management is exported, 
+#  the client must use this URL to connect to the management interface.
+# If the client is on another host, it has to replace localhost with the IP or 
+# the host name of the accountsystem host.
+#
+managementURL=http://0.0.0.0:8092/accountsystem/management
+
+# Supported account types by this account system
+
+# For each account type the following settings are possible:
+#
+# allow_negative_balance_corrections - If true corrections might result in 
+#                                      negative balance even if he account 
+#                                      doesn't have any credit limit. 
+# autocreate                         - If true, this type of account will 
+#                                      if it doesn't exist and a request 
+#                                      refers to it.
+# autocreate_on_deposit              - If true, a deposit will automatically 
+#                                      create an account of this type if it 
+#                                      doesn't exist.
+# default_currency                   - Default currency for this type of 
+#                                      account, must be set if any of the 
+#                                      autocreate settings are set to true.
+#									   If null will fallback to locale.default_currency
+# password_length                    - If set to a non-zero value, passwords
+#                                      are required for this account type.
+#                                      When autocreating accounts, 
+#                                      a random numeric password will then 
+#                                      be created.
+# password_encryption                - If passwords are enabled this has 
+#                                      to be set and specifies how the 
+#                                      passwords will be stored.
+#                                     'PL' - Password stored as plain text
+#                                     'MD' - Password stored as MD5 hash
+#                                     'SH' - Password stored as SHA1 hash
+# autogenerate_counter_length        - When autogenerating accounts, 
+#                                      this represents the length of the 
+#                                      counter part of the account id.
+# autogenerate_prefix                - When autogenerating accounts,
+#                                      add this prefix before the counter
+#                                      part to form the account id.
+# restricted_to_currency             - Only allow accounts with this currency
+#
+# allow_autocreate                   - If set to true, any deposit/query to
+#                                      an account will automatically create it
+#                                      (if the account id is valid)
+#                                      For this to work with 
+#                                      getAccountInformation, default_currency 
+#                                      Must be set
+#
+# account_id_validation_regexp       - If set, all account ids will be 
+#                                      validated against this regexp
+#
+# 
+account_types.RESELLER.allow_negative_balance_corrections=false
+account_types.RESELLER_CURRENCY.allow_negative_balance_corrections=false
+
+account_types.MOLLET.allow_negative_balance_corrections=true
+account_types.MOLLET.autogenerate_counter_length=9
+account_types.MOLLET.autogenerate_prefix=91
+
+account_types.MOLLETVOUCHER.allow_negative_balance_corrections=false
+account_types.MOLLETVOUCHER.password_length=4
+account_types.MOLLETVOUCHER.password_encryption=PL
+account_types.MOLLETVOUCHER.autogenerate_counter_length=9
+account_types.MOLLETVOUCHER.autogenerate_prefix=92
+account_types.MOLLETVOUCHER.default_expiry_duration=365d
+
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# If an update request (debit/credit) collides with another request	 
+# updating the same account, this is the number of times the request	 
+# should be retried before failing	 
+stale_object_retries=5
+
+# To update a specific account asynchronously on
+# account system. This is because on production it is observed a specific
+# account is updated every time there is a transaction made, e.g. Operator a/c
+# of type Bookkeeping; more info can be found on TS-2999 The main idea here is
+# instead of updating account on every request; put a resultant update on
+# regular intervals
+
+#enableAsynchronousAccountUpdate=false 
+#enableAsynchronousAccountUpdate.accountTypeId=BOOKKEEPING
+#enableAsynchronousAccountUpdate.accountId=OPERATOR
+#eachTransactionLoggerThreadPoolSize=10
+

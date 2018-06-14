@@ -1,0 +1,45 @@
+<!-- @Author Prasenjit Ghoshal<prasenjit.ghoshal@seamless.se> -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xs:element name="application-error" type="typeApplicationError">
+		<xs:annotation></xs:annotation>
+	</xs:element>
+	<xs:complexType name="typeApplicationError">
+		<xs:sequence>
+			<xs:element name="service" maxOccurs="unbounded"
+				minOccurs="1" type="typeService">
+				<xs:annotation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="locale" default="en_US" />
+	</xs:complexType>
+
+	<xs:complexType name="typeService">
+		<xs:sequence>
+			<xs:element name="errorType" maxOccurs="unbounded"
+				minOccurs="1" type="typeErrorType">
+				<xs:annotation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="required" />
+		<xs:attribute type="xs:int" name="rangeStart" use="required" />
+		<xs:attribute type="xs:int" name="rangeEnd" use="required" />
+	</xs:complexType>
+	<xs:complexType name="typeErrorType">
+		<xs:sequence>
+			<xs:element name="error" minOccurs="0"  maxOccurs="unbounded" type="typeError">
+				<xs:annotation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="required" />
+	</xs:complexType>
+	<xs:complexType name="typeError">
+		<xs:sequence>
+			<xs:element type="xs:string" name="description" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="required" />
+		<xs:attribute type="xs:int" name="code" use="required">
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

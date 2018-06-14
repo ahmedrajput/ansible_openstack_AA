@@ -1,0 +1,402 @@
+#
+# $Id$
+
+# Paths for interface implementations
+#
+ws.externalclientservice.path=/topupservice/service
+
+# The hostnameto expose the proxy webservice on, typically localhost
+#
+ws.host=0.0.0.0
+
+# The port to expose the proxy webservice on
+#
+ws.port=8913
+
+# If true (default), use SSL (mandatory for production)
+# If set to true, the keystore, trustore and other SSL settings must be configured below
+# By default this is turned on using sample keystore 
+# 
+ws.use_ssl=true
+
+# Path to the keystore to use for SSL
+# Created with regular Java keystore tools
+# (see http://java.sun.com/j2se/1.5.0/docs/tooldocs/windows/keytool.html)
+# DON'T forget to generate an RSA key by using the -keyalg "RSA" argument!
+# Otherwise this certificate won't work with most browsers!
+# This store contains the server certificate
+#
+ws.keystore_filename=/opt/seamless/conf/topupservice/sample.keystore
+
+# The password for the keystore
+#
+ws.keystore_password=sample
+
+# Path to the truststore to use for SSL
+# Created with regular Java keystore tools
+# (see http://java.sun.com/j2se/1.5.0/docs/tooldocs/windows/keytool.html)
+# This may be the same as the keystore
+# Any trusted authorities will be in this store
+#
+ws.truststore_filename=/opt/seamless/conf/topupservice/sample.keystore
+
+# Password for the truststore
+#
+ws.truststore_password=sample
+
+# List of allowed cipher suite filters
+#
+ws.included_cipher_suites=.*_EXPORT_.* .*_EXPORT1024_.* .*_WITH_DES_.* .*_RSA_.* .*_WITH_NULL_.*
+
+# List of explicitly disallowed cipher suite filters
+#
+ws.excluded_cipher_suites=.*_DH_anon_.*
+
+# Default Client Timeout
+ws.default_client_timeout=3000
+
+######################## DB Connection #######################
+
+# The database driver
+topupService.db_driver=com.mysql.jdbc.Driver
+
+# The database connection
+topupService.db_url=jdbc:mysql://localhost:3306/topupservice
+
+# The database user name
+topupService.db_user=refill
+
+# The database password
+topupService.db_password=refill
+
+# The database commit mode
+topupService.db_autoCommit=true
+
+enable_txe_to_local_resultcodes_transformation=true
+
+# The minimum pool size to use
+topupService.pool_min_size=1
+
+# The maximum pool size to use
+topupService.pool_max_size=100
+
+# The pool timeout of connections
+topupService.pool_timeout=100
+
+# How many connections can we build at once
+topupService.pool_simultaneous_build_throttle=40
+
+#######################################################
+
+#duplicate trasnaction check properties
+duplicate_transaction_check.enable=false
+duplicate_transaction_check.transaction_types=TRANSFER,PURCHASE,TOPUP
+#This duration will be in days
+duplicate_transaction_check.transactionPersistanceDuration=1
+duplicate_transaction_check.transactionDeleteScheduler.cron=0 0/2 * * * ?
+
+# ERSWSReseller connection
+ers_reseller_connection.url=http://localhost:8777/txe/reseller
+ers_reseller_connection.user=extclientproxy
+ers_reseller_connection.password=extclientproxy
+
+# ERSWSTransactionProcessingService connection
+ers.connections.transaction_processing.url=http://localhost:8777/txe/transactionProcessing
+ers.connections.transaction_processing.user=extclientproxy
+ers.connections.transaction_processing.password=extclientproxy
+
+# The URL to the support system
+ers_support_services.url=http://localhost:8071/supportsystem/support
+ers_support_services.user=extclientproxy
+ers_support_services.password=extclientproxy
+
+# ERSWSReportTransactionLink
+ers_report_engine_connection.url=http://localhost:8920/reportengine/internal
+ers_report_engine_connection.user=extclientproxy
+ers_report_engine_connection.password=extclientproxy
+
+# Configuration for the connection to the ersifplatform-internal
+#
+ersplatforminternal.url=http://localhost:8912/productService
+ersplatforminternal.user=
+ersplatforminternal.password=
+
+# connection to payment broker
+paymentbroker.endpoint.class_name=mina.SocketMessageChannelEndpoint
+paymentbroker.endpoint.peer_host=localhost
+paymentbroker.endpoint.peer_port_number=7778
+
+# Flow control settings
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+#servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# default language
+language=en
+
+# default channel
+topupservice.channel=WSClient
+
+# cancel purchase start time <key>=<value>
+# property value represents number of days from your current date to previous 15 days
+topupservice.cancelpurchase.starttime=30
+
+# client id
+topupservice.clientId=topupservice
+
+topupservice.report.voucher_requery_report_id=misc/RESELLER_REP_VOUCHER_REQUERY.xml
+
+# Report Ids represent the reportId that client needs to mention when
+# sending a WS request. max_row_count is the number of expected rows
+# in the last transaction request. 
+topupservice.report.last_transaction_report_id=LAST_TRANSACTION
+topupservice.report.max_row_count=1
+topupservice.report.transaction_status_report_id=TRANSACTION_STATUS
+#this field will be used for as reportId mapping, value will be treated as report mapping
+topupservice.report.sequence_based_transactions_report_id=sequence_based_transactions
+
+# Product Id type to be passed to TXE (SKU or EAN)
+# The two following properties mention how the provided product id type should
+# be reformatted in order to be compatible with TXE's convention 
+# The client only passes SKU:VOUCHER_10 or EAN:123456789 (not PRODUCT_SKU:VOUCHER_10
+# or PRODUCT_EAN:123456789
+topupservice.product_settings.SKU_id_type=PRODUCT_SKU
+topupservice.product_settings.EAN_id_type=PRODUCT_EAN
+
+# List of Product Id type(s) to be passed in response of requestPurchase
+# Possible values of Product Id type:PRODUCT_SKU PRODUCT_EAN
+# If no values are configured, default value is PRODUCT_SKU
+# syntax:
+# topupservice.responsePurchase.product_id_type= {product_id_type}[,{product_id_type}]*
+# Warning: Do not keep space in comma separated list
+# E.g.:
+# topupservice.responsePurchase.product_id_types=PRODUCT_SKU
+# topupservice.responsePurchase.product_id_types=PRODUCT_EAN
+# topupservice.responsePurchase.product_id_types=PRODUCT_SKU,PRODUCT_EAN
+topupservice.responsePurchase.product_id_types=PRODUCT_SKU
+
+# Rollback credentials in case of timeout
+# In case of a timeout, those settings specify the principal who initiates by default the rollback
+# transaction.
+# Note that the credentials should match the ones used when logging in webadmin
+topupservice.automatic_rollback.default_principal.type=ADMINUSER
+topupservice.automatic_rollback.default_principal.id=root
+topupservice.automatic_rollback.default_principal.password=root
+
+
+# The setting for enable/disable electronic topup and vouchers services
+# Default is enable_services.ers=true
+enable_services.ers=true
+
+
+# Ignore the <clientRequestTimeout> field sent by the client (default true)
+# If this is turned off, the proxy will support blocking requests from the client
+# which is not tested enought to enable in production yet.
+ignore_client_timeout=true
+
+############################# SMS provider configuration #############################
+# SMS provider connection, by default assumes kannel is running on the same host with standard configuration
+topupservice.smsprovider.classname=HttpSMSProvider
+topupservice.smsprovider.url=http://127.0.0.1:13013/cgi-bin/sendsms?username=ers&password=recharge&from=1200
+
+# Should SMS be also sent to sender for credit transfer and topup
+topupservice.sendersms_enabled=false
+
+
+##### Vouchers denomination definitions.
+#List of all vouchers denomination in the system. Which are given for getVouchersDenomination method.
+topupservice.voucher_product.default_currency=EUR
+topupservice.voucher_product.1.SKU=10_EUR
+topupservice.voucher_product.1.amount=10
+topupservice.voucher_product.2.SKU=20_EUR
+topupservice.voucher_product.2.amount=20
+#If the product specific currency define it use otherwise default_currency take place.
+topupservice.voucher_product.2.amount_currency=EUR
+
+#enable to override the result codes from UCIPLINK.
+topupservice.overridresultcodes=false
+
+#Enable appending of txe result message. Currently available only for TOPUPProcessor
+topupservice.appendresultmessage=false
+
+#enable the data packt values given below
+topupservice.enalbDataPacketsValues=false
+
+#Mapping for data Packet Values
+datapacket.mapping.1.name=DO1
+datapacket.mapping.1.price=4.90
+datapacket.mapping.2.name=DO2
+datapacket.mapping.2.price=9.90 
+datapacket.mapping.3.name=DO3
+datapacket.mapping.3.price=7.90
+
+
+#RedeemVouher Properties, these properties only use when we call RedeemVoucher from the Web Service
+topupservice.redeemVoucher.topupAmount=1
+topupservice.redeemVoucher.topupCurrency=EUR
+topupservice.redeemVoucher.resellerID=dna_dist1
+topupservice.redeemVoucher.resellerType=RESELLERUSER
+topupservice.redeemVoucher.resellerUserID=9900
+topupservice.redeemVoucher.resellerPassword=123456
+topupservice.redeemVoucher.senderAccountTypeID=RESELLER
+topupservice.redeemVoucher.receiverAccountTypeID=AIRTIME
+topupservice.redeemVoucher.productID=52
+topupservice.redeemVoucher.channel=RedeemVoucher
+topupservice.redeemVoucher.clientID=RedeemVoucher
+topupservice.redeemVoucher.prepareOnly=false
+
+# Name of the CM system.
+cms.classname=SimpleFileCMS
+# The default language to be used by CM
+cms.languages=en
+# The language mapping file.
+cms.en.filename=messages_english.properties
+# The language file encoding.
+cms.en.encoding=UTF-8
+
+# product mapping defines for data bundle
+topupservice.data_bundle.product.1.externalSKU=Daily_10
+topupservice.data_bundle.product.1.internalSKU=Bundle_Daily_10
+
+topupservice.data_bundle.product.2.externalSKU=Daily_20
+topupservice.data_bundle.product.2.internalSKU=Bundle_Daily_20
+
+topupservice.data_bundle.product.3.externalSKU=Daily_20MB
+topupservice.data_bundle.product.3.internalSKU=Daily_20MB
+
+topupservice.data_bundle.product.4.externalSKU=Monthly_200
+topupservice.data_bundle.product.4.internalSKU=Bundle_Monthly_200
+
+topupservice.data_bundle.product.5.externalSKU=Monthly_300
+topupservice.data_bundle.product.5.internalSKU=Bundle_Monthly_300
+
+topupservice.data_bundle.product.6.externalSKU=_Weekly_100
+topupservice.data_bundle.product.6.internalSKU=Bundle_Weekly_100
+
+
+
+#Any new Bundle should be added to this list
+topupservice.bundle.type.list=data_bundle,sms_bundle,idd_bundle,combo_bundle
+
+# product mapping for data bundle.
+#NOTE: Index value should start from 1 for all bundle types and bundleName must match as set in topupservice.bundle.type.list
+#topupservice.bundle.bundleName.index.SKU
+#topupservice.bundle.bundleName.index.amount
+
+#Daily
+topupservice.bundle.data_bundle.1.SKU=DB_D1
+topupservice.bundle.data_bundle.1.amount=0.5
+
+topupservice.bundle.data_bundle.2.SKU=DB_D2
+topupservice.bundle.data_bundle.2.amount=1
+
+topupservice.bundle.data_bundle.3.SKU=DB_D3
+topupservice.bundle.data_bundle.3.amount=2
+
+#Weekly
+topupservice.bundle.data_bundle.4.SKU=DB_W1
+topupservice.bundle.data_bundle.4.amount=2
+
+topupservice.bundle.data_bundle.5.SKU=DB_W2
+topupservice.bundle.data_bundle.5.amount=3
+
+topupservice.bundle.data_bundle.6.SKU=DB_W3
+topupservice.bundle.data_bundle.6.amount=5
+
+#Monthly
+topupservice.bundle.data_bundle.7.SKU=DB_M1
+topupservice.bundle.data_bundle.7.amount=10
+
+topupservice.bundle.data_bundle.8.SKU=DB_M2
+topupservice.bundle.data_bundle.8.amount=20
+
+topupservice.bundle.data_bundle.9.SKU=DB_M3
+topupservice.bundle.data_bundle.9.amount=40
+
+topupservice.bundle.data_bundle.10.SKU=DB_M4
+topupservice.bundle.data_bundle.10.amount=60
+
+topupservice.bundle.data_bundle.11.SKU=DB_M5
+topupservice.bundle.data_bundle.11.amount=80
+
+topupservice.bundle.data_bundle.12.SKU=DB_M6
+topupservice.bundle.data_bundle.12.amount=120
+
+topupservice.bundle.data_bundle.13.SKU=DB_M7
+topupservice.bundle.data_bundle.13.amount=399
+
+#Unlimited
+topupservice.bundle.data_bundle.14.SKU=DB_U1
+topupservice.bundle.data_bundle.14.amount=1
+
+topupservice.bundle.data_bundle.15.SKU=DB_U2
+topupservice.bundle.data_bundle.15.amount=2
+
+topupservice.bundle.data_bundle.16.SKU=DB_U3
+topupservice.bundle.data_bundle.16.amount=150
+
+#Youtube
+topupservice.bundle.data_bundle.17.SKU=DB_Y1
+topupservice.bundle.data_bundle.17.amount=0.5
+
+topupservice.bundle.data_bundle.18.SKU=DB_Y2
+topupservice.bundle.data_bundle.18.amount=3
+
+#Lifestyle
+topupservice.bundle.data_bundle.19.SKU=DB_L1
+topupservice.bundle.data_bundle.19.amount=5
+
+
+# product mapping for sms bundle.
+#NOTE: Index value should start from 1 for all bundle types and bundleName must match as set in topupservice.bundle.type.list
+#topupservice.bundle.bundleName.index.SKU
+#topupservice.bundle.bundleName.index.amount
+
+topupservice.bundle.sms_bundle.1.SKU=SMS_BUNDLE1
+topupservice.bundle.sms_bundle.1.amount=0.5
+
+topupservice.bundle.sms_bundle.2.SKU=SMS_BUNDLE2
+topupservice.bundle.sms_bundle.2.amount=2
+
+topupservice.bundle.sms_bundle.3.SKU=SMS_BUNDLE3
+topupservice.bundle.sms_bundle.3.amount=7.5
+
+topupservice.bundle.sms_bundle.4.SKU=SMS_BUNDLE4
+topupservice.bundle.sms_bundle.4.amount=20
+
+
+# product mapping for idd bundle.
+#NOTE: Index value should start from 1 for all bundle types and bundleName must match as set in topupservice.bundle.type.list
+#topupservice.bundle.bundleName.index.SKU
+#topupservice.bundle.bundleName.index.amount
+
+topupservice.bundle.idd_bundle.1.SKU=IDD_BUNDLE1
+topupservice.bundle.idd_bundle.1.amount=2
+
+topupservice.bundle.idd_bundle.2.SKU=IDD_BUNDLE2
+topupservice.bundle.idd_bundle.2.amount=5
+
+topupservice.bundle.idd_bundle.3.SKU=IDD_BUNDLE3
+topupservice.bundle.idd_bundle.3.amount=10
+
+
+# product mapping for combo bundle.
+#NOTE: Index value should start from 1 for all bundle types and bundleName must match as set in topupservice.bundle.type.list
+#topupservice.bundle.bundleName.index.SKU
+#topupservice.bundle.bundleName.index.amount
+
+topupservice.bundle.combo_bundle.1.SKU=COMBO_BUNDLE1
+topupservice.bundle.combo_bundle.1.amount=0.5
+
+topupservice.bundle.combo_bundle.2.SKU=COMBO_BUNDLE2
+topupservice.bundle.combo_bundle.2.amount=2
+
+topupservice.bundle.combo_bundle.3.SKU=COMBO_BUNDLE3
+topupservice.bundle.combo_bundle.3.amount=7.5
+
+topupservice.bundle.combo_bundle.4.SKU=COMBO_BUNDLE4
+topupservice.bundle.combo_bundle.4.amount=20

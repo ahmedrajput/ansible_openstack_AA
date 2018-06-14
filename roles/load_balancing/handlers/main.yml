@@ -1,0 +1,8 @@
+---
+# handlers file for load_balancing
+- name: Reload Kernel Parameters
+  command: "sysctl -p"
+- name: Restart Haproxy
+  service: name=haproxy state=restarted
+- name: Restart Keepalived
+  service: name=keepalived state=restarted

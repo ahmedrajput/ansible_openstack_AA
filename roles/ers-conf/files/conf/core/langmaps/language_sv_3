@@ -1,0 +1,2142 @@
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+90 = <menu name="REFILL"><choice id="12" name="Aktivera"><choice id="13" name="Prägla"><choice id="14" name="MPOS"><choice id="1" name="Köp"><choice id="2" name="Arbetspass"><choice id="9" name="Återutskrift"><choice id="3" name="Administration"><choice id="4" name="Demo"><choice id="5" name="Service"><choice id="6" name="Anslutning"><choice id="8" name="Logga ut"><choice id="10" name="System"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+100 = <vs><small><center>OKÄND KASSÖR!<br><bottom><large><hs><invert>~OK~
+101 = <center><large>SPÄRRAD!<vs><small>DENNA KASSÖR HAR SPÄRRATS!<br>FRÅGA DIN ADMINISTRATÖR ELLER RING KUNDTJÄNST.<bottom><hs><large><invert>~OK~
+102 = <vs><small><center>OGILTIG PIN-KOD<br><bottom><large><hs><invert>~OK~
+103 = <vs><small><center>TILLGÅNG NEKAS<br><bottom><large><hs><invert>~OK~
+104 = <vs><small><center>KASSÖREN EXISTERAR REDAN<br><bottom><large><hs><invert>~OK~
+105 = <vs><small><center>PIN-KODERNA VAR INTE LIKADANA!<br><bottom><large><hs><invert>~OK~
+106 = <vs><small><center>KORTET FINNS REDAN PÅ EN ANNAN KASSÖR!<br><bottom><large><hs><invert>~OK~
+107 = <vs><small><center>ANSLUTNINGSPROBLEM,<br>FÖRSÖK SENARE!<br><bottom><large><hs><invert>~OK~
+108 = <vs><small><br>Redo för uppgradering!<br><button id="ok" name="OK">
+109 = <vs><small><center>FELAKTIG AKTIVERINGSKOD!<br><bottom><large><hs><invert>~OK~
+110 = <vs><small><center>FELAKTIG STARTKOD!<br><bottom><large><hs><invert>~OK~
+111 = <vs><small><center>OGILTIGT DATUM<br><bottom><large><hs><invert>~OK~
+112 = <vs><small><center>KÖP NEKADES, KONTAKTA KUNDTJÄNST!<br><bottom><large><hs><invert>~OK~
+113 = <vs><small><center>SYSTEMET UPPTAGET, FÖRSÖK SENARE!<br><bottom><large><hs><invert>~OK~
+114 = <vs><small><center>PRODUKTEN ÄR INTE TILLGÄNGLIG FÖR TILLFÄLLET!<br><bottom><large><hs><invert>~OK~
+115 = <vs><small><center>ETT FEL INTRÄFFADE!<br><bottom><large><hs><invert>~OK~
+116 = <vs><small><center>BEGÄRAN NEKADES<br><bottom><large><hs><invert>~OK~
+117 = <vs><small><center>INGEN SAMTALSTON, KONTROLLERA TELEFONLINJEN ELLER PREFIX!<br><bottom><large><hs><invert>~OK~
+118 = <vs><small><center>INGEN RINGTON, KONTROLLERA TELEFONLINJEN ELLER PREFIX!<br><bottom><large><hs><invert>~OK~
+119 = <vs><small><center>LINJEN UPPTAGEN, NÅGON ANNAN ANVÄNDER TELEFONLINJEN!<br><bottom><large><hs><invert>~OK~
+120 = <vs><small><center>KORTET KUNDEN INTE LÄSAS! FÖRSÖK IGEN ELLER KONTROLLERA KORTET.<br><bottom><large><hs><invert>~OK~
+121 = <menu name="Administration"><choice id="1" name="Köp"><choice id="2" name="Session"><choice id="3" name="Omprägla"></menu>
+122 = <vs><small><center>TERMINALEN STÄNGD!<br>BE EN ADMINISTRATÖR ATT ÖPPNA TERMINALEN.<bottom><large><hs><invert>~OK~
+123 = <center><large>FEL<vs><small>PRODUKTMALL FELAKTIG!<br><bottom><large><hs><invert>~OK~
+124 = <center><large>FEL<vs><small>PRODUKTMALL SAKNAS!<br><bottom><large><hs><invert>~OK~
+125 = <center><large>FEL<vs><small>Fel terminalstatus för denna operation!<br><bottom><large><hs><invert>~OK~
+126 = <center><large>FÖR MÅNGA!<vs><small>Du kan köpa max~$max_count$~av denna produkt per gång.<bottom><large><hs><invert>~OK~
+127 = <center><large>Invalid<br><small>Invalid phone number<bottom><large><hs><invert>~OK~<br>
+128 = <center><large>Invalid<br><small>Invalid amount<bottom><large><hs><invert>~OK~<br>
+129 = <center><large>Invalid<br><small>Invalid confirmation code<bottom><large><hs><invert>~OK~<br>
+130 = <center><large>Not found<br><small>Serial not found<bottom><large><hs><invert>~OK~<br>
+131 = <center><large>Invalid<br><small>Code cannot be cancelled<bottom><large><hs><invert>~OK~<br>
+132 = <center><large>Invalid<br><small>Invalid serial<bottom><large><hs><invert>~OK~<br>
+133 = <vs><small><center>Credit limit reached, not enough credit!<br><bottom><large><hs><invert>~OK~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+200 = <menu name="ADMINISTRATION"><choice id="4" name="Inställningar"><choice id="5" name="Synkronisera"><choice id="6" name="Ny kassör"><choice id="7" name="Ändra kassör"><choice id="8" name="Buffertinfo"><choice id="9" name="Lås upp kassörer"><choice id="10" name="Service"><choice id="11" name="Debug"><choice id="12" name="Meddelanden"><choice id="13" name="Information"><choice id="14" name="Kassörsinfo"><choice id="15" name="Printerinställningar"></menu>
+201 = <menu name="INSTÄLLNINGAR"><choice id="6" name="Applikationsläge"><choice id="9" name="Kassör öppna/stäng"><choice id="7" name="Produktval"><choice id="1" name="Skriv ut bilder"><choice id="2" name="Skriv ut kvitton"><choice id="3" name="Bekräfta utskrift"><choice id="4" name="Skriv ut EAN"><choice id="5" name="Snabbt flerköp"><choice id="10" name="Produktmenyer"></menu>
+202 = <menu name="ARBETSPASS"><choice id="4" name="Stäng terminal"><choice id="5" name="Öppna terminal"><choice id="6" name="Stängningsrapport"><choice id="1" name="Påbörja Arb.pass"><choice id="2" name="Avsluta Arb.pass"><choice id="3" name="Systemrapporter"></menu>
+203 = <menu name="RAPPORTER"><choice id="1" name="Per användare"><choice id="2" name="Summering"><choice id="3" name="Per produkt"></menu>
+204 = <menu name="SERVICE"><choice id="1" name="Reset"><choice id="2" name="Avaktivera"><choice id="3" name="Uppgradering"><choice id="4" name="Blockera terminal"><choice id="5" name="Synkronisera"><choice id="6" name="Lås upp kassörer"><choice id="7" name="Välj språk"><choice id="12" name="Modempool"><choice id="8" name="Avsluta service"><choice id="9" name="Avprägla"></menu>
+205 = <menu name="DEBUG"><choice id="1" name="Service"><choice id="2" name="System"><choice id="3" name="Log"><choice id="4" name="Products"><choice id="5" name="Com"><choice id="6" name="Users"> <choice id="7" name="Resources"><choice id="8" name="Heap"><choice id="9" name="Parameters"><choice id="10" name="Messages"><choice id="11" name="Test utils"></menu>
+206 = <menu name="UPPGRADERING"><choice id="1" name="Fortsätt"><choice id="3" name="Avbryt"></menu>
+207 = <menu name="TEST UTILS"><choice id="2" name="Print ASCII list"><choice id="3" name="Display ASCII list"><choice id="5" name="Print test"></menu>
+208 = <menu name="SYSTEM"><choice id="1" name="Print info"><choice id="2" name="Integrity check"><choice id="5" name="Brute download!"></menu>
+209 = <menu name="USERS"><choice id="1" name="Reset"><choice id="2" name="Dump users"><choice id="3" name="Workshifts"></menu>
+210 = <menu name="PARAMETERS"><choice id="1" name="Reset"><choice id="2" name="Dump"><choice id="3" name="Lookup"></menu>
+211 = <menu name="RESOURCES"><choice id="1" name="Reset"><choice id="2" name="Dump"><choice id="3" name="Update"><choice id="4" name="Dependency check"></menu>
+212 = <menu name="LOG"><choice id="2" name="Dump"><choice id="3" name="Reset"><choice id="4" name="Log filter"><choice id="5" name="Verbose filter"><choice id="6" name="Report filter"><choice id="7" name="Info"></menu>
+213 = <menu name="COM"><choice id="1" name="Reset"><choice id="2" name="Dump"></menu>
+214 = <menu name="HEAP"><choice id="1" name="Reset"><choice id="2" name="Alloc"><choice id="3" name="Free"><choice id="4" name="Dump"><choice id="5" name="Reorg"></menu>
+215 = <menu name="PRODUCTS"><choice id="1" name="Reset"><choice id="2" name="Catalogue"><choice id="4" name="Buffer stats"><choice id="5" name="Dump buffers"><choice id="6" name="Dump buffers raw"><choice id="7" name="Show buffer"></menu>
+216 = <menu name="ANSLUTNING"><choice id="1" name="Läge"><choice id="2" name="Hastighet"><choice id="3" name="Prefix"><choice id="4" name="Testringning"><choice id="5" name="Språk"></menu>
+217 = <menu name="ANSLUTNINGSLÄGE"><choice id="3" name="Online"><choice id="1" name="Planerad online"><choice id="2" name="Offline"></menu>
+218 = <menu name="RÄTTIGHETER"><choice id="1" name="Kassör"><choice id="2" name="Administratör"><choice id="3" name="ROOT"></menu>
+219 = <menu name="SNABBMENY"><choice id="1" name="Köp"><choice id="2" name="Administration"><choice id="3" name="Arbetspass"><choice id="4" name="DEBUG"></menu>
+220 = <menu name="Reports"><choice id="1" name="Individual"><choice id="2" name="Summary"><choice id="3" name="Product"><choice id="100" name="Pr. Week DL"><choice id="101" name="This Week DL"><choice id="102" name="Credit Balance"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+300 = Terminalens minne är fullt!
+301 = MPOS felaktig order
+302 = MPOS buffer problem
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+400 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~ARBETSPASS~~<br><bottom><invert>~~MENY~~<hs><invert>~~KÖP~~
+401 = <center><large>$reseller_name$<br><small><output id="user" align="center" width="120"><br><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~LOGGA IN~~<hs><br><bottom><invert>~~MENY~~<hs>
+402 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br>Kassör:~$cashier_id$<br><small><invert>~~LOGGA UT~~<hs><invert>~~ARBETSPASS~~<br><bottom><invert>~~MENY~~<hs><invert>~~KÖP~~
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><bottom><invert>~~ADMIN~~<hs><invert>~~MENU~~<hs><invert>~~BUY~~
+404 = <center><normal>Refill $system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~ADMIN~~<hs><invert>~~WORKSHIFT~~<br><bottom><invert>~~MENU~~<hs><invert>~~BUY~~
+405 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br>Balance: <output id="balance" align="center" width="50"><br><bottom><small><invert>~~ADMIN~~<hs><invert>~~WORKSHIFT~~<br><bottom><invert>~~MENU~~<hs><invert>~~BUY~~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+500 = <center><large>VÄLKOMMEN!<br><small>DENNA TERMINAL ÄR INTE AKTIVERAD ÄNNU! RING KUNDTJÄNST FÖR INSTRUKTIONER.<bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+501 = <center><large>AKTIVERA<br><small><left>TERMINAL-ID: $terminal_id$<br>ANGE STARTKOD:~~~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+502 = <center><large>AKTIVERA<vs><small><left>ANGE AKTIVERINGSKOD:<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+503 = <large><center><output id="main_task" align="center" width="120"><br><small><output id="sub_task" align="center" width="120"><br><bottom><right><output id="task_status" align="right" width="64"><br>
+504 = <center><large>UTSKRIFT OK?<vs><bottom><large><invert>~NEJ~<hs><invert>~JA~
+505 = <center><large>KASSAKVITTO?<vs><bottom><large><invert>~NEJ~<hs><invert>~JA~
+506 = <center><large>SERVICE<vs><small><left>SERVICEKOD: $service_code$<br>Verifikationskod: ~~~<input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+507 = <center><large>Köp<vs><small> $category_name$~$product_value$<br>Pris: $product_price$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+508 = <center><large>UPPGRADERING<vs><small>UPPGRADERING OM <output id="count" length="2" align="right" width="20"> sekunder...<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+509 = <center><large>SYNKRONISERAR<vs><small>SYNKRONISERING OM <output id="count" length="2" align="right" width="20"> SEKUNDER ...<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+510 = <center><large>SPÄRRAD!<vs><small>DEN HÄR TERMINALEN HAR SPÄRRATS! RING KUNDTJÄNST FÖR INSTRUKTIONER.<bottom><large><invert>~AVBRYT~<hs><invert>~LÅS UPP~
+511 = <center><large>KASSAKVITTO<vs><bottom><large><invert>~OK~
+512 = <center><large>OAVSLUTAD UTSKRIFT<vs><small>ÅTERUPPTAR OAVSLUTADE UTSKRIFTER<bottom><large><hs><invert>~OK~
+513 = <center><large>ÅTERUTSKRIFT?<vs><small> $product_long_name$ <br>Pris: $product_price$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+	
+515 = <center><large>KÖP<vs><small>$category_name$~$product_value$<br>Pris: $product_price$<br>Antal: <input id="count" length="2"><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+516 = <center><large>KÖP<vs><small>$category_name$~$product_value$<br>Pris: $product_price$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+517 = <center><large>ÅTERUTSKRIFT?<vs><small>$category_name$~$product_value$<br>Pris: $product_price$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+518 = <center><large>BEKRÄFTA<br><small>Du köper<br>$count$x~$category_name$~$product_value$<br>Pris: $product_price$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+519 = <center><large>Direkt top-up<br><small>$product_long_name$<br>Telefonnr:<br><input id="phone_nr" length="14"><bottom><large><invert>~Avbryt~<hs><invert>~OK~
+520 = <center><large>Direkt top-up<br><small>$product_long_name$<br>Summa ($currency$):<br><input id="amount" length="5"><bottom><large><invert>~Avbryt~<hs><invert>~OK~
+521 = <center><large>Direkt top-up<br><small>Väntar på inmatning...<bottom><large><invert>~Avbryt~<hs><invert>~OK~
+522 = <center><large>Cancel voucher<br><small>Serienr:<br><input id="serial" length="14"><bottom><large><invert>~Avbryt~<hs><invert>~OK~
+523 = <center><large>Cancel voucher<br><small>Bekräftelsekod<br><input id="reference" length="14"><bottom><large><invert>~Avbryt~<hs><invert>~OK~
+524 = <center><large>Unimprint<br><small>Är du säker på att du vill avprägla?<bottom><large><invert>~Nej~<hs><invert>~Ja~
+525 = <center><normal>Alla kassörer upplåsta!<br><invert><center><large><invert>~OK~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+600 = <menu name="MPos"><choice id="1" name="Synchronize"><choice id="2" name="Unlock Vouchers"></menu>
+601 = <center><large>Acceptera mpos-påfyllningen?<br><small>MPos: $mpos_ser$<br>Tot.Värde: $value$<bottom><large><invert>~Avbryt~<hs><invert>~OK~
+602 = <center><large>Påfyllningen klar!<bottom><large><invert><center>~OK~
+603 = <center><large>Synkronisering OK!<bottom><large><invert><center>~OK~
+604 = <center><large>Synk misslyckades!<br><br><center>$result_code$<bottom><large><invert><center>~OK~
+605 = <center><large>Påfyllningen misslyckades!<br><br><center>$reason$<bottom><large><invert><center>~OK~
+606 = <center><large>Aktiverar MPOS<br><small>$mpos_ser$<br><vs><small><left>CNP:<input id="cnp" length="8" width="40"><br><bottom><large><invert>~Avbryt~<hs><invert>~OK~
+607 = <large><center>Begärda koder<hr><small><left><vs><table><tr><td>Produkt</td><td align="right">#</td><td align="right">Antal</td></tr><hr>
+608 = <small><tr><td>$name$</td><td align="right">$count$</td><td align="right">$amount$</td></tr>
+609 = <hr><tr><td>Totalt</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+610 = <center><large>Godkänn påfyllning<br><small>MPos:$mpos_ser$<br><small><left>Ref:<input id="ref" length="12" width="40"><br><bottom><large><invert>~Avbryt~<hs><invert>~Fortsött~
+611 = <center>Aktivering misslyckades<br><br><center>$result_code$<br>Försök igen?<bottom><large><invert>~Avbryt~<hs><invert>~OK~
+612 = Påfyllning avbruten<br><small>MPos:$mpos_ser$<br><bottom><large><invert><center>~OK~
+613 = Aktiveringen missyckades<br><small>MPos:$mpos_ser$<br><bottom><center><large><invert>~OK~
+614 = Lås upp alla produkter?<br><bottom><large><invert>~Nej~<hs><invert>~Ja~
+615 = <large><center>Påfyllningssummering<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<hr><small><left><vs><table><tr><td>Produkt</td><td align="right">#</td><td align="right">Antal</td></tr><hr>
+616 = <large><center>Saknade produkter<hr><small>MPos:$mpos_ser$<br>Ref:$ref$<br>Påylln.värde:$restock_value$<hr><small><left><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Antal</td></tr><hr>
+617 = <large><center>Produkter upplåsta<br><small><center>Antal:$count$<br><bottom><center><large><invert>~OK~
+618 = <large><center>Saknade produkter<br><small>Begärda:$restock_value$<vs>Saknade:$turnover$<br>Fortsätt påfyllningen ändå?<br><bottom><center><large><invert>~Nej~<hs><invert>~Ja~
+619 = <large><center>Förlorade koder<hr><small><left><vs><table><tr><td>Produkt</td><td align="right">Serienr</td><td align="right">Värde</td></tr><hr>
+620 = <small><tr><td>$product_name$</td><td align="right">$serial$</td><td align="right">$product_resprice$</td></tr>
+621 = <hr><tr><td>Totalt</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+622 = <hr><tr><td>Totalt</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><small><br>Begärt värde:$restock_value$<br><normal>Åter till kund:$refund_value$
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+700 = <center><large>NY KASSÖR?<br><small>KASSÖR: $user_id$<br>RÄTTIGH: $user_group$<br>KORT: $use_card$<bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+701 = <center><large>ÄNDRA KASSÖR?<br><small>KASSÖR: $user_id$<br>RÄTTIGH: $user_group$<br>KORT: $use_card$<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+702 = <center><large>SLUT I LAGER!<br><small>ANSLUT OCH FYLL PÅ? DETTA KAN TA 1~TILL 5 MINUTER.<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+703 = <center><large>TERMINALEN STÄNGD<vs><small>ÖPPNA TERMINALEN?<bottom><large><invert>~NEJ~<hs><invert>~JA~
+704 = <center><large>BEKRÄFTA<vs><small>STÄNG TERMINALEN?<bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+705 = <center><large>INGET ARBETSPASS<vs><small>PÅBÖRJA ARBETSPASS?<bottom><large><invert>~NEJ~<hs><invert>~JA~
+706 = <center><large>SKAPA KASSÖR?<br><large><bottom><invert>~NEJ~<hs><invert>~JA~
+707 = <center><large>BEKRÄFTA<vs><small>AVSLUTA ARBETSPASS?<bottom><large><invert>~NEJ~<hs><invert>~JA~
+	
+	
+710 = <center><large>NYA MEDDELANDEN<vs><small>SKRIV UT $count$ MEDDELAND(EN)?<bottom><large><invert>~Senare~<hs><invert>~OK~
+711 = <center><large>UPPGRADERING<vs><small>AVBRYT UPPGRADERING?<bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+712 = <center><large>ANSLUT?<vs><small>KONTROLLERA TELEFONLINJEN OCH TRYCK OK FÖR ATT ANSLUTA.<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+713 = <center><large>LÅG LAGERNIVÅ<br><small>ANSLUT OCH FYLL PÅ? DETTA KAN TA 1 TILL 5 MINUTER.<br><bottom><large><invert>~AVBRYT~<hs><invert>~OK~
+	
+715 = <large>Reset detected!<br><small>Weekly report contents are not accurate!
+716 = <large><center>$product_status$<hr><small><hr><table><tr><td align="left" width="24">Produkt</td><td>Antal</td></tr>
+717 = <tr><td>$name$</td><td>$count$</td></tr>
+718 = </table><hr>Totalt antal:$count$<vs><vs>
+719 = <menu name="ComType"><choice id="0" name="KYLIK"><choice id="65" name="Landline"><choice id="73" name="ISDN"><choice id="71" name="GPRS"><choice id="84" name="LAN"><choice id="77" name="GSM"><choice id="87" name="WIFI"><choice id="67" name="CDMA"><choice id="80" name="Landline-PPP"></menu>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+800 = <large><center>Arbetspass<hr><small><left>Start: $start_date$ $start_time$<br>Slut: $end_date$ $end_time$<br>Kassör: $cashier_id$<vs>
+801 = <large><center>Totalt<br><small><left>
+802 = <small><table><tr><td width="24">Produkt</td><td width="5">#</td><td align="right">Omsättning</td></tr><hr>
+803 = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+804 = <hr><tr><td>Summa</td><td>$count$</td><td align="right">$turnover$</td></tr></table><vs><vs>
+805 = <br><br><hr><hr><hr><large><center>Stängning<br><small><left>Öppning: $system_open$<br>Stängning: $system_close$<br>Stängning #:~$close_count$<br>Terminal:~$terminal_id$<br><vs>
+806 = <hr><hr><hr><vs><vs><vs>
+	
+808 = <normal><center>Kassör $cashier_id$<hr>
+809 = <tr><small><td>$date(5,10)$~$time$</td><td align="left">$product_name$</td><td align="right">$product_value$</td></tr>
+810 = <large><center>Systeminformation<br><hr><small><left>Åf: $reseller_name$<br>Adress: $reseller_addr$<br>Postnr: $reseller_zip$<br>Tel: $reseller_phone$<br>WWW: $reseller_www$<br><br>Terminal ID: $terminal_id$<br>$open_status$<br>System state: $state$<br><br><br><br>
+811 = <small><table><tr><td width="14">Datum</td><td>Produkt</td><td align="right">Värde</td></tr>
+812 = <center><large>Användarinfo<left><normal><br><table><tr><td>Id<td>Namn<td>State</tr>
+813 = <tr><td>$user_id$</td><td>$user_name$</td><td>$user_locked$</td></tr>
+814 = </table><br>#Användare:$user_count$ av max $max_user_count$<vs><vs><vs>
+	
+	
+	
+	
+	
+820 = <large><center>Rapport<br><small><left>Start: $system_open$<br>Slut:~~ $system_close$<br>Kassör: $cashier_id$<br><vs>
+821 = <small><table><tr><td width="24">Produkt</td><td width="5">#</td><td align="right">Omsättning</td></tr><hr>
+822 = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+823 = <hr><tr><td>Summa</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+	
+	
+	
+	
+	
+	
+830 = <large><center>Rapport<hr><hr><small><left>Start: $system_open$<br>Slut: $system_close$<vs>
+831 = <small><table><tr><td width="24">Kassör</td><td width="5">#</td><td align="right">Omsättning</td></tr><hr>
+832 = <small><tr><td>$cashier_id$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+833 = <hr><tr><td>Summa</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+834 = <hr></table><br>
+835 = <br>
+	
+	
+	
+	
+840 = <vs><large><center>Kassakvitto<hr><normal>(Butikens kopia)<vs><left>$product_long_name$<br>$date$ $time$<br><table><tr><td>Pris:</td><td>$product_price$</td></tr><tr><td>Kassör:</td><td>$cashier_id$</td></tr><tr><tr><td>Serienr:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+841 = <vs><large><center>OBS!<br>Återutskrift<hr><normal>Kontrollera datum och tid för att se när den ursprungliga utskriften påbörjades!<vs>Kopia #$copy_no$<br>
+842 = <vs><large><center>Utskriften<br>avbruten!<hr><br><vs><vs><vs>
+843 = <vs><large><center>Utskriftsfel!<hr><br><vs><vs><vs>
+844 = <vs><large><center>Kassakvitto<hr><normal>(Butikens kopia)<vs><left>$count$~x~$product_long_name$<br>$date$~$time$<br><table><tr><td>Pris:</td><td>$sum_amount$</td></tr><tr><td>Kassör:</td><td>$cashier_id$</td></tr><tr><tr><td>Serienr:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+845 = <vs><large><center>Återköpsinstruktioner<hr><normal>Så här gör du ett återköp (kontakta support)<vs><vs>
+846 = <vs><large><center>Återköpskvitto<hr><normal><vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Kassör:</td><td>$cashier_id$</td></tr><tr><tr><td>Serienr:</td><td>$serial$</td></tr><tr><td>Konfirmeringskod</td><td>$reference$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+	
+	
+	
+850 = <large><center>Buffrade koder<hr><small><table><tr><td align="left" width="24">Produkt</td><td width="3" align="center">#</td><td align="right">Antal</td></tr><hr>
+851 = <small><tr><td width="24">$product_name$</td><td width="3" align="center">$product_count$</td><td align="right">$amount$</td></tr>
+852 = <hr></table><vs><vs>
+853 = <hr><small><tr><td width="15">Totalt</td><td width="5" align="right">$product_total$</td><td align="right" width="12">$total_amount$</td></tr>
+	
+	
+	
+	
+	
+	
+860 = <vs><hr><center>Synkroniserar<br><hr><small>Påbörjad:<hs>~$date$~$time$<br>
+861 = <left><small>Avslutad:<hs>~$date$~$time$<br>Nästa synk:<hs>~$next_sync_date$~$next_sync_time$<br><hr><vs><vs><vs>
+862 = <small>Synkroniseringen avbruten!<br><hr><vs><vs><vs>
+863 = <vs><vs><hr><center>Anslutningsproblem<br><small>Upprepade försök att synkronisera misslyckades!<br>Kontrollera telefonlinjen och synkronisera manuellt genom att gå in i administrationsmenyn och välja "Syncronize".<br>Om problemet kvarstår, kontakta kundtjänst.<vs><vs><vs><vs>
+864 = <large>Kreditgräns passerad!<br><normal>Kontakta din support för hjälp.<hr><vs><vs><vs>
+865 = Testsamtal
+866 = <small>Kreditgränsfel<br><hr><vs><vs><vs>
+	
+	
+	
+870 = <large><center>Nedladdade produkter<br><small><left><table><tr><td>Produkt</td><td align="right">#</td><td align="right">Antal</td></tr><hr>
+871 = <small><tr><td>$name$</td><td align="right">$count$</td><td align="right">$amount$</td></tr>
+872 = <hr><tr><td>Totalt</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+873 = <br><center>Inga tidigare köp registrerade!<center><bottom><invert>~OK~
+	
+	
+	
+	
+	
+	
+880 = <large><center><hr>Läs manualen för hjälp om POS systemet<center><bottom><invert>~OK~
+881 = <vs><hr><center>Systeminformation<br><hr><br>
+882 = <br><hr><vs><vs><vs><vs><vs>
+883 = <center>Ogiltigt inmatning<br><left>Felaktigt telefonnummer<vs><center><invert>~OK~
+884 = För många aktiva arbetspass<br>Stäng systemet och synkronisera!<vs><center><invert>~OK~
+	
+	
+	
+	
+	
+890 = Skrivarfel<vs>Kolla skrivaren och papper!<vs><center><invert>~OK~
+891 = Skrivaren fungerar igen
+892 = <center><large>Printer low on paper!<br><small>Continue anyway?<left><bottom><large><invert>~Cancel~<hs><invert>~OK~
+	
+	
+895 = Aktiverar MPOS
+896 = Deaktiverar MPOS
+897 = Fyller på MPOS
+898 = Väntar på MPOS
+899 = MPOS Avblockerad!
+900 = ansluter
+901 = ringer
+902 = sänder
+903 = tar emot
+904 = aktiverar
+905 = avaktiverar
+906 = uppdaterar
+907 = synkroniserar
+908 = startar om
+909 = fyller på
+910 = rapporterar
+911 = köper
+912 = testar
+913 = skriver ut
+914 = avslutar köp
+915 = präglar
+916 = registrerar
+917 = hämtar resurser
+918 = hämtar
+919 = hämtar rapport
+920 = hämtar information
+921 = lägger till
+922 = modifierar
+923 = bearbetar
+924 = operatörer
+925 = Pin-kod:
+926 = bekräfta pin-kod:
+927 = prefix
+928 = order_id:
+929 = från:
+930 = till:
+931 = destination:
+932 = kassör:
+933 = dra kort:
+934 = administratör
+935 = kassör
+936 = rotanvändare
+937 = Ja
+938 = Nej
+939 = välj prefix
+940 = tidigare köp
+941 = förbereder
+942 = avslutar
+943 = verifierar
+944 = skriv ut bilder
+945 = skriv ut kvitto
+946 = bekräfta utskrift
+947 = skriv ut EAN
+948 = snabbt flerköp
+949 = applikationsläge
+950 = Alltid
+951 = Aldrig
+952 = Fråga varje gång
+953 = Standard
+954 = Master
+955 = master + påloggning
+956 = produktval
+957 = Operatörsträd
+958 = Välj bland alla
+959 = produkter
+960 = << Tillbaka <<
+961 = Avsluta
+962 = inställningar...
+963 = predicitive-uppringing
+964 = 
+965 = 
+966 = kassör öppna/stäng
+967 = ingen
+968 = Bara stäng
+969 = Öppna och stäng
+970 = Produktmenyer
+971 = Pris
+972 = Värde
+973 = Namn
+974 = Use PIN-pad
+975 = Auto purch sum
+976 = Enter modem pool
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1000 = Köp
+1001 = Arbetspass
+1002 = Återutskrift
+1003 = Admin
+1004 = Demo
+1005 = Service
+1006 = Inställning
+1007 = Aktivera
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1040 = Tillbaka till huvudmenyn
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1100 = Avbryt
+1101 = Ok
+1102 = Skriv ut
+1103 = Skrivarinställningar
+1104 = Demo kod
+1105 = kod
+1106 = Skriv ut
+1107 = Återutskrift
+1108 = <center><normal>Valt språk:<br>$language$<bottom><invert>~OK~
+1109 = <center><large>$reason$<br><small>$action$<br>Vg vänta $progress$<bottom><small><input type="cancel" text="Abryt">
+1110 = Hämtar påfyllningskoder från huvudsystemet
+1111 = <menu name="Inställningar"><choice id="1" name="Kommunikation"><choice id="2" name="Hastighet"><choice id="3" name="Prefix"><choice id="4" name="Testsamtal"><choice id="5" name="Välj språk"><choice id="6" name="Skrivarinställningar"></menu>
+1112 = Fyller på koder
+1113 = Blockerar
+1114 = Avblockerar
+1115 = Laddar ner språklista
+1116 = Laddar ner språk
+1117 = Uppgraderar applikationen
+1118 = <center><large>Felaktigt datum<small><br>Felaktigt datum angivet<bottom><invert>~OK~
+1119 = Initialiserar Prepaid Client
+1120 = Försäljningstid
+1121 = Kassör
+1122 = Produkt typ
+1123 = Serienummer
+1124 = Kvitto
+1125 = Kvittomarginaler (i procent)
+1126 = Vänster
+1127 = Bredd
+1128 = Teckensnitt
+1129 = Liten
+1130 = Normal
+1131 = Stor
+1132 = Namn
+1133 = Storlek
+1134 = Vald skrivare
+1135 = Välj
+1136 = Refill huvudmeny
+1137 = Alla
+1138 = Synkroniserar med huvudsystemet
+1139 = <center><large>Aktivering<vs><small><center>ERS IP address:<br><input id="ers_address" length="40" width="200p"><br>Butiks-ID:<br><input id="store_id" length="40" width="200p"><br>Aktiveringskod:<br><input id="activation_code" length="6" width="40"><vs><vs><bottom><large><invert>~Avbryt~<hs><invert>~Aktivera~
+1140 = <center><large>Funktionen misslyckades!<br><small>$error_str$<wbr>($error_code$)<vs><vs><bottom><large><center><invert>~Fortsätt~
+1141 = Landskapsvy
+1142 = Låst porträttvy 
+1143 = Landskapsvy för vissa
+1144 = Fortfarande aktivt
+1145 = Fortfarande öppet
+1146 = <center><large>Saknad inmatning<br><small>Nödvändigt fält '$field$' måste anges!<vs><bottom><large><center><invert>~Fortsätt~
+1147 = <center><large>Felaktig inmatning<br><small>Fältet '$field$' är ogiltigt angivet!<br>$error$<vs><bottom><large><center><invert>~Fortsätt~
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1900 = Ospecificerat fel
+1901 = Användare avbröt anropet
+1902 = Användaren väntade för länge
+1903 = Access ej tillåten
+	
+	
+	
+	
+	
+	
+1910 = Felaktigt responsdata
+1911 = Felatktigt anropsdata
+1912 = Slut på minne
+1913 = Felaktig shared-secret
+1914 = Diskskrivfel
+1915 = Felaktig språkinställning(locale) i CFG fil
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+1990 = PrepaidClient går ej att nå
+1991 = Serveruppkoppling misslyckades
+	
+	
+	
+	
+	
+	
+	
+1999 = Transaktion förlorad (socket stängd)
+2000 = Funktionen utförd
+2001 = Ogiltigt/ej registrerad kassör
+2002 = PrepaidClient är upptagen
+2003 = Felaktigt/icke-unikt kassörs-ID
+	
+	
+	
+	
+	
+	
+2010 = Produkt ej tillgänglig/tagit slut
+2011 = Produkt ej i lokalt lager
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+2031 = Produkten är ännu ej tillgänglig
+2032 = Produkten är inte tillgänglig längre
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+2080 = Ingen produkt med angivet ID/EAN/SKU
+2081 = Angiven resurs finns inte
+2082 = Angivet order-id finns inte
+2083 = Betalningsgränsen överskriden, kontakta support
+2084 = Denna PrepaidClient är blockerad i huvudsystemet
+2085 = Angivet order-ID är reserverat av en annan kassör
+2086 = Felaktig order-status (reservering-timeout)
+2087 = Felaktigt/Okänd voucher-serienummer
+2088 = Felaktig verifikationskod för återköp
+2089 = Voucher-serienummret ej unikt, produkttyp måste anges
+	
+	
+	
+2093 = Funktionen misslyckades, se mwterm.log-filen för mer information
+2094 = Kontakten med huvudsystemet misslyckades
+2095 = Felaktigt formatterat anrops-meddelande
+	
+	
+	
+	
+2100 = Felaktig PrepaidClient intern status för vald funktion
+2101 = Felaktig PrepaidClient status på huvudservern
+2102 = Felaktigt användar-id eller lösenord
+2103 = Ej inloggad, var god logga in
+2104 = Tillträde ej tillåten för nuvarande användare
+2105 = Funktionen ej utförd, ogiltiga parametrar
+2106 = Okänt språk
+2107 = Användartyp är ogiltig
+2108 = För många användare/kassörer
+2109 = Ogiltig service-kod
+2110 = Gammal datafil (mwterm_xxx.dat) angiven, kan inte starta!
+2111 = Arbetspass redan startat
+2112 = Arbetspass redan stoppat
+2113 = Arbetspass används ej för denna PrepaidClient
+2114 = För många aktiva arbetspass
+2115 = Användaren ej tillåten att öppna systemet
+2116 = Systemet är redan öppnat
+2117 = Systemet är redan stängt
+2118 = En eller flera arbetspass har ogiltig status
+2119 = Ingen PrepaidClient är tillgänglig för aktivering för detta butiks-id
+2120 = Ny användare/kassör-id är felaktigt, måste vara 4-16 tecken
+2121 = Nytt lösenord är felaktigt, måste vara 4-8 tecken
+2122 = Angiven rapport finns inte
+2123 = Nödvändiga rapport-fält saknas
+2124 = Voucher-printout-ack är redan gjord
+2125 = Återutskrifter av vouchers är ej tillåtet
+2126 = Deaktivering misslyckades, vouchers finns i PAID-status
+2127 = Felaktig (ej existerande?) användare angiven
+2128 = Huvudsystemet tillåter ej access
+2129 = Alla produkter har passerat bäst-före datum
+2130 = Lock : Felaktig MAC
+2131 = Lock : Felakigt datornamn(netbios)
+2132 = Lock : Felaktig volume-serial
+2133 = Lock : Felaktig omstartsräknare
+2134 = Syntaktiskt fel i kvittomallen, kan inte visas/skrivas ut
+2135 = Activation denied (unauthorized IP address)
+2136 = report incomplete, some langmap entries are missing
+2137 = Wrong activation code
+2138 = Store-id is incorrect or unauthorized
+2139 = Report has no matching language
+2140 = ERS still processing. please retry sooon
+2141 = ERS invalid/unexpected voucherless state
+2142 = Credit limit reached, please contact support

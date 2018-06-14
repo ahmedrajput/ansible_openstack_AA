@@ -1,0 +1,215 @@
+90 = <menu name="Beltegoed"><choice id="1" name="Koop"><choice id="2" name="Dienst"><choice id="9" name="Print opnieuw"><choice id="3" name="Beheer"><choice id="4" name="Demo"><choice id="5" name="Service"><choice id="6" name="Connectie"><choice id="8" name="Log uit"><choice id="10" name="Systeem"><choice id="11" name="Help"></menu>
+100 = <vs><small><center>Onbekende medewerker<br><bottom><large><hs><invert>~OK~
+101 = <center><small>Medewerker geblokkeerd!<br>Vraag uw beheerder of bel support<bottom><hs><large><invert>~OK~
+102 = <vs><small><center>Ongeldige PIN-code<br><bottom><large><hs><invert>~OK~
+103 = <vs><small><center>Toegang geweigerd<br><bottom><large><hs><invert>~OK~
+104 = <vs><small><center>Medewerker bestaat al<br><bottom><large><hs><invert>~OK~
+105 = <vs><small><center>PIN-code niet gelijk<br><bottom><large><hs><invert>~OK~
+106 = <vs><small><center>Kaart bestaat al<br><bottom><large><hs><invert>~OK~
+107 = <vs><small><center>Connectie probleem,<br>probeer later<br><bottom><large><hs><invert>~OK~
+108 = <vs><small><br>Klaar voor handmatige<br>download!<br><button id="ok" name="OK">
+109 = <vs><small><center>Verkeerde activatie code<br><bottom><large><hs><invert>~OK~
+110 = <vs><small><center>Verkeerde start code!<br><bottom><large><hs><invert>~OK~
+111 = <vs><small><center>Ongeldige datum<br><bottom><large><hs><invert>~OK~
+112 = <vs><small><center>Aankoop geweigerd, bel support!<br><bottom><large><hs><invert>~OK~
+113 = <vs><small><center>Server bezet, probeer later!<br><bottom><large><hs><invert>~OK~
+114 = <vs><small><center>Product tijdelijk<br>niet verkrijgbaar!<br><bottom><large><hs><invert>~OK~
+115 = <vs><small><center>Foutmelding!<br><bottom><large><hs><invert>~OK~
+116 = <vs><small><center>Aanvraag geweigerd<br><bottom><large><hs><invert>~OK~
+117 = <vs><small><center>Geen kiestoon, controleer telefoon lijn of prefix!<br><bottom><large><hs><invert>~OK~<br>
+118 = <vs><small><center>Geen beltoon, controleer telefoon lijn of prefix!<br><bottom><large><hs><invert>~OK~<br>
+119 = <vs><small><center>Telefoonlijn bezet!<br><bottom><large><hs><invert>~OK~<br>
+120 = <vs><small><center>Ongeldige kaart<br><bottom><large><hs><invert>~OK~<br>
+121 = <menu name="Beheer"><choice id="1" name="Achat"><choice id="2" name="Sessie"><choice id="3" name="imprim. a Nouveau"></menu>
+122 = <vs><small><center>Systeem is gesloten!<br>Vraag uw beheerder het systeem te openen<bottom><large><hs><invert>~OK~<br>
+123 = <center><large>Fout<vs><small>Verkeerde product template!<br><bottom><large><hs><invert>~OK~<br>
+124 = <center><large>Fout<vs><small>Product template ontbreekt!<br><bottom><large><hs><invert>~OK~<br>
+125 = <center><large>Fout<vs><small>Verkeerde terminal status voor deze operatie!<br><bottom><large><hs><invert>~OK~<br>
+126 = <center><large>Te veel!<br><small>Maximaal aantal~$max_count$<bottom><large><hs><invert>~OK~<br>
+127 = <center><large>Geen aankopen!<br><small>Geen aankopen in log.<bottom><large><hs><invert>~OK~<br>
+200 = <menu name="Beheer"><choice id="4" name="Instellingen"><choice id="5" name="Synchroniseren"><choice id="6" name="Nieuwe medewerke"><choice id="7" name="Wijzig medewerke"><choice id="8" name="Buffer status"><choice id="9" name="Deblokkeer medew"><choice id="10" name="Service"><choice id="11" name="Debug"><choice id="12" name="Berichten"></menu>
+201 = <menu name="Instellingen"><choice id="7" name="Product selectie"><choice id="9" name="Medew. open/sluiten"><choice id="1" name="Print plaatjes"><choice id="2" name="Print kwitantie"><choice id="3" name="Bevestig print"><choice id="4" name="Print barcodes"><choice id="5" name="Quick multi buy"><choice id="6" name="Applicatie modus"></menu>
+202 = <menu name="Dienst"><choice id="4" name="Sluit systeem"><choice id="5" name="Open systeem"><choice id="6" name="Sluit rapport"><choice id="1" name="Begin dienst"><choice id="2" name="Einde dienst"><choice id="3" name="Algemeen rapport"></menu>
+203 = <menu name="Rapportage"><choice id="4" name="Inkoop"><choice id="1" name="Individueel"><choice id="2" name="Samenvatting"><choice id="3" name="Product"></menu>
+204 = <menu name="Service"><choice id="10" name="SysInfo"><choice id="11" name="ModemInfo"><choice id="1" name="Reset"><choice id="2" name="Deactiveer"><choice id="3" name="Download"><choice id="4" name="Blok terminal"><choice id="5" name="Synchroniseer"><choice id="6" name="Deblok medewerker"><choice id="7" name="Update taal"><choice id="12" name="Modem pool"><choice id="8" name="Exit naar BIOS"><choice id="9" name="Re-Imprint"></menu>
+205 = <menu name="Debug"><choice id="1" name="Service"><choice id="2" name="Systeem"><choice id="3" name="Log"><choice id="4" name="Producten"><choice id="5" name="Com"><choice id="6" name="Gebruikers"> <choice id="7" name="Bronnen"><choice id="8" name="Heap"><choice id="9" name="Parameters"><choice id="10" name="Berichten"><choice id="11" name="Test utils"></menu>
+206 = <menu name="Download"><choice id="1" name="Download nu"><choice id="3" name="Download afbreken"></menu>
+207 = <menu name="Test utils"><choice id="2" name="Print ASCII lijst"><choice id="3" name="ASCII lijst weergeven"><choice id="5" name="Print test"></menu>
+208 = <menu name="Systeem"><choice id="1" name="Print info"><choice id="2" name="Integriteit check"><choice id="5" name="Geforceerde download!"></menu>
+209 = <menu name="Gebruikers"><choice id="1" name="Reset"><choice id="2" name="Dump users"><choice id="3" name="Diensten"></menu>
+210 = <menu name="Parameters"><choice id="1" name="Reset"><choice id="2" name="Dump"><choice id="3" name="Lookup"></menu>
+211 = <menu name="Bronnen"><choice id="1" name="Reset"><choice id="2" name="Dump"><choice id="3" name="Update"><choice id="4" name="Dependency check"></menu>
+212 = <menu name="Log"><choice id="2" name="Dump"><choice id="3" name="Reset"><choice id="4" name="Log filter"><choice id="5" name="Verbose filter"><choice id="6" name="Report filter"><choice id="7" name="Info"></menu>
+213 = <menu name="Com"><choice id="1" name="Reset"><choice id="2" name="Dump"></menu>
+214 = <menu name="Heap"><choice id="1" name="Reset"><choice id="2" name="Alloc"><choice id="3" name="Free"><choice id="4" name="Dump"><choice id="5" name="Reorg"></menu>
+215 = <menu name="Producten"><choice id="1" name="Reset"><choice id="2" name="Catalogus"><choice id="4" name="Buffer stats"><choice id="5" name="Dump buffers"><choice id="6" name="Dump buffers raw"><choice id="7" name="Show buffer"></menu>
+216 = <menu name="Connectie"><choice id="1" name="Modus"><choice id="3" name="Prefix"><choice id="4" name="Maak testoproep"><choice id="5" name="Update taal"></menu>
+217 = <menu name="Connectie modus"><choice id="3" name="Online"><choice id="1" name="Gepland online"><choice id="2" name="Offline"></menu>
+218 = <menu name="Type"><choice id="1" name="Medewerker"><choice id="2" name="Beheerder"><choice id="3" name="Root"></menu>
+219 = <menu name="Snelmenu"><choice id="1" name="Koop"><choice id="2" name="Beheer"><choice id="3" name="Dienst"><choice id="4" name="Debug"></menu>
+300 = <center><large>Full reset?<vs><normal>Warning! All terminal data will be erased!<bottom><large><invert>~NO~<hs><invert>~YES~
+400 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~BEHEER~~<hs><invert>~~DIENST~~<br><bottom><invert>~~MENU~~<hs><invert>~~KOOP~~
+401 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><invert>~~LOGON~~<hs><br><bottom><invert>~~MENU~~<hs>
+402 = <center><normal>$reseller_name$<br><small><output id="info" align="center" width="120"><br>Cashier:~$cashier_id$<br><vs height="2"><small><invert>~~LOG UIT~~<hs><invert>~~DIENST~~<br><bottom><invert>~~MENU~~<hs><invert>~~KOOP~~
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="info" align="center" width="120"><br><vs height="12"><small><bottom><invert>~~BEHEER~~<hs><invert>~~MENU~~<hs><invert>~~KOOP~~
+404 = <center><normal>Refill $system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~BEHEER~~<hs><invert>~~DIENST~~<br><bottom><invert>~~MENU~~<hs><invert>~~KOOP~~
+500 = <center><small>Welkom! Deze terminal is niet geactiveerd! Bel met support!t<bottom><large><invert>~Annuleren~<hs><invert>~OK~
+501 = <center><small><left>Terminal ID: $terminal_id$<br>Enter start code:~~~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+502 = <center><small><left>Enter activatie code:<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+503 = <large><center><output id="main_task" align="center" width="120"><br><small><output id="sub_task" align="center" width="120"><br><bottom><right><output id="task_status" align="right" width="64"><br>
+504 = <center><large>Print OK?<vs><bottom><large><invert>~NEE~<hs><invert>~JA~
+505 = <center><large>Print kwitantie?<vs><bottom><large><invert>~NEE~<hs><invert>~JA~
+506 = <center><large>Service<vs><small><left>Service code: $service_code$<br>Verificatie code: ~~~<input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+507 = <center><large>Koop<br><small> $category_name$~ $product_value$<br> Prijs: $product_price$ <br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+508 = <center><large>Download<vs><small>Downloaden over <output id="count" length="2" align="right" width="20"> seconden...<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+509 = <center><large>Synchroniseren<vs><small>Synchroniseren over <output id="count" length="2" align="right" width="20"> seconden...<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+510 = <center><small>Terminal geblokkeerd! Bel support.<bottom><large><invert>~Annuleren~<hs><invert>~DEBLOKKEER~
+511 = <center><large>Print kwitantie<vs><bottom><large><invert>~OK~
+512 = <center><large>Incomplete print<vs><small>Herstart laatste print<bottom><large><hs><invert>~OK~
+513 = <center><large>Print opnieuw?<vs><small> $product_long_name$ <br> Prijs: $product_price$ <br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+515 = <center><large>Koop<br><small> $category_name$~ $product_value$ <br> Prijs: $product_price$ <br> Hoeveelheid: <input id="count" length="2"><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+516 = <center><large>Koop<br><small> $category_name$~ $product_value$ <br> Prijs: $product_price$ <br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+517 = <center><large>Print opnieuw?<vs><small> $category_name$~ $product_value$ <br> Prijs: $product_price$ <br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+518 = <center><small>Bevestig Koop<br>$count$x~$category_name$~ $product_value$ <br> Prijs: $product_price$ <br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+524 = <center><large>Unimprint?<br><small>Really sure?<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~ 
+700  = <center><large>Toevoegen?<br><small>Medewerker: $user_id$<br>Groep: $user_group$<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+701  = <center><large>Wijzigen?<br><small>Medewerker: $user_id$<br>Groep: $user_group$<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+702  = <center><large>Vooraad op!<br><small>Verbinden & bijvullen?<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+703  = <center><large>Systeem gesloten<vs><small>Open systeem?<bottom><large><invert>~NEE~<hs><invert>~JA~
+704  = <center><large>Bevestig<vs><small>Sluit systeem?<bottom><large><invert>~Annuleren~<hs><invert>~OK~
+705  = <center><large>Geen dienst<vs><small>Begin dienst?<bottom><large><invert>~NEE~<hs><invert>~JA~
+706  = <center><large>Medewerker toevoegen<br><large><bottom><invert>~NEE~<hs><invert>~JA~
+707  = <center><large>Bevestigen<vs><small>Dienst eindigen?<bottom><large><invert>~NEE~<hs><invert>~JA~
+710  = <center><large>Nieuwe berichten<vs><small>Print $count$ nieuwe berichten?<bottom><large><invert>~Later~<hs><invert>~OK~
+711  = <center><large>Download<vs><small>Download annuleren?<bottom><large><invert>~Annuleren~<hs><invert>~OK~
+712  = <center><small>Verbinden?~check telefoonlijn druk OK om te verbinden.<bottom><large><invert>~Annuleren~<hs><invert>~OK~
+713  = <center><large>Lage vooraad!<br><small>Verbinden & bijvullen?<br><bottom><large><invert>~Annuleren~<hs><invert>~OK~
+
+800  = <large><center>Dienst<hr><small><left>Start: $start_date$ $start_time$<br>Einde: $end_date$ $end_time$<br>Medewerker: $cashier_id$<vs>
+801  = <large><center>Totaal<br><small><left>
+802  = <small><table><tr><td width="24">Product</td><td width="5">#</td><td align="right">Omzet</td></tr><hr>
+803  = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+804  = <hr><tr><td>Som</td><td>$count$</td><td align="right">$turnover$</td></tr></table><vs><vs>
+805  = <br><br><hr><hr><hr><large><center>Afsluit rapport<br><small><left>Systeem is geopend: $system_open$<br>Systeem is gesloten: $system_close$<br><vs>
+806  = <hr><hr><hr><vs><vs><vs>
+807  =
+810  = <large><center>Systeem Informatie<br><hr><small><left>Reseller: $reseller_name$<br>Adres: $reseller_addr$<br>Postcode: $reseller_zip$<br>Telefoon: $reseller_phone$<br>WWW: $reseller_www$<br><br>Terminal ID: $terminal_id$<br>$open_status$<br>Systeem status: $state$<br><br><br><br>
+820  = <large><center>Rapport<br><small><left>Start: $system_open$<br>Einde:~~ $system_close$<br>Medewerker: $cashier_id$<br><vs>
+821  = <small><table><tr><td width="24">Product</td><td width="5">#</td><td align="right">Omzet</td></tr><hr>
+822  = <small><tr><td>$product_name$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+823  = <hr><tr><td>Som</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+
+
+830  = <large><center>Rapport<hr><hr><small><left>Start: $system_open$<br>Einde: $system_close$<vs>
+831  = <small><table><tr><td width="24">Medewerker</td><td width="5">#</td><td align="right">Omzet</td></tr><hr>
+832  = <small><tr><td>$cashier_id$</td><td>$count$</td><td align="right">$turnover$</td></tr>
+833  = <hr><tr><td>Som</td><td>$count$</td><td align="right">$turnover$</td></tr></table><br><vs><vs>
+834  = <hr></table><br>
+835  = <br>
+840  = <vs><center>KWITANTIE<hr><normal>(retailer kopie)<vs><left>$product_long_name$<br>$date(8,10)$-$date(5,7)$-$date(0,4)$~$time$<br><table><tr><td>Prijs:</td><td>$product_price$</td></tr><tr><td>Medewerker:</td><td>r:~$cashier_id$</td></tr><tr><tr><td>Serienummer:</td><td><br>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+841  = <vs><center>ATTENTIE!<br>HERPRINT<hr><vs><normal>Controleer datum en tijd voor de eerste printout van de code!<br>
+842  = <vs><center>Print<br>onderbroken!<hr><br><vs><vs><vs>
+843  = <vs><center>Print<br>fout!<hr><br><vs><vs><vs>
+844  = <vs><center>KWITANTIE<hr><normal>(retailer kopie)<vs><left>$count$~x~$product_long_name$<br>$date$~$time$<br><table><tr><td>Prijs:</td><td>$sum_amount$</td></tr><tr><td>Medewerker:</td><td>r:~$cashier_id$</td></tr><tr><tr><td>Serienummer:</td><td><br>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+845  = <vs><large><center>Cancel instructions<hr><normal>This is how you do a cancel...<vs><vs><vs>
+846  = <vs><large><center>Cancel receipt<hr><normal><vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>Cashier:</td><td>$cashier_id$</td></tr><tr><tr><td>Serial:</td><td>$serial$</td></tr><tr><td>Confirmation code</td><td>$reference</td></tr><tr></table><vs><vs><vs>
+850  = <large><center>Gebufferde codes<hr><small><table><tr><td width="10">Hoeveelheid</td><td align="left" width="30">Product</td></tr><hr>
+851  = <small><tr><td>$product_count$</td><td>$product_name$</td></tr>
+852  = <hr></table><vs><vs>
+853  = <hr><small><tr><td>$product_total$</td><td>Total</td></tr>
+860  = <vs><hr><center>Synchroniseren<br><hr><small>Gestart:<hs>~$date$~$time$<br>
+861  = <left><small>Geeindigd:<hs>~$date$~$time$<br>Volgende synchronisatie:<hs>~$next_sync_date$~$next_sync_time$<br><hr><vs><vs><vs>
+862  = <small>Synchronisatie onderbroken!<br><hr><vs><vs><vs>
+863  = <vs><vs><hr><center>Connectie probleem<br><small>Herhaalde pogingen om te synchroniseren zijn mislukt! <br>Controleer de telefoonlijn en synchroniseer handmatig door het administratie menu te selecteren en de keuze "Synchroniseren" maken.<br>Als het probleem blijft, neemt u dan contact op met support<vs><vs><vs>
+864 = <left><small>Gebeld:<hs>~$num$<br>rsp<hs>~$rsp$<br><hr><vs><center><invert>~OK~<vs>
+865 = <hr><left><small>Gebeld:<hs>~$num$<br>rsp<hs>~$rsp$<br><hr><vs><center>
+866  = <large>Credietlimiet fout!<br><normal>Neem contact op met support voor meer informatie.<hr><vs><vs><vs>
+870 = <large><center>Gekochte codes<hr><small><left><table><tr><td>Periode start:</td><td>$from_date$~$from_time$</td></tr><tr><td>Periode einde:</td><td>$to_date$~$to_time$</td></tr></table><vs><table><tr><td>Product</td><td align="right">#</td><td align="right">Hoeveelheid</td></tr><hr>
+871  = <small><tr><td>$product_name$</td><td align="right">$count$</td><td align="right">$turnover$</td></tr>
+872  = <hr><tr><td>Totaal</td><td align="right">$count$</td><td align="right">$turnover$</td></tr></table><br>
+873 = <br><center>Geen eerdere<br>aankopen!<br><br><center><invert>~OK~
+880 = <large><center><hr><hr><hr>Prepaid terminal<hr><normal><vs><table><tr><td>Koop</td><td>Koop beltegoed</td></tr><tr><td>Dienst</td><td>Start/Eindig uw dienst</td></tr><td>Print opnieuw</td><td>Herprint een vorige aankoop</td></tr></table><vs>Heeft u problemen met de terminal?<br>Bell Jeroen! 0174-389 011<br><hr><hr><hr>
+881 = <vs><hr><center>Systeem Informatie<br><hr><br>
+882 = <br><hr><vs><vs><vs><vs><vs>
+883 = <center>Fout<br><left>Ongeldig modem pool nummer<vs><center><invert>~OK~
+884 = Dienst Overflow<br>Sluit systeem and synchroniseer!<vs><center><invert>~OK~
+890  = Printer fout<vs>Controleer papier!<vs><center><invert>~OK~
+891  = Printer weer in orde
+900 = Verbinden
+901 = Bellen
+902 = Zenden
+903 = Ontvangen
+904 = Activatie
+905 = Deactiveren
+906 = Updaten
+907 = Synchroniseren
+908 = Resetten
+909 = Bijvullen
+910 = Rapporteren
+911 = Aankopen
+912 = Testen
+913 = Printen
+914 = Aankoop afronden
+915 = Imprinten
+916 = Registreren
+917 = Bronnen ophalen
+918 = Buffers ophalen
+919 = Rapport ophalen
+920 = Info ophalen
+921 = Toevoegen medew
+922 = Bewerken medew
+923 = Verwerken
+924 = Operators
+925 = PIN-code:
+926 = Bevestig PIN-code:
+927 = Prefix
+928 = order_key:
+929 = Van:
+930 = Tot:
+931 = Bestemming:
+932 = Medewerker:
+933 = Swipe kaart:
+934 = Beheerder
+935 = Medewerker
+936 = Root gebruiker
+937 = Ja
+938 = Nee
+939 = Kies prefix
+940 = Voormalige aankopen
+941 = Voorbereiden
+942 = Afronden
+943 = Bevestigen
+944 = Print plaatjes
+945 = Print kwitantie
+946 = Bevestig prints
+947 = Print barcodes
+948 = Quick multibuy
+949 = Applicatie mode
+950 = Altijd
+951 = Nooit
+952 = Vraag elke keer
+953 = Standaard
+954 = Master mode
+955 = Master + logon
+956 = Product selectie
+957 = Product boom
+958 = Alle producten
+959 = Producten
+960 = Terug
+961 = Exit
+962 = Instellingen...
+963 = Predictief kiezen 
+964 = 
+965 = 
+966 = Medew. open/sluiten
+967 = Geen
+968 = Alleen sluiten
+969 = Openen en sluiten
+970 = Select product 
+971 = Price
+972 = Value
+973 = Name
+974 = Use PIN-pad
+975 = Auto purch sum
+976 = Pool nummer
+

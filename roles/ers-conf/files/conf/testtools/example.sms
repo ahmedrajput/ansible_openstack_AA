@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bench>
+	<task>
+		<sendsms from="46706000000">RTRANSFER 46706010000 5 2009</sendsms>
+		<waitsms to="46706000000">You have successfully transferred.*</waitsms>
+		<waitsms to="46706010000">You have received.*</waitsms>
+		<sendsms from="46706010000">RBALANCE 2009</sendsms>
+		<waitsms to="46706010000">Your current.*</waitsms>
+	</task>
+	<task>
+		<sendsms from="46706010101">RBALANCE 2009</sendsms>
+		<waitsms to="46706010101">Your current.*</waitsms>
+	</task>
+</bench>

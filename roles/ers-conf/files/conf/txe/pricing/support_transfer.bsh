@@ -1,0 +1,12 @@
+/*************************************************
+-
+- Pricing for support transfers
+-
+**************************************************/
+
+calculate(Account sender, Account receiver, Amount amount)
+{
+	addSenderTransaction(sender, amount.clone().negate(), AccountTransactionClassifier.Transfer);
+	addReceiverTransaction(receiver, amount, AccountTransactionClassifier.Transfer);
+}
+	

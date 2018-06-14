@@ -1,0 +1,8 @@
+---
+# handlers file for pre_install
+- name: Restart Network
+  service: name=network state=restarted 
+- name: Restart Chrony
+  service: name=chronyd state=restarted
+- name: Restart Memcached
+  service: name=memcached state=restarted

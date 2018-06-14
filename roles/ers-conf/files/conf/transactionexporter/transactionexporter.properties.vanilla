@@ -1,0 +1,52 @@
+
+# Transaction exporter job state management database
+jobstate.db_driver=com.mysql.jdbc.Driver
+jobstate.db_url=jdbc:mysql://localhost:3306/transaction_exporter_job_state
+jobstate.db_user=refill
+jobstate.db_password=refill
+jobstate.pool_min_size=2
+jobstate.pool_max_size=10
+jobstate.db_autoCommit=true
+jobstate.pool_timeout=86400000
+jobstate.pool_query_timeout=86400000
+
+#Job synchronization/locking implementation class. Dependent on DBMS we are using for jobstate database
+job_synchronizer=com.seamless.ers.tools.ete.impl.MySQLJobSynchronizer
+
+# BEGIN Quartz Configuration CHANGES NOT REQUIRED
+#
+# Configure Main Scheduler Properties 
+#
+
+#cache.cluster.1.url =localhost:7001
+#cache.cluster.2.url =localhost:7003
+#cache.cluster.3.url =localhost:7005
+##################################################
+# Set to true if distributed locking is to be used (For active active)
+##################################################
+useDistributedLocking=false
+#timeout in millisec to acquire a lock
+#locktimeout=600000
+#
+org.quartz.scheduler.instanceName = TransactionExportScheduler
+org.quartz.scheduler.instanceId = one
+
+#
+# Configure ThreadPool 
+#
+org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool
+org.quartz.threadPool.threadCount =  5
+org.quartz.threadPool.threadPriority = 4
+
+#
+# Configure JobStore 
+#
+org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
+
+
+#
+# Disable update checker
+#
+org.quartz.scheduler.skipUpdateCheck=true
+
+# END Quartz Configuration

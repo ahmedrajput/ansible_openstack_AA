@@ -1,0 +1,22 @@
+---
+# tasks file for load_balancing
+- name: Adding non local IP bind
+  copy:
+   src: sysctl-conf
+   dest: /etc/sysctl.conf
+  notify: Reload Kernel Parameters
+- name: Installing haproxy and keepalived
+  yum: name={{ item }} state=installed
+  with_items:
+  - haproxy
+  - keepalived
+- name: Populating Haproxy conf
+  template:
+   src: haproxy-cfg.j2
+   dest: /etc/haproxy/haproxy.cfg
+  notify: Restart Haproxy
+- name: Populating keepalived conf
+  template:
+   src: keepalived-conf.j2
+   dest: /etc/keepalived/keepalived.conf
+  notify: Restart Keepalived

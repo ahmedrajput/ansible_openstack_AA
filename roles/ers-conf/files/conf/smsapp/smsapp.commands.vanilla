@@ -1,0 +1,399 @@
+GLOBAL:
+currency=EUR
+
+COMMAND:PING | PING <delay>
+type=STATIC
+result=PONG
+syntaxErrorMessageId=PING_SYNTAX_ERROR
+
+#REGISTER
+#COMMAND:REGISTER <password> <activationCode> | REGISTER <password> <password2> <activationCode>
+COMMAND:RREG <activationCode> <password> <password2>
+type=RESELLER_REGISTER
+syntaxErrorMessageId=REG_SYNTAX_ERROR
+
+COMMAND:RSTOCKTR <destination> <amount> <password> | RTRANSFER <destination> <amount> <password>
+type=RESELLER_STOCK_TRANSFER
+#duplicationDetectionFields=destination amount
+#duplicationDetectionTimeout=60
+syntaxErrorMessageId=RSTOCKTR_SYNTAX_ERROR
+
+####################### ETOPUP PRODUCT #############################
+
+COMMAND:RTOPUP <destination> <amount> <password>
+type=RESELLER_TOPUP 
+#duplicationDetectionFields=destination amount
+#duplicationDetectionTimeout=60
+productSKU=TOPUP
+anonymousIdPrefix=26
+syntaxErrorMessageId=RTOPUP_SYNTAX_ERROR
+
+COMMAND:RVALIDATETOPUP <destination> <amount> <password>
+type=RESELLER_VALIDATE_TOPUP 
+productSKU=TOPUP
+anonymousIdPrefix=26
+syntaxErrorMessageId=RTOPUP_SYNTAX_ERROR
+
+COMMAND:RRECHARGE <destination> <amount> <password>
+type=RESELLER_TOPUP
+productSKU=RECHARGE
+anonymousIdPrefix=26
+syntaxErrorMessageId=RRECHARGE_SYNTAX_ERROR
+
+COMMAND:RBALANCE <password>
+type=RESELLER_QUERY_BALANCE
+syntaxErrorMessageId=RBALANCE_SYNTAX_ERROR
+
+COMMAND:RCPIN <newPassword> <newPassword2> <password> | CHANGE <password> <newPassword> <newPassword2> | CHANGE <password> <newPassword>
+type=RESELLER_CHANGE_PASSWORD
+syntaxErrorMessageId=RCPIN_SYNTAX_ERROR
+
+COMMAND:RREPORT <reportId> <password>
+type=RESELLER_REPORT
+syntaxErrorMessageId=RREPORT_SYNTAX_ERROR
+
+COMMAND:RTRINFO <password> | RTRINFO <reference> <password> 
+type=RESELLER_TRANSACTION_INFO
+syntaxErrorMessageId=RTRINFO_SYNTAX_ERROR
+
+COMMAND:TRINFO <password>
+type=SUBSCRIBER_TRANSACTION_INFO
+syntaxErrorMessageId=TRINFO_SYNTAX_ERROR
+
+COMMAND:RLOCK <password>
+type=RESELLER_SELF_LOCK
+syntaxErrorMessageId=RLOCK_SYNTAX_ERROR
+
+COMMAND:REGISTERTOPUP <password>  | REGISTERTOPUP <password> <password2>
+type=SUBSCRIBER_SERVICE_ACTIVATION
+serviceId=ETOPUP
+syntaxErrorMessageId=REGISTERTOPUP_SYNTAX_ERROR
+
+COMMAND:REGWEB <password> <webpassword> | REGWEB <password>
+type=RESELLER_REGISTER_WEB_USER
+syntaxErrorMessageId=REGWEBUSER_SYNTAX_ERROR
+
+COMMAND:RESETWEB <password> <webpassword>
+type=RESELLER_RESET_USER_PASSWORD
+syntaxErrorMessageId=RESETWEB_SYNTAX_ERROR
+
+COMMAND:VTOPUP <voucher> <password> | VTOPUP <voucher> <destination> <password>
+type=SUBSCRIBER_VOUCHER_TOPUP
+syntaxErrorMessageId=VTOPUP_SYNTAX_ERROR
+
+COMMAND:AIRTRANSFER <destination> <amount> <password>
+type=SUBSCRIBER_AIRTIME_TO_AIRTIME_TRANSFER
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:AIRTOPUP <destination> <amount> <password>
+type=SUBSCRIBER_AIRTIME_TO_AIRTIME_TOPUP
+productId=P2P
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:MYAIRBALANCE <password>
+type=SUBSCRIBER_AIRTIME_QUERY_BALANCE
+syntaxErrorMessageId=MYBALANCE_SYNTAX_ERROR
+
+COMMAND:ECPIN <newPassword> <newPassword2> <password> | SCHANGE <password> <newPassword> | SCHANGE  <password> <newPassword> <newPassword2>
+type=SUBSCRIBER_CHANGE_SERVICE_PASSWORD
+serviceId=ETOPUP
+syntaxErrorMessageId=CPIN_SYNTAX_ERROR
+
+COMMAND:ENQ | ENQ <password> | GETANONYMOUSID | GETANONYMOUSID <password>
+type=SUBSCRIBER_GET_ANONYMOUSID
+syntaxErrorMessageId=GETANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:ACT | ACT <password>
+type=SUBSCRIBER_ACT_ANONYMOUSID
+syntaxErrorMessageId=ACTANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:DEACT | DEACT <password>
+type=SUBSCRIBER_DEACT_ANONYMOUSID
+syntaxErrorMessageId=DEACTANONYMOUSID_SYNTAX_ERROR
+
+COMMAND:RTRLIST <password>
+type=RESELLER_TRANSACTIONLIST
+TRLIST_rows=5
+syntaxErrorMessageId=RTRLIST_SYNTAX_ERROR
+
+
+####################### VAS PRODUCT ##################################
+
+COMMAND:SCC <accountClassId> <password> 
+type=SUBSCRIBER_SERVICECLASS_CHANGE
+syntaxErrorMessageId=SCC_SYNTAX_ERROR
+
+COMMAND:SCINFO <password> 
+type=SUBSCRIBER_SERVICECLASS_INFO
+syntaxErrorMessageId=SCINFO_SYNTAX_ERROR
+
+###### Commenting all FAF operations as all are done using custom operation
+#COMMAND:FAFLIST <password> 
+#type=SUBSCRIBER_GET_FAF_LIST
+#syntaxErrorMessageId=FAFLIST_SYNTAX_ERROR
+
+#COMMAND:FAFADD <fafNumber> <password> 
+#type=SUBSCRIBER_FAF_ADD
+#syntaxErrorMessageId=FAFADD_SYNTAX_ERROR
+
+#COMMAND:FAFREMOVE <fafNumber> <password> 
+#type=SUBSCRIBER_FAF_REMOVE
+#syntaxErrorMessageId=FAFREMOVE_SYNTAX_ERROR
+
+
+COMMAND:CMB <CMBNumber> <password> 
+type=SUBSCRIBER_CALL_ME_BACK
+syntaxErrorMessageId=CMB_SYNTAX_ERROR
+
+COMMAND:BICINFO <password> 
+type=SUBSCRIBER_BIC_INFO
+syntaxErrorMessageId=BICINFO_SYNTAX_ERROR
+
+COMMAND:BICACTIVATE <password> 
+type=SUBSCRIBER_BIC_ACTIVATE
+syntaxErrorMessageId=BICACTIVATE_SYNTAX_ERROR
+
+COMMAND:BICDEACTIVATE <password> 
+type=SUBSCRIBER_BIC_DEACTIVATE
+syntaxErrorMessageId=BICDEACTIVATE_SYNTAX_ERROR
+
+
+######################### MOLLET PRODUCT ###########################
+
+COMMAND:RACTIVATE <password>| RACTIVATE <activationCode> <password>
+type=RESELLER_MOLLET_ACTIVATE
+syntaxErrorMessageId=RACTIVATE_SYNTAX_ERROR
+
+COMMAND:RMYBALANCE <password>
+type=RESELLER_MOLLET_QUERY_BALANCE
+syntaxErrorMessageId=RMYBALANCE_SYNTAX_ERROR
+
+COMMAND:RCASHIN <destination> <amount> <password>
+type=RESELLER_MOLLET_CASHIN
+syntaxErrorMessageId=RCASHIN_SYNTAX_ERROR
+
+COMMAND:RCASHOUT <destination> <amount> <password>
+type=RESELLER_MOLLET_CASHOUT
+syntaxErrorMessageId=RCASHOUT_SYNTAX_ERROR
+
+COMMAND:RMYTRLIST <password>
+type=RESELLER_MOLLET_TRANSACTIONLIST
+TRLIST_rows=5
+syntaxErrorMessageId=RMYTRLIST_SYNTAX_ERROR
+
+COMMAND:RREGSUBMM <firstName> <lastName> <subscriberMSISDN> <birthDate> <identityNo> <password> | RREGSUBMM <firstName> <lastName> <subscriberMSISDN> <birthDate> <identityNo> <identityType> <password>
+type=RESELLER_MOLLET_REGISTER_SUBSCRIBER
+syntaxErrorMessageId=RREGSUBMM_SYNTAX_ERROR
+
+COMMAND:REGISTERMM | REGISTERMM <identityNo>
+type=SUBSCRIBER_MOLLET_REGISTER
+syntaxErrorMessageId=REGISTERMM_SYNTAX_ERROR
+
+COMMAND:RDEREGISTER <subscriberMSISDN> <password>
+type=RESELLER_MOLLET_DEREGISTER_SUBSCRIBER
+syntaxErrorMessageId=RDEREGISTER_SYNTAX_ERROR
+
+COMMAND:RNMCASHOUT <voucherId> <firstName> <lastName> <identityNo> <identityType> <amount> <password>
+type=RESELLER_MOLLET_REDEEM_SUBSCRIBER_VOUCHER
+syntaxErrorMessageId=RNMCASHOUT_SYNTAX_ERROR
+
+COMMAND:RMTRINFO <reference> <password> 
+type=RESELLER_MOLLET_TRANSACTION_INFO
+syntaxErrorMessageId=RMTRINFO_SYNTAX_ERROR
+
+COMMAND:ACTIVATEMM <password>| ACTIVATEMM <activationCode> <password>
+type=SUBSCRIBER_MOLLET_ACTIVATE
+syntaxErrorMessageId=ACTIVATEMM_SYNTAX_ERROR
+
+COMMAND:TRANSFER <destination> <amount> <password>
+type=SUBSCRIBER_MOLLET_TO_MOLLET_TRANSFER
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:CPIN <newPassword> <newPassword2> <password>
+type=SUBSCRIBER_CHANGE_SERVICE_PASSWORD
+serviceId=MOLLET
+syntaxErrorMessageId=CPIN_SYNTAX_ERROR
+
+COMMAND:MYBALANCE <password>
+type=SUBSCRIBER_MOLLET_QUERY_BALANCE
+syntaxErrorMessageId=MYBALANCE_SYNTAX_ERROR
+
+COMMAND:MYTRLIST <password>
+type=SUBSCRIBER_MOLLET_TRANSACTIONLIST
+TRLIST_rows=5
+syntaxErrorMessageId=MYTRLIST_SYNTAX_ERROR
+
+COMMAND:CASHOUT <destination> <amount> <password>
+type=SUBSCRIBER_MOLLET_CASHOUT
+syntaxErrorMessageId=CASHOUT_SYNTAX_ERROR
+
+COMMAND:MTOPUP <destination> <amount> <password>
+type=SUBSCRIBER_MOLLET_TOPUP 
+productSKU=TOPUP
+anonymousIdPrefix=26
+syntaxErrorMessageId=TOPUP_SYNTAX_ERROR
+
+COMMAND:NMMTRANSFER <destination> <amount> <password>
+type=SUBSCRIBER_MOLLET_CREATE_VOUCHER
+syntaxErrorMessageId=NMMTRANSFER_SYNTAX_ERROR
+
+COMMAND:NMTRANSFER <firstName> <lastName> <birthDate> <identityNo> <identityType> <amount> <password>
+type=SUBSCRIBER_MOLLET_CREATE_VOUCHER
+syntaxErrorMessageId=NMTRANSFER_SYNTAX_ERROR
+
+
+######################### GENERAL ###########################
+
+COMMAND:RAPPROVE <reference> <password>
+type=RESELLER_APPROVE
+
+COMMAND:RCANCEL <reference> <password>
+type=RESELLER_CANCEL
+
+COMMAND:SAPPROVE <reference> <password>
+type=SUBSCRIBER_APPROVE
+
+COMMAND:SCANCEL <reference> <password>
+type=SUBSCRIBER_CANCEL
+
+COMMAND:REVERSECT <reference> <password>
+type=RESELLER_REQUEST_CREDIT_TRANSFER_REVERSAL
+
+COMMAND:REVERSETOPUP <reference> <password>
+type=RESELLER_REQUEST_TOPUP_REVERSAL
+
+######################### Request Based Commands ###########################
+
+COMMAND:RESELLER_REQTOPUP <destination> <amount> <password>
+type=RESELLER_REQTOPUP
+#duplicationDetectionFields=destination amount
+#duplicationDetectionTimeout=60
+destinationIdType=SUBSCRIBERMSISDN
+productSKU=TOPUP
+senderAccountType=RESELLER
+receiverAccountType=AIRTIME
+anonymousIdPrefix=26
+syntaxErrorMessageId=RTOPUP_SYNTAX_ERROR
+
+COMMAND:RESELLER_REQTRANSFER <destinationId> <destinationMSISDN> <amount> <password> | RESELLER_REQTRANSFER <destinationMSISDN> <amount> <password>
+type=RESELLER_REQTRANSFER
+#duplicationDetectionFields=destinationId amount
+#duplicationDetectionTimeout=60
+productSKU=CREDIT_TRANSFER
+senderAccountType=RESELLER
+receiverAccountType=RESELLER
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+# Added from reference-setup project(7074), only for vanilla setup
+COMMAND:RESELLER_REQTRANSFER_CURRENCY <destinationId> <destinationMSISDN> <amount> <password> | RESELLER_REQTRANSFER_CURRENCY <destinationMSISDN> <amount> <password>
+type=RESELLER_REQTRANSFER
+#duplicationDetectionFields=destinationId amount
+#duplicationDetectionTimeout=60
+productSKU=CURRENCY_TRANSFER
+senderAccountType=RESELLER_CURRENCY
+receiverAccountType=RESELLER_CURRENCY
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_REQTRANSFER <destination> <amount> <password>
+type=SUBSCRIBER_REQTRANSFER
+#duplicationDetectionFields=destination amount
+#duplicationDetectionTimeout=60
+productSKU=P2P
+senderAccountType=AIRTIME
+receiverAccountType=AIRTIME
+initiatorIdType=
+destinationIdType=
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_REQTOPUP <destination> <amount> <password>
+type=SUBSCRIBER_REQTOPUP
+#duplicationDetectionFields=destination amount
+#duplicationDetectionTimeout=60
+productSKU=P2P
+senderAccountType=AIRTIME
+receiverAccountType=AIRTIME
+initiatorIdType=
+destinationIdType=
+anonymousIdPrefix=26
+syntaxErrorMessageId=TRANSFER_SYNTAX_ERROR
+
+COMMAND:RESELLER_REQCPIN <newPassword> <newPassword2> <password> | RESELLER_REQCPIN <password> <newPassword>
+type=RESELLER_REQCPIN
+syntaxErrorMessageId=RCPIN_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_REQCPIN <newPassword> <newPassword2> <password> | SUBSCRIBER_REQCPIN <password> <newPassword>
+type=SUBSCRIBER_REQCPIN
+syntaxErrorMessageId=CPIN_SYNTAX_ERROR
+
+COMMAND:RESELLER_REQBALANCE <password>
+type=RESELLER_REQBALANCE
+syntaxErrorMessageId=RBALANCE_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_REQBALANCE | SUBSCRIBER_REQBALANCE <password>
+type=SUBSCRIBER_REQBALANCE
+syntaxErrorMessageId=RBALANCE_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_GENERATE_ANONYMOUSID <password>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=SUBSCRIBER_ANONYMOUS_ID_GENERATE
+senderAccountType=AIRTIME
+
+COMMAND:SUBSCRIBER_QUERY_ANONYMOUSID <password>
+type=SUBSCRIBER_REQCUSTOMOP
+operationId=SUBSCRIBER_ANONYMOUS_ID_QUERY
+senderAccountType=AIRTIME
+
+# Example command for FAF Add operation
+COMMAND:FAFADD <param_1_value> <password>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=FAF_ADD
+param_1_name=fafNumber
+senderAccountType=AIRTIME
+syntaxErrorMessageId=FAFADD_SYNTAX_ERROR
+
+# Example command for FAF list operation
+COMMAND:FAFINFO <password>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=FAF_INFO
+senderAccountType=AIRTIME
+syntaxErrorMessageId=FAFLIST_SYNTAX_ERROR
+
+# Example command for FAF remove operation
+COMMAND:FAFREMOVE <param_1_value> <password>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=FAF_REMOVE
+param_1_name=fafNumber
+senderAccountType=AIRTIME
+syntaxErrorMessageId=FAFREMOVE_SYNTAX_ERROR
+
+# Example command for FAF Replace operation
+COMMAND:FAFREPLACE <param_1_value> <param_2_value> <password>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=FAF_REPLACE
+param_1_name=removeFafNumber
+param_2_name=addFafNumber
+senderAccountType=AIRTIME
+syntaxErrorMessageId=FAFREPLACE_SYNTAX_ERROR
+
+COMMAND:SUBSCRIBER_EXAMPLE <param_1_value>
+type=SUBSCRIBER_REQCUSTOMOP 
+operationId=
+param_1_name=
+destinationIdType=
+destination=
+senderAccountType=
+
+# actually the amount will be appended to productIdPrefix to make the productSKU
+# amount is more readable term for AE rather than productIdPostfix
+COMMAND:REQPURCHASE <destination> <amount> <password>
+type=RESELLER_REQPURCHASE
+productIdPrefix=EVOUCHER_
+productIdType=PRODUCT_SKU
+
+# The of the command should also be updated in smsapp.properties as
+#
+# request_reversal_with_message_command_name=REVERSE
+#
+COMMAND:REVERSE <message>
+type=REQUEST_REVERSAL_WITH_FULL_MESSAGE
+

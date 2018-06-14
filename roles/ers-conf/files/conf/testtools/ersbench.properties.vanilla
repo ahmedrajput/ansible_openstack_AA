@@ -1,0 +1,102 @@
+
+# The request class to use.
+smsprovider.classname=HttpSMSProvider
+
+# The request URL and port for the smsapp
+smsprovider.url=http://localhost:8991/smsapp
+
+# Name of the http query parameter that contains the SMS text body.
+smsprovider.msg_param=msg
+
+# Prefix
+smsprovider.to_prefix=
+
+# SMSProvider settings for ERS 3.14
+#smsprovider.url=http://localhost:8080/cc/CC?app=transactions
+#smsprovider.msg_param=msg
+#smsprovider.from_param=src
+#smsprovider.to_param=dst
+
+# If no SMS destination address (typically a short code) is sent from the SMS
+# provider, this address will be used. This can be important if the SMS provider
+# requires a from address when sending the response.
+default_sms_address=1234
+
+# The default listening port for responses
+response_listen_port=13013
+
+# The time in ms smsauto will wait for responses after sending each request
+response_timeout=3000
+
+## SMSBench
+#
+# The time in ms SMSBench will wait for responses after sending the last request
+bench_timeout=10000
+
+# Thread pool size for SendServer in SMSBench
+sendserver_pool_size=10
+
+# Set this to true if unexpected responses should prevent the task from
+# continuing, for example if later send commands depend on successful processing
+# of previous requests.
+interrupt_failed_tasks=false
+
+# Connection amount threshold, maximum number of connections (HTTP/SOAP and plain socket) allowed. If the amount passes this threshold the tasks will
+# wait until other tasks has closed connections so that the total count is below the threshold before they continue. 
+maximum_number_of_connections = 500
+
+# Directory that contains all descriptors for google protocol buffer messages
+#protobuf_descriptors_directory=/opt/seamless/tools/reference-setup/protobuf/
+
+## protocol buffer endpoint definitions
+#protocolbuffers_endpoint.1.host=localhost
+#protocolbuffers_endpoint.1.port=7779
+#protocolbuffers_endpoint.1.channel=payer
+#protocolbuffers_endpoint.1.protocol_number=4
+#protocolbuffers_endpoint.1.request_type=PayerRequest
+#protocolbuffers_endpoint.1.request_id_field=requestId
+#protocolbuffers_endpoint.1.response_type=PayerResponse
+#protocolbuffers_endpoint.1.encrypted=true
+#protocolbuffers_endpoint.1.server_cert=/opt/seamless/ServerCertificate.cer
+
+#protocolbuffers_endpoint.2.host=localhost
+#protocolbuffers_endpoint.2.port=7778
+#protocolbuffers_endpoint.2.channel=issuer
+#protocolbuffers_endpoint.2.protocol_number=0
+#protocolbuffers_endpoint.2.request_type=IssuerRequest
+#protocolbuffers_endpoint.2.request_id_field=requestId
+#protocolbuffers_endpoint.2.response_type=IssuerResponse
+
+# SOAP endpoints
+soap_endpoint.1.id=txp
+soap_endpoint.1.host=localhost
+soap_endpoint.1.port=8777
+soap_endpoint.1.path=/txe/transactionProcessing
+
+soap_endpoint.2.id=exp
+soap_endpoint.2.host=localhost
+soap_endpoint.2.port=8923
+soap_endpoint.2.path=/exchangeRate
+
+# SOAP end point for client WS in ERS 3.14
+soap_endpoint.3.id=wsc
+soap_endpoint.3.host=localhost
+soap_endpoint.3.port=8910
+soap_endpoint.3.path=/client
+
+# SOAP end point for client WS in ERS 4.4
+soap_endpoint.4.id=wsc4
+soap_endpoint.4.host=localhost
+soap_endpoint.4.port=8913
+soap_endpoint.4.path=/extclientproxy/client
+
+soap_endpoint.5.id=wsc5
+soap_endpoint.5.host=localhost
+soap_endpoint.5.port=8913
+soap_endpoint.5.path=/extclientproxy/service
+
+soap_endpoint.6.id=res
+soap_endpoint.6.host=localhost
+soap_endpoint.6.port=8777
+soap_endpoint.6.path=/txe/reseller
+

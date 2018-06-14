@@ -1,0 +1,46 @@
+import com.seamless.ers.txe.transaction.model.ERSTopupTransaction;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+import com.seamless.ers.txe.transaction.model.ERSTopupTransaction;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+
+String refillProfileIdKey="refillProfileId";
+
+String topupProductSKU="TOPUP";
+String topupTypeName="topup";
+String topupRefillProfileId="29";
+
+
+public boolean validate(com.seamless.ers.txe.businesslogic.BusinessLogicTransaction transaction)
+{
+		logger.info("Simple topup rule is started");
+        ERSTopupTransaction topupTransaction = (ERSTopupTransaction)transaction.getTransaction();;
+        if (topupTransaction.getProductSKU() == null)
+        {
+                logger.warn("productSKU is null so set the value to topupProductSKU");
+                topupTransaction.setProductSKU(topupProductSKU);
+        }
+        logger.info("topup product " + topupProductSKU );
+       
+        if (topupTransaction.getProductSKU().equals(topupProductSKU))
+        {
+        		logger.info("topup with amount " +  topupTransaction.topupAmount);
+                topupTransaction.setTopupType(topupTypeName);
+                
+                if(topupTransaction.topupAmount.value.doubleValue() == 50)
+        		{
+              		logger.info("Using profileID 10 for amount equals to 50");
+             		topupTransaction.putField(refillProfileIdKey, "10");
+        		}
+      			else if(topupTransaction.topupAmount.value.doubleValue() == 100)
+        		{
+              		logger.info("Using profileID 11 for amount equals to 100");
+              		topupTransaction.putField(refillProfileIdKey, "11");
+        		}
+        		else if(topupTransaction.topupAmount.value.doubleValue() > 100)
+        		{
+              		logger.info("Using profileID "+topupRefillProfileId+" for amount greater than 100");
+              		topupTransaction.putField(refillProfileIdKey, topupRefillProfileId);
+        		}
+        }
+        return true;
+}

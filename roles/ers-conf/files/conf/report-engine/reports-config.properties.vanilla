@@ -1,0 +1,49 @@
+################################################
+# Configuration of reports parameters
+#
+# In this file default values for report parameters
+# are defined, which take precedence over parameter
+# default values inside reports. These parameters can
+# be different depending on the report url and the
+# role of the client.
+# 
+# The general format is:
+#
+#[param name].[priority].value=[parameter value]
+#[param name].[priority].matchUrl=[regexp of report urls that should match, optional]
+#[param name].[priority].matchRole=[regexp of roles that should match, optional]
+#[param name].[priority].groovy=[groovy expression for parameter value, optional]
+#[param name].[priority].availableOptions=[groovy expression for available options (it must return Map<String,String>), optional]
+#
+# Matching is done for all rules, and the rules with same parameter name and
+# higher priority will override the lower priority ones. The order of appearance 
+# in this file is not important.
+#
+# Other than parameters passed from this file, two default parameters are always
+# passed to report too:
+#    _reportUrl: url of the report that is being executed
+#    _roleName: role name of the user running the report
+#
+# Special parameter names are:
+#    dbConnectionUrl : database connection to be used for the report
+#	 _disabledOutputFormats: formats that will be disabled for this report
+#						separated by comma, like CSV, HTML
+#
+# _disabledOutputFormats.1.value=Different output formats, valid values - PDF, EXCEL, CSV, HTML, TEXT(case-sensitive) 
+# for all output formats, check com.seamless.ers.interfaces.ersifextlink.dto.ReportOutputTypes
+#_disabledOutputFormats.1.matchUrl=<URL of the reports>
+# To disable output format for all reports, no need to specify matchUrl as matchUrl is
+# not mandatory field for the special parameter - _disabledOutputFormats
+
+# In order to configure list, maps, etc. special format (groovy expression) exists, example:
+# accountClasses.1.groovy=["TICTAC":["1","130"],"PRO":["2","131"],"AREEBA ZONE":["3","132"]]
+# specifies a Map<String,<List>> for a value of a parameter
+#
+# For ParameterControlType.LISTBOX, you can specify availableOptions (groovy expression), map key=option label, value=option value, example:
+# accountClass.1.availableOptions=["All":"All", "TICTAC":"TICTAC", "PRO":"PRO", "AREEBA ZONE":"AREEBA ZONE"]
+
+dbConnectionUrl.1.value=jdbc:mysql://localhost:3306/sales?user=refill&password=refill&useOldAliasMetadataBehavior=true
+
+supportsystem_url.1.value=http://localhost:8071/supportsystem/services
+supportsystem_username.1.value=
+supportsystem_password.1.value=

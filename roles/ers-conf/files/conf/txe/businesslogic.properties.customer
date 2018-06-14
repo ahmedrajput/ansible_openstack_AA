@@ -1,0 +1,1516 @@
+# CLASSIFIER TAGS
+#
+# This section defines a set of classifier tags that can be applied to transactions
+# If the tag expression evaluates to "true" (using freemarker) the tag will
+# be applied to the transaction
+#
+# The business rule mappings can later use the tags to determine which rules to apply to which transaction
+#
+businesslogic.classifier_tags.USSDCHANNEL.expression=${(transaction.clientType?? && transaction.clientType?matches('USSD', 'i'))?string}
+businesslogic.classifier_tags.SMSCHANNEL.expression=${(transaction.clientType?? && transaction.clientType?matches('SMS', 'i'))?string}
+businesslogic.classifier_tags.WEBCHANNEL.expression=${(transaction.clientType?? && transaction.clientType?matches('WEB', 'i'))?string}
+businesslogic.classifier_tags.PROMOTIONSYSTEMCHANNEL.expression=${(transaction.clientType?? && transaction.clientType?matches('PROMOTIONSYSTEM', 'i'))?string}
+businesslogic.classifier_tags.EXTERNAL_SOAP_CLIENT.expression=${(transaction.clientType?? && transaction.clientType?matches('WEBSERVICE', 'i'))?string}
+businesslogic.classifier_tags.TERMINALPROXYCHANNEL.expression=${(transaction.clientType?? && transaction.clientType?matches('TERMINALPROXY', 'i'))?string}
+businesslogic.classifier_tags.WEBADMIN_TRANSACTION.expression=${(transaction.clientId?? && transaction.clientId?matches('webadmin', 'i'))?string}
+businesslogic.classifier_tags.R2R_TRANSACTION.expression=${((transaction.senderPrincipal.principalType)?? && transaction.senderPrincipal.principalType?string == "Reseller" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Reseller")?string}
+businesslogic.classifier_tags.R2S_TRANSACTION.expression=${((transaction.senderPrincipal.principalType)?? && transaction.senderPrincipal.principalType?string == "Reseller" && (transaction.receiverPrincipal.principalType)?? && transaction.receiverPrincipal.principalType?string == "Subscriber")?string}
+#businesslogic.classifier_tags.P2P_TRANSACTION.expression=${((transaction.senderPrincipal.principalType)?? && transaction.senderPrincipal.principalType?string == "Subscriber" && (transaction.transactionType)?? && transaction.transactionType?string == "TRANSFER")?string}
+businesslogic.classifier_tags.MM2ERS_TRANSACTION.expression=${(transaction.productSKU?? && transaction.productSKU == "MM2ERS")?string}
+businesslogic.classifier_tags.CASHIN_TRANSACTION.expression=${(transaction.productSKU?? && transaction.productSKU == "CASHIN")?string}
+businesslogic.classifier_tags.FAF_TRANSACTION.expression=${(transaction.profileId?matches("CUSTOM_OPERATION_FAF_.*"))?string}
+businesslogic.classifier_tags.CMBK_TRANSACTION.expression=${(transaction.profileId?matches("CUSTOM_OPERATION_CMBK.*"))?string}
+businesslogic.classifier_tags.CHANGE_P2P_PASSWORD.expression=${(transaction.profileId == "ETOPUP_CHANGE_PASSWORD")?string}
+businesslogic.classifier_tags.GET_AIRTIME_BALANCE.expression=${(transaction.profileId == "AIRTIME_BALANCE")?string}
+businesslogic.classifier_tags.APPROVE_REG_SUB_RES.expression=${(transaction.profileId == "REGISTER_SUB_RESELLER" && transaction.transactionOperation?string == "APPROVE")?string}
+businesslogic.classifier_tags.CANCEL_REG_SUB_RES.expression=${(transaction.profileId == "REGISTER_SUB_RESELLER" && transaction.transactionOperation?string == "CANCEL")?string}
+businesslogic.classifier_tags.APPROVE_LINK_SUB_RES.expression=${(transaction.profileId == "RESELLER_LINK_SUB_RESELLER" && transaction.transactionOperation?string == "APPROVE")?string}
+businesslogic.classifier_tags.INFO_REQUEST.expression=${(transaction.profileId?matches("GET_PRINCIPAL_INFORMATION|RESELLER_INFO|SUB_RESELLER_TYPES|GET_USER_INFO"))?string}
+businesslogic.classifier_tags.CHANGE_PASSWORD.expression=${(transaction.profileId?matches("CHANGE_PASSWORD|RESELLER_USER_CHANGE_PASSWORD|ETOPUP_CHANGE_PASSWORD"))?string}
+businesslogic.classifier_tags.CUSTOM_OPERATION.expression=${(transaction.profileId?matches("CUSTOM_OPERATION_.*"))?string}
+businesslogic.classifier_tags.SUPPORT_TRANSFER.expression=${(transaction.profileId?matches("CREDIT_TRANSFER") && transaction.principal.principalType?string == "AdminUser")?string}
+businesslogic.classifier_tags.SENDER_DISTRIBUTOR.expression=${((transaction.senderPrincipal.resellerData.resellerTypeId)?? && transaction.senderPrincipal.resellerData.resellerTypeId == "distributor")?string}
+businesslogic.classifier_tags.SENDER_AGENT.expression=${((transaction.senderPrincipal.resellerData.resellerTypeId)?? && transaction.senderPrincipal.resellerData.resellerTypeId == "agent")?string} 
+businesslogic.classifier_tags.SENDER_SUBAGENT.expression=${((transaction.senderPrincipal.resellerData.resellerTypeId)?? && transaction.senderPrincipal.resellerData.resellerTypeId == "subagent")?string}
+businesslogic.classifier_tags.SMS_SINGLE_VOUCHER_DETAILS_REPORT.expression=${(transaction.clientType?? && transaction.clientType?matches('SMS', 'i') && transaction.reportId?? && transaction.reportId?matches('SUP_SINGLE_VOUCHER_ENQUIRY', 'i'))?string}
+businesslogic.classifier_tags.REVERSAL_WEBADMIN.expression=${(transaction.profileId?matches("REVERSE_CREDIT_TRANSFER") && transaction.principal.principalType?string == "AdminUser")?string}
+businesslogic.classifier_tags.PRODUCT_RECHARGE.expression=${(transaction.profileId?matches("PRODUCT_RECHARGE"))?string}
+businesslogic.classifier_tags.REDEEM_TRANSACTION.expression=${(transaction.productSKU?? && transaction.productSKU == "REDEEM")?string}
+businesslogic.classifier_tags.UNUSED_VOUCHER_REPORT.expression=${(transaction.profileId?matches("REPORT") && transaction.reportId?string == "REP_1007_USSD.xml")?string}
+businesslogic.classifier_tags.RESELLER_REQUERY_VOUCHER_VOS.expression=${(transaction.reportContent?? && transaction.reportContent?contains("VOS_PURCHASE"))?string}
+businesslogic.classifier_tags.MICROCREDIT_TRANSACTION.expression=${(transaction.productSKU?? && transaction.productSKU == "MICROCREDIT")?string}
+
+# RULES
+#
+# This section defines a set of business rules, each defined with an id
+# Under each business rule, a parameters can be set that will be used when creating the business rule instance
+# For the actual definition of the rule, see the documentation of the business rule class (specified by classname)
+# PLEASE OBSERVE! MOLLET SPECIFIC RULES & ACTIONS are grouped in different sections
+
+# Validate that the initiator principal has passed a minimum level of
+# authentication. Authentication level should be returned by the principal
+# service responsible for resolving the initiator principal.
+businesslogic.rules.SUBSCRIBER_PRINCIPAL_AUTH.classname=AuthenticationLevelCheck
+# A comma-separated list of transaction profile ids for which this rule applies.
+# The parameter is ignored if the list is empty.
+businesslogic.rules.SUBSCRIBER_PRINCIPAL_AUTH.include_profile_ids=
+# A comma-separated list of transaction profile ids for which this rule does not apply.
+# The parameter is ignored if the list is empty.
+businesslogic.rules.SUBSCRIBER_PRINCIPAL_AUTH.exclude_profile_ids=GET_SUBSCRIBER_INFO,ACTIVATE_SERVICE, REGISTER_ETOPUP_SERVICE, MOLLET_REGISTER, GET_ANONYMOUSID, CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_QUERY, CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_GENERATE, CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_CHANGE, CUSTOM_OPERATION_CMBK
+# If the authentication level of the initiator is too low the transaction will
+# fail. If the authentication level is the same as no_password_level the transaction
+# will fail with INCORRECT_PASSWORD. Otherwise ACCESS_DENIED will be returned.
+businesslogic.rules.SUBSCRIBER_PRINCIPAL_AUTH.no_password_level=0
+businesslogic.rules.SUBSCRIBER_PRINCIPAL_AUTH.min_level=0
+
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.classname=AuthenticationLevelCheck
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.exclude_profile_ids=RESELLER_ACTIVATE
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.no_password_level=99
+businesslogic.rules.RESELLER_PRINCIPAL_AUTH.min_level=1
+
+# Check that the sender subscriber has the ETOPUP service active
+#
+businesslogic.rules.REQUIRE_SENDER_ETOPUP_SERVICE.classname=CheckService
+businesslogic.rules.REQUIRE_SENDER_ETOPUP_SERVICE.principal_role=Sender
+businesslogic.rules.REQUIRE_SENDER_ETOPUP_SERVICE.service_id=ETOPUP
+businesslogic.rules.REQUIRE_SENDER_ETOPUP_SERVICE.fail_result_code=1102
+businesslogic.rules.REQUIRE_SENDER_ETOPUP_SERVICE.service_missing_result_code=1015
+
+businesslogic.rules.RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED.classname=CheckService
+businesslogic.rules.RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED.principal_role=Receiver
+businesslogic.rules.RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED.service_id=ETOPUP
+businesslogic.rules.RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED.service_missing_result_code=0
+businesslogic.rules.RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED.fail_result_code=1130
+
+businesslogic.rules.SENDER_RESELLER_PURCHASE_COUNTER.classname=PeriodicCreditLimitCheckAndIncrement
+# The counter identifier suffixed with the account type
+businesslogic.rules.SENDER_RESELLER_PURCHASE_COUNTER.counter_type_id=PURCHASE_COUNTER
+# SENDER_ACCOUNT, RECEIVER_ACCOUNT, SENDER_RESELLER or RECEIVER_RESELLER to be checked.
+businesslogic.rules.SENDER_RESELLER_PURCHASE_COUNTER.counter_owner=SENDER_ACCOUNT
+# The separator to be used between the counter type id and the account type suffix.
+businesslogic.rules.SENDER_RESELLER_PURCHASE_COUNTER.counter_type_separator=.
+# Optional for backward compatibility and implies that the sender account 
+# type id will not be suffixed to the counter identifier.
+businesslogic.rules.SENDER_RESELLER_PURCHASE_COUNTER.ignore_account_suffix_filter=RESELLER
+
+# RESELLER_REVERSAL_VALIDATE 
+# General rule for validating reseller transactions
+businesslogic.rules.RESELLER_REVERSAL_VALIDATE.classname=ValidateResellerReversalTransaction
+businesslogic.rules.RESELLER_REVERSAL_VALIDATE.excluded_client_types=
+
+# DENY ON REVERSAL FROM USSD
+businesslogic.rules.DENY_REVERSAL_USSD.classname=ReversalDenyPartially
+businesslogic.rules.DENY_REVERSAL_USSD.excluded_client_types=
+
+# RESELLER_VALIDATE 
+# General rule for validating reseller transactions
+businesslogic.rules.RESELLER_VALIDATE.classname=ValidateResellerTransaction
+# A list of denied transaction profile ids for resellers in the frozen state
+businesslogic.rules.RESELLER_VALIDATE.frozen_profile_id_match=TOPUP, CREDIT_TRANSFER, CHANGE_PASSWORD, RESELLER_ACTIVATE, REGISTER_SUB_RESELLER, BLOCK_RESELLER, UNBLOCK_RESELLER, REVERSE_TRANSFER, MOLLET_DEREGISTER, MOLLET_DEPOSIT, MOLLET_TRANSFER, MOLLET_WITHDRAWAL, MOLLET_REGISTER, MOLLET_VOUCHER_REDEEM
+
+# ADMINUSER_VALIDATE
+# General rule for validating adminuser transactions
+businesslogic.rules.ADMINUSER_VALIDATE.classname=ValidateAdminUserTransaction
+businesslogic.rules.ADMINUSER_VALIDATE.counter_type_id=WRONG_PIN_ATTEMPTS
+businesslogic.rules.ADMINUSER_VALIDATE.counter_period=TOTAL
+businesslogic.rules.ADMINUSER_VALIDATE.counter_max_value=10
+businesslogic.rules.ADMINUSER_VALIDATE.counter_threshold_value=5
+
+# SENDER_PRINCIPAL_SUBSCRIBER
+# Check if the sender's principal is a subscriber
+businesslogic.rules.SENDER_PRINCIPAL_SUBSCRIBER.classname=PrincipalTypeCheck
+businesslogic.rules.SENDER_PRINCIPAL_SUBSCRIBER.principal_owner=Sender
+businesslogic.rules.SENDER_PRINCIPAL_SUBSCRIBER.principal_type=Subscriber
+
+# RECEIVER_PRINCIPAL_SUBSCRIBER
+# Check if the receiver's principal is a subscriber
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBSCRIBER.classname=PrincipalTypeCheck
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBSCRIBER.principal_owner=Receiver
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBSCRIBER.principal_type=Subscriber
+
+# SENDER_PRINCIPAL_RESELLER
+# Check if the sender's principal is a reseller
+businesslogic.rules.SENDER_PRINCIPAL_RESELLER.classname=PrincipalTypeCheck
+businesslogic.rules.SENDER_PRINCIPAL_RESELLER.principal_owner=Sender
+businesslogic.rules.SENDER_PRINCIPAL_RESELLER.principal_type=Reseller
+
+# RECEIVER_PRINCIPAL_RESELLER
+# Check if the receiver's principal is a reseller
+businesslogic.rules.RECEIVER_PRINCIPAL_RESELLER.classname=PrincipalTypeCheck
+businesslogic.rules.RECEIVER_PRINCIPAL_RESELLER.principal_owner=Receiver
+businesslogic.rules.RECEIVER_PRINCIPAL_RESELLER.principal_type=Reseller
+
+# RECEIVER_PRINCIPAL_SIBLING
+# Check if the receiver's principal is a sibling reseller
+businesslogic.rules.RECEIVER_PRINCIPAL_SIBLING.classname=PrincipalTypeCheck
+businesslogic.rules.RECEIVER_PRINCIPAL_SIBLING.principal_owner=Receiver
+businesslogic.rules.RECEIVER_PRINCIPAL_SIBLING.principal_type=Reseller
+businesslogic.rules.RECEIVER_PRINCIPAL_SIBLING.hierarchy_type=Sibling
+
+# RECEIVER_PRINCIPAL_SUBRESELLER
+# Check if the receiver's principal is a subreseller
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBRESELLER.classname=PrincipalTypeCheck
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBRESELLER.principal_owner=Receiver
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBRESELLER.principal_type=Reseller
+businesslogic.rules.RECEIVER_PRINCIPAL_SUBRESELLER.hierarchy_type=Subreseller
+
+businesslogic.rules.FETCH_SENDER_ACCOUNT_INFO.classname=FetchPrincipalAccountsRule
+businesslogic.rules.FETCH_SENDER_ACCOUNT_INFO.principal_roles=Sender
+
+businesslogic.rules.FETCH_RECEIVER_ACCOUNT_INFO.classname=FetchPrincipalAccountsRule
+businesslogic.rules.FETCH_RECEIVER_ACCOUNT_INFO.principal_roles=Receiver
+
+# A R2R hierarchy rule to only allow transfers to sub-resellers
+businesslogic.rules.R2R_HIERARCHY_RULE.classname=R2RHierarchyRule
+# Add a black list on all topology relationships
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.1.type_id_relations=.*->.*
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.1.permit=false
+# Enable the following topology relationships
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.2.type_id_relations=operator->distributor|distributor->distributor|distributor->subdistributor|subdistributor->subdistributor|subdistributor->reseller|reseller->reseller
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.2.permit=true
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.3.type_id_relations=mm2ers->.*
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.3.permit=true
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.4.type_id_relations=reseller->seamless-microcredit|micro-credit->reseller|operator->micro-credit
+businesslogic.rules.R2R_HIERARCHY_RULE.filter.4.permit=true
+
+# A R2R hierarcy rule to only allow transfers to sub-resellers and between agents if they have a common parent
+businesslogic.rules.R2R_PARENT_CHILD_RULE.classname=R2RHierarchyRule
+# Add a black list on all topology relationships
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.1.type_id_relations=.*->.*
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.1.permit=false
+# Enable the following topology relationships
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.2.type_id_relations=.*->.*
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.2.match_receiver_ancestor_up=0
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.2.permit=true
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.3.type_id_relations=.*->.*
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.3.match_receiver_ancestor_up=1
+businesslogic.rules.R2R_PARENT_CHILD_RULE.filter.3.permit=true
+
+
+# A R2R hierarcy rule to only allow transfers to sub-resellers and between agents if they have a common parent
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.classname=R2RHierarchyRule
+# Add a black list on all topology relationships
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.1.type_id_relations=.*->.*
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.1.permit=false
+
+# Enable the following topology relationships
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.2.type_id_relations=operator->distributor|distributor->agent|agent->subagent
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.2.match_receiver_ancestor_up=1
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.2.permit=true
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.3.type_id_relations=agent->agent|subagent->subagent
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.3.match_receiver_ancestor_up=1
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.3.match_sender_ancestor_up=1
+businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.3.permit=true
+
+#For Evoucher Resellers
+#businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.8.type_id_relations=operator->ies|operator->cspn|ies->iesres
+#businesslogic.rules.R2R_HIERARCHY_RULE_EXT.filter.8.permit=true
+
+# A R2S topup rule for account link type IDs
+# Example account link type IDs: NORMAL_PREPAID, BULK_SMS, LCR, CTS, INTERNET
+# The from dependencies are the reseller import type id.
+businesslogic.rules.R2S_TOPUP_RULE.classname=ValidateLegalAirtimeTransactionRule
+# Add a black list on all topology relationships
+businesslogic.rules.R2S_TOPUP_RULE.filter.1.type_id_relations=.*->.*
+businesslogic.rules.R2S_TOPUP_RULE.filter.1.permit=false
+# Enable the following topology relationships
+businesslogic.rules.R2S_TOPUP_RULE.filter.2.type_id_relations=.*->NORMAL_PREPAID|.*->BULK_SMS|.*->LCR|.*->CTS|.*->INTERNET
+businesslogic.rules.R2S_TOPUP_RULE.filter.2.permit=true
+
+# A P2P topup rule for account link type IDs
+# Example account link type IDs: NORMAL_PREPAID, BULK_SMS, LCR, CTS, INTERNET
+businesslogic.rules.P2P_TOPUP_RULE.classname=ValidateLegalAirtimeTransactionRule
+# Add a black list on all topology relationships
+businesslogic.rules.P2P_TOPUP_RULE.filter.1.type_id_relations=.*->.*
+businesslogic.rules.P2P_TOPUP_RULE.filter.1.permit=false
+# Enable the following topology relationships
+businesslogic.rules.P2P_TOPUP_RULE.filter.2.type_id_relations=NORMAL_PREPAID->NORMAL_PREPAID
+businesslogic.rules.P2P_TOPUP_RULE.filter.2.permit=true
+
+# An example rule to validate sender and/or receiver AIRTIME accounts
+# The rule will only be applied on either sender or receiver if an AIRTIME account exists.
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.classname=ValidateAirtimeAccountRule
+# Enable check for sender AIRTIME account (true or false)
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.check_sender=true
+# Mandatory if check_sender is enabled and contains a , separated list of the sender account status
+# where the status can be one of the following dependent on which extlink that is used:
+# Active, Closed, Blocked, Suspended, Pending, Disabled.
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.sender.valid_account_status=Active
+# Check if sender has sufficient credit for the transaction amount (true or false)
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.sender.check_sufficient_balance=true
+# Enable check for receiver AIRTIME account (true or false)
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.check_receiver=true
+# Mandatory if check_receiver is enabled and contains a , separated list of the receiver account status
+# where the status can be one of the following dependent on which extlink that is used:
+# Active, Closed, Blocked, Suspended, Pending, Disabled.
+businesslogic.rules.VALIDATE_AIRTIME_ACCOUNT.receiver.valid_account_status=Active
+
+# An example rule to validate R2S topup AIRTIME subscriber
+# The rule will only be applied on either sender or receiver if an AIRTIME account exists.
+businesslogic.rules.VALIDATE_TOPUP_REVERSAL.classname=ValidateAirtimeAccountRule
+# Enable check for receiver AIRTIME account (true or false)
+businesslogic.rules.VALIDATE_TOPUP_REVERSAL.check_receiver=true
+# Mandatory if check_receiver is enabled and contains a , separated list of the receiver account status
+# where the status can be one of the following dependent on which extlink that is used:
+# Active, Closed, Blocked, Suspended, Pending, Disabled.
+businesslogic.rules.VALIDATE_TOPUP_REVERSAL.receiver.valid_account_status=Active
+# Check if receiver has sufficient credit for the transaction amount (true or false)
+businesslogic.rules.VALIDATE_TOPUP_REVERSAL.receiver.check_sufficient_balance=true
+
+# SUBSCRIBER_TRANSFER_AMOUNT_CHECK
+# Check amount of transfer without KYC factor
+businesslogic.rules.SUBSCRIBER_TRANSFER_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.SUBSCRIBER_TRANSFER_AMOUNT_CHECK.min_value=1
+businesslogic.rules.SUBSCRIBER_TRANSFER_AMOUNT_CHECK.max_value=5000000
+businesslogic.rules.SUBSCRIBER_TRANSFER_AMOUNT_CHECK.currency=IRR
+
+# TRANSFER_AMOUNT_KYC_LOW_CHECK
+# Check amount of transfer with KYCLevel = LOW
+businesslogic.rules.TRANSFER_AMOUNT_KYC_LOW_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.TRANSFER_AMOUNT_KYC_LOW_CHECK.kyc_level=LOW
+businesslogic.rules.TRANSFER_AMOUNT_KYC_LOW_CHECK.min_value=100
+businesslogic.rules.TRANSFER_AMOUNT_KYC_LOW_CHECK.max_value=2000
+businesslogic.rules.TRANSFER_AMOUNT_KYC_LOW_CHECK.currency=IRR
+
+# SENDER_BALANCE_CHECK
+# Check account balance of sender
+businesslogic.rules.SENDER_BALANCE_CHECK.classname=AccountBalanceCheck
+businesslogic.rules.SENDER_BALANCE_CHECK.balance_owner=SENDER
+businesslogic.rules.SENDER_BALANCE_CHECK.min_value=100
+businesslogic.rules.SENDER_BALANCE_CHECK.min_threshold_value=10000
+businesslogic.rules.SENDER_BALANCE_CHECK.max_value=200000000
+
+# MICROCREDIT_RECEIVER_BALANCE_CHECK
+# Check account balance of receiver
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.classname=AccountBalanceCheck
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.balance_owner=RECEIVER
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.min_value=0
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.min_threshold_value=10
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.max_value=1000
+businesslogic.rules.MICROCREDIT_RECEIVER_BALANCE_CHECK.before=true
+
+# RECEIVER_BALANCE_CHECK
+# Check account balance of receiver
+businesslogic.rules.RECEIVER_BALANCE_CHECK.classname=AccountBalanceCheck
+businesslogic.rules.RECEIVER_BALANCE_CHECK.balance_owner=RECEIVER
+businesslogic.rules.RECEIVER_BALANCE_CHECK.min_value=100
+businesslogic.rules.RECEIVER_BALANCE_CHECK.min_threshold_value=10000
+businesslogic.rules.RECEIVER_BALANCE_CHECK.max_value=200000000
+
+# VOUCHER_NOTIFICATION
+# Sends a voucher notification SMS to the subscriber
+#
+businesslogic.actions.VOUCHER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.VOUCHER_NOTIFICATION.message_id=VOUCHER_NOTIFICATION
+businesslogic.actions.VOUCHER_NOTIFICATION.default_language=en
+businesslogic.actions.VOUCHER_NOTIFICATION.sender=MTN
+businesslogic.actions.VOUCHER_NOTIFICATION.multi_sms_delimiter=
+#If we dont set this property then one message will be sent for multiple voucher purachase
+#businesslogic.actions.VOUCHER_NOTIFICATION.multi_sms_delimiter=|
+
+# Resend Notification to subscriber after executing RESELLER_REP_VOUCHER_REQUERY.xml report.
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.classname=ReceiverSMSNotification
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.message_id=REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.default_language=en
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.sender=MTN
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.receiver_principal=EXPRESSION
+businesslogic.actions.REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER.expression=<#if transaction.reportContent?trim?has_content>${transaction.reportContent?trim?split(",")[0]}<#else>NULL</#if>
+
+# SENDER_PURCHASE_NOTIFICATION
+# Sends a voucher notification SMS to the subscriber
+businesslogic.actions.SENDER_PURCHASE_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.SENDER_PURCHASE_NOTIFICATION.message_id=SENDER_PURCHASE_NOTIFICATION
+businesslogic.actions.SENDER_PURCHASE_NOTIFICATION.default_language=en
+businesslogic.actions.SENDER_PURCHASE_NOTIFICATION.sender=MTN
+businesslogic.actions.SENDER_PURCHASE_NOTIFICATION.receiver_principal=sender
+
+# SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION
+# Sends a voucher limit notification SMS to the subscriber
+businesslogic.actions.SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION.message_id=SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION
+businesslogic.actions.SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION.default_language=en
+businesslogic.actions.SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION.sender=MTN
+businesslogic.actions.SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION.condition=<#if transaction.rejectingRuleId?? && transaction.rejectingRuleId = "SUBSCRIBER_VOUCHER_COUNTER">true<#else>false</#if>
+
+
+businesslogic.rules.TRANSFORM_ETOPUP_PROFILE.classname=BeanShellRule
+businesslogic.rules.TRANSFORM_ETOPUP_PROFILE.script=rules/simple_topup_rule.bsh
+
+businesslogic.rules.ACCOUNT_CLASS_CONDITION.classname=BeanShellRule
+businesslogic.rules.ACCOUNT_CLASS_CONDITION.script=rules/account_class_condition.bsh
+
+# SELF_TOPUP_CHECK
+businesslogic.rules.SELF_TOPUP_CHECK.classname=ExpressionCheckRule
+businesslogic.rules.SELF_TOPUP_CHECK.expression=${(transaction.senderPrincipal.principalId.id != transaction.topupPrincipal.subscriberData.subscriberId)?string}
+businesslogic.rules.SELF_TOPUP_CHECK.fail_result_code=1052
+
+# SELF_TOPUP_CHECK
+businesslogic.rules.VOUCHER_OWNER_CHECK.classname=ExpressionCheckRule
+businesslogic.rules.VOUCHER_OWNER_CHECK.expression=${(transaction.voucherOwnerId != transaction.topupPrincipal.subscriberData.subscriberId)?string}
+businesslogic.rules.VOUCHER_OWNER_CHECK.fail_result_code=1052
+
+# Validate Reversal Period
+businesslogic.rules.VALIDATE_REVERSAL_PERIOD.classname=ValidateReversalTimePeriod
+businesslogic.rules.VALIDATE_REVERSAL_PERIOD.days_limit=5
+businesslogic.rules.VALIDATE_REVERSAL_PERIOD.excluded_client_types=
+
+# SELF_CREDIT_TRANSFER_CHECK
+businesslogic.rules.SELF_R2R_CHECK.classname=ExpressionCheckRule
+businesslogic.rules.SELF_R2R_CHECK.expression=${(transaction.senderPrincipal.resellerData.resellerId != transaction.receiverPrincipal.resellerData.resellerId)?string}
+businesslogic.rules.SELF_R2R_CHECK.fail_result_code=1052
+
+# EXTERNAL_ACCOUNT_CLASS_CONDITION
+# Check if legal account class
+businesslogic.rules.EXTERNAL_ACCOUNT_CLASS_CONDITION.classname=ExternalBusinessRule
+businesslogic.rules.EXTERNAL_ACCOUNT_CLASS_CONDITION.url=http://localhost:8010/UCIPLink/BusinessRuleLink
+businesslogic.rules.EXTERNAL_ACCOUNT_CLASS_CONDITION.method_validate=true
+businesslogic.rules.EXTERNAL_ACCOUNT_CLASS_CONDITION.method_completed=false
+businesslogic.rules.EXTERNAL_ACCOUNT_CLASS_CONDITION.method_failed=false
+
+# AnonymousId generation rule
+businesslogic.rules.GENERATE_ANONYMOUSID_RULE.classname=BeanShellRule
+businesslogic.rules.GENERATE_ANONYMOUSID_RULE.script=rules/generate_anonymouid_rule.bsh
+
+# GENERATE_ANONYMOUSID_SENDER_NOTIFICATION 
+# Sends a notifications SMS to the sender of a AnonymousID  
+businesslogic.actions.GENERATE_ANONYMOUSID_SENDER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.GENERATE_ANONYMOUSID_SENDER_NOTIFICATION.receiver_principal=sender
+businesslogic.actions.GENERATE_ANONYMOUSID_SENDER_NOTIFICATION.message_id=GENERATE_ANONYMOUSID_SENDER_NOTIFICATION
+businesslogic.actions.GENERATE_ANONYMOUSID_SENDER_NOTIFICATION.default_language=en
+businesslogic.actions.GENERATE_ANONYMOUSID_SENDER_NOTIFICATION.sender=MTN
+
+# CHANGE_ANONYMOUSID_SENDER_NOTIFICATION 
+# Sends a notifications SMS to the sender of a AnonymousID
+businesslogic.actions.CHANGE_ANONYMOUSID_SENDER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.CHANGE_ANONYMOUSID_SENDER_NOTIFICATION.receiver_principal=sender
+businesslogic.actions.CHANGE_ANONYMOUSID_SENDER_NOTIFICATION.message_id=CHANGE_ANONYMOUSID_SENDER_NOTIFICATION
+businesslogic.actions.CHANGE_ANONYMOUSID_SENDER_NOTIFICATION.default_language=en
+businesslogic.actions.CHANGE_ANONYMOUSID_SENDER_NOTIFICATION.sender=MTN
+
+## Query AnonymousID should generate the id if not present
+businesslogic.mappings.413.classifier_match=.*/Subscriber/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_QUERY/.*
+businesslogic.mappings.413.classifier_tags=CUSTOM_OPERATION
+businesslogic.mappings.413.rule_chain=GENERATE_ANONYMOUSID_RULE
+
+# BusinessLogic interface of SDP Link for MM2ERS
+businesslogic.rules.VALIDATE_TRANSFER_FOR_MM2ERS.classname=ExternalBusinessRule
+businesslogic.rules.VALIDATE_TRANSFER_FOR_MM2ERS.url=http://localhost:8020/businesslogic
+businesslogic.rules.VALIDATE_TRANSFER_FOR_MM2ERS.method_validate=true
+businesslogic.rules.VALIDATE_TRANSFER_FOR_MM2ERS.method_completed=false
+businesslogic.rules.VALIDATE_TRANSFER_FOR_MM2ERS.method_failed=false
+
+
+# COMMIT_TRANSACTION
+# Check which transaction operations (request, approve, deny) a user is
+# permitted to do by checking user role for the user.
+# There are three rules that can be configured: request_rule, commit_rule,
+# and cancel_rule. If they are omitted the rule will reject the corresponding
+# step at execution. Each rule uses three methods: userHasRole, samePrincipal and resellerOfType
+# where the available principal arguments are initiator, sender, and receiver.
+# the three rule methods can be combined with && (and) and || (or) in any 
+# combinations. 
+#
+businesslogic.rules.COMMIT_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.COMMIT_TRANSACTION.request_rule=userHasRole(initiator, "Super user") || userHasRole(initiator, "Administrator")
+businesslogic.rules.COMMIT_TRANSACTION.commit_rule=userHasRole(initiator, "Super user")
+businesslogic.rules.COMMIT_TRANSACTION.cancel_rule=userHasRole(initiator, "Super user")
+
+
+businesslogic.rules.R2R_COMMIT_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.R2R_COMMIT_TRANSACTION.request_rule=userHasRole(initiator, "Super user") || userHasRole(initiator, "Administrator") || userHasRole(initiator, "Reseller admin") || userHasRole(initiator, "Reseller web user") || userHasRole(initiator,"POS user")
+businesslogic.rules.R2R_COMMIT_TRANSACTION.commit_rule=userHasRole(initiator, "Super user") || userHasRole(initiator, "Administrator") || userHasRole(initiator,"POS user")
+businesslogic.rules.R2R_COMMIT_TRANSACTION.cancel_rule=userHasRole(initiator, "Super user") || userHasRole(initiator, "Administrator") || userHasRole(initiator,"POS user")
+
+businesslogic.rules.R2S_COMMIT_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.R2S_COMMIT_TRANSACTION.request_rule=userHasRole(initiator, "No one")
+businesslogic.rules.R2S_COMMIT_TRANSACTION.commit_rule=userHasRole(initiator, "No one")
+businesslogic.rules.R2S_COMMIT_TRANSACTION.cancel_rule=userHasRole(initiator, "No one")
+
+businesslogic.rules.VOUCHER_PURCHASE_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.VOUCHER_PURCHASE_TRANSACTION.request_rule=userHasRole(initiator, "POS user") || userHasRole(initiator, "POS admin") || userHasRole(initiator, "treasury") || userHasRole(initiator, "Reseller web user") || userHasRole(initiator, "Reseller admin")
+businesslogic.rules.VOUCHER_PURCHASE_TRANSACTION.commit_rule=samePrincipal(initiator, sender)
+businesslogic.rules.VOUCHER_PURCHASE_TRANSACTION.cancel_rule=samePrincipal(initiator, sender)
+
+businesslogic.rules.REVERSE_PURCHASE_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.REVERSE_PURCHASE_TRANSACTION.request_rule=userHasRole(initiator, "POS user")
+businesslogic.rules.REVERSE_PURCHASE_TRANSACTION.commit_rule=userHasRole(initiator, "Super user") || resellerOfType(initiator, "TOPLEVEL")
+businesslogic.rules.REVERSE_PURCHASE_TRANSACTION.cancel_rule=userHasRole(initiator, "Super user") || resellerOfType(initiator, "TOPLEVEL")
+
+businesslogic.rules.REVERSE_VOS_PURCHASE_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.REVERSE_VOS_PURCHASE_TRANSACTION.request_rule= userHasRole(initiator, "Super user") || userHasRole(initiator, "POS user") || userHasRole(initiator, "Customer Care") || userHasRole(initiator, "Administrator")
+businesslogic.rules.REVERSE_VOS_PURCHASE_TRANSACTION.commit_rule= userHasRole(initiator, "Super user")
+businesslogic.rules.REVERSE_VOS_PURCHASE_TRANSACTION.cancel_rule= userHasRole(initiator, "Super user")
+
+businesslogic.rules.REVERSE_VOT_PURCHASE_TRANSACTION.classname=CommitTransactionRule
+businesslogic.rules.REVERSE_VOT_PURCHASE_TRANSACTION.request_rule= userHasRole(initiator, "Super user") || userHasRole(initiator, "POS user") || userHasRole(initiator, "Customer Care") || userHasRole(initiator, "Administrator")
+businesslogic.rules.REVERSE_VOT_PURCHASE_TRANSACTION.commit_rule= userHasRole(initiator, "Super user")
+businesslogic.rules.REVERSE_VOT_PURCHASE_TRANSACTION.cancel_rule= userHasRole(initiator, "Super user")
+
+# Rule for allowing reversal within a specific period
+businesslogic.rules.REVERSAL_ALLOW_PERIOD.classname=ReversalAllowPeriodRule
+# set a timeout value in miliseconds. Reversal will not be allowed if this amount 
+# of time ellapses after the original transaction happened.
+businesslogic.rules.REVERSAL_ALLOW_PERIOD.timeout=18000000
+
+
+# DELINK_SUBRESELLER_RULE
+# Check the permissions for delink of subreseller.
+# permitted to do by checking user role for the user.
+# There are three rules that can be configured: request_rule, commit_rule,
+# and cancel_rule. If they are omitted the rule will reject the corresponding
+# step at execution. Each rule uses two methods: userHasRole and samePrincipal
+# where the available principal arguments are initiator, sender, and receiver.
+# the two rule methods can be combined with && (and) and || (or) in any 
+# combinations. 
+#
+businesslogic.rules.DELINK_SUBRESELLER_RULE.classname=CommitTransactionRule
+businesslogic.rules.DELINK_SUBRESELLER_RULE.request_rule=userHasRole(initiator, "POS user")
+businesslogic.rules.DELINK_SUBRESELLER_RULE.commit_rule=userHasRole(initiator, "POS user")
+
+# LINK_SUBRESELLER_RULE
+# Check the permissions for link of subreseller.
+# permitted to do by checking user role for the user.
+# There are three rules that can be configured: request_rule, commit_rule,
+# and cancel_rule. If they are omitted the rule will reject the corresponding
+# step at execution. Each rule uses two methods: userHasRole and samePrincipal
+# where the available principal arguments are initiator, sender, and receiver.
+# the two rule methods can be combined with && (and) and || (or) in any 
+# combinations. 
+#
+businesslogic.rules.LINK_SUBRESELLER_RULE.classname=CommitTransactionRule
+businesslogic.rules.LINK_SUBRESELLER_RULE.request_rule=userHasRole(initiator, "POS user")
+businesslogic.rules.LINK_SUBRESELLER_RULE.commit_rule=samePrincipal(initiator, receiver)
+businesslogic.rules.LINK_SUBRESELLER_RULE.cancel_rule=samePrincipal(initiator, receiver) || userHasRole(initiator, "POS user")
+
+# RECEIVER_RESELLER_VALIDATE 
+# General rule for validating receiver reseller transactions
+businesslogic.rules.RECEIVER_RESELLER_VALIDATE.classname=ValidateReceiverResellerTransaction
+# A list of denied transaction profile ids for resellers in the frozen state
+businesslogic.rules.RECEIVER_RESELLER_VALIDATE.frozen_profile_id_match=TOPUP
+businesslogic.rules.RECEIVER_RESELLER_VALIDATE.fail_result_code=1105
+
+# MOLLET SPECIFIC RULES
+#
+# This section defines a set of mollet specific business rules, each defined with an id
+# Under each business rule, a parameters can be set that will be used when creating the business rule instance
+# For the actual definition of the rule, see the documentation of the business rule class (specified by classname)
+
+# SUBSCRIBER_VALIDATE 
+
+# MOLLET_VOUCHER_CREATE_COUNTER 
+# Counts the number of mollet create vouchers and puts limits of how many can be done per day/week etc
+businesslogic.rules.MOLLET_VOUCHER_CREATE_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.MOLLET_VOUCHER_CREATE_COUNTER.counter_type_id=MOLLET_VOUCHER_CREATE
+businesslogic.rules.MOLLET_VOUCHER_CREATE_COUNTER.counter_owner=SENDER_ACCOUNT
+businesslogic.rules.MOLLET_VOUCHER_CREATE_COUNTER.counter_period=DAY
+businesslogic.rules.MOLLET_VOUCHER_CREATE_COUNTER.max_value=500
+
+# MOLLET_VOUCHER_REDEEM_COUNTER 
+# Counts the number of mollet vouchers redeemed and puts limits of how many can be done per day/week etc
+businesslogic.rules.MOLLET_VOUCHER_REDEEM_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.MOLLET_VOUCHER_REDEEM_COUNTER.counter_type_id=MOLLET_VOUCHER_REDEEM
+businesslogic.rules.MOLLET_VOUCHER_REDEEM_COUNTER.counter_owner=RECEIVER_ACCOUNT
+businesslogic.rules.MOLLET_VOUCHER_REDEEM_COUNTER.counter_period=DAY
+businesslogic.rules.MOLLET_VOUCHER_REDEEM_COUNTER.max_value=500
+
+# SUBSCRIBER_MOLLET_TRANSFER_COUNTER 
+# Counts the number of mollet transfers and puts limits of how many can be done per day/week etc
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.counter_type_id=MOLLET_TRANSFER
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.counter_owner=SENDER_ACCOUNT
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.counter_period=DAY
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.max_value=100
+businesslogic.rules.SUBSCRIBER_MOLLET_TRANSFER_COUNTER.max_sum=10000000
+
+# MOLLET_TRANSFER_COUNTER_KYC_LOW 
+# Counts the number of mollet transfers and puts limits of how many can be done per day/week etc
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.classname=BusinessCounterCheck
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.counter_type_id=MOLLET_TRANSFER
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.counter_owner=SENDER_ACCOUNT
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.counter_period=DAY
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.kyc_level=LOW
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.max_threshold_value=3
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.max_value=20
+businesslogic.rules.MOLLET_TRANSFER_COUNTER_KYC_LOW.max_sum=10000
+
+# MOLLET_BALANCE_CHECK_KYC_LOW
+# Check mollet balance of receiver having kyc low
+businesslogic.rules.RECEIVER_MOLLET_BALANCE_CHECK_KYC_LOW.classname=AccountBalanceCheck
+businesslogic.rules.RECEIVER_MOLLET_BALANCE_CHECK_KYC_LOW.balance_owner=RECEIVER
+businesslogic.rules.RECEIVER_MOLLET_BALANCE_CHECK_KYC_LOW.kyc_level=LOW
+businesslogic.rules.RECEIVER_MOLLET_BALANCE_CHECK_KYC_LOW.min_value=100
+businesslogic.rules.RECEIVER_MOLLET_BALANCE_CHECK_KYC_LOW.max_value=20000000
+
+businesslogic.rules.CHECK_WEBUSER.classname=AuthorizationTokenRule
+businesslogic.rules.CHECK_WEBUSER.principal_role=Initiator
+businesslogic.rules.CHECK_WEBUSER.token_id=webUser
+
+businesslogic.rules.CHECK_SOURCE_ADDRESS.classname=SourceAddressRule
+
+businesslogic.rules.CHECK_BLOCKED_CHANNELS.classname=ChannelAccessManagementRule
+
+
+businesslogic.rules.CHECK_INITIATOR_PASSWORD_EXPIRY.classname=CheckExpiredPasswordRule
+businesslogic.rules.CHECK_INITIATOR_PASSWORD_EXPIRY.principal_role=Initiator
+
+# Use this rule if you only want to allow the initiator to perform
+# custom operations on herself.
+businesslogic.rules.ONLY_ALLOW_SELF_OPERATION.classname=ExpressionCheckRule
+businesslogic.rules.ONLY_ALLOW_SELF_OPERATION.expression=${(transaction.targetPrincipal?? && transaction.targetPrincipal.principalId.id == transaction.principal.principalId.id)?string}
+businesslogic.rules.ONLY_ALLOW_SELF_OPERATION.fail_result_code=2000
+
+businesslogic.rules.DISTRIBUTOR_TRANSACTION_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.DISTRIBUTOR_TRANSACTION_COUNTER.counter_type_id=DISTRIBUTOR_COUNTER
+businesslogic.rules.DISTRIBUTOR_TRANSACTION_COUNTER.counter_owner=SENDER_ID
+businesslogic.rules.DISTRIBUTOR_TRANSACTION_COUNTER.counter_period=DAY
+businesslogic.rules.DISTRIBUTOR_TRANSACTION_COUNTER.max_value=1000000
+
+businesslogic.rules.AGENT_TRANSACTION_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.AGENT_TRANSACTION_COUNTER.counter_type_id=AGENT_COUNTER
+businesslogic.rules.AGENT_TRANSACTION_COUNTER.counter_owner=SENDER_ID
+businesslogic.rules.AGENT_TRANSACTION_COUNTER.counter_period=DAY
+businesslogic.rules.AGENT_TRANSACTION_COUNTER.max_value=100000
+
+businesslogic.rules.SAGENT_TRANSACTION_COUNTER.classname=BusinessCounterCheck
+businesslogic.rules.SAGENT_TRANSACTION_COUNTER.counter_type_id=SAGENT_COUNTER
+businesslogic.rules.SAGENT_TRANSACTION_COUNTER.counter_owner=SENDER_ID
+businesslogic.rules.SAGENT_TRANSACTION_COUNTER.counter_period=DAY
+businesslogic.rules.SAGENT_TRANSACTION_COUNTER.max_value=10000
+
+businesslogic.rules.VALIDATE_VOUCHER_RECEIVER.classname=ValidateAirtimeAccountRule
+businesslogic.rules.VALIDATE_VOUCHER_RECEIVER.check_receiver=true
+businesslogic.rules.VALIDATE_VOUCHER_RECEIVER.receiver.valid_account_status=Active,Pending,Suspended,Disabled
+
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID.classname=ExpressionCheckRule
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID.expression=<#if (transaction.purchasedProducts)??><#list transaction.purchasedProducts as purchasedProduct><#if (purchasedProduct.purchaseCount)?? && (purchasedProduct.purchaseCount < 2)>true<#else><#if  (transaction.receiverPrincipal)?? && (transaction.receiverPrincipal.principalId)?? && (transaction.receiverPrincipal.principalId.type)?? && (transaction.receiverPrincipal.principalId.type?matches('SUBSCRIBERANONYMOUSID'))>true<#else>false</#if></#if><#break></#list><#else>false</#if>
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID.fail_result_code=1003
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID.expected_value=true
+
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_MSISDN.classname=ExpressionCheckRule
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_MSISDN.expression=<#if (transaction.purchasedProducts)??><#list transaction.purchasedProducts as purchasedProduct><#if (purchasedProduct.purchaseCount)?? && (purchasedProduct.purchaseCount < 2)>true<#else><#if  (transaction.receiverPrincipal)?? && (transaction.receiverPrincipal.principalId)?? && (transaction.receiverPrincipal.principalId.type)?? && (transaction.receiverPrincipal.principalId.type?matches('SUBSCRIBERMSISDN'))>true<#else>false</#if></#if><#break></#list><#else>false</#if>
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_MSISDN.fail_result_code=1004
+businesslogic.rules.VALIDATE_MULTIPLE_VOUCHER_RECEIVER_MSISDN.expected_value=true
+
+# this rule is to allow certain number of free CMBK requests and apply daily/weekly/monthly limits.
+businesslogic.rules.CMBK_COUNTER_CHECK.classname=BusinessCounterCheck
+businesslogic.rules.CMBK_COUNTER_CHECK.counter_type_id=CMBK_COUNTER
+businesslogic.rules.CMBK_COUNTER_CHECK.counter_owner=SENDER_ID
+businesslogic.rules.CMBK_COUNTER_CHECK.counter_period=DAY
+businesslogic.rules.CMBK_COUNTER_CHECK.max_value=1000000
+
+# Configuration for setting default timeout base on transaction type
+#businesslogic.rules.SET_PENDING_TIMEOUT.classname=BeanShellRule
+#businesslogic.rules.SET_PENDING_TIMEOUT.script=rules/set_pending_timeout.bsh 
+
+
+###Check for Subscriber Status Flags (Activation Status Flag, Service Expiry Flag, Supervision Period Expiry Flag
+###Scenarios
+#Scenario 1:
+#############
+#activationStatusFlag = true
+#serviceFeePeriodExpiryFlag = false
+#supervisionPeriodExpiryFlag = false
+#
+# Normal operation, Receiver is Active 
+#############
+#Scenario 2:
+#############
+#activationStatusFlag = false
+#serviceFeePeriodExpiryFlag = false
+#supervisionPeriodExpiryFlag = false
+#
+# Receiver is inActive
+#############
+#Scenario 3:
+#############
+#activationStatusFlag = true
+#serviceFeePeriodExpiryFlag = true
+#supervisionPeriodExpiryFlag = false
+#
+# Receiver is expired
+#############
+#Scenario 4:
+#############
+#activationStatusFlag = true
+#serviceFeePeriodExpiryFlag = false
+#supervisionPeriodExpiryFlag = true
+#
+# Receiver is in grace period
+
+
+
+##Check for Supervision Period Expiry
+businesslogic.rules.SUPERVISION_EXPIRY_CHECK.classname=ExpressionCheckRule
+businesslogic.rules.SUPERVISION_EXPIRY_CHECK.expression=${(transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.activationStatusFlag?matches("true") && transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.supervisionPeriodExpiryFlag?matches("true"))?string}
+businesslogic.rules.SUPERVISION_EXPIRY_CHECK.fail_result_code=1135
+businesslogic.rules.SUPERVISION_EXPIRY_CHECK.expected_value=false
+
+##Check for Service period Expiry
+businesslogic.rules.SERVICE_EXPIRY_CHECK.classname=ExpressionCheckRule
+businesslogic.rules.SERVICE_EXPIRY_CHECK.expression=${(transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.activationStatusFlag?matches("true") && transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.serviceFeePeriodExpiryFlag?matches("true"))?string}
+businesslogic.rules.SERVICE_EXPIRY_CHECK.fail_result_code=1134
+businesslogic.rules.SERVICE_EXPIRY_CHECK.expected_value=false
+
+
+##Check for Receiver activation status
+businesslogic.rules.CHECK_RECEIVER_ACTIVE_STATUS.classname=ExpressionCheckRule
+#businesslogic.rules.CHECK_RECEIVER_ACTIVE_STATUS.expression=${(transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.activationStatusFlag?matches("false"))?string}
+businesslogic.rules.CHECK_RECEIVER_ACTIVE_STATUS.expression=${(transaction.topupPrincipal.subscriberData.getAccountData("AIRTIME").fields.status?matches("false"))?string}
+businesslogic.rules.CHECK_RECEIVER_ACTIVE_STATUS.fail_result_code=1131
+businesslogic.rules.CHECK_RECEIVER_ACTIVE_STATUS.expected_value=false
+
+
+## Config where sender and receiver is fetched using cell tower information
+businesslogic.rules.LOCATION_CHECK_RULE.classname=ResellerLocationRule
+businesslogic.rules.LOCATION_CHECK_RULE.regions_db_url=http://localhost:55432/regions/
+businesslogic.rules.LOCATION_CHECK_RULE.region_lookup_connect_timeout=200
+businesslogic.rules.LOCATION_CHECK_RULE.region_lookup_read_timeout=400
+businesslogic.rules.LOCATION_CHECK_RULE.excluded_reseller_type_ids=operator,distributor,subdistributor,vendor
+businesslogic.rules.LOCATION_CHECK_RULE.fail_on_network_error=false
+businesslogic.rules.LOCATION_CHECK_RULE.fail_on_no_receiver_region=true
+businesslogic.rules.LOCATION_CHECK_RULE.fail_on_no_sender_region=false
+businesslogic.rules.LOCATION_CHECK_RULE.default_region_id=NO_REGION
+businesslogic.rules.LOCATION_CHECK_RULE.default_region_name=NO_REGION
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.regionid_url=http://localhost:55432/cells/
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_lookup_connect_timeout=200
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.cellid_lookup_read_timeout=1500
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.region_lookup_connect_timeout=200
+businesslogic.rules.LOCATION_CHECK_RULE.sender_region_lookup_method.region_lookup_read_timeout=400
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.regionid_url=http://localhost:55432/cells/
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_lookup_connect_timeout=200
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.cellid_lookup_read_timeout=1500
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.region_lookup_connect_timeout=200
+businesslogic.rules.LOCATION_CHECK_RULE.receiver_region_lookup_method.region_lookup_read_timeout=400
+businesslogic.rules.LOCATION_CHECK_RULE.excluded_client_types=web
+
+businesslogic.rules.SENDER_REGION_LOCK_RULE.classname=ResellerRegionLockRule
+businesslogic.rules.SENDER_REGION_LOCK_RULE.regions_db_url=http://localhost:55432/regions/
+businesslogic.rules.SENDER_REGION_LOCK_RULE.region_lookup_connect_timeout=200
+businesslogic.rules.SENDER_REGION_LOCK_RULE.region_lookup_read_timeout=400
+businesslogic.rules.SENDER_REGION_LOCK_RULE.excluded_reseller_level_type_ids=TOPLEVEL,D,SD_SC
+businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_network_error=false
+businesslogic.rules.SENDER_REGION_LOCK_RULE.store_region_only=false
+businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_no_stored_region=false
+businesslogic.rules.SENDER_REGION_LOCK_RULE.fail_on_no_cell_id_region=false
+businesslogic.rules.SENDER_REGION_LOCK_RULE.default_region_id=NO_REGION
+businesslogic.rules.SENDER_REGION_LOCK_RULE.default_region_name=NO_REGION
+businesslogic.rules.SENDER_REGION_LOCK_RULE.resellerType=sender
+businesslogic.rules.SENDER_REGION_LOCK_RULE.stored_region_lookup_method.class_name=com.seamless.ers.txe.location.ResellerDataRegionLookupPlugin
+businesslogic.rules.SENDER_REGION_LOCK_RULE.stored_region_lookup_method.region_group_index=1
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.class_name=com.seamless.ers.txe.location.CellInformationRegionLookupPlugin
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_url=http://localhost:9000/cellid/
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.regionid_url=http://localhost:55432/cells/
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_lookup_connect_timeout=200
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.cellid_lookup_read_timeout=1500
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.region_lookup_connect_timeout=200
+businesslogic.rules.SENDER_REGION_LOCK_RULE.cell_id_region_lookup_method.region_lookup_read_timeout=400
+businesslogic.rules.SENDER_REGION_LOCK_RULE.excluded_client_types=web,promotionsystem
+
+
+# Deposit mobile money request
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.classname=DepositMobileMoneyRequest
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.exclude_purchase_stock_from=MTN
+businesslogic.actions.DEPOSIT_MOBILE_MONEY.service_id_to_unlock=CREDIT_TRANSFER
+
+# Validate mobile money accounts
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.classname=ValidateMobileMoneyAccounts
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.excluded_client_types=
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_sender_momo_account=false
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_receiver_momo_account=false
+businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.validate_sub_reseller_momo_account=false
+#businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.receiver_account_type=MOBILEMONEY
+#businesslogic.rules.VALIDATE_MOBILE_MONEY_ACCOUNT.sender_account_type=MOBILEMONEY
+
+# ACTIONS
+#
+# This section defines a set of business actions, each defined with an id 
+# Under each business action, a parameters can be set that will be used when creating the business action instance
+# For the actual definition of the action, see the documentation of the business action class (specified by classname)  
+
+businesslogic.actions.SET_PREFERRED_SENDER_LANGUAGE.classname=SetPreferredLanguage
+businesslogic.actions.SET_PREFERRED_SENDER_LANGUAGE.principal=Sender
+
+businesslogic.actions.SET_PREFERRED_RECEIVER_LANGUAGE.classname=SetPreferredLanguage
+businesslogic.actions.SET_PREFERRED_RECEIVER_LANGUAGE.principal=Receiver
+
+# TOPUP_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a topup
+businesslogic.actions.TOPUP_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.TOPUP_NOTIFICATION.message_id=TOPUP_NOTIFICATION
+businesslogic.actions.TOPUP_NOTIFICATION.default_language=en
+businesslogic.actions.TOPUP_NOTIFICATION.sender=888
+
+# Sends a notifications SMS to the sender of a topup
+businesslogic.actions.TOPUP_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.TOPUP_NOTIFICATION_TO_SENDER.message_id=TOPUP_NOTIFICATION_TO_SENDER
+businesslogic.actions.TOPUP_NOTIFICATION_TO_SENDER.receiver_principal=sender
+businesslogic.actions.TOPUP_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.TOPUP_NOTIFICATION_TO_SENDER.sender=888
+
+# ETOPUP_TRANSFER_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a etopup transfer  
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION.message_id=ETOPUP_TRANSFER_NOTIFICATION
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION.default_language=en
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION.sender=888
+
+
+# Sends a notifications SMS to the receiver of a etopup transfer  
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER.message_id=ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER.receiver_principal=sender
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER.sender=888
+
+# PURCHASE_NOTIFICATION
+# Sends a purchase notification SMS to the subscriber
+# 
+businesslogic.actions.PURCHASE_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.PURCHASE_NOTIFICATION.message_id=PURCHASE_NOTIFICATION
+businesslogic.actions.PURCHASE_NOTIFICATION.default_language=en
+businesslogic.actions.PURCHASE_NOTIFICATION.sender=888
+
+# PURCHASE_NOTIFICATION_VOS
+# Sends a purchase notification SMS to the subscriber
+#
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.classname=ReceiverSMSNotification
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.message_id=PURCHASE_NOTIFICATION_VOS
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.receiver_principal=expression
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.expression=<#if transaction.receiverPrincipal??>${transaction.receiverPrincipal.subscriberData.subscriberId}<#else>1234</#if>
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.default_language=en
+businesslogic.actions.PURCHASE_NOTIFICATION_VOS.sender=888
+
+# PURCHASE_NOTIFICATION_VOS_TO_SENDER
+# Sends a purchase notification SMS to the reseller
+#
+businesslogic.actions.PURCHASE_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.PURCHASE_NOTIFICATION_TO_SENDER.message_id=PURCHASE_NOTIFICATION_TO_SENDER
+businesslogic.actions.PURCHASE_NOTIFICATION_TO_SENDER.receiver_principal=sender
+businesslogic.actions.PURCHASE_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.PURCHASE_NOTIFICATION_TO_SENDER.sender=888
+
+# CALL_ME_BACK
+# Sends a notification SMS to subscriber
+businesslogic.actions.CALL_ME_BACK.classname=ReceiverSMSNotification
+businesslogic.actions.CALL_ME_BACK.message_id=CALL_ME_BACK
+businesslogic.actions.CALL_ME_BACK.default_language=en
+businesslogic.actions.CALL_ME_BACK.sender=888
+
+# LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION
+# Sends a notification SMS to subscriber in case of a pending link transaction.
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION.message_id=LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION.default_language=en
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION.sender=888
+
+# LINK_SUBRESELLER_REQUEST_NOTIFICATION
+# Sends a notification SMS to subscriber in case of a link transaction.
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_NOTIFICATION.message_id=LINK_SUBRESELLER_REQUEST_NOTIFICATION
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_NOTIFICATION.default_language=en
+businesslogic.actions.LINK_SUBRESELLER_REQUEST_NOTIFICATION.sender=888
+
+# LINK_SUBRESELLER_APPROVAL_NOTIFICATION
+# Sends a notification SMS to reseller
+businesslogic.actions.LINK_SUBRESELLER_APPROVAL_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.LINK_SUBRESELLER_APPROVAL_NOTIFICATION.message_id=LINK_SUBRESELLER_APPROVAL_NOTIFICATION
+businesslogic.actions.LINK_SUBRESELLER_APPROVAL_NOTIFICATION.default_language=en
+businesslogic.actions.LINK_SUBRESELLER_APPROVAL_NOTIFICATION.sender=888
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.LINK_SUBRESELLER_APPROVAL_NOTIFICATION.receiver_principal=sender
+
+# LINK_SUBRESELLER_CANCEL_NOTIFICATION
+# Sends a notification SMS to subscriber
+businesslogic.actions.LINK_SUBRESELLER_CANCEL_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.LINK_SUBRESELLER_CANCEL_NOTIFICATION.message_id=LINK_SUBRESELLER_CANCEL_NOTIFICATION
+businesslogic.actions.LINK_SUBRESELLER_CANCEL_NOTIFICATION.default_language=en
+businesslogic.actions.LINK_SUBRESELLER_CANCEL_NOTIFICATION.sender=888
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.LINK_SUBRESELLER_CANCEL_NOTIFICATION.receiver_principal=sender
+
+# RESELLER_DELINK_SUB_RESELLER_NOTIFICATION
+# Sends a notification SMS to subscriber
+businesslogic.actions.RESELLER_DELINK_SUB_RESELLER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.RESELLER_DELINK_SUB_RESELLER_NOTIFICATION.message_id=RESELLER_DELINK_SUB_RESELLER_NOTIFICATION
+businesslogic.actions.RESELLER_DELINK_SUB_RESELLER_NOTIFICATION.default_language=en
+businesslogic.actions.RESELLER_DELINK_SUB_RESELLER_NOTIFICATION.sender=888
+
+# REQUEST_REVERSAL_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a request-reversal transaction  
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_SENDER.message_id=SENDER_REQUEST_REVERSAL_NOTIFICATION
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_SENDER.sender=MTN
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+# REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER
+# Sends a notifications SMS to the original receiver of a request-reversal transaction 
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER.classname=ReceiverSMSNotification
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER.message_id=RECEIVER_REQUEST_REVERSAL_NOTIFICATION
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER.default_language=en
+businesslogic.actions.REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER.sender=MTN
+
+# REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction  
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER.message_id=SENDER_REVERSAL_NOTIFICATION
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER.sender=MTN
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+# REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER
+# Sends a notifications SMS to the original receiver of a reversal transaction 
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER.classname=ReceiverSMSNotification
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER.message_id=RECEIVER_REVERSAL_NOTIFICATION
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER.default_language=en
+businesslogic.actions.REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER.sender=MTN
+
+# REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction  
+businesslogic.actions.REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.message_id=SENDER_REVERSAL_CANCEL_NOTIFICATION
+businesslogic.actions.REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.sender=MTN
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+# REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction on low balance  
+businesslogic.actions.REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER.message_id=SENDER_REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION
+businesslogic.actions.REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER.sender=MTN
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+#REVERSAL_ON_OLD_TRANSACTION
+# Sends a notifications SMS to the original sender on reversal of old transaction  
+businesslogic.actions.REVERSAL_ON_OLD_TRANSACTION.classname=ReceiverSMSNotification
+businesslogic.actions.REVERSAL_ON_OLD_TRANSACTION.message_id=SENDER_REVERSAL_ON_OLD_TRANSACTION_NOTIFICATION
+businesslogic.actions.REVERSAL_ON_OLD_TRANSACTION.default_language=en
+businesslogic.actions.REVERSAL_ON_OLD_TRANSACTION.sender=MTN
+# Notification address will be fetched from receiver_principal of the transaction
+# As a receiver_principal we can set either receiver or sender.
+# If we do not mention anything by default it will be receiver.
+businesslogic.actions.REVERSAL_ON_OLD_TRANSACTION.receiver_principal=sender
+
+
+# CHANGE_SUBSCRIBER_PASSWORD 
+# Changes the subscriber password 
+# businesslogic.actions.CHANGE_SUBSCRIBER_PASSWORD.classname=ChangeSubscriberPassword
+# businesslogic.actions.CHANGE_SUBSCRIBER_PASSWORD.service_id=ALL
+
+# SENDER_THRESHOLD_BALANCE
+# Sender account balance warning (min)
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.classname=ThresholdSMSNotification
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.threshold_owner=SENDER
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.min_threshold_message_id=SENDER_ACCOUNT_BALANCE_MIN_WARNING
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.remain_min_threshold_parameter=senderAccountBalanceRemainMin
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.default_language=en
+businesslogic.actions.SENDER_THRESHOLD_BALANCE.sender=888
+
+# RECEIVER_THRESHOLD_BALANCE (max)
+# Receiver account balance warning 
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.classname=ThresholdSMSNotification
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.threshold_owner=RECEIVER
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.max_threshold_message_id=RECEIVER_ACCOUNT_BALANCE_MAX_WARNING
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.remain_max_threshold_parameter=receiverAccountBalanceRemainMax
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.default_language=en
+businesslogic.actions.RECEIVER_THRESHOLD_BALANCE.sender=888
+
+# Validating sender of the transaction
+businesslogic.rules.VALIDATE_SENDER_RESELLER_TYPE.classname=ExpressionCheckRule
+businesslogic.rules.VALIDATE_SENDER_RESELLER_TYPE.expression=${(!((transaction.senderPrincipal)?? && (transaction.senderPrincipal.resellerData)?? && (transaction.senderPrincipal.resellerData.resellerTypeId)?? && transaction.senderPrincipal.resellerData.resellerTypeId == "distributor"))?string}
+businesslogic.rules.VALIDATE_SENDER_RESELLER_TYPE.fail_result_code=1086
+
+# MOLLET ACTIONS
+#
+# This section defines a set of business mollet actions, each defined with an id 
+# Under each business action, a parameters can be set that will be used when creating the business action instance
+# For the actual definition of the action, see the documentation of the business action class (specified by classname)  
+
+# MOLLET_VOUCHER_CREATE
+# Sends a notifications SMS to the receiver of a create mollet voucher if receiver has an MSISDN
+businesslogic.actions.MOLLET_VOUCHER_CREATE_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_VOUCHER_CREATE_NOTIFICATION.message_id=MOLLET_VOUCHER_CREATE_NOTIFICATION
+businesslogic.actions.MOLLET_VOUCHER_CREATE_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_VOUCHER_CREATE_NOTIFICATION.sender=888
+
+
+# MOLLET_VOUCHER_REDEEM
+# Sends a notifications SMS to the mollet voucher owner if the owner has an MSISDN, and a notification to the 
+# agent who is redemming the voucher.
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_NOTIFICATION.message_id=MOLLET_VOUCHER_REDEEM_NOTIFICATION
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_NOTIFICATION.sender=888
+
+# MOLLET_VOUCHER_REDEEM
+# Sends a notifications SMS to the mollet voucher creator when the voucher is redeemed.
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION.message_id=MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION.extra_fields.receiverMSISDN=senderId
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION.sender=888
+
+# MOLLET_TRANSFER_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a mollet transfer  
+businesslogic.actions.MOLLET_TRANSFER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_TRANSFER_NOTIFICATION.message_id=MOLLET_TRANSFER_NOTIFICATION
+businesslogic.actions.MOLLET_TRANSFER_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_TRANSFER_NOTIFICATION.sender=888
+
+# MOLLET_WITHDRAWAL_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a mollet withdrawal  
+businesslogic.actions.MOLLET_WITHDRAWAL_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_WITHDRAWAL_NOTIFICATION.message_id=MOLLET_WITHDRAWAL_NOTIFICATION
+businesslogic.actions.MOLLET_WITHDRAWAL_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_WITHDRAWAL_NOTIFICATION.sender=888
+
+# MOLLET_DEPOSIT_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a mollet transfer  
+businesslogic.actions.MOLLET_DEPOSIT_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_DEPOSIT_NOTIFICATION.message_id=MOLLET_DEPOSIT_NOTIFICATION
+businesslogic.actions.MOLLET_DEPOSIT_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_DEPOSIT_NOTIFICATION.sender=888
+
+# MOLLET_REGISTER_NOTIFICATION
+# Sends a notifications SMS to the subscriber
+businesslogic.actions.MOLLET_REGISTER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_REGISTER_NOTIFICATION.message_id=MOLLET_REGISTER_NOTIFICATION
+businesslogic.actions.MOLLET_REGISTER_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_REGISTER_NOTIFICATION.sender=888
+
+# MOLLET_DEREGISTER_NOTIFICATION
+# Sends a notifications SMS to the subscriber
+businesslogic.actions.MOLLET_DEREGISTER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MOLLET_DEREGISTER_NOTIFICATION.message_id=MOLLET_DEREGISTER_NOTIFICATION
+businesslogic.actions.MOLLET_DEREGISTER_NOTIFICATION.default_language=en
+businesslogic.actions.MOLLET_DEREGISTER_NOTIFICATION.sender=888
+
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.classname=IncrementBusinessCounter
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.counter_type_id=WRONG_PIN_ATTEMPTS
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.counter_period=TOTAL
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.counter_max_value=10
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.counter_threshold_value=5
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.set_result_code_above_threshold=1059
+businesslogic.actions.INCREMENT_WRONG_PIN_COUNTER.service_id_to_lock=ETOPUP
+
+businesslogic.actions.RESET_WRONG_PIN_COUNTER.classname=ResetBusinessCounter
+businesslogic.actions.RESET_WRONG_PIN_COUNTER.counter_type_id=WRONG_PIN_ATTEMPTS
+businesslogic.actions.RESET_WRONG_PIN_COUNTER.service_id_to_unlock=ETOPUP
+
+
+# SUPPORT_TRANSFER_NOTIFICATION 
+# Sends a notifications SMS to the receiver of a support transfer  
+businesslogic.actions.SUPPORT_TRANSFER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.SUPPORT_TRANSFER_NOTIFICATION.message_id=SUPPORT_TRANSFER_NOTIFICATION
+businesslogic.actions.SUPPORT_TRANSFER_NOTIFICATION.default_language=en
+businesslogic.actions.SUPPORT_TRANSFER_NOTIFICATION.sender=888
+
+# SUPPORT_TRANSFER_NOTIFICATION 
+# Sends a notifications SMS to the sender of a support transfer  
+businesslogic.actions.SUPPORT_TRANSFER_SENDER_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.SUPPORT_TRANSFER_SENDER_NOTIFICATION.receiver_principal=sender
+businesslogic.actions.SUPPORT_TRANSFER_SENDER_NOTIFICATION.message_id=SUPPORT_TRANSFER_SENDER_NOTIFICATION
+businesslogic.actions.SUPPORT_TRANSFER_SENDER_NOTIFICATION.default_language=en
+businesslogic.actions.SUPPORT_TRANSFER_SENDER_NOTIFICATION.sender=888
+
+# VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER.message_id=VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER.sender=7223
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+# VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.message_id=VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+businesslogic.actions.VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.sender=7223
+businesslogic.actions.VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER.receiver_principal=sender
+# VOD_REVERSAL_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original sender of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_SENDER.message_id=VOD_REVERSAL_NOTIFICATION_TO_SENDER
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_SENDER.sender=7223
+
+# VOD_REVERSAL_NOTIFICATION_TO_RECEIVER
+# Sends a notifications SMS to the original receiver of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_RECEIVER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_RECEIVER.message_id=VOD_REVERSAL_NOTIFICATION_TO_RECEIVER
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_RECEIVER.default_language=en
+businesslogic.actions.VOD_REVERSAL_NOTIFICATION_TO_RECEIVER.sender=7223
+
+# VOD_REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER
+# Sends a notifications SMS to the original receiver of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_RECEIVER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_RECEIVER.message_id=VOD_REVERSAL_APPROVE_NOTIFICATION_TO_RECEIVER
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_RECEIVER.default_language=en
+businesslogic.actions.VOD_REVERSAL_APPROVE_NOTIFICATION_TO_RECEIVER.sender=7223
+
+# VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER
+# Sends a notifications SMS to the original receiver of a reversal transaction
+businesslogic.actions.VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER.classname=ReceiverSMSNotification
+businesslogic.actions.VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER.message_id=VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER
+businesslogic.actions.VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER.default_language=en
+businesslogic.actions.VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER.sender=7223
+businesslogic.actions.VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER.receiver_principal=sender
+
+
+
+###################################
+# Recovery notification to seamless credit service
+###################################
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.classname=TransactionNotification
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.message_id=TRANSFER_NOTIFICATION_QUEUE
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_name=micro-credit-recovery.exchange
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_type=direct
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.exchange_durable=true
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_name=micro-credit-recovery.queue
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_durable=true
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_exclusive=false
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.queue_autoDelete=false
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.routing_key=micro-credit-recovery.queue
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.default_language=en
+# Allowed receiver reseller types comma (,) separated
+businesslogic.actions.TRANSFER_NOTIFICATION_QUEUE.allowed_reseller_type=reseller
+
+
+#MICROCREDIT Notifications
+# Send notificaiton to receiver for successfull microcredit transaction
+businesslogic.actions.MICROCREDIT_REQUEST_NOTIFICATION_TO_RECEIVER.classname=ReceiverSMSNotification
+businesslogic.actions.MICROCREDIT_REQUEST_NOTIFICATION_TO_RECEIVER.message_id=MICROCREDIT_REQUEST_NOTIFICATION
+businesslogic.actions.MICROCREDIT_REQUEST_NOTIFICATION_TO_RECEIVER.default_language=en
+businesslogic.actions.MICROCREDIT_REQUEST_NOTIFICATION_TO_RECEIVER.sender=7223
+
+# Send notification to reseller upon successful microcredit recovery transaction
+
+businesslogic.actions.MICROCREDIT_RECOVERY_NOTIFICATION.classname=ReceiverSMSNotification
+businesslogic.actions.MICROCREDIT_RECOVERY_NOTIFICATION.message_id=MICROCREDIT_RECOVERY_NOTIFICATION
+businesslogic.actions.MICROCREDIT_RECOVERY_NOTIFICATION.default_language=en
+businesslogic.actions.MICROCREDIT_RECOVERY_NOTIFICATION.sender=7223
+businesslogic.actions.MICROCREDIT_RECOVERY_NOTIFICATION.receiver_principal=sender
+
+
+
+# MANUAL_ADJUSTMENT_AMOUNT_CHECK
+# Check amount of support transfer and deposit importer transfer without KYC factor
+businesslogic.rules.MANUAL_ADJUSTMENT_AMOUNT_CHECK.classname=TransactionAmountCheck
+businesslogic.rules.MANUAL_ADJUSTMENT_AMOUNT_CHECK.min_value=1
+businesslogic.rules.MANUAL_ADJUSTMENT_AMOUNT_CHECK.max_value=99999999
+#businesslogic.rules.MANUAL_ADJUSTMENT_AMOUNT_CHECK.currency=IRR
+businesslogic.rules.MANUAL_ADJUSTMENT_AMOUNT_CHECK.currency=IRR
+
+# MAPPING
+#
+# This section maps which rules and actions should be applied to a specific 
+# transaction. All mappings are cumulative, so all mappings that match a specific 
+# transaction will be applied in the order defined below (order given by numbering). 
+# This will result in a chain of rules and actions that will be applied to the 
+# transaction. The rule chain will be applied during the validation phase and 
+# the actions will be performed after the payment phase.
+# Note: Gaps between mapping numbers are allowed.
+#
+# Each mapping defines the following fields:
+# classifier_match        - If the classifier path matches this expression, the mapping will be applied 
+#                           to the transaction
+# rule_chain              - List of rule ids of the rules to apply to the transaction 
+# action_chain            - List of action ids of the actions to apply to the transaction
+# final_action_chain      - List of action ids to be executed at the end of transaction processing
+# classifier_tags         - (optional) if defined, this mapping will ONLY be applied if at least one of
+#                           the classifier tags is present on the transaction
+# exclude_classifier_tags - (optional) if defined, this mapping will not be applied if at least
+#                           one of the exclude tags is present on the transaction
+#
+# All reseller transactions should be validated for reseller state, password etc
+businesslogic.mappings.10.classifier_match=.*/Reseller/.*
+businesslogic.mappings.10.rule_chain=RESELLER_VALIDATE 
+
+businesslogic.mappings.15.classifier_match=.*
+businesslogic.mappings.15.action_chain=SET_PREFERRED_SENDER_LANGUAGE SET_PREFERRED_RECEIVER_LANGUAGE
+
+businesslogic.mappings.20.classifier_match=.*
+#businesslogic.mappings.20.classifier_tags=P2P_TRANSACTION CHANGE_P2P_PASSWORD GET_AIRTIME_BALANCE FAF_TRANSACTION
+businesslogic.mappings.20.classifier_tags=CHANGE_P2P_PASSWORD GET_AIRTIME_BALANCE
+businesslogic.mappings.20.rule_chain=REQUIRE_SENDER_ETOPUP_SERVICE
+
+#businesslogic.mappings.21.classifier_match=.*
+#businesslogic.mappings.21.classifier_tags=P2P_TRANSACTION
+#businesslogic.mappings.21.rule_chain=RECEIVER_ETOPUP_SERVICE_NOT_BLOCKED
+
+# Increments the WRONG_PIN_ATTEMPTS when result code is INCORRECT_PASSWORD
+businesslogic.mappings.30.classifier_match=.*/Subscriber/.*/resultCode=1009
+businesslogic.mappings.30.final_action_chain=INCREMENT_WRONG_PIN_COUNTER
+
+# Reset the WRONG_PIN_ATTEMPTS counter for successful transactions
+businesslogic.mappings.40.classifier_match=.*/Subscriber/.*/resultCode=(0|1)
+businesslogic.mappings.40.exclude_classifier_tags=REDEEM_TRANSACTION
+businesslogic.mappings.40.action_chain=RESET_WRONG_PIN_COUNTER
+
+# TOPUP transactions should send a notification SMS to the receiving subscriber
+# Do not add rules to this mapping. Add to Reseller/TOPUP or Subscriber/TOPUP instead
+businesslogic.mappings.60.classifier_match=.*/(AIRTIME_TOPUP|MOLLET_TOPUP|TOPUP)/.*
+businesslogic.mappings.60.exclude_classifier_tags=SMSCHANNEL EXTERNAL_SOAP_CLIENT
+businesslogic.mappings.60.action_chain=TOPUP_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.61.classifier_match=.*/(AIRTIME_TOPUP|MOLLET_TOPUP|TOPUP)/.*
+businesslogic.mappings.61.action_chain=TOPUP_NOTIFICATION
+
+# AIRTIME_TRANSFER transactions should send a notification SMS to the receiving subscriber
+businesslogic.mappings.70.classifier_match=.*/AIRTIME_TRANSFER/.*
+businesslogic.mappings.70.action_chain=ETOPUP_TRANSFER_NOTIFICATION ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER
+
+# CREDIT_TRANSFER transactions should send a notification SMS to the receiving agent
+businesslogic.mappings.90.classifier_match=.*/CREDIT_TRANSFER/.*
+businesslogic.mappings.90.rule_chain=R2R_HIERARCHY_RULE SENDER_RESELLER_PURCHASE_COUNTER SELF_R2R_CHECK
+businesslogic.mappings.90.classifier_tags=R2R_TRANSACTION
+businesslogic.mappings.90.exclude_classifier_tags=SUPPORT_TRANSFER PROMOTIONSYSTEMCHANNEL
+businesslogic.mappings.90.action_chain=ETOPUP_TRANSFER_NOTIFICATION TRANSFER_NOTIFICATION_QUEUE
+
+
+# CREDIT_TRANSFER transactions should send a notification SMS to the receiving agent
+businesslogic.mappings.91.classifier_match=.*/CREDIT_TRANSFER/.*
+businesslogic.mappings.91.rule_chain=LOCATION_CHECK_RULE SENDER_REGION_LOCK_RULE
+businesslogic.mappings.91.classifier_tags=R2R_TRANSACTION
+businesslogic.mappings.91.exclude_classifier_tags=SUPPORT_TRANSFER PROMOTIONSYSTEMCHANNEL SMSCHANNEL EXTERNAL_SOAP_CLIENT
+businesslogic.mappings.91.action_chain=ETOPUP_TRANSFER_NOTIFICATION_TO_SENDER
+
+#Rule to send sms to receiver in promotion system transaction
+businesslogic.mappings.92.classifier_match=.*/CREDIT_TRANSFER/.*
+businesslogic.mappings.92.classifier_tags=PROMOTIONSYSTEMCHANNEL
+businesslogic.mappings.92.action_chain=ETOPUP_TRANSFER_NOTIFICATION
+
+#Rule to Restrict Self Credit Transfer from Agent Portal
+#businesslogic.mappings.93.classifier_match=.*/CREDIT_TRANSFER/.*
+#businesslogic.mappings.93.rule_chain= SELF_R2R_CHECK_AP
+#businesslogic.mappings.93.classifier_tags=R2R_TRANSACTION
+#businesslogic.mappings.93.channel=WEB
+
+businesslogic.mappings.110.classifier_match=.*/VAS_CMB/.*
+businesslogic.mappings.110.action_chain=CALL_ME_BACK
+
+# All adminuser transactions should be validated for user password etc
+businesslogic.mappings.120.classifier_match=.*/AdminUser/.*
+businesslogic.mappings.120.rule_chain=ADMINUSER_VALIDATE
+
+# Check user role privileges when doing transfer reversals
+businesslogic.mappings.140.classifier_match=.*/REVERSE_TRANSFER/.*
+businesslogic.mappings.140.rule_chain=R2R_COMMIT_TRANSACTION
+
+# Check if self topup is allowed when doing R2S
+businesslogic.mappings.160.classifier_match=.*/Reseller/TOPUP/.*
+businesslogic.mappings.160.rule_chain=SENDER_RESELLER_PURCHASE_COUNTER
+
+# Validate subscriber topups
+businesslogic.mappings.170.classifier_match=.*/Subscriber/.*TOPUP/.*
+businesslogic.mappings.170.exclude_classifier_tags=REDEEM_TRANSACTION
+businesslogic.mappings.170.rule_chain=SELF_TOPUP_CHECK
+
+# Check user role privileges when doing R2R transfer reversals
+businesslogic.mappings.180.classifier_match=.*/REVERSE_CREDIT_TRANSFER/.*
+businesslogic.mappings.180.rule_chain=R2R_COMMIT_TRANSACTION
+
+# Check user role privileges when doing R2S topup reversals
+businesslogic.mappings.190.classifier_match=.*/REVERSE_TOPUP/.*
+businesslogic.mappings.190.rule_chain=VALIDATE_TOPUP_REVERSAL R2S_COMMIT_TRANSACTION
+
+# Check user role privileges when doing VOS Reversal
+businesslogic.mappings.191.classifier_match=.*/REVERSE_VOS_PURCHASE/.*
+businesslogic.mappings.191.rule_chain=REVERSE_VOS_PURCHASE_TRANSACTION
+
+# Check user role privileges when doing VOT Reversal
+businesslogic.mappings.192.classifier_match=.*/REVERSE_VOT_PURCHASE/.*
+businesslogic.mappings.192.rule_chain=REVERSE_VOT_PURCHASE_TRANSACTION
+
+# Reseller voucher purchases should an E-voucher notification
+businesslogic.mappings.193.classifier_match=.*/Reseller/VOS_PURCHASE/REQUEST/Completed/resultCode=0
+businesslogic.mappings.193.final_action_chain=PURCHASE_NOTIFICATION_VOS PURCHASE_NOTIFICATION_TO_SENDER
+
+
+# Reseller voucher purchases should an E-voucher notification
+businesslogic.mappings.200.classifier_match=.*/Reseller/PURCHASE/.*
+businesslogic.mappings.200.action_chain=PURCHASE_NOTIFICATION
+
+businesslogic.mappings.220.classifier_match=.*/REQUEST_REVERSAL/.*
+businesslogic.mappings.220.rule_chain=R2R_COMMIT_TRANSACTION
+
+# Delink of sub-reseller.
+businesslogic.mappings.230.classifier_match=.*/Reseller/RESELLER_DELINK_SUB_RESELLER/.*
+businesslogic.mappings.230.rule_chain=DELINK_SUBRESELLER_RULE
+businesslogic.mappings.230.action_chain=RESELLER_DELINK_SUB_RESELLER_NOTIFICATION
+
+# Link of sub-reseller to either change the transaction to pending or completed.
+# dependent on the settings in the LINK_SUBRESELLER_RULE.
+# Note: The LINK_SUBRESELLER_RULE changes the result code to either completed or pending.
+# This implies that we want to run this rule first for linking so that we can customize
+# actions dependent on the pending result code like notifications.
+businesslogic.mappings.240.classifier_match=.*/(Reseller|AdminUser)/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/.*
+businesslogic.mappings.240.rule_chain=LINK_SUBRESELLER_RULE
+
+# Link of sub-reseller pending state action to send a notification to the sub-reseller.
+businesslogic.mappings.250.classifier_match=.*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/Completed/resultCode=1
+businesslogic.mappings.250.action_chain=LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION
+
+# Link of sub-reseller in non-pending state action to send a notification to the sub-reseller
+# (to inform him that he has been linked by the parent reseller)
+businesslogic.mappings.260.classifier_match=.*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/Completed/resultCode=0
+businesslogic.mappings.260.action_chain=LINK_SUBRESELLER_REQUEST_NOTIFICATION
+
+# Link of sub-reseller direct request
+businesslogic.mappings.270.classifier_match=.*/(Reseller|AdminUser)/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/APPROVE/.*
+businesslogic.mappings.270.rule_chain=LINK_SUBRESELLER_RULE
+businesslogic.mappings.270.action_chain=LINK_SUBRESELLER_APPROVAL_NOTIFICATION
+
+# Link of sub-reseller cancel request in case of the transaction was pending.
+businesslogic.mappings.280.classifier_match=.*/(Reseller|AdminUser)/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/CANCEL/.*
+businesslogic.mappings.280.rule_chain=LINK_SUBRESELLER_RULE
+businesslogic.mappings.280.action_chain=LINK_SUBRESELLER_CANCEL_NOTIFICATION
+
+# Approve Request-Reversal webadmin notification
+businesslogic.mappings.290.classifier_match=.*/AdminUser/REVERSE_CREDIT_TRANSFER/(APPROVE|REQUEST_REVERSAL)/Completed/resultCode=0
+businesslogic.mappings.290.final_action_chain=REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER
+
+# Approve Request-Reversal otherthan webadmin channel notification
+businesslogic.mappings.291.classifier_match=.*/Reseller/(REVERSE_CREDIT_TRANSFER|REVERSE_TOPUP|CREDIT_TRANSFER)/APPROVE/(Completed|Reversed)/resultCode=0
+businesslogic.mappings.291.action_chain=REVERSAL_APPROVAL_NOTIFICATION_TO_SENDER REVERSAL_APPROVAL_NOTIFICATION_TO_RECEIVER
+
+# Request Reversal notification
+businesslogic.mappings.292.classifier_match=.*/Reseller/REVERSE_CREDIT_TRANSFER/REQUEST_REVERSAL/(Completed|ReversalPending)/resultCode=(0|1)
+businesslogic.mappings.292.final_action_chain=REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER REQUEST_REVERSAL_NOTIFICATION_TO_SENDER
+
+# Request Reversal notification only from webadmin on admin user
+businesslogic.mappings.293.classifier_match=.*/AdminUser/REVERSE_CREDIT_TRANSFER/REQUEST_REVERSAL/Completed/resultCode=1
+businesslogic.mappings.293.final_action_chain=REQUEST_REVERSAL_NOTIFICATION_TO_RECEIVER REQUEST_REVERSAL_NOTIFICATION_TO_SENDER
+
+# Reversal on insufficient balance notification
+businesslogic.mappings.298.classifier_match=.*/resultCode=1100
+businesslogic.mappings.298.final_action_chain=REVERSAL_INSUFFICIENT_BALANCE_NOTIFICATION_TO_SENDER
+
+# Reversal on old transaction notification
+businesslogic.mappings.299.classifier_match=.*/REVERSE_CREDIT_TRANSFER/REQUEST_REVERSAL/Completed/resultCode=2010
+businesslogic.mappings.299.final_action_chain=REVERSAL_ON_OLD_TRANSACTION
+
+# Reversal cancel topup notification
+businesslogic.mappings.300.classifier_match=.*/AdminUser/(REVERSE_CREDIT_TRANSFER|REVERSE_TOPUP)/CANCEL/Completed/resultCode=0
+businesslogic.mappings.300.action_chain=REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+
+# Reversal cancel notification
+businesslogic.mappings.301.classifier_match=.*/Reseller/REVERSE_CREDIT_TRANSFER/CANCEL/(Completed|ReversalPending)/resultCode=(0|2009)
+businesslogic.mappings.301.final_action_chain=REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+
+# RESELLER INFO one reseller should be able to fetch balance of anotherreseller
+#businesslogic.mappings.310.classifier_match=.*/Reseller/RESELLER_INFO/.*
+#businesslogic.mappings.310.rule_chain=R2R_PARENT_CHILD_RULE
+
+# MOLLET_DEREGISTER transactions should send a notification SMS to the subscriber
+businesslogic.mappings.330.classifier_match=.*/MOLLET_DEREGISTER/.*
+businesslogic.mappings.330.action_chain=MOLLET_DEREGISTER_NOTIFICATION
+
+# MOLLET_TRANSFER transactions should check and increase the counter and send a notification SMS to the receiver
+businesslogic.mappings.340.classifier_match=.*/Subscriber/MOLLET_TRANSFER/.*
+businesslogic.mappings.340.rule_chain=SUBSCRIBER_MOLLET_TRANSFER_COUNTER SUBSCRIBER_TRANSFER_AMOUNT_CHECK
+businesslogic.mappings.340.action_chain=MOLLET_TRANSFER_NOTIFICATION
+
+# MOLLET_DEPOSIT transactions should send a notification SMS to the receiver
+businesslogic.mappings.350.classifier_match=.*/MOLLET_DEPOSIT/.*
+businesslogic.mappings.350.action_chain=MOLLET_DEPOSIT_NOTIFICATION
+
+# MOLLET_WITHDRAW transactions should send a notification SMS to the receiver
+businesslogic.mappings.360.classifier_match=.*/MOLLET_WITHDRAWAL/.*
+businesslogic.mappings.360.action_chain=MOLLET_WITHDRAWAL_NOTIFICATION
+
+# MOLLET_REGISTER transactions should send a notification SMS to the subscriber
+businesslogic.mappings.370.classifier_match=.*/Reseller/MOLLET_REGISTER/.*
+businesslogic.mappings.370.action_chain=MOLLET_REGISTER_NOTIFICATION
+
+# MOLLET_VOUCHER_CREATE transactions should send a notification SMS to the receiving subscriber
+businesslogic.mappings.380.classifier_match=.*/MOLLET_VOUCHER_CREATE/.*
+businesslogic.mappings.380.rule_chain=MOLLET_VOUCHER_CREATE_COUNTER
+businesslogic.mappings.380.action_chain=MOLLET_VOUCHER_CREATE_NOTIFICATION
+
+# MOLLET_VOUCHER_REDEEM transactions should send a notification SMS to the receiving subscriber
+businesslogic.mappings.390.classifier_match=.*/MOLLET_VOUCHER_REDEEM/.*
+businesslogic.mappings.390.rule_chain=MOLLET_VOUCHER_REDEEM_COUNTER
+businesslogic.mappings.390.action_chain=MOLLET_VOUCHER_REDEEM_NOTIFICATION MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION
+
+# Check user role privileges when doing M2NM transfer reversals
+businesslogic.mappings.400.classifier_match=.*/REVERSE_MOLLET_VOUCHER_CREATE/.*
+businesslogic.mappings.400.rule_chain=R2R_COMMIT_TRANSACTION R2S_COMMIT_TRANSACTION
+
+# Check user role privileges when doing M2M transfer reversals
+businesslogic.mappings.410.classifier_match=.*/REVERSE_MOLLET_TRANSFER/.*
+businesslogic.mappings.410.rule_chain=R2R_COMMIT_TRANSACTION R2S_COMMIT_TRANSACTION
+
+businesslogic.mappings.420.classifier_match=.*/Subscriber/.*
+businesslogic.mappings.420.exclude_classifier_tags=CMBK_TRANSACTION UNUSED_VOUCHER_REPORT
+businesslogic.mappings.420.rule_chain=SUBSCRIBER_PRINCIPAL_AUTH
+
+# To disable authentication for below transaction types
+businesslogic.mappings.421.classifier_match=.*/Reseller/(?!(RESELLER_BALANCE|RESELLER_INFO|REPORT|LAST_TRANSACTIONS|TRANSACTION_STATUS|MOLLET_REGISTER)).*
+businesslogic.mappings.421.exclude_classifier_tags=APPROVE_REG_SUB_RES APPROVE_LINK_SUB_RES CANCEL_REG_SUB_RES MICROCREDIT_TRANSACTION
+businesslogic.mappings.421.rule_chain=RESELLER_PRINCIPAL_AUTH
+
+businesslogic.mappings.422.classifier_match=.*
+businesslogic.mappings.422.exclude_classifier_tags=CHANGE_PASSWORD INFO_REQUEST REDEEM_TRANSACTION
+businesslogic.mappings.422.rule_chain=CHECK_INITIATOR_PASSWORD_EXPIRY
+
+businesslogic.mappings.423.classifier_match=.*
+businesslogic.mappings.423.classifier_tags=EXTERNAL_SOAP_CLIENT WEBCHANNEL
+businesslogic.mappings.423.rule_chain=CHECK_SOURCE_ADDRESS
+
+#Reseller Access channel Mgt
+businesslogic.mappings.424.classifier_match=.*
+businesslogic.mappings.424.classifier_tags=EXTERNAL_SOAP_CLIENT WEBCHANNEL USSDCHANNEL SMSCHANNEL TERMINALPROXYCHANNEL
+businesslogic.mappings.424.exclude_classifier_tags=REDEEM_TRANSACTION
+businesslogic.mappings.424.rule_chain=CHECK_BLOCKED_CHANNELS
+
+
+# Check that the user is allowed for weblogin when connecting through the web channel (=agentportal)
+businesslogic.mappings.430.classifier_match=.*
+businesslogic.mappings.430.classifier_tags=WEBCHANNEL
+businesslogic.mappings.430.rule_chain=CHECK_WEBUSER
+
+businesslogic.mappings.440.classifier_match=.*
+businesslogic.mappings.440.classifier_tags=CUSTOM_OPERATION
+businesslogic.mappings.440.exclude_classifier_tags=CMBK_TRANSACTION
+businesslogic.mappings.440.rule_chain=ONLY_ALLOW_SELF_OPERATION
+
+businesslogic.mappings.451.classifier_match=(ERSTopupTransaction|ERSTransferTransaction)/.*
+businesslogic.mappings.451.classifier_tags=SENDER_DISTRIBUTOR
+businesslogic.mappings.451.rule_chain=DISTRIBUTOR_TRANSACTION_COUNTER
+
+businesslogic.mappings.452.classifier_match=(ERSTopupTransaction|ERSTransferTransaction)/.*
+businesslogic.mappings.452.classifier_tags=SENDER_AGENT
+businesslogic.mappings.452.rule_chain=AGENT_TRANSACTION_COUNTER
+
+businesslogic.mappings.453.classifier_match=(ERSTopupTransaction|ERSTransferTransaction)/.*
+businesslogic.mappings.453.classifier_tags=SENDER_SUBAGENT
+businesslogic.mappings.453.rule_chain=SAGENT_TRANSACTION_COUNTER
+
+# Support transfer should send SMS
+businesslogic.mappings.455.classifier_match=.*/AdminUser/CREDIT_TRANSFER/.*
+businesslogic.mappings.455.rule_chain=MANUAL_ADJUSTMENT_AMOUNT_CHECK
+businesslogic.mappings.455.classifier_tags=WEBADMIN_TRANSACTION
+businesslogic.mappings.455.action_chain=SUPPORT_TRANSFER_NOTIFICATION SUPPORT_TRANSFER_SENDER_NOTIFICATION
+
+businesslogic.mappings.600.classifier_match=.*
+businesslogic.mappings.600.rule_chain=FETCH_SENDER_ACCOUNT_INFO
+
+#businesslogic.mappings.601.classifier_match=.*
+#businesslogic.mappings.601.classifier_tags=R2S_TRANSACTION
+#businesslogic.mappings.601.rule_chain=CHECK_RECEIVER_ACTIVE_STATUS SERVICE_EXPIRY_CHECK SUPERVISION_EXPIRY_CHECK
+
+
+# Reseller voucher purchases should only allow sender to buy/cancel reserved vouchers
+businesslogic.mappings.700.classifier_match=.*/Reseller/PURCHASE/REQUEST/.*
+businesslogic.mappings.700.rule_chain=VOUCHER_PURCHASE_TRANSACTION
+
+# Configuration for setting default timeout base on transaction type
+#businesslogic.mappings.810.classifier_match=TXEPurchaseTransaction/.*/PURCHASE/REQUEST/Completed/resultCode=0
+#businesslogic.mappings.810.rule_chain=SET_PENDING_TIMEOUT
+
+
+# Validate Transfer for MM2ERS - calling BusinessLogic interface of SDPLink
+#businesslogic.mappings.850.classifier_match=.*
+#businesslogic.mappings.850.classifier_tags=MM2ERS_TRANSACTION
+#businesslogic.mappings.850.rule_chain=VALIDATE_TRANSFER_FOR_MM2ERS
+
+# Reseller voucher purchases should send an E-voucher notification
+businesslogic.mappings.601.classifier_match=.*/Reseller/PURCHASE/(APPROVE|REQUEST/Completed)/.*
+# to use subscriber MSISDN only as receiver of the transaction, use VALIDATE_MULTIPLE_VOUCHER_RECEIVER_MSISDN 
+# in the below rule chain instead of VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID   
+#businesslogic.mappings.601.rule_chain=VALIDATE_MULTIPLE_VOUCHER_RECEIVER_ANONYMOUSID VALIDATE_VOUCHER_RECEIVER 
+#businesslogic.mappings.601.rule_chain=VALIDATE_VOUCHER_RECEIVER 
+businesslogic.mappings.601.action_chain=VOUCHER_NOTIFICATION SENDER_PURCHASE_NOTIFICATION
+#businesslogic.mappings.601.final_action_chain=SUBSCRIBER_VOUCHER_LIMIT_NOTIFICATION
+businesslogic.mappings.601.classifier_tags=USSDCHANNEL
+
+#added mapping for Receiver Reseller Validate
+#businesslogic.mappings.604.classifier_match=.*/Reseller/TOPUP/REQUEST/.*
+#businesslogic.mappings.604.rule_chain=RECEIVER_RESELLER_VALIDATE
+
+#added mapping for Reseller-Reversal of own transactions
+businesslogic.mappings.605.classifier_match=.*/(CREDIT_TRANSFER|REVERSE_CREDIT_TRANSFER)/(CANCEL|APPROVE|REQUEST_REVERSAL)/Completed/.*
+businesslogic.mappings.605.rule_chain=RESELLER_REVERSAL_VALIDATE
+businesslogic.mappings.605.exclude_classifier_tags=REVERSAL_WEBADMIN
+
+#added mapping for Deny of reversal transaction
+businesslogic.mappings.606.classifier_match=.*/REVERSE_CREDIT_TRANSFER/CANCEL/.*
+businesslogic.mappings.606.rule_chain=DENY_REVERSAL_USSD
+businesslogic.mappings.606.classifier_tags=USSDCHANNEL
+businesslogic.mappings.606.exclude_classifier_tags=REVERSAL_WEBADMIN
+
+# Validate Reversal Period
+businesslogic.mappings.607.classifier_match=.*/REVERSE_CREDIT_TRANSFER/REQUEST_REVERSAL/.*
+businesslogic.mappings.607.rule_chain=VALIDATE_REVERSAL_PERIOD
+
+businesslogic.mappings.608.classifier_match=.*
+businesslogic.mappings.608.exclude_classifier_tags=CMBK_TRANSACTION
+businesslogic.mappings.608.rule_chain=FETCH_RECEIVER_ACCOUNT_INFO
+
+# maintain CMBK counter per peiod
+businesslogic.mappings.609.classifier_match=.*/Subscriber/CUSTOM_OPERATION_CMBK.*
+businesslogic.mappings.609.rule_chain=CMBK_COUNTER_CHECK
+
+
+businesslogic.mappings.801.classifier_match=.*/MICROCREDIT/.*
+businesslogic.mappings.801.classifier_tags=MICROCREDIT_TRANSACTION
+businesslogic.mappings.801.rule_chain=MICROCREDIT_RECEIVER_BALANCE_CHECK R2R_HIERARCHY_RULE
+
+businesslogic.mappings.802.classifier_match=.*/MICROCREDIT/REQUEST/Completed/resultCode=0
+businesslogic.mappings.802.final_action_chain=MICROCREDIT_REQUEST_NOTIFICATION_TO_RECEIVER
+
+businesslogic.mappings.803.classifier_match=.*/MICROCREDIT_RECOVERY/REQUEST/Completed/resultCode=0
+businesslogic.mappings.803.final_action_chain=MICROCREDIT_RECOVERY_NOTIFICATION
+
+
+
+
+#in case of VOT just send notification to sender/reseller
+businesslogic.mappings.914.classifier_match=.*/VOT_PURCHASE/REQUEST/Completed/resultCode=0
+businesslogic.mappings.914.final_action_chain=PURCHASE_NOTIFICATION_TO_SENDER
+
+
+businesslogic.mappings.915.classifier_match=.*/REVERSE_VOS_PURCHASE/APPROVE/Completed/resultCode=0
+businesslogic.mappings.915.final_action_chain=VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.916.classifier_match=.*/REVERSE_VOT_PURCHASE/APPROVE/Completed/resultCode=0
+businesslogic.mappings.916.final_action_chain=VOD_REVERSAL_APPROVE_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.917.classifier_match=.*/(REVERSE_VOT_PURCHASE|REVERSE_VOS_PURCHASE)/CANCEL/Completed/resultCode=3
+businesslogic.mappings.917.final_action_chain=VOD_REVERSAL_CANCEL_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.918.classifier_match=.*/REVERSE_VOS_PURCHASE/REQUEST_REVERSAL/Completed/resultCode=0
+businesslogic.mappings.918.final_action_chain=VOD_REVERSAL_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.919.classifier_match=.*/REVERSE_VOT_PURCHASE/REQUEST_REVERSAL/Completed/resultCode=0
+businesslogic.mappings.919.final_action_chain=VOD_REVERSAL_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.920.classifier_match=.*/(REVERSE_VOS_PURCHASE|REVERSE_VOT_PURCHASE)/REQUEST_REVERSAL/Completed/resultCode=1
+businesslogic.mappings.920.final_action_chain=VOD_REVERSAL_PENDING_NOTIFICATION_TO_SENDER
+
+businesslogic.mappings.921.classifier_match=.*/Reseller/VOUCHER_REQUERY/.*/Completed/resultCode=0
+businesslogic.mappings.921.classifier_tags=RESELLER_REQUERY_VOUCHER_VOS
+businesslogic.mappings.921.final_action_chain=REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER

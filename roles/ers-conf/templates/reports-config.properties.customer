@@ -1,0 +1,68 @@
+################################################
+# Configuration of reports parameters
+#
+# In this file default values for report parameters
+# are defined, which take precedence over parameter
+# default values inside reports. These parameters can
+# be different depending on the report url and the
+# role of the client.
+#
+# The general format is:
+#
+#[param name].[priority].value=[parameter value]
+#[param name].[priority].matchUrl=[regexp of report urls that should match, optional]
+#[param name].[priority].matchRole=[regexp of roles that should match, optional]
+#
+#
+# Matching is done for all rules, and the rules with same parameter name and
+# higher priority will override the lower priority ones. The order of appearance
+# in this file is not important.
+#
+# Other than parameters passed from this file, two default parameters are allways
+# passed to report too:
+#    _reportUrl: url of the report that is being executed
+#    _roleName: role name of the user running the report
+#
+# Special parameter names are:
+#    dbConnectionUrl : database connection to be used for the report
+#	 _disabledOutputFormats: formats that will be disabled for this report
+#						separated by comma, like CSV, HTML
+#
+# _disabledOutputFormats.1.value=Different output formats, valid values - PDF, EXCEL, CSV, HTML, TEXT(case-sensitive)
+# for all output formats, check com.seamless.ers.interfaces.ersifextlink.medel.ReportOutputTypes
+#_disabledOutputFormats.1.matchUrl=<URL of the reports>
+# To disable output format for all reports, no need to specify matchUrl as matchUrl is
+# not mandatory field for the special parameter - _disabledOutputFormats
+
+# Configuration for disabling logo
+# To hide logo, value = true
+# To show logo, vlaue = false (default value)
+hideLogo.1.value=true
+
+
+
+dbConnectionUrl.1.value=jdbc:mysql://localhost:3306/dataaggregator?user=refill&password=refill&useOldAliasMetadataBehavior=true
+driverClass.1.value=org.mariadb.jdbc.Driver
+dbRefillConnection.1.value=jdbc:mysql://localhost:3306/Refill?user=refill&password=refill&useOldAliasMetadataBehavior=true
+
+supportsystem_url.1.value=http://localhost:8071/supportsystem/services
+supportsystem_username.1.value=
+supportsystem_password.1.value=
+
+toplevel.1.value=OPERATOR
+levelLabels.1.value=Distributor,Subdistributor,Reseller
+levelValues.1.value=distributor,subdistributor,Reseller
+
+defaultCurrency.1.value=IRR
+
+_disabledOutputFormats.1.value=TEXT,EXCEL
+_disabledOutputFormats.1.matchUrl=repo:///Sales/Voucher Stock Snapshot.rptdesign
+
+_disabledOutputFormats.2.value=CSV
+_disabledOutputFormats.2.matchUrl=^repo:///Marketing/Transactions Statistics Report.rptdesign|^repo:///Support/Hourly Usage Statistics.rptdesign|^repo:///Sales/Top Resellers.rptdesign|^repo:///CustomerCare/Transaction Failure Causes Report.rptdesign|^repo:///Sales/Hourly Usage Statistics.rptdesign|^repo:///CustomerCare/Region Based Reseller Account Statement.rptdesign|^repo:///Sales/Resellers with Zero Balance.rptdesign|^repo:///Sales/Purchase Trend Report.rptdesign|^repo:///Sales/Sales Trend Report.rptdesign|^repo:///Sales/Dormant Reseller Report.rptdesign|^repo:///Support/Transactions Statistics Report.rptdesign|^repo:///Sales/Bulk Transactions Detail.rptdesign|^repo:///Sales/Transactions Summary Report.rptdesign
+
+
+channelLabels.1.value=USSD,Web,WebAdmin,Web Service,SMS,Promotion System
+channelValues.1.value=USSD,Web,WebAdmin,WEBSERVICE,SMS,PROMOTIONSYSTEM
+#No. of days for dormant reseller report
+dormantPeriod.1.value=180

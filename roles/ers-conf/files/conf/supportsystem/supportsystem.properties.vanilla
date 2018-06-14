@@ -1,0 +1,833 @@
+# Configuration file for ERS Support System
+#  
+
+node_id=01
+
+# Main supportsystem configuration
+# 
+supportsystem.name=supportsystemDB
+supportsystem.sdb_pool_implementation=dbcp
+supportsystem.db_driver=org.mariadb.jdbc.Driver
+supportsystem.db_url=jdbc:mariadb://localhost/supportsystem
+supportsystem.db_user=refill
+supportsystem.db_password=refill
+
+# supportsystem connection pool configuration
+#
+supportsystem.pool_max_size=100
+supportsystem.pool_min_size=1
+supportsystem.pool_test_while_idle=false
+supportsystem.pool_test_on_borrow=false
+supportsystem.pool_test_on_return=false
+supportsystem.pool_time_between_eviction_runs_millis=600000
+supportsystem.pool_min_evictable_idle_time_millis=60000
+supportsystem.pool_num_tests_per_eviction_run=10
+supportsystem.pool_validation_query=SELECT 1
+supportsystem.pool_timeout=300000
+supportsystem.pool_query_timeout=12000
+
+# Flow control settings
+# 
+flowcontrol.default.asynchronous=false
+flowcontrol.default.cooldown_time=100
+flowcontrol.default.max_parallel_requests=40
+
+# Locale settings
+locale.default_currency=EUR
+locale.decimal_separator=,
+locale.thousand_separator=.
+locale.default_country_code=46
+locale.default_network_code=70
+locale.subscriber_number_digits=7
+
+# JVM parameters
+#
+#env.jre.start_heap=128m
+#env.jre.max_heap=512m
+#env.jre.opts=
+
+# This is the URL under which the support services interface is exported, 
+#
+servicesURL=http://0.0.0.0:8071/supportsystem/services
+
+# This is the URL under which the support reports interface is exported, 
+#
+reportsURL=http://0.0.0.0:8071/supportsystem/reports
+
+# This is the URL under which ERSWSSupportService interface is exported, 
+#
+supportURL=http://0.0.0.0:8071/supportsystem/support
+
+# The default graceful shutdown time for stopping the server in milliseconds.
+# In case a shutdown takes longer time, a warning message will be printed in the log. 
+servicemanager.shutdown_hooks=SIGHUP:timeout=60000
+
+# Location of transaction exporting service
+ers.connections.transaction_exporting.url=http://0.0.0.0:8777/txe/transactionExporting
+
+# Location of all principal systems and which principal id types they handle
+#
+principal_systems.SUBSCRIBERS.id_types=SUBSCRIBERID SUBSCRIBERMSISDN SUBSCRIBERANONYMOUSID SUBSCRIBERKEY
+principal_systems.SUBSCRIBERS.url=http://localhost:8087/principal
+principal_systems.RESELLERS.id_types=RESELLERID RESELLERUSER RESELLERMSISDN RESELLERIDANDMSISDN ADMINUSER TERMINALID
+principal_systems.RESELLERS.url=http://localhost:8912/principalService
+
+# Mockup transaction configuration
+# 
+#transactionlog.class_name =com.seamless.ers.components.supportsystem.mockup.MockArchiveFactory
+#transactionlog.generation.strategy=RANDOM
+#transactionlog.generation.distributor_count=30
+#transactionlog.generation.agent_count=10
+#transactionlog.generation.subagent_count=100
+#transactionlog.generation.simulated_TPS=60
+
+# Transaction log provider settings
+transactionlog.class_name=com.seamless.ers.txe.transactionlog.xmlbeans.XMLBeansTransactionLoggingFactory
+transactionlog.log.active=false
+
+transactionlog.archive.db_driver=org.mariadb.jdbc.Driver
+transactionlog.archive.sdb_pool_implementation=dbcp
+transactionlog.archive.db_url=jdbc:mariadb://localhost/transactionlog
+transactionlog.archive.db_user=refill
+transactionlog.archive.db_password=refill
+transactionlog.archive.pool_min_size=1
+transactionlog.archive.pool_max_size=40
+transactionlog.archive.pool_simultaneous_build_throttle=40
+transactionlog.archive.pool_query_timeout=600000
+transactionlog.archive.fetch_timeout=600000
+transactionlog.reference_sequence_digits=6
+transactionlog.reference_timestamp_format=yyyyMMddHHmmssSSS
+
+
+#transactionlog.log.cache.cluster.1.url =localhost:7001
+#transactionlog.log.cache.cluster.2.url =localhost:7003
+#transactionlog.log.cache.cluster.3.url =localhost:7005
+##################################################
+# Set to true if distributed locking is to be used (For active active)
+##################################################
+transactionlog.log.useDistributedLocking=false
+#transactionlog.log.transactionlocktimeout=60000
+#transactionlog.log.locktimeout=600000
+
+
+# How many transactions to import in each batch
+#
+importing.batch_size=1000
+
+# How long to pause between batches
+#
+importing.loop_period=1s
+
+# How long to pause before importing starts
+#
+#importing.initial_sleep=15s
+
+# Whether the import processing is active for this support service instance
+# 
+importing.active=true
+
+# The defined search roles
+# These map against the provided search principal role id and 
+#  defines restrictions on the searches for that role
+# For each role, the following fields ca be set:
+#
+# max_time_span = The maximum time span that is allowed for searches
+#                 Any longer specified time span will be truncated
+#
+# default_time_span - If no time span is specified, 
+#                     this is the time span that will be used
+#                     Mainly, if no time interval is specified the search will
+#                     automatically apply from this time until the current. 
+#
+# max_count_limit   - Max value of the maxCount parameter limiting the 
+#                     max number of transactions returned.
+#                     If a larger value is specified it will be truncated
+#                     to this value.
+#
+# only_own_transactions - If true, only transactions related to the 
+#                         searching principal will be shown.
+#                         (ie where he/she is the initiator/sender/receiver)  
+#
+# no_access             - If true, this role will not be allowed to do any
+#                         searches.
+#                         Any search will return 
+#                         SEARCH_RESTRICTIONS_EXCEEDED (61)
+#
+
+# Default search role to use if the specified role id was not found
+# 
+default_search_role=AGENT
+
+# Default support role is allowed to search on very long time spans
+# (up to 30 days) 
+#
+search_roles.SUPPORT.max_time_span=30d
+
+# The default support role by default only searches for transactions one day back
+#
+search_roles.SUPPORT.default_time_span=1d
+
+# The default support role by default can see any transactions
+#
+search_roles.SUPPORT.only_own_transactions=false
+
+# Default agent role is only allowed to search withing a period of 7 days in one search 
+#
+search_roles.AGENT.max_time_span=7d
+
+# The default agent role by default can only see transactions related to the agent doing the search
+#
+search_roles.AGENT.only_own_transactions=true
+
+# Default agent role is only allowed to search withing a period of 7 days in one search 
+#
+search_roles.SUBSCRIBER.max_time_span=7d
+
+# The default agent role by default can only see transactions related to the agent doing the search
+#
+search_roles.SUBSCRIBER.only_own_transactions=true
+
+
+search_roles.Reseller_admin.only_own_transactions=false
+
+
+# The location of the template that defines the search table
+# DONT TOUCH UNLESS YOU KNOW VERY WELL WHAT YOU ARE DOING! WARNING!
+#
+search_tables.table_template=search_tables_template.sql
+
+# Defines how long time span to keep in each separate table
+# The supported intervals are :
+# 1 DAY - (extreme, only use for testing)
+# 1 MONTH - (default)
+# 1 WEEK 
+#
+search_tables.table_division_interval=1 MONTH
+
+# The format of the table name suffix
+#
+search_tables.table_date_format=yyyyMM
+
+# The minimum time backwards in time (from latest transaction) that should be searchable
+# Search data older than this will automatically be dropped
+# If this is not set or set to 0, old transaction data will be kept indefinitely
+#
+search_tables.min_search_history_length=120d
+
+# Definition of all search fields that should be searchable in the support system
+# For each field:
+#  field_id    - The unique id for the field, used when specifying which search fields to use for a search etc
+#  description - Textual description of the field
+#  expression  - freemarker expression used to extract the data to put in this field
+#                if this results in an empty string, it will be ignored for that transactin
+#  type_id     - Identifier for the logical datatype, used to be able to group/validate input 
+#                by the client before searching
+#
+search_tables.search_fields.1.field_id=INITIATOR_RESELLER_ID
+search_tables.search_fields.1.description=Reseller id of initiator
+search_tables.search_fields.1.expression=${(transaction.principal.resellerId)!""}
+search_tables.search_fields.1.type_id=RESELLERID
+
+search_tables.search_fields.2.field_id=SENDER_RESELLER_ID
+search_tables.search_fields.2.description=Reseller id of sender
+search_tables.search_fields.2.expression=${(transaction.senderPrincipal.resellerId)!""}
+search_tables.search_fields.2.type_id=RESELLERID
+
+search_tables.search_fields.3.field_id=RECEIVER_RESELLER_ID
+search_tables.search_fields.3.description=Reseller id of receiver
+search_tables.search_fields.3.expression=${(transaction.receiverPrincipal.resellerId)!""}
+search_tables.search_fields.3.type_id=RESELLERID
+
+search_tables.search_fields.4.field_id=INITIATOR_RESELLER_MSISDN
+search_tables.search_fields.4.description=Reseller MSISDN id of initiator
+search_tables.search_fields.4.expression=${(transaction.principal.resellerMSISDN)!""}
+search_tables.search_fields.4.type_id=MSISDN
+
+search_tables.search_fields.5.field_id=SENDER_RESELLER_MSISDN
+search_tables.search_fields.5.description=Reseller MSISDN id of receiver
+search_tables.search_fields.5.expression=${(transaction.senderPrincipal.resellerMSISDN)!""}
+search_tables.search_fields.5.type_id=MSISDN
+
+search_tables.search_fields.6.field_id=RECEIVER_RESELLER_MSISDN
+search_tables.search_fields.6.description=Reseller MSISDN id of initiator
+search_tables.search_fields.6.expression=${(transaction.receiverPrincipal.resellerMSISDN)!""}
+search_tables.search_fields.6.type_id=MSISDN
+
+search_tables.search_fields.7.field_id=INITIATOR_SUBSCRIBER_MSISDN
+search_tables.search_fields.7.description=Subscriber MSISDN id of initiator
+search_tables.search_fields.7.expression=${(transaction.principal.subscriberMSISDN)!""}
+search_tables.search_fields.7.type_id=MSISDN
+
+search_tables.search_fields.8.field_id=SENDER_SUBSCRIBER_MSISDN
+search_tables.search_fields.8.description=Subscriber MSISDN id of sender
+search_tables.search_fields.8.expression=${(transaction.senderPrincipal.subscriberMSISDN)!""}
+search_tables.search_fields.8.type_id=MSISDN
+
+search_tables.search_fields.9.field_id=RECEIVER_SUBSCRIBER_MSISDN
+search_tables.search_fields.9.description=Subscriber MSISDN id of receiver
+search_tables.search_fields.9.expression=${(transaction.receiverPrincipal.subscriberMSISDN)!""}
+search_tables.search_fields.9.type_id=MSISDN
+
+search_tables.search_fields.10.field_id=PURCHASED_EVOUCHER_SERIAL
+search_tables.search_fields.10.description=Purchased E-Voucher serial
+search_tables.search_fields.10.expression= <#if transaction.voucherSets ??><#list transaction.voucherSets as voucherSet><#list voucherSet.vouchers as voucher>${voucher.serial}|</#list></#list></#if>
+search_tables.search_fields.10.type_id=E-voucher serial
+search_tables.search_fields.10.multi_value_delimiter=|
+
+search_tables.search_fields.11.field_id=INITIATOR_SUBMITTED_ID
+search_tables.search_fields.11.description=Submitted id of initiator
+search_tables.search_fields.11.expression=${(transaction.principal.primaryPrincipalId.id)!"MISSING"}
+search_tables.search_fields.11.type_id=SUBMITTEDID
+
+search_tables.search_fields.12.field_id=INITIATOR_SUBSCRIBER_ID
+search_tables.search_fields.12.description=Subscriber id of initiator
+search_tables.search_fields.12.expression=${(transaction.principal.subscriberId)!""}
+search_tables.search_fields.12.type_id=SUBSCRIBERID
+
+
+search_tables.search_fields.13.field_id=SENDER_REGION_NAME
+search_tables.search_fields.13.description=Sender Region ID
+search_tables.search_fields.13.expression=${transaction.resultProperties.get("senderRegionName")!""}
+search_tables.search_fields.13.type_id=SENDERREGIONNAME
+
+search_tables.search_fields.14.field_id=RECEIVER_REGION_NAME
+search_tables.search_fields.14.description=Receiver Region NAME
+search_tables.search_fields.14.expression=${transaction.resultProperties.get("receiverRegionName")!""}
+search_tables.search_fields.14.type_id=RECEIVERREGIONID
+
+search_tables.search_fields.15.field_id=SENDER_PARENT_ID
+search_tables.search_fields.15.description=Sender Parent ID
+search_tables.search_fields.15.expression=${(transaction.senderPrincipal.parentResellerId)!""}
+search_tables.search_fields.15.type_id=SENDERPARENTID
+
+search_tables.search_fields.16.field_id=RECEIVER_PARENT_ID
+search_tables.search_fields.16.description=Receiver Parent ID
+search_tables.search_fields.16.expression=${(transaction.receiverPrincipal.parentResellerId)!""}
+search_tables.search_fields.16.type_id=RECEIVERPARENTID
+
+#search_tables.search_fields.13.field_id=RECEIVER_SUBSCRIBER_ANONYMOUSID
+#search_tables.search_fields.13.description=Subscriber Anonymous id of receiver
+#search_tables.search_fields.13.expression=${(transaction.topupPrincipal.principalId.id)!""}
+#search_tables.search_fields.13.type_id=ID
+
+#search_tables.search_fields.14.field_id=ORDER_INFO
+#search_tables.search_fields.14.description=ORDER INFO
+#search_tables.search_fields.14.expression=<#if transaction.transactionProperties??>${transaction.transactionProperties.get("ORDER-INFO")}</#if>
+#search_tables.search_fields.14.type_id=ORDER_INFO
+
+# Search tags that will be stored on each transaction.
+#
+# Each tag configuration should contain:
+#	id					- Unique id of the tag
+#	description			- Description of the tag
+#	condition			- On what condition should this tag be applied. The tag
+#						  will be applied if the condition is equal to "true"
+#
+#search_tables.search_tags.1.tag_id=AIRTIME_TRANSFER
+#search_tables.search_tags.1.description=Airtime transfer
+#search_tables.search_tags.1.condition=<#if (transaction.getSenderAccount().getAccountTypeId())??><#if transaction.getSenderAccount().getAccountTypeId() = "RESELLER_AIRTIME">true</#if></#if>
+#search_tables.search_tags.2.tag_id=VALIDITY_TRANSFER
+#search_tables.search_tags.2.description=Validity transfer
+#search_tables.search_tags.2.condition=<#if (transaction.getSenderAccount().getAccountTypeId())??><#if transaction.getSenderAccount().getAccountTypeId() = "RESELLER_VALIDITY">true</#if></#if>
+
+# Configuration of dynamic transaction types
+#
+# For each field:
+#  id                   - The unique id for dynamic transaction type
+#  name                 - Name to show for a transaction of this dynamic type 
+#  search_name          - Name to show when searching for transactions 
+#                         of this type typically a plural version of the name 
+#  description          - Textual description of the transaction type, 
+#                         can be shown in popups/help etc
+#  profile_ids          - Space separated list of the profile ids that 
+#                         are considered to belong to this type 
+#  type_ids             - Space separated list of the transaction types that are 
+#                         considered to belong to this type 
+#  search_tags			- Space separated list of search tags that are
+#                         considered to belong to this type 
+#  result_codes         - Space separate list of the result codes that are 
+#                         considered to belong to this type
+#  exclude_result_codes - Space separate list of the result codes that are 
+#                         NOT considered to belong to this type
+#  search_only          - If this is true, this type will only be used when 
+#                         searching and might overlap other types.
+#
+transaction_types.1.id=TOPUP
+transaction_types.1.name=Topup
+transaction_types.1.search_name=Topups
+transaction_types.1.description=Topup
+transaction_types.1.profile_ids=TOPUP
+transaction_types.2.id=CREDIT_TRANSFER
+transaction_types.2.name=Credit transfer
+transaction_types.2.search_name=Credit transfers
+transaction_types.2.description=Credit transfer
+transaction_types.2.profile_ids=CREDIT_TRANSFER
+transaction_types.3.id=REGISTER_WEB_USER
+transaction_types.3.profile_ids=REGISTER_WEB_USER
+transaction_types.3.name=Web user registration
+transaction_types.3.search_name=Web user registrations
+transaction_types.4.id=CHANGE_PASSWORD
+transaction_types.4.profile_ids=RESELLER_USER_CHANGE_PASSWORD CHANGE_PASSWORD
+transaction_types.4.name=Password change
+transaction_types.4.description=Password change
+transaction_types.4.search_name=Password changes
+transaction_types.5.id=REVERSE_CREDIT_TRANSFER
+transaction_types.5.profile_ids=REVERSE_CREDIT_TRANSFER
+transaction_types.5.name=Credit transfer reversal
+transaction_types.5.search_name=Credit transfer reversals
+transaction_types.6.id=REVERSE_TOPUP
+transaction_types.6.profile_ids=REVERSE_TOPUP
+transaction_types.6.name=Topup reversal
+transaction_types.6.search_name=Topup reversals
+transaction_types.7.id=MOLLET_VOUCHER_CREATE
+transaction_types.7.profile_ids=MOLLET_VOUCHER_CREATE
+transaction_types.7.name=Mollet to non-mollet transfer
+transaction_types.7.search_name=Mollet to non-mollet transfers
+transaction_types.8.id=MOLLET_TRANSFER
+transaction_types.8.profile_ids=MOLLET_TRANSFER
+transaction_types.8.name=Mollet transfer
+transaction_types.8.search_name=Mollet transfers
+transaction_types.9.id=MOLLET_VOUCHER_REDEEM
+transaction_types.9.profile_ids=MOLLET_VOUCHER_REDEEM
+transaction_types.9.name=Mollet to non-mollet cashout
+transaction_types.9.search_name=Mollet to non-mollet cashouts
+transaction_types.10.id=REVERSE_MOLLET_VOUCHER_CREATE
+transaction_types.10.profile_ids=REVERSE_MOLLET_VOUCHER_CREATE
+transaction_types.10.name=Mollet to non-mollet reversal
+transaction_types.10.search_name=Mollet to non-mollet reversals
+transaction_types.11.id=REVERSE_MOLLET_TRANSFER
+transaction_types.11.profile_ids=REVERSE_MOLLET_TRANSFER
+transaction_types.11.name=Mollet transfer reversal
+transaction_types.11.search_name=Mollet transfer reversals
+transaction_types.12.id=RESELLER_DEPOSIT
+transaction_types.12.profile_ids=RESELLER_DEPOSIT
+transaction_types.12.name=Reseller deposit
+transaction_types.12.search_name=Reseller deposits
+transaction_types.13.id=RESELLER_LINK_SUB_RESELLER
+transaction_types.13.profile_ids=RESELLER_LINK_SUB_RESELLER
+transaction_types.13.name=Sub-reseller link
+transaction_types.13.search_name=Sub-reseller links
+transaction_types.14.id=RESELLER_DELINK_SUB_RESELLER
+transaction_types.14.profile_ids=RESELLER_DELINK_SUB_RESELLER
+transaction_types.14.name=Sub-reseller de-link
+transaction_types.14.search_name=Sub-reseller de-links
+transaction_types.15.id=REGISTER_SUB_RESELLER
+transaction_types.15.profile_ids=REGISTER_SUB_RESELLER
+transaction_types.15.name=Sub-reseller registration
+transaction_types.15.search_name=Sub-reseller registrations
+transaction_types.16.id=REVERSAL
+transaction_types.16.name=Reversal
+transaction_types.16.search_name=Reversal transactions
+transaction_types.16.profile_ids=REVERSE_CREDIT_TRANSFER REVERSE_TOPUP REVERSE_MOLLET_VOUCHER_CREATE REVERSE_MOLLET_TRANSFER REVERSE_PURCHASE
+transaction_types.16.only_for_search=true
+#VAS_FAF_ADD remove as FAF_ADD operation now supported using custom operation
+#transaction_types.17.id=VAS_FAF_ADD
+#transaction_types.17.name=FaF Add
+#transaction_types.17.search_name=FaF Adds
+#transaction_types.17.description=FaF Add
+#transaction_types.17.profile_ids=VAS_FAF_ADD
+transaction_types.17.id=FAF_TRANSACTIONS
+transaction_types.17.name=FAF Transactions
+transaction_types.17.search_name=FAF Transactions
+transaction_types.17.description=FAF Transactions like Add, Remove, List, replace
+transaction_types.17.profile_ids=CUSTOM_OPERATION_FAF_ADD, CUSTOM_OPERATION_FAF_INFO, CUSTOM_OPERATION_FAF_REMOVE, CUSTOM_OPERATION_FAF_REPLACE
+transaction_types.18.id=VAS_SC_CHANGE
+transaction_types.18.name=SC change
+transaction_types.18.search_name=SC changes
+transaction_types.18.description=Service class changes
+transaction_types.18.profile_ids=VAS_SC_CHANGE
+transaction_types.19.id=MOLLET_DEPOSIT
+transaction_types.19.profile_ids=MOLLET_DEPOSIT
+transaction_types.19.name=Mollet deposit
+transaction_types.19.search_name=Mollet deposit
+transaction_types.20.id=MOLLET_WITHDRAWAL
+transaction_types.20.profile_ids=MOLLET_WITHDRAWAL
+transaction_types.20.name=Mollet withdrawal
+transaction_types.20.search_name=Mollet withdrawal
+transaction_types.21.id=PURCHASE_VOUCHERS
+transaction_types.21.profile_ids=PURCHASE_VOUCHERS
+transaction_types.21.name=Purchase vouchers
+transaction_types.21.search_name=Purchase vouchers
+transaction_types.22.id=AIRTIME_TRANSFER
+transaction_types.22.profile_ids=AIRTIME_TRANSFER
+transaction_types.22.name=Airtime transfer
+transaction_types.22.search_name=Airtime transfer
+transaction_types.23.id=AIRTIME_TOPUP
+transaction_types.23.profile_ids=AIRTIME_TOPUP
+transaction_types.23.name=Airtime topup
+transaction_types.23.search_name=Airtime topup
+transaction_types.24.id=REVERSE_PURCHASE
+transaction_types.24.profile_ids=REVERSE_PURCHASE
+transaction_types.24.name=Purchase reversal
+transaction_types.24.search_name=Purchase reversals
+
+###################################################
+# Refund transaction type
+###################################################
+# (This is a precodition to using refunds)
+#
+transaction_types.25.id=REFUND
+transaction_types.25.name=Refund
+transaction_types.25.search_name=Refund
+transaction_types.25.description=Refund
+transaction_types.25.profile_ids=REFUND
+
+transaction_types.26.id=GRATIFICATION
+transaction_types.26.name=Gratification
+transaction_types.26.search_name=Gratification
+transaction_types.26.description=Gratification
+transaction_types.26.profile_ids=GRATIFICATION
+
+#
+# The other transaction shall always be the last type!
+#
+transaction_types.27.id=OTHER
+transaction_types.27.name=Other 
+transaction_types.27.profile_ids=CHANGE_PASSWORD,RESELLER_ACTIVATE,UPDATE_RESELLER,UPDATE_RESELLER_PAYLIMIT,RESELLER_DEACTIVATE,GET_PRINCIPAL_INFORMATION,REQUEST_ACCOUNT_OPERATION,GET_USER_INFO,GET_BUSINESS_COUNTER,REPORT,RESELLER_INFO,GET_SUBSCRIBER_INFO,SUB_RESELLER_SEARCH,SUB_RESELLER_TYPES,REGISTER_SUB_RESELLER,TRANSACTIONS_SEARCH,GET_ANONYMOUSID,ACTIVATE_ANONYMOUS_ID,DEACTIVATE_ANONYMOUS_ID,BLOCK_RESELLER,UNBLOCK_RESELLER,RESET_BUSINESS_COUNTER,REPORT_SOLD_VOUCHERS,REGISTER_WEB_USER,ACTIVATE_SERVICE,RESELLER_LINK_SUB_RESELLER,RESELLER_DELINK_SUB_RESELLER,SYSTEM_INFO,SYSTEM_OPERATION,LAST_TRANSACTIONS,TRANSACTION_STATUS,GET_ACCOUNT_INFO,FREEZE_RESELLER,UNFREEZE_RESELLER,BLOCK_VOUCHER,UNBLOCK_VOUCHER,REGISTER_RESELLER_VISIT,CONFIRM_RESELLER_VISIT
+transaction_types.27.search_name=Other transactions
+transaction_types.27.description=Other transactions
+
+# Configuration of tracking of transactions
+#
+
+# Wether to use the transaction tracking feature
+# if false, no tracking info will be generated for new transactions
+#
+transaction_tracking.active=true
+
+# How long back tracked transactions should be searchable after they have a final (updated) status
+#
+transaction_tracking.min_search_history_length=120d
+
+# List of all tracking reasons
+# For each reason:
+#  id                - The unique id for this tracking reason, can be used 
+#                      to filter tracking based on reason. The id can be set as
+#                      a FreeMarker template, which is processed using a
+#                      transaction object when importing. The static part of the
+#                      id must also be unique. In the following example
+#                      PENDING_REG is the static part. Ids for any two 
+#                      transactions need to be the same if transaction is null.
+#                      Example: ...id=PENDING_REG<#if (transaction.receiverPrincipal.submittedPrincipalId.id)??>_${transaction.receiverPrincipal.submittedPrincipalId.id}</#if>
+#  description       - The description of this tracking reason
+#  transaction_types - Only include transactions with these transaction types 
+#  profile_ids       - Only include transactions with these profile ids 
+#  result_codes      - Only include transactions with these result codes
+#  operations        - Only include transactions with these operations
+#  chain_states      - Only include transactions with these chain states
+#  tracking_status   - The initial tracking status value (integer)
+#  comment           - The tracking comment to apply (optional)
+#  final             - Make the transaction final when importing
+#
+# For each reason, a number of update rules can be specified, which will
+# be triggered for any transaction referring to the tracked transaction and
+# that matches the filtering rules.
+# For each update rule:
+#  transaction_types - Only include transactions with these transaction types 
+#  profile_ids       - Only include transactions with these profile ids 
+#  result_codes      - Only include transactions with these result codes
+#  operations        - Only include transactions with these operations
+#  chain_states      - Only include transactions with these chain states
+#  tracking_status   - The updated tracking status to set
+#  comment           - The updated tracking comment to set (optional)
+#  final             - If this status update is final, meaning that this tracking can be deleted 
+#                      (when older than transaction_tracking.min_search_history_length)
+#
+ 
+# PENDING - Pending transactions, will track all transactions with result code 201 (pending) , or 1 for old interface
+# 
+transaction_tracking.tracking_reasons.1.id=PENDING
+transaction_tracking.tracking_reasons.1.result_codes=201
+transaction_tracking.tracking_reasons.1.comment=Pending transaction
+transaction_tracking.tracking_reasons.1.tracking_status=0
+transaction_tracking.tracking_reasons.1.update_rules.1.result_codes=0
+transaction_tracking.tracking_reasons.1.update_rules.1.operations=APPROVE
+transaction_tracking.tracking_reasons.1.update_rules.1.tracking_status=1
+transaction_tracking.tracking_reasons.1.update_rules.1.comment=Approved
+transaction_tracking.tracking_reasons.1.update_rules.1.final=true
+transaction_tracking.tracking_reasons.1.update_rules.2.operations=CANCEL
+transaction_tracking.tracking_reasons.1.update_rules.2.result_codes=100
+transaction_tracking.tracking_reasons.1.update_rules.2.tracking_status=2
+transaction_tracking.tracking_reasons.1.update_rules.2.comment=Denied
+transaction_tracking.tracking_reasons.1.update_rules.2.final=true
+
+# INTERNAL_ERROR - Pending transactions, will track all transactions with result code 99 (internal error)
+# 
+#transaction_tracking.tracking_reasons.2.id=INTERNAL_ERROR
+#transaction_tracking.tracking_reasons.2.result_codes=9900
+#transaction_tracking.tracking_reasons.2.comment=Internal error
+
+# REVERSALS - Add all reversals and keep them for min_search_history_length
+#transaction_tracking.tracking_reasons.2.id=REVERSAL
+#transaction_tracking.tracking_reasons.2.operations=REQUEST_REVERSAL CANCEL
+#transaction_tracking.tracking_reasons.2.comment=Reversal
+#transaction_tracking.tracking_reasons.2.final=true
+
+
+# Definition of support system reports
+# In each report the following fields can be set:
+# template_header_file = Name of a freemarked template file that will be used
+#                        to format the header of the report
+#                        If not specified, no header will be added
+# 
+# template_rows_file   = Name of a freemarker template file that will be 
+#                        used to format the result rows.
+#                        The freemarker variable "transactions" will be 
+#                        set to a list of TransactionDetails objects when 
+#                        calling this template.
+#                        Also, the "fields" variable will contain the
+#                        parameters passed to the report.
+#                        With large report results, keep in mind that this 
+#                        template might be repeated multiple times 
+#                        for each "batch" of transactions.
+# template_header_file = Name of a freemarked template file that will be used
+#                        to format the footer of the report.
+#                        The special variable totalRowCount will be set when 
+#                        calling this template.
+#                        If not specified, no footer will be added
+# template_file        = Same as template_rows_file, kept for backwards compatibility
+# date_format          = The format of the date string used for parsing until, from
+#                        and period fields. The default value is "yyyyMMdd HH:mm:ss".
+# until*               = Transactions until this time will be in the report result, 
+#                        if not specified this will automatically be set to the current time.
+#                        Predefined values: NOW 
+# from*                = Transactions starting from this time will be in the report result.
+#                        Predefined values: NOW 
+# period*              = If from is not specified, this can instead be specified 
+#                        as a period backwards from the until time.
+#                        Predefined values: NOW, SAMEDAY, WEEK, 1DAY (2DAY, etc.),
+#                        1HOUR (2HOUR, etc.), 1MINUTE (2MINUTE, etc.)
+# search_field_value*  = The value to search for in the search fields
+# search_field_ids     = The list of ids of the search field to include when searching 
+# transaction_types    = The list of transaction types to include in the
+#                        results specified as a comma/space separated list     
+# profile_ids          = The list of transaction profile ids to include in the 
+#                        results specified as a comma/space separated list
+# dynamic_type_ids     = The list of dynamic transaction types to include in
+#                        the results specified as a comma/space separated list
+# result_codes         = The list of result codes for the transactions to 
+#                        include in the list specified as a comma/space 
+#                        separated list
+# exclude_result_codes = The list of result codes for the transactions NOT to 
+#                        include in the list specified as a comma/space 
+#                        separated list
+# max_count*           = The maximum number of transactions to 
+#                        include in the result
+# batch_size           = When generating the data, the rows will be fetched in batches
+#                        and this setting specifies how big the batches will be
+#                        If specified as more than 10000 it will be ignored and 10000 will be used
+#                        This is particularly important when generating huge report data files
+#
+#                        Export related parameters, 
+#                        the following parameters only apply when exporting report data using  
+#                        the sendReport() method for generating larger bulk reports.
+
+# export_file_dir        The directory where to put report generated files
+#                        All bulk reports will generate a file and this is the directory where 
+#                        it is stored 
+#
+# export_file_prefix     The prefix for the filename if no specific filename is specified in the call
+#                        If this is not configured it will automatically be the same as the report id
+#           
+# export_file_suffix     The suffic of the generated report files, typically 
+#                        an extension indicating the type of file
+# zip_data               If true, the result data will be compressed with Gzip
+#                        The result file will automatically get a .zip ending
+#                        and the compressed file containing a data file with
+#                        the specified name.
+#
+# The value of all fields with a * at the end can be specified as a freemarked template
+# where all report parameters are accessible as freemarker variables.
+# This can be used to convert report parameters into search parameters etc.
+#
+
+reports.SUP_LAST_5.template_file=last_5.tpl
+reports.SUP_LAST_5.until=NOW
+reports.SUP_LAST_5.period=1DAY
+reports.SUP_LAST_5.search_field_value=${default_senderMSISDN}
+reports.SUP_LAST_5.search_field_ids=INITIATOR_RESELLER_MSISDN
+reports.SUP_LAST_5.transaction_types=TRANSFER TOPUP MOLLET_VOUCHER_REDEEM
+reports.SUP_LAST_5.search_role_id=AGENT
+reports.SUP_LAST_5.search_principal_id=${default_senderMSISDN}
+reports.SUP_LAST_5.search_principal_id_type=RESELLERMSISDN
+#reports.SUP_LAST_5.exclude_result_codes=0
+
+#Deprecated: for last transactions, this report is backward compliant with
+#the Ghana release where the txe last transactions API is used.
+reports.SUP_LAST_TRANSACTION.template_file=last_5.tpl
+reports.SUP_LAST_TRANSACTION.until=NOW
+reports.SUP_LAST_TRANSACTION.period=50DAY
+reports.SUP_LAST_TRANSACTION.max_count=1
+reports.SUP_LAST_TRANSACTION.search_field_value=${default_senderMSISDN}
+reports.SUP_LAST_TRANSACTION.search_field_ids=INITIATOR_RESELLER_MSISDN
+reports.SUP_LAST_TRANSACTION.transaction_types=TRANSFER TOPUP MOLLET_VOUCHER_REDEEM
+reports.SUP_LAST_TRANSACTION.search_role_id=AGENT
+reports.SUP_LAST_TRANSACTION.search_principal_id=${default_senderMSISDN}
+reports.SUP_LAST_TRANSACTION.search_principal_id_type=RESELLERMSISDN
+
+# for detailed information of a particular transaction
+reports.SUP_TRANSACTION_STATUS.template_file=transaction_status.tpl
+reports.SUP_TRANSACTION_STATUS.references=${REFERENCE}
+reports.SUP_TRANSACTION_STATUS.search_role_id=AGENT
+reports.SUP_TRANSACTION_STATUS.search_principal_id=${default_senderMSISDN}
+reports.SUP_TRANSACTION_STATUS.search_principal_id_type=RESELLERMSISDN
+
+reports.SUP_SUB_TRANSACTION_STATUS.template_file=transaction_status.tpl
+reports.SUP_SUB_TRANSACTION_STATUS.references=${REFERENCE}
+reports.SUP_SUB_TRANSACTION_STATUS.search_role_id=SUBSCRIBER
+reports.SUP_SUB_TRANSACTION_STATUS.search_principal_id=${default_senderMSISDN}
+reports.SUP_SUB_TRANSACTION_STATUS.search_principal_id_type=SUBSCRIBERMSISDN
+
+
+#for reseller last x transactions
+reports.SUP_LAST_TRANSACTIONS.template_file=last_5.tpl
+reports.SUP_LAST_TRANSACTIONS.until=NOW
+reports.SUP_LAST_TRANSACTIONS.period=50DAY
+reports.SUP_LAST_TRANSACTIONS.max_count=${row_limit}
+reports.SUP_LAST_TRANSACTIONS.search_field_value=${default_senderMSISDN}
+reports.SUP_LAST_TRANSACTIONS.search_field_ids=INITIATOR_RESELLER_MSISDN
+reports.SUP_LAST_TRANSACTIONS.transaction_types=TRANSFER TOPUP MOLLET_VOUCHER_REDEEM
+reports.SUP_LAST_TRANSACTIONS.result_codes=0
+reports.SUP_LAST_TRANSACTIONS.search_role_id=AGENT
+reports.SUP_LAST_TRANSACTIONS.search_principal_id=${default_senderMSISDN}
+reports.SUP_LAST_TRANSACTIONS.search_principal_id_type=RESELLERMSISDN
+
+#for subscriber last transactions
+reports.SUP_SUB_LAST_TRANSACTIONS.template_file=last_5.tpl
+reports.SUP_SUB_LAST_TRANSACTIONS.until=NOW
+reports.SUP_SUB_LAST_TRANSACTIONS.period=50DAY
+reports.SUP_SUB_LAST_TRANSACTIONS.max_count=${row_limit}
+reports.SUP_SUB_LAST_TRANSACTIONS.search_field_value=${default_senderMSISDN}
+reports.SUP_SUB_LAST_TRANSACTIONS.search_field_ids=INITIATOR_SUBSCRIBER_MSISDN
+reports.SUP_SUB_LAST_TRANSACTIONS.transaction_types=TRANSFER TOPUP
+reports.SUP_SUB_LAST_TRANSACTIONS.result_codes=0
+reports.SUP_SUB_LAST_TRANSACTIONS.search_role_id=SUBSCRIBER
+reports.SUP_SUB_LAST_TRANSACTIONS.search_principal_id=${default_senderMSISDN}
+reports.SUP_SUB_LAST_TRANSACTIONS.search_principal_id_type=RESELLERMSISDN
+
+# for detailed information of a particular subscriber transaction
+reports.SUP_SUB_TRANSACTION_STATUS.template_file=transaction_status.tpl
+reports.SUP_SUB_TRANSACTION_STATUS.references=${REFERENCE}
+
+reports.RESELLER_TRANSACTION_EXPORT.export_file_dir=/var/seamless/spool/supportsystem
+reports.RESELLER_TRANSACTION_EXPORT.export_file_suffix=.txt
+reports.RESELLER_TRANSACTION_EXPORT.zip_data=true
+reports.RESELLER_TRANSACTION_EXPORT.template_header_file=transactions_export_header.tpl
+reports.RESELLER_TRANSACTION_EXPORT.template_rows_file=transactions_export_rows.tpl
+reports.RESELLER_TRANSACTION_EXPORT.template_footer_file=transactions_export_footer.tpl
+reports.RESELLER_TRANSACTION_EXPORT.search_field_value=${resellerMSISDN!""}
+reports.RESELLER_TRANSACTION_EXPORT.search_field_ids=INITIATOR_RESELLER_MSISDN SENDER_RESELLER_MSISDN RECEIVER_RESELLER_MSISDN
+reports.RESELLER_TRANSACTION_EXPORT.profile_ids=CREDIT_TRANSFER RESELLER_DEPOSIT RESELLER_WITHDRAW TOPUP REVERSE_CREDIT_TRANSFER REVERSE_TOPUP MOLLET_DEPOSIT MOLLET_WITHDRAWAL 
+reports.RESELLER_TRANSACTION_EXPORT.from=${START} 00:00:00
+reports.RESELLER_TRANSACTION_EXPORT.until=${END} 23:59:59
+reports.RESELLER_TRANSACTION_EXPORT.max_count=10000000
+reports.RESELLER_TRANSACTION_EXPORT.batch_size=10000
+reports.RESELLER_TRANSACTION_EXPORT.search_role_id=SUPPORT
+reports.RESELLER_TRANSACTION_EXPORT.search_principal_id=export
+reports.RESELLER_TRANSACTION_EXPORT.search_principal_id_type=ADMINUSER
+
+reports.SUBSCRIBER_TRANSACTION_EXPORT.export_file_dir=/var/seamless/spool/supportsystem
+reports.SUBSCRIBER_TRANSACTION_EXPORT.export_file_suffix=.txt
+reports.SUBSCRIBER_TRANSACTION_EXPORT.zip_data=true
+reports.SUBSCRIBER_TRANSACTION_EXPORT.template_header_file=transactions_export_header.tpl
+reports.SUBSCRIBER_TRANSACTION_EXPORT.template_rows_file=transactions_export_rows.tpl
+reports.SUBSCRIBER_TRANSACTION_EXPORT.template_footer_file=transactions_export_footer.tpl
+reports.SUBSCRIBER_TRANSACTION_EXPORT.search_field_value=${resellerMSISDN!""}
+reports.SUBSCRIBER_TRANSACTION_EXPORT.search_field_ids=INITIATOR_SUBSCRIBER_MSISDN SENDER_SUBSCRIBER_MSISDN RECEIVER_SUBSCRIBER_MSISDN
+reports.SUBSCRIBER_TRANSACTION_EXPORT.profile_ids=MOLLET_TRANSFER AIRTIME_TOPUP AIRTIME_TRANSFER MOLLET_DEPOSIT MOLLET_WITHDRAWAL 
+reports.SUBSCRIBER_TRANSACTION_EXPORT.from=${START} 00:00:00
+reports.SUBSCRIBER_TRANSACTION_EXPORT.until=${END} 23:59:59
+reports.SUBSCRIBER_TRANSACTION_EXPORT.max_count=10000000
+reports.SUBSCRIBER_TRANSACTION_EXPORT.batch_size=10000
+reports.SUBSCRIBER_TRANSACTION_EXPORT.search_role_id=SUPPORT
+reports.SUBSCRIBER_TRANSACTION_EXPORT.search_principal_id=export
+reports.SUBSCRIBER_TRANSACTION_EXPORT.search_principal_id_type=ADMINUSER
+
+
+
+# Document publishing can be used in together with document generators to generate documents for transactions during import processing 
+# and publish them in a specified directory or database.
+#document_publishers.database.class_name=DatabaseERSTransactionDocumentPublisher
+#document_publishers.file.class_name=FileERSTransactionDocumentPublisher
+
+# Options below are only needed by FileERSTransactionDocumentPublisher.
+# document_root is a directory where files will be published to.
+#document_publishers.file.document_root=/var/seamless/spool/regrequests
+# recipient_types can allow files to published to separate directories for different recipients;
+#document_publishers.file.recipient_types.SUBSCRIBER.path=s/${id!"NULLID"}/${filename}
+#document_publishers.file.recipient_types.RESELLER.path=r/${id!"NULLID"}/${filename}
+#document_publishers.file.recipient_types.ACCOUNT.path=a/${id!"NULLID"}/${filename}
+#document_publishers.file.recipient_types.GLOBAL.path=${filename}
+
+
+
+# Specifies the class of document generator
+document_generators.receipts.class_name=ERSFreemarkerDocumentGenerator
+# Specifies the document id for this document
+document_generators.receipts.document_definitions.html_receipt.document_id=receipt
+# The mime type of the generated document
+document_generators.receipts.document_definitions.html_receipt.mime_type=text/html
+# List of recipients for the document
+# Sender - The sender principal
+# Receiver - The receiver principal
+# SenderAccount - The sender account
+# ReceiverAccount - The receiver account
+document_generators.receipts.document_definitions.html_receipt.recipients=Sender,Receiver
+# The file containing the freemarker template used to generate the document 
+document_generators.receipts.document_definitions.html_receipt.template=/opt/seamless/conf/supportsystem/transfer_receipt_template_html.ftl
+# The filename of the document specified using freemarker syntax 
+document_generators.receipts.document_definitions.html_receipt.filename=${transaction.ersReference}.html
+# The transaction class name for which this document will be generated, this can be a regexp
+document_generators.receipts.document_definitions.html_receipt.transaction_class=ERSTransferTransaction
+# The date format that this document will be generated with
+# OPTIONAL, Default format is: yyyy-MM-dd HH:mm:ss
+# Use org.joda.time.format.DateTimeFormat style (The pattern syntax is mostly compatible with java.text.SimpleDateFormat - time zone names cannot be parsed and a few more symbols are supported.)
+document_generators.receipts.document_definitions.html_receipt.date_format=yyyy-MM-dd HH:mm:ss
+# We only want to generate receipts for completed & successfull transactions
+document_generators.receipts.filters=CompletedTransactionsFilter
+# Publisher list to be used to publish documents
+document_generators.receipts.publishers=database
+
+
+# List of recipiena types and where their respective ipts.class_name=ERSFreemarkerDocumentGenerator
+#document_generators.receipts.document_definitions.spooling_pending_account.document_id=spooling_pending_account
+#document_generators.receipts.document_definitions.spooling_pending_account.mime_type=text/html
+#document_generators.receipts.document_definitions.spooling_pending_account.recipients=Global
+#document_generators.receipts.document_definitions.spooling_pending_account.template=/opt/seamless/conf/supportsystem/spooling_pending_account_template.ftl
+#document_generators.receipts.document_definitions.spooling_pending_account.filename=${transaction.endTime?string("yyyyMMdd")!"NA"}.log
+#document_generators.receipts.document_definitions.spooling_pending_account.transaction_class=ERSCustomOperationTransaction
+#document_generators.receipts.publishers=file
+
+
+document_generators.refundreceipts.class_name=ERSFreemarkerDocumentGenerator
+document_generators.refundreceipts.document_definitions.html_receipt.document_id=gratificationreceipt
+document_generators.refundreceipts.document_definitions.html_receipt.mime_type=text/html
+document_generators.refundreceipts.document_definitions.html_receipt.recipients=Sender,Receiver
+document_generators.refundreceipts.document_definitions.html_receipt.template=/opt/seamless/conf/supportsystem/gratification_receipt_template_html.ftl
+document_generators.refundreceipts.document_definitions.html_receipt.filename=${transaction.ersReference}.html
+document_generators.refundreceipts.document_definitions.html_receipt.transaction_class=ERSGratificationTransaction
+document_generators.refundreceipts.publishers=database
+
+
+
+
+
+###################################################
+# Configuration for refund receipts
+###################################################
+# (This is a precodition to using refunds)
+#
+# document_generators.refundreceipts.class_name=ERSFreemarkerDocumentGenerator
+# document_generators.refundreceipts.document_definitions.html_receipt.document_id=refundreceipt
+# document_generators.refundreceipts.document_definitions.html_receipt.mime_type=text/html
+# document_generators.refundreceipts.document_definitions.html_receipt.recipients=Sender,Receiver
+# document_generators.refundreceipts.document_definitions.html_receipt.template=/opt/seamless/conf/supportsystem/refund_receipt_template_html.ftl
+# document_generators.refundreceipts.document_definitions.html_receipt.filename=${transaction.ersReference}.html
+# document_generators.refundreceipts.document_definitions.html_receipt.transaction_class=ERSRefundTransaction
+# document_generators.refundreceipts.publishers=database
+
+
+##################################################
+# IN milli seconds
+##################################################
+search_tables.pause_delete_partition=5000

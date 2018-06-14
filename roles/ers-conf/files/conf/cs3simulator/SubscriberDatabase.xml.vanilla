@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resourcedb:ResourceDatabase
+	xmlns:resourcedb="http://www.seamless.se/ResourceDatabase"
+	xmlns:seamless="http://www.seamless.se/SeamlessCommon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.seamless.se/ResourceDatabase ../../utils/src/main/resources/xsd/ResourceDatabase.xsd "
+	resetAtStartup="false">
+	<resourcedb:DatabaseConnection dbDriver="org.hsqldb.jdbcDriver"
+		dbURL="jdbc:hsqldb:mem:hsqldb/ETSSubscribers" username="sa" password="" />
+	<!-- <resourcedb:DatabaseConnection dbDriver="com.mysql.jdbc.Driver" dbURL="jdbc:mysql://localhost:3306/NokiaSubscribers" 
+		password="krokuss" username="root" /> -->
+	<!-- For expiredAccount,supervisionExpiryDate and serviceFeeExpiryDate 1 
+		correponds date 1 month in past and 0 is one month in future and 2 is present 
+		date supervisionExpiryDateYear,serviceFeeExpiryDateYear where 1 corresponds 
+		to 1 year in past and 0 one year in future and 2 is present year and default. 
+		If bonus defined as less zero or 0 its no bonus to the person -->
+	<resourcedb:InitScript>
+		<![CDATA[
+  	void initResource()
+  	{
+  	
+  	if(resource.getId().equals("46500010003"))
+	{
+  		if (resource.getField("balance", 0) == 0)
+	  	{
+	  	
+	  	/******************* 
+	  	//For sepecific response codes use the following fields.
+	  	// It shall be pretty obvious from the names, which field
+	  	// belongs to what method. If no response code is defined,
+	  	// Success (0) will be returned as usual.
+	  	adjustmentT_response
+		balanceEnquiryT_response
+		getAccountDetailsT_response
+		getFaFListT_response
+		getFaFList_response
+		refillT_response
+		updateServiceClassT_response
+		getAccountDetails_response
+		getBalanceAndDate_response
+		refill_response
+		updateBalanceAndDate_response
+		updateServiceClass_response
+		getAccountDetails_response
+		getBalanceAndDate_response
+		getFaFList_response
+		refill_response
+		updateBalanceAndDate_response
+		updateServiceClass_response
+		updateSubscriberSegmentation_response
+		updateAccountDetails_response
+		updateAccountDetails_response
+		updateAccountDetailsT_response
+		getAllowedServiceClasses_response
+		getAllowedServiceClasses_response
+	  	
+	  	// Example to set the field
+	  	resource.setField("getAllowedServiceClasses_response", 100);	  	
+	  	*/
+	  	
+	  	// Allows negative balance or not when doing updateBalanceAndDate, 1=allow and 0=disallow.
+	  	resource.setField("debug.allowNegativeBalance", 0);
+	  	
+		resource.setField("balance", 1000000000000L);
+	  	resource.setField("currentTariff", 30000);
+	  	resource.setField("activationStatusFlag", 1);
+       	resource.setField("supervisionPeriodExpiryFlag", 0);
+	    resource.setField("serviceFeePeriodExpiryFlag", 0);
+        resource.setField("serviceOfferingActiveFlag",0);
+		resource.setField("voucherGroup", 2);
+		//expiredAccount = 0 means the da account will be expired nex month
+		//expiredAccount = 1 means the da account was expired one month ago
+		//expiredAccount = 2 means the da account is expried now
+		//expiredAccount = 3 means the da account will be expired in 9999-12-31
+		resource.setField("expiredAccount", 1); 
+       	resource.setField("dedicatedAccount1", 100000);  
+      	resource.setField("dedicatedAccount2", 200000);  
+     	resource.setField("dedicatedAccount5", 500000);  
+       	resource.setField("supervisionExpiryDate", 0); 
+       	resource.setField("supervisionExpiryDateYear", 2);   
+       	resource.setField("serviceFeeExpiryDateYear", 2);
+       	resource.setField("serviceFeeExpiryDate", 0); 
+       	resource.setField("languageCurrent", 1);   
+       	resource.setField("serviceClassCurrent", 190);   
+       	resource.setField("responseCode", 0);   
+       	resource.setField("serviceOfferingID", 1);  
+       	resource.setField("refill_response", 0); 
+       	resource.setField("refillAmount", 150);
+       	//Example to set number of dedicated accounts before refill.
+       	resource.setField("refillBeforeDANumber",5);
+       	//Example to set value of dedicated account ID 1
+       	resource.setField("refillBeforeDA1",1000);
+       	//Example to set value of dedicated account ID 2
+       	resource.setField("refillBeforeDA2",1000);
+       	//Example to set value of dedicated account ID 3
+       	resource.setField("refillBeforeDA3",1000);
+       	//Example to set value of dedicated account ID 4
+       	resource.setField("refillBeforeDA4",1000);
+       	//Example to set value of dedicated account ID 5
+       	resource.setField("refillBeforeDA5",1000);
+       	
+       	//Example to set number of accumulators before refill.
+       	resource.setField("refillBeforeACNumber",5);
+       	//Example to set value of accumulator ID 1
+       	resource.setField("refillBeforeAC1",1000);
+       	//Example to set value of accumulator ID 2
+       	resource.setField("refillBeforeAC2",1000);
+       	//Example to set value of accumulator ID 3
+       	resource.setField("refillBeforeAC3",1000);
+       	//Example to set value of accumulator ID 4
+       	resource.setField("refillBeforeAC4",1000);
+       	//Example to set value of accumulator ID 5
+       	resource.setField("refillBeforeAC5",1000);
+       	
+       	//Example to set number of dedicated accounts after refill.
+       	resource.setField("refillAfterDANumber",5);
+       	//Example to set value of dedicated account ID 1
+       	resource.setField("refillAfterDA1",1000);
+       	//Example to set value of dedicated account ID 2
+       	resource.setField("refillAfterDA2",1000);
+       	//Example to set value of dedicated account ID 3
+       	resource.setField("refillAfterDA3",1000);
+       	//Example to set value of dedicated account ID 4
+       	resource.setField("refillAfterDA4",1000);
+       	//Example to set value of dedicated account ID 5
+       	resource.setField("refillAfterDA5",1000);
+       	
+       	// Example to set the dedicated account ID which will be used in a redeem-voucher-to-da transaction
+       	resource.setField("voucherRedeemDAId", 5);
+       	
+       	//Example to set number of accumulators after refill.
+       	resource.setField("refillAfterACNumber",5);
+       	//Example to set value of accumulator ID 1
+       	resource.setField("refillAfterAC1",1000);
+       	//Example to set value of accumulator ID 2
+       	resource.setField("refillAfterAC2",1000);
+       	//Example to set value of accumulator ID 3
+       	resource.setField("refillAfterAC3",1000);
+       	//Example to set value of accumulator ID 4
+       	resource.setField("refillAfterAC4",1000);
+       	//Example to set value of accumulator ID 5
+       	resource.setField("refillAfterAC5",1000);
+       	
+		//********* refillInformation start
+       	//Enable or disable refill information by enabling mandatory refillInformation.refillValueTotal.refillAmount1
+       	resource.setField("refillInformation.refillValueTotal.refillAmount1", 10);  
+
+  		// Set the number of dedicated refill information accounts for refillValueTotal 	
+       	resource.setField("refillInformation.refillValueTotal.numberOfDA",5);
+       	resource.setField("refillInformation.refillValueTotal.DA1.refillAmount1",1001);
+       	resource.setField("refillInformation.refillValueTotal.DA1.refillAmount2",1002);
+       	resource.setField("refillInformation.refillValueTotal.DA1.expiryDateExtended",11);
+       	resource.setField("refillInformation.refillValueTotal.DA1.clearedValue1",12);
+       	resource.setField("refillInformation.refillValueTotal.DA1.clearedValue2",13);
+       	
+       	resource.setField("refillInformation.refillValueTotal.DA2.refillAmount1",2001);
+       	resource.setField("refillInformation.refillValueTotal.DA2.refillAmount2",2002);
+       	resource.setField("refillInformation.refillValueTotal.DA2.expiryDateExtended",21);
+       	resource.setField("refillInformation.refillValueTotal.DA2.clearedValue1",22);
+       	resource.setField("refillInformation.refillValueTotal.DA2.clearedValue2",23);
+       	
+       	resource.setField("refillInformation.refillValueTotal.DA3.refillAmount1",3001);
+       	resource.setField("refillInformation.refillValueTotal.DA3.refillAmount2",3002);
+       	resource.setField("refillInformation.refillValueTotal.DA3.expiryDateExtended",31);
+       	resource.setField("refillInformation.refillValueTotal.DA3.clearedValue1",32);
+       	resource.setField("refillInformation.refillValueTotal.DA3.clearedValue2",33);
+       	
+       	resource.setField("refillInformation.refillValueTotal.DA4.refillAmount1",4001);
+       	resource.setField("refillInformation.refillValueTotal.DA4.refillAmount2",4002);
+       	resource.setField("refillInformation.refillValueTotal.DA4.expiryDateExtended",41);
+       	resource.setField("refillInformation.refillValueTotal.DA4.clearedValue1",42);
+       	resource.setField("refillInformation.refillValueTotal.DA4.clearedValue2",43);
+       	
+       	resource.setField("refillInformation.refillValueTotal.DA5.refillAmount1",5001);
+       	resource.setField("refillInformation.refillValueTotal.DA5.refillAmount2",5002);
+       	resource.setField("refillInformation.refillValueTotal.DA5.expiryDateExtended",51);
+       	resource.setField("refillInformation.refillValueTotal.DA5.clearedValue1",52);
+       	resource.setField("refillInformation.refillValueTotal.DA5.clearedValue2",53);
+       	
+
+
+       	// Enable or disable optional refill value promotion by enabling refillInformation.refillValuePromotion.refillAmount1
+       	resource.setField("refillInformation.refillValuePromotion.refillAmount1", 10);  
+		// Set the number of dedicated refill information accounts for refillValueTotal 	
+       	resource.setField("refillInformation.refillValuePromotion.numberOfDA",1);
+       	resource.setField("refillInformation.refillValuePromotion.DA1.refillAmount1",1001);
+       	resource.setField("refillInformation.refillValuePromotion.DA1.refillAmount2",1002);
+       	resource.setField("refillInformation.refillValuePromotion.DA1.expiryDateExtended",11);
+       	resource.setField("refillInformation.refillValuePromotion.DA1.clearedValue1",12);
+       	resource.setField("refillInformation.refillValuePromotion.DA1.clearedValue2",13);
+       	
+       	
+       	//******* refillInformation end
+       	
+       	
+       	//Example to set refill before serviceClassTemporaryExpiryDate to be one month after
+       	resource.setField("refillBeforeServiceClassTemporaryExpiryDate",1);
+       	
+       	//Example to set refill before serviceClassTemporaryExpiryDate to be one month behind
+       	resource.setField("refillBeforeServiceClassTemporaryExpiryDate",-1);
+       	
+       	//Example to set refill after serviceClassTemporaryExpiryDate to be one month after
+       	resource.setField("refillAfterServiceClassTemporaryExpiryDate",1);
+       	
+       	//Example to set refill after serviceClassTemporaryExpiryDate to be one month behind
+       	resource.setField("refillAfterServiceClassTemporaryExpiryDate",-1);
+       	
+       	//Example to set accountGroupID
+       	resource.setField("accountGroupID",1);
+       	
+       	//Example to set number of communityInformationCurrent
+       	resource.setField("communityInformationCurrentNumber",2);
+       	//Example to set communityID 1 of communityInformationCurrent
+       	resource.setField("communityInformationCurrent1",12);
+       	//Example to set communityID 2 of communityInformationCurrent
+       	resource.setField("communityInformationCurrent2",15);
+       	
+       	resource.setField("pamInformationList.number", 1);       	        
+       	resource.setField("pamInformationList.struct1.pamServiceID", 123);
+       	resource.setField("pamInformationList.struct1.pamClassID", 124);
+       	resource.setField("pamInformationList.struct1.scheduleID", 125);
+       	resource.setField("pamInformationList.struct1.currentPamPeriod", "str126");
+       	resource.setField("pamInformationList.struct1.deferredToDate", "2013-04-22T14:15:21Z+0000");
+       	resource.setField("pamInformationList.struct1.lastEvaluationDate", "2013-04-22T14:15:21Z+1000");
+       	resource.setField("pamInformationList.struct1.pamServicePriority", 2);
+       	
+		}
+    } else if(resource.getId().equals("46702777620"))
+    {
+         resource.setField("serviceClassCurrent", 100);
+         resource.setField("balance", 100000);//10 UTT
+         
+         resource.setField("accumulatorInformation.number", 3);
+         resource.setField("accumulatorInformation.struct1.accumulatorID",4);
+         resource.setField("accumulatorInformation.struct1.accumulatorValue",0);
+         resource.setField("accumulatorInformation.struct2.accumulatorID",2);
+         resource.setField("accumulatorInformation.struct2.accumulatorValue",0);
+         resource.setField("accumulatorInformation.struct3.accumulatorID",3);
+         resource.setField("accumulatorInformation.struct3.accumulatorValue",0);
+         
+        resource.setField("pamInformationList.number", 1);       	        
+       	resource.setField("pamInformationList.struct1.pamServiceID", 123);
+       	resource.setField("pamInformationList.struct1.pamClassID", 124);
+       	resource.setField("pamInformationList.struct1.scheduleID", 125);
+       	resource.setField("pamInformationList.struct1.currentPamPeriod", "str126");
+       	resource.setField("pamInformationList.struct1.deferredToDate", "2013-04-22T14:15:21Z+0000");
+       	resource.setField("pamInformationList.struct1.lastEvaluationDate", "2013-04-22T14:15:21Z+1000");
+       	resource.setField("pamInformationList.struct1.pamServicePriority", 2);
+    }
+	else
+	{
+		// Allows negative balance or not when doing updateBalanceAndDate, 1=allow and 0=disallow.
+	 	resource.setField("debug.allowNegativeBalance", 0);
+        resource.setField("currentTariff", 32293);
+        resource.setField("activationStatusFlag", 1);
+        resource.setField("supervisionPeriodExpiryFlag", 0);
+        resource.setField("serviceFeePeriodExpiryFlag", 0);
+        resource.setField("serviceOfferingActiveFlag",1);
+        resource.setField("supervisionExpiryDate", 0);
+        resource.setField("supervisionExpiryDateYear", 0);
+        resource.setField("serviceFeeExpiryDateYear", 0);
+        resource.setField("serviceClassCurrent", 60);
+        resource.setField("balance", 8000);
+        resource.setField("languageCurrent", 1);
+        
+        resource.setField("accumulatorInformation.number", 3);
+        
+       	resource.setField("accumulatorInformation.struct1.accumulatorID", 1);
+       	resource.setField("accumulatorInformation.struct1.accumulatorValue", 11111);
+       	resource.setField("accumulatorInformation.struct1.accumulatorStartdDate", "2005-04-22T14:15:21Z+0000");
+       	resource.setField("accumulatorInformation.struct1.accumulatorStartdDate", "2005-04-22T14:15:21Z+1000");
+       	
+       	resource.setField("accumulatorInformation.struct2.accumulatorID", 2);
+       	resource.setField("accumulatorInformation.struct2.accumulatorValue", 11111);
+       	resource.setField("accumulatorInformation.struct2.accumulatorStartdDate", "2005-04-22T14:15:21Z+0000");
+       	resource.setField("accumulatorInformation.struct2.accumulatorStartdDate", "2005-04-22T14:15:21Z+1000");
+       	
+       	resource.setField("accumulatorInformation.struct3.accumulatorID", 3);
+       	resource.setField("accumulatorInformation.struct3.accumulatorValue", 11111);
+       	resource.setField("accumulatorInformation.struct3.accumulatorStartdDate", "2005-04-22T14:15:21Z+0000");
+       	resource.setField("accumulatorInformation.struct3.accumulatorStartdDate", "2005-04-22T14:15:21Z+1000");
+       	
+       	resource.setField("pamInformationList.number", 1);       	        
+       	resource.setField("pamInformationList.struct1.pamServiceID", 123);
+       	resource.setField("pamInformationList.struct1.pamClassID", 124);
+       	resource.setField("pamInformationList.struct1.scheduleID", 125);
+       	resource.setField("pamInformationList.struct1.currentPamPeriod", "str126");
+       	resource.setField("pamInformationList.struct1.deferredToDate", "2013-04-22T14:15:21Z+0000");
+       	resource.setField("pamInformationList.struct1.lastEvaluationDate", "2013-04-22T14:15:21Z+1000");
+       	resource.setField("pamInformationList.struct1.pamServicePriority", 2);
+       	
+       	
+       	resource.setField("offerInformation.number", 3);
+
+        resource.setField("offerInformation.struct1.offerID", 100);
+        resource.setField("offerInformation.struct1.offerState", 1);
+        resource.setField("offerInformation.struct1.offerType", 2);
+        resource.setField("offerInformation.struct1.startdDate", "2005-04-22T14:15:21Z+0000");
+        resource.setField("offerInformation.struct1.expiryDate", "2005-04-22T14:15:21Z+1000");
+        
+        resource.setField("offerInformation.struct2.offerID", 200);
+        resource.setField("offerInformation.struct2.offerState", 1);
+        resource.setField("offerInformation.struct2.offerType", 2);
+        resource.setField("offerInformation.struct2.startdDate", "2005-04-22T14:15:21Z+0000");
+        resource.setField("offerInformation.struct2.expiryDate", "2005-04-22T14:15:21Z+1000");
+
+        resource.setField("offerInformation.struct3.offerID", 300);
+        resource.setField("offerInformation.struct3.offerState", 0);
+        resource.setField("offerInformation.struct3.offerType", 2);
+        resource.setField("offerInformation.struct3.startdDate", "2005-04-22T14:15:21Z+0000");
+        resource.setField("offerInformation.struct3.expiryDate", "2005-04-22T14:15:21Z+1000");
+       	
+    }          	
+}
+  ]]>
+	</resourcedb:InitScript>
+
+	<resourcedb:IdRules>
+		<resourcedb:RegexpValidation>46.*</resourcedb:RegexpValidation>
+		<resourcedb:Generator mode="Random" prefix="467010000"
+			numDigits="12" />
+	</resourcedb:IdRules>
+
+	<!-- <resourcedb:LoadResourceFile filename="subscribers.txt"> <resourcedb:IdRegexp>([0-9]*),</resourcedb:IdRegexp> 
+		<resourcedb:ExcludeRegexp>.*REMOVED.*</resourcedb:ExcludeRegexp> <resourcedb:BlockRegexp>.*BLOCKED.*</resourcedb:BlockRegexp> 
+		<resourcedb:FieldImport fieldName="balance" type="LONG"> <resourcedb:Regexp>([0-9]*)$</resourcedb:Regexp> 
+		</resourcedb:FieldImport> </resourcedb:LoadResourceFile> -->
+
+</resourcedb:ResourceDatabase>

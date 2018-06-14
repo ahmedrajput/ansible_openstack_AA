@@ -1,0 +1,592 @@
+#Agent Portal client-side configuration file
+
+# NOTES:
+# 1. separate multiple items by comma
+# 2. All regex in this file are specified in Javascript Regex format, not Java
+
+###############################################################################
+# List of available countries
+countries = Sweden,USA,EUROLAND
+
+###############################################################################
+# Channels selection
+channels = WEB, SMS, USSD
+
+###############################################################################
+# Payment Methods
+paymentMethods = Cash, Cheque, Credit Card
+
+###############################################################################
+# Search Depth
+searchDepth = Show all levels : 5, Only show one level below : 1
+
+###############################################################################
+# Purchase stock option
+purchaseStockOption = Self,Other
+
+###############################################################################
+# Participation Type
+participationTypes = All, Receiver, Sender, Customer
+
+###############################################################################
+# List of available idTypes
+idTypes = National ID,Driving license,Passport
+
+###############################################################################
+# List of available Recurring Period Types
+recurringPeriodTypes = Daily, Weekly, Monthly, Quarterly, Biannually, Annually
+
+###############################################################################
+# Personal No Format
+personalNoFormat = ^\\d{5\,13}$
+
+###############################################################################
+# Phone No Format
+phoneNoFormat = ^\\d{8\,12}$
+bulkTopupPhoneNoFormat = ^\\\\d{8\\,12}$
+
+###############################################################################
+# Information about anonymousId. should be exactly same as subscribersystem
+# Prefix for generated anonymousId
+anonymousIdPrefix=26
+
+###############################################################################
+#Topup Id types for bulk topup
+anonymousIdType=SUBSCRIBERANONYMOUSID
+IMSIIdType=SUBSCRIBERIMSI
+subscirberIdType=SUBSCRIBERMSISDN
+
+###############################################################################
+#IMSI Format
+imsiFormat = ^\\d{5\,32}$
+
+###############################################################################
+# Subscriber Id Format
+subscriberIdFormat = ^\\d{5\,13}$
+
+###############################################################################
+# Reseller Id Format
+resellerIdFormat =  .*
+
+###############################################################################
+# Date format
+dateFormat = yyyy-MM-dd
+
+###############################################################################
+# Date format
+dateTimeFormat = yyyy-MM-dd HH:mm:ss
+
+###############################################################################
+# showSubAgentDormantState property shows current status of a subAgent
+# In order to enable this feature following report must also be present. AP_DORMANT_REP_001.xml
+showSubAgentDormantState = false
+
+# Id of the report that is used for looking last transaction date of a subAgent
+subAgentLastTransactionReport = AP_DORMANT_REP_001.xml
+
+# DormantStatePeriod is number of days where reseller did no transaction.
+# Default value is 90 days
+DormantStatePeriod = 90
+
+###############################################################################
+# Reseller hierarchy settings for linking new sub reseller
+reseller_type.1.name=Franchise
+reseller_type.1.id=franchise
+reseller_type.2.name=Distributor
+reseller_type.2.id=distributor
+reseller_type.3.name=SubDistributor
+reseller_type.3.id=subdistributor
+reseller_type.4.name=SubSubDistributor
+reseller_type.4.id=subsubdistributor
+reseller_type.5.name=Vendor
+reseller_type.5.id=vendor
+
+#########################################################################
+# Bulk Topup Setting
+# Maximum no of entries in file
+bulk_topup_limit=50
+
+#########################################################################
+# Bulk Bundle plan Setting
+# Maximum no of entries in file
+bulk_bundle_sale_limit=50
+
+###############################################################################
+# Topup settings
+#
+# Setting for different topup products, identified by their SKU separated by ,
+#
+# Each topup bundle can have the following properties:
+#  name: display name for this type, can be overridden in the language files
+#  sender_account_type: account type that this product will be sent from
+#  receiver_account_type: account type that this product will be sent to
+#  currency: currency for this product
+#  denominations: denomination values that can be used with this product.
+#					name of each denomination can be overridden too. 
+#  productSKU: SKU of the product (if not defined, will use the bundle id)
+#  receiver_principal_id_types: the type of the receiver of this topup, it can be either
+#					SUBSCRIBERMSISDN, SUBSCRIBERID, ANONYMOUSID, RESELLERID, RESELLERMSISDN
+
+topup_bundles=TOPUP
+topup_bundles.TOPUP.name=Airtime Topup
+topup_bundles.TOPUP.sender_account_type=RESELLER
+topup_bundles.TOPUP.receiver_account_type=AIRTIME
+topup_bundles.TOPUP.currency=EUR
+topup_bundles.TOPUP.productSKU=52
+topup_bundles.TOPUP.receiver_principal_id_types=SUBSCRIBERMSISDN
+topup_bundles.TOPUP.transaction_type=TOPUP
+
+###############################################################################
+# Transfer settings
+#
+# For documentation, see topup setting docs above
+# NOT BEING USED, JUST LEAVE THEM LIKE THIS
+
+transfer_bundles=TRANSFER
+transfer_bundles.TRANSFER.name=Credit Transfer
+transfer_bundles.TRANSFER.sender_account_type=RESELLER
+transfer_bundles.TRANSFER.receiver_account_type=RESELLER
+transfer_bundles.TRANSFER.currency=EUR
+transfer_bundles.TRANSFER.receiver_principal_id_types=RESELLERMSISDN, RESELLERID
+
+###############################################################################
+# Pin on demand settings
+#
+# For documentation, see topup setting docs above
+# NOT BEING USED, JUST LEAVE THEM LIKE THIS
+
+pin_on_demand_type=VOD
+pin_on_demand_type.VOD.name=Pin on demand
+pin_on_demand_type.VOD.sender_account_type=RESELLER
+pin_on_demand_type.VOD.receiver_account_type=AIRTIME
+pin_on_demand_type.VOD.currency=EUR
+pin_on_demand_type.VOD.receiver_principal_id_types=SUBSCRIBERMSISDN
+
+###############################################################################
+# Purchase stock product settings
+#
+# For documentation, see topup setting docs above
+# NOT BEING USED, JUST LEAVE THEM LIKE THIS
+
+purchase_stock_bundles=MM_TRANSFER
+purchase_stock_bundles.MM_TRANSFER.name=MM_TRANSFER
+purchase_stock_bundles.MM_TRANSFER.sender_account_type=RESELLER
+purchase_stock_bundles.MM_TRANSFER.receiver_account_type=RESELLER
+purchase_stock_bundles.MM_TRANSFER.currency=FCFA
+purchase_stock_bundles.MM_TRANSFER.receiver_principal_id_types=RESELLERMSISDN, RESELLERID
+
+###############################################################################
+#
+# MM2ERS Settings
+#
+mobile_money_bundles=MM2ERS
+mobile_money_bundles.MM2ERS.name=MM2ERS
+mobile_money_bundles.MM2ERS.sender_principal_id_types=SUBSCRIBERMSISDN
+mobile_money_bundles.MM2ERS.receiver_principal_id_types=RESELLERID
+mobile_money_bundles.MM2ERS.currency=ZMK
+mobile_money_bundles.MM2ERS.sender_account_type=MOBILEMONEY
+mobile_money_bundles.MM2ERS.receiver_account_type=RESELLER
+
+###############################################################################
+# Remittance settings
+#
+# For documentation, see topup setting docs above
+# NOT BEING USED, JUST LEAVE THEM LIKE THIS
+
+remittance_bundles=REMIT_SEND
+
+remittance_bundles.REMIT_SEND.name=Remittance
+remittance_bundles.REMIT_SEND.sender_account_type=RESELLER
+remittance_bundles.REMIT_SEND.receiver_account_type=REMITTANCE_CREDIT
+remittance_bundles.REMIT_SEND.currency=USD
+remittance_bundles.REMIT_SEND.receiver_principal_id_types=CUSTOMERID
+
+###############################################################################
+# Remittance receive settings
+# 
+# For documentation, see topup setting docs above
+# NOT BEING USED, JUST LEAVE THEM LIKE THIS
+
+remittance_receive_bundles=REMIT_RECEIVE
+
+remittance_receive_bundles.REMIT_RECEIVE.name=Remittance receive
+remittance_receive_bundles.REMIT_RECEIVE.receiver_account_type=RESELLER
+remittance_receive_bundles.REMIT_RECEIVE.sender_account_type=REMITTANCE_CREDIT
+remittance_receive_bundles.REMIT_RECEIVE.currency=USD
+remittance_receive_bundles.REMIT_RECEIVE.receiver_principal_id_types=RESELLERID
+remittance_receive_bundles.REMIT_RECEIVE.sender_principal_id_types=CUSTOMERID
+
+###############################################################################
+# Remittance cancel settings
+#
+
+remittance_cancel_bundles=REMIT_CANCEL, CHARITY_CANCEL
+
+remittance_cancel_bundles.REMIT_CANCEL.name=Remittance
+remittance_cancel_bundles.REMIT_CANCEL.receiver_account_type=RESELLER
+remittance_cancel_bundles.REMIT_CANCEL.sender_account_type=REMITTANCE_CREDIT
+remittance_cancel_bundles.REMIT_CANCEL.currency=USD
+remittance_cancel_bundles.REMIT_CANCEL.receiver_principal_id_types=RESELLERID
+remittance_cancel_bundles.REMIT_CANCEL.sender_principal_id_types=SUBSCRIBERMSISDN
+remittance_cancel_bundles.REMIT_CANCEL.sendProductSKU=REMIT_SEND
+
+remittance_cancel_bundles.CHARITY_CANCEL.name=Charity
+remittance_cancel_bundles.CHARITY_CANCEL.receiver_account_type=RESELLER
+remittance_cancel_bundles.CHARITY_CANCEL.sender_account_type=REMITTANCE_CREDIT
+remittance_cancel_bundles.CHARITY_CANCEL.currency=USD
+remittance_cancel_bundles.CHARITY_CANCEL.receiver_principal_id_types=RESELLERID
+remittance_cancel_bundles.CHARITY_CANCEL.sender_principal_id_types=SUBSCRIBERMSISDN
+remittance_cancel_bundles.CHARITY_CANCEL.sendProductSKU=CHARITY_CANCEL
+
+###############################################################################
+
+plan_sales=BUNDLE_SALES
+plan_sales.BUNDLE_SALES.sender_account_type=RESELLER
+plan_sales.BUNDLE_SALES.receiver_account_type=AIRTIME
+plan_sales.BUNDLE_SALES.receiver_principal_id_types=SUBSCRIBERMSISDN
+plan_sales.BUNDLE_SALES.transaction_type=PRODUCT_RECHARGE
+#Used to sell customer operation bundle plan, Default value is PREPAID_DATA_BUNDLE
+plan_sales.BUNDLE_SALES.operation_id=PREPAID_DATA_BUNDLE
+plan_sales.BUNDLE_SALES.group_separator=_
+
+###############################################################################
+
+# Possible Transaction Statuses
+# NOTE: first item is ALL always
+transactionStatuses = All, Succeeded, Failed
+
+###############################################################################
+# Id of the report that is shown in dashboard page
+# This report will be provided with the reseller id of logged in user (reseller_id)
+# dashboardReportId =
+
+###############################################################################
+# Id of the report that is used for transaction exporting
+resellerTransactionReport=search_transaction_report_for_agent_portal.rptdesign
+
+###############################################################################
+# Welcome Text, shown on top bar of agent portal
+welcomeText = Welcome to ERS 360 Agent Portal
+
+###############################################################################
+# Agent portal's logo
+logoUrl = images/top_banner.jpg
+
+###############################################################################
+# Help related configuration
+# helpUsed will either show or hide the help link in screens.
+# Defaults to true, if left out 
+helpUsed = true
+# Help page link, relative to the location of Application.html
+# This help is context sensitive, as the page name on which help link
+# is pressed will be passed to the help.
+helpUrl = ../help/manual/users_manual.html
+
+###############################################################################
+# Do we have parent/child reseller hierarchy or level based hierarchy?
+parentChildHierarchy = true
+
+###############################################################################
+# Enable filter on parent reseller and depth for searching subagents?  
+enableSubagentSearchByParent = true
+
+###############################################################################
+# Enable filter on depth for searching subagents?  
+enableSubagentSearchByDepth = true
+
+###############################################################################
+# Should parent resellers see balance of their children?
+enableCheckingSubresellersBalance = true
+
+###############################################################################
+# Should export button on the serach transaction result enabled?
+enableSearchTransactionsExport = false
+
+###############################################################################
+# Should reprint in search Transaction result enabled?
+enableSearchTransactionsReprint = true
+
+###############################################################################
+# Should operations column in search Transaction result enabled?
+enableSearchTransactionsOperations = true
+
+###############################################################################
+# Should resend notification column in search Transaction result enabled?
+enableSearchTransactionsResendNotification = false
+
+###############################################################################
+# Should 2nd level Authentication by OTP on Login enabled?
+enableSecondLevelAuthentication = false
+
+# Shows the login form with msisdn login or resellerId or both
+# Values are MSISDN or RESELLERID
+# If this property is disabled then both of the methods are chosen
+# This property gets overridden by "defaultLoginByResellerId" property.
+# For eg , If defaultLoginByResellerId is true and targetLoginMethod is MSISDN then ReselerId login is shown
+# targetLoginMethod = RESELLERID
+
+###############################################################################
+# Default login mechanism is by MSISDN or by reseller id
+defaultLoginByResellerId = true
+
+###############################################################################
+# Used to control data bundle sale without credit. 
+# Default value is false
+bundle_sales_without_credit=false
+
+###############################################################################
+# Additional CSS file to be included in case of customer needs
+#extraCSSFileUrl = ../../agentportal_resources/extra_styles.css
+
+###############################################################################
+# Possible Transaction Types
+# NOTE: first item is ALL always
+#transactionTypes =  CREDIT_TRANSFER,
+#                    TOPUP, REVERSE_CREDIT_TRANSFER, REVERSE_TOPUP
+# Work around because support UI is not able to search by transaction profile. 
+# Only transaction type is possible to search now
+transactionTypes =  CREDIT_TRANSFER, TOPUP, REVERSE_CREDIT_TRANSFER, REVERSE_TOPUP, REQUEST_CREDIT_TRANSFER
+
+###############################################################################
+# Main features that are disabled for any user, possible values: 
+# MOLLET: disables all mollet features
+# TOPUP: disables topup page
+# REGISTER_AGENT: no agent registration page
+# TAX: no tax field in account information screen
+# RESELLER_BLOCKING: blocking/unblocking of resellers
+# TRANSFER_REVERSAL: reversal of credit transfer transactions
+# LINK_DELINK_AGENT: no agent link page
+# BULK_TOPUP: no multiple R2S topups page
+# REMITTANCE: no send and receive remittance
+# REGISTER_AGENT_USER: no register and update aegnt users
+# REGISTER_SUBSCRIBER: no register , update and search users
+# MM2ERS: Ericsson Mobile Money to ERS via Huawei SDP
+
+disabledFeatures = MOLLET, REGISTER_AGENT, RESELLER_BLOCKING, LINK_DELINK_AGENT, BULK_TOPUP, REGISTER_SUBSCRIBER, REMITTANCE, REGISTER_AGENT_USER, VOUCHER, REQUEST_CREDIT_TRANSFER, REMITTANCE_TRANSACTIONS_REPORT, TOPUP, MOBILE_MONEY,REPORT_TRANSACTIONS,PURCHASE_STOCK,UPDATE_RESELLER_PAYLIMIT,AGENT_TYPE,PIN_ON_DEMAND,CEN,BUNDLE_SALES,BULK_BUNDLE_SALES 
+
+# Features that are disabled for specific roles
+# example: disabledFeatures.web_user_1=TOPUP,CREDIT_TRANSFER
+#disabledFeatures.Reseller = VOUCHER 
+disabledFeatures.Reseller=REPORT
+# Features that are disabled for specific resellertype for specific roles
+# Syntax: disabledFeatures.<role id>.<reseller type> = CREDIT_TRANSFER, SUB_AGENTS_REPORT, ...
+# Example: disabledFeatures.Reseller_admin.reseller = CREDIT_TRANSFER, SUB_AGENTS_REPORT
+
+###############################################################################
+# An option to limit which role can perform transaction reversal action.
+# If not configured, the transaction reversal option will be shown in the agentportal
+# when TRANSFER_REVERSAL feature is enabled.
+# Put the list of roles here in order to hide reversal option for those roles.
+#
+#hideReveralActionForRoles = Reseller, Reseller_admin
+
+###############################################################################
+#Reseller Search Depth feature is diabled.Allowing generic searching technique
+#controlled by ers core.By Default,this value is true and searches in all 
+#Reseller Levels. Values can be either true or false
+#disableSearchDepth=true
+
+# should the currency configurations above override GWT's internal currency
+# formattings?
+# If false, only when GWT doesn't support the currency, agent portal uses above
+# definitions
+forceUserCurrencyFormat = true
+
+###############################################################################
+# Enabled languages
+# Languages that will appear in UI, if supported by the compile procedure
+enabledLanguages = en, ar, fr, fa
+
+###############################################################################
+#Reports
+#
+#List of report ids, and parameter specs of reports follows. if commented, no
+#report page is shown.
+#
+#sample of a report spec:
+#reports.REPORT_ID.supportsRowsPerPage = true 
+#reports.REPORT_ID.reportId = REAL_ID_OF_THE_REPORT (optional, to override the id) 
+#reports.REPORT_ID.params = FIRST_PARAMETER_ID, SECOND_PARAMETER_ID
+#reports.REPORT_ID.params.FIRST_PARAMETER_ID.name = REAL_FIRST_PARAMETER_ID (optional, to override the id)
+#reports.REPORT_ID.params.FIRST_PARAMETER_ID.displayName = FIRST_PARAMETER_NAME
+#reports.REPORT_ID.params.FIRST_PARAMETER_ID.type = FIRST_PARAMETER_TYPE
+#reports.REPORT_ID.params.SECOND_PARAMETER_ID.name = REAL_SECOND_PARAMETER_ID (optional, to override the id)
+#reports.REPORT_ID.params.SECOND_PARAMETER_ID.displayName = FIRST_PARAMETER_NAME
+#reports.REPORT_ID.params.SECOND_PARAMETER_ID.type = FIRST_PARAMETER_TYPE
+#
+# Parameter types are specified in ReportParamType enumeration
+# (STRING,NUMERIC,PHONE_NO,DATE). If report has no parameters, don't put the
+# params entry, just list it in reports
+
+# reports=MOLLET_001, MOLLET_002
+
+#reports.MOLLET_001.displayName = report1
+#reports.MOLLET_001.supportsRowsPerPage = true 
+#reports.MOLLET_001.params = a 
+#reports.MOLLET_001.params.a.displayName = A
+#reports.MOLLET_001.params.a.type = STRING
+
+#reports.MOLLET_002.displayName = report2 
+#reports.MOLLET_002.params = b
+#reports.MOLLET_002.params.b.displayName = Transaction ID
+#reports.MOLLET_002.params.b.type = NUMERIC
+#
+
+###############################################################################
+# This configures Credit Transfer to validate based on RESELLERMSISDN, RESELLERID 
+# Possible values are RESELLERMSISDN, RESELLERID. Put both these values to enable
+# double validation. If RESELLERMSISDN is not present in following property then 
+# Reseller MSISDN will be considered optional 
+targetResellerSelectionMethod=RESELLERMSISDN, RESELLERID
+
+###############################################################################
+# search fields used for searching for transactions
+searchFieldTypeIds.sender=SENDER_RESELLER_ID,SENDER_RESELLER_MSISDN,SENDER_SUBSCRIBER_MSISDN,SENDER_SUBSCRIBER_ID
+searchFieldTypeIds.receiver=RECEIVER_RESELLER_ID,RECEIVER_RESELLER_MSISDN,RECEIVER_SUBSCRIBER_MSISDN,RECEIVER_SUBSCRIBER_ID
+searchFieldTypeIds.customer=CUSTOMER_MSISDN,CUSTOMER_SUBSCRIBER_ID
+searchFieldTypeIds.any=SENDER_RESELLER_ID,RECEIVER_RESELLER_ID,SENDER_RESELLER_MSISDN,RECEIVER_RESELLER_MSISDN,SENDER_SUBSCRIBER_MSISDN,RECEIVER_SUBSCRIBER_MSISDN,SENDER_SUBSCRIBER_ID,RECEIVER_SUBSCRIBER_ID,CUSTOMER_SUBSCRIBER_ID
+
+
+parentSearchFieldTypeIds.sender=SENDER_PARENT_ID
+parentSearchFieldTypeIds.receiver=RECEIVER_PARENT_ID
+parentSearchFieldTypeIds.any=SENDER_PARENT_ID,RECEIVER_PARENT_ID
+
+regionSearchFieldTypeIds.sender=SENDER_REGION_NAME
+regionSearchFieldTypeIds.receiver=RECEIVER_REGION_NAME
+regionSearchFieldTypeIds.any=SENDER_REGION_NAME,RECEIVER_REGION_NAME
+
+
+##### Voucher type definitions
+# Possible voucher types are AIRTIME_VOUCHER, VALIDITY_VOUCHER, POSTPAID_VOUCHER
+voucher_type=AIRTIME_VOUCHER
+voucher_type.AIRTIME_VOUCHER.id=AIRTIME VOUCHER
+voucher_type.AIRTIME_VOUCHER.SENDER_ACCOUNT_TYPE=RESELLER_AIRTIME
+voucher_type.AIRTIME_VOUCHER.RECEIVER_ACCOUNT_TYPE=SUBSCRIBER_AIRTIME
+voucher_type.AIRTIME_VOUCHER.currency=SYP
+voucher_type.AIRTIME_VOUCHER.products.1.SKU=AIRTIME_VOUCHER_75
+voucher_type.AIRTIME_VOUCHER.products.1.amount=75
+voucher_type.AIRTIME_VOUCHER.products.2.SKU=AIRTIME_VOUCHER_150
+voucher_type.AIRTIME_VOUCHER.products.2.amount=150
+voucher_type.AIRTIME_VOUCHER.products.3.SKU=AIRTIME_VOUCHER_300
+voucher_type.AIRTIME_VOUCHER.products.3.amount=300
+voucher_type.AIRTIME_VOUCHER.products.4.SKU=AIRTIME_VOUCHER_750
+voucher_type.AIRTIME_VOUCHER.products.4.amount=750
+voucher_type.AIRTIME_VOUCHER.products.5.SKU=AIRTIME_VOUCHER_900
+voucher_type.AIRTIME_VOUCHER.products.5.amount=900
+voucher_type.AIRTIME_VOUCHER.products.6.SKU=AIRTIME_VOUCHER_1950
+voucher_type.AIRTIME_VOUCHER.products.6.amount=1950
+
+voucher_type=VALIDITY_VOUCHER
+voucher_type.VALIDITY_VOUCHER.id=VALIDITY VOUCHER
+voucher_type.VALIDITY_VOUCHER.SENDER_ACCOUNT_TYPE=RESELLER_VALIDITY
+voucher_type.VALIDITY_VOUCHER.RECEIVER_ACCOUNT_TYPE=SUBSCRIBER_VALIDITY
+voucher_type.VALIDITY_VOUCHER.currency=SYP
+voucher_type.VALIDITY_VOUCHER.products.1.SKU=VALIDITY_VOUCHER_71
+voucher_type.VALIDITY_VOUCHER.products.1.amount=71
+
+
+###############################################################################
+# Force user to enter password at the second step of receive money in MRS
+#enableReceivePasswordValidation = true
+
+###############################################################################
+# Show <CountryCode> + <NetworkCode> prefix in Phone Id Text Box instead of MSISDN
+showOnlyPrefixInIdTextBox=true
+###############################################################################
+# Masks all the login Entries on login page.
+# true = to enable masking 
+# false = to disable masking
+# By default, this value is false.
+# maskLoginEntries = false
+###############################################################################
+# Change the 'Submit' button name in the form to 'Search' in all the search 
+# pages. i.e transaction search, customer search page, agent search page
+# true = to rename 'Submit' button
+# false = 'Submit' button will be displayed
+# By default, this value is false
+# modifySubmitButtonName=false
+
+###############################################################################
+# Used mainly to check if logged in reseller is the topLevel and allowed to view
+# to view the sender's balance in transaction details
+# Disable this property to restore the default behaviour
+# topLevelResellerId=HQ
+
+###############################################################################
+
+# Enable or Disable, Search Bulk transactions by using batchID constraint 
+enableSearchTransactionsByBulkBatchId=true
+
+###############################################################################
+# Reseller user role settings for register reseller users
+user_role.1.name=Reseller admin
+user_role.1.id=Reseller_admin
+user_role.2.name=Reseller web user
+user_role.2.id=Reseller
+
+###############################################################################
+# Added two new filters in Search Transaction.
+# if Children set to true the transaction of children of login user will be visible only.
+# if loginUser involved set to true then the transaction where login user will be involved as
+# sender or reciever only those transactions will be visible.
+
+searchTransaction.Filter.children=false
+searchTransaction.Filter.withzero.children=false
+searchTransaction.Filter.loginuserinvolved=false
+
+# Maximum no of entries in file
+bulk_credit_Transfer_limit=50
+
+# if "Yes" then new reseller type will be selected when linking existing resellers
+is_mandatory_resellertype_for_link_reseller=true
+
+# if "true" then register sub reseller call will initiated while linking process.
+is_link_fail_then_register=true
+
+#whether bulk credit transfer to stop if one credit transfer fails or continue until end of the file, even if errors appear
+isBulkCreditTransferContinueOnFailureOccurredEnabled=true
+
+# Possible hours 
+formHours = 00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23
+#Transaction Report rpt design file name
+transactionReportRptFile=Daily Transaction Summary Report.rptdesign
+
+#Agent portal Transaction Report mime type
+
+transactionReport.mimeType=text/csv
+
+###############################################################################
+# Added for purchase stock [MoMo transaction].
+default_sender_account_type=MOBILEMONEY
+default_fallback_operator_msisdn=2255520000000
+
+###############################################################################
+# Added for Modify pay limit.
+modify_paylimit_allowed_reseller_types=strategicdelegate,dealerdelegate
+
+
+bundle_prefix=BUNDLE
+
+searchUserCountryVisible=false
+user_password_required=false
+
+api_key=123456789
+
+reportui_url=http://localhost:8081/reportui/reportui/Application.html
+enable_reseller_management=true
+
+cenui_enable=false
+cen_api_key=123456789
+cenui_url=http://localhost:8081/censystemui/
+
+
+#This only applicable  for https setup for agentportal, On http it will work by default. you need to provide exact IP and port info (will not work for localhost)
+reportDownloadUrl=http://ip:port
+
+
+
+
+
+######################################### ChildTransactionReportWithRegion ####################################
+regions=All, NO_REGION, Congo, Congo1
+

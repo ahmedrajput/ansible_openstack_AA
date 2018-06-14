@@ -1,0 +1,24 @@
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+binlog_format=ROW
+bind-address=0.0.0.0
+max_connections=10000
+skip-name-resolve
+wait_timeout=300000
+max_allowed_packet=64M
+
+# InnoDB Configuration
+default_storage_engine=innodb
+innodb_autoinc_lock_mode=2
+innodb_flush_log_at_trx_commit=0
+innodb_buffer_pool_size=122M
+
+# Galera Cluster Configuration
+wsrep_on=ON
+wsrep_provider=/usr/lib64/galera/libgalera_smm.so
+wsrep_provider_options="pc.recovery=TRUE;gcache.size=300M"
+wsrep_cluster_name="Galera_Cluster"
+wsrep_cluster_address="gcomm://10.10.10.2,10.10.10.3"
+wsrep_sst_method=rsync

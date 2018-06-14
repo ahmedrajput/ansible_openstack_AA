@@ -1,0 +1,873 @@
+#TODO need to change buyer receive amount 
+CREDIT_TRANSFER_RECEIPT_TITLE=Credit Transfer Receipt
+CREDIT_TRANSFER_RECEIPT=<#if transaction.productId??><table><caption><img src="../../agentportal_resources/receipt_logo.jpg"><BR/> Stockholm Tel.+4670 036 6484<br/><font size="+2"><#switch transaction.productId><#case "REMIT_SEND">Remittance Send Money<#break><#case "REMIT_RECEIVE">Remittance receive money<#break><#case "CHARITY_SEND">Charity Send Money<#break><#case "CHARITY_RECEIVE">Charity Receive Money<#break><#case "CREDIT_TRANSFER">Credit transfer receipt<#break><#case "REMIT_CANCEL">Remittance Cancel Send Money<#break><#case "CHARITY_CANCEL">Charity Cancel Send Money<#break><#default>Unknown product!</#switch></font></caption><#if transaction.productId?matches("REMIT_SEND") || transaction.productId?matches("CHARITY_SEND") || transaction.productId?matches("REMIT_RECEIVE") || transaction.productId?matches("CHARITY_RECEIVE") || transaction.productId?matches("REMIT_CANCEL") || transaction.productId?matches("CHARITY_CANCEL")><tr><td>Agent ID:</td><td>${agentPrincipalInformationTransaction.requestedPrincipal.resellerId}</td></tr><tr><td>Agent Name:</td><td>${agentPrincipalInformationTransaction.requestedPrincipal.resellerName}</td></tr><tr><td>Phone Number:</td><td>${agentPrincipalInformationTransaction.requestedPrincipal.resellerMSISDN}</td></tr><tr><td colspan=2><hr color=#808080 size=2 ></td></tr><tr><td>Transaction Date:</td><td>${transaction.startTime?datetime}</td></tr><tr><td>Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTransferAmount))}</td></tr><tr><td>Fee Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(customerFee))}</td></tr><tr><td>Total Amount:</td><td><#if transaction.receiverReceipt??>${amountUtils.formatAmount(cmsUtils.convert(transaction.receiverReceipt.totalAmount))}<#else> ${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTransferAmount))}</#if></td></tr><tr><td colspan=2><hr color=#808080 size=2 ></td></tr><tr><td>Receiver Name:</td><td><#if receiverFirstName?? >${receiverFirstName} </#if><#if receiverLastName??> ${receiverLastName}</#if></td></tr><tr><td>Telephone No:</td><td><#if receiverTelephone?? > ${receiverTelephone}</#if></td></tr><tr><td>Address:</td><td><#if receiverStreetAddress?? >${receiverStreetAddress}</#if></td></tr><tr><td>City:</td><td><#if receiverCity?? > ${receiverCity}</#if></td></tr><tr><td>Country:</td><td><#if receiverCountry?? > ${receiverCountry}</#if></td></tr><tr><td colspan=2><hr color=#808080 size=2 ></td></tr><tr><td>Sender Name:</td><td><#if senderFirstName?? >${senderFirstName} </#if><#if senderLastName?? >${senderLastName}</#if></td></tr><tr><td>Comments:</td><td>${comments}</td></tr><tr><td>Rem. Date:</td><td>${transaction.startTime?datetime}</td></tr><tr><td>MTTN (Money Transfer Transaction Number):</td><td>${transaction.ersReference}</td></tr><tr><td colspan=2><br/></td></tr><tr><td colspan=2><br/></td></tr><tr><td colspan=2><br/></td></tr><tr><td>Customer Signature</td><td>Cashier Signature</td><td></td></tr><tr><td colspan=2><br/></td><td></td></tr><#elseif transaction.productId?matches("CREDIT_TRANSFER")><tr><td colspan="2"><font size="+1">Date: ${transaction.startTime?datetime}</td></tr><tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.receiverPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Price for Credit Transfer:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTransferAmount))}</td></tr> <tr><td>Buyer Received Amount:</td><td>${transaction.receiverReceipt.totalAmount.value}${transaction.receiverReceipt.totalAmount.currency}</td></tr> <tr><td>Payment Type:</td><td>${paymentMethod}</td></tr> <tr><td>Comments:</td><td>${comments}</td></tr> </#if></table></#if> 
+
+PURCHASE_STOCK_RECEIPT_TITLE=Purchase Stock Receipt
+PURCHASE_STOCK_RECEIPT=<table><caption><font size="+2"> Purchase Stock Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.receiverPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Purchase Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTransferAmount))}</td></tr></table>
+
+#TODO need to change topup amount to be received amount
+TOPUP_RECEIPT_TITLE=Topup Receipt
+TOPUP_RECEIPT=<table><caption><font size="+2"> Topup Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.topupPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Topup Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTopupAmount))}</td></tr></table>
+
+BULK_TOPUP_RECEIPT_TITLE=Bulk Topup Receipt
+BULK_TOPUP_RECEIPT=<#assign success=0 failed=0><table><caption style='text-align:left'><tr><td><img src="../../agentportal_resources/receipt_logo.jpg"></td><td><font size="+2"> Bulk Topup Receipt </font></td> <tr><td>Reseller: ${resellerData.resellerMSISDN} - </td><td>Date: ${date?datetime}</td></tr></table></caption><table><#list topups as topup><#if topup.resultCode==0><#assign success=success+1><tr><td><b>Success: </b>${topup.transaction.resultMessage}</td></tr></#if></#list></table><table><#list topups as topup><#if topup.resultCode!=0><#assign failed=failed+1><tr><td><b>Failed: </b>[${topup.topupId} ${topup.amount}]. ${topup.transaction.resultMessage}</td></#if></#list></tr><tr><b><td>Total: ${success+failed} &nbsp;&nbsp; Success: ${success} &nbsp;&nbsp; Failed: ${failed}</td></b></tr></table>
+
+BULK_CREDIT_TRANSFER_RECEIPT_TITLE=Bulk Credit Transfer Receipt
+BULK_CREDIT_TRANSFER_RECEIPT=<#assign success=0 failed=0><table><caption style='text-align:left'><tr><td><img src="../../agentportal_resources/receipt_logo.jpg"></td><td><font size="+2"> Bulk Credit Transfer Receipt </font></td> <tr><td>Reseller: ${resellerData.resellerMSISDN} - </td><td>Date: ${date?datetime}</td></tr></table></caption><table><#list creditTransfers as creditTransfer><#if creditTransfer.resultCode==0><#assign success=success+1><tr><td><b>Success: </b>${creditTransfer.transaction.resultMessage}</td></tr></#if></#list></table><table><#list creditTransfers as creditTransfer><#if creditTransfer.resultCode!=0><#assign failed=failed+1><tr><td><b>Failed: </b>[${creditTransfer.creditTransferId} ${creditTransfer.amount}]. ${creditTransfer.transaction.resultMessage}</td></#if></#list></tr><tr><b><td>Total: ${success+failed} &nbsp;&nbsp; Success: ${success} &nbsp;&nbsp; Failed: ${failed}</td></b></tr></table>
+
+#Voucher Receipt
+VOUCHER_RECEIPT_TITLE=Voucher Receipt
+VOUCHER_RECEIPT=<table><caption><font size="+2"> Voucher Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.receiverPrincipal.subscriberId}</td> </tr> <tr><td>Seller:</td><td>${transaction.principal.primaryPrincipalId.id}</td></tr> <tr><td>Voucher serial number:</td><td>${transaction.purchasedProducts[0].rows[0].reference}</td></tr> <tr><td>Voucher Product:</td><td>${transaction.purchasedProducts[0].product.name}</td></tr></table>
+
+#PIN_ON_DEMAND
+PIN_ON_DEMAND_RECEIPT_TITLE=Voucher Receipt
+PIN_ON_DEMAND_RECEIPT=<table><caption><font size="+2"> Voucher Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.receiverPrincipal.subscriberId}</td> </tr> <tr><td>Seller:</td><td>${transaction.principal.primaryPrincipalId.id}</td></tr> <tr><td>Voucher serial number:</td><td>${transaction.resultProperties.get("voucherSerial")}</td></tr> <tr><td>Expiry Date:</td><td>${transaction.resultProperties.get("voucherExpiry")}</td></tr> <tr><td>Voucher PIN:</td><td>${transaction.resultProperties.get("voucherPin")}</td></tr></table>
+
+MOLLET_DEPOSIT_RECEIPT_TITLE=Cash In Receipt
+MOLLET_DEPOSIT_RECEIPT=<table><caption><font size="+2"> Cash In Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.reference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.receiverId}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderId}</td></tr> <tr><td>Cash In Amount:</td><td>${transaction.receivedAmountString}</td></tr></table>
+
+#BundleSales Receipt
+PRODUCT_RECHARGE_RECEIPT_TITLE=Plan Sales Receipt
+PRODUCT_RECHARGE_RECEIPT=<table><caption><font size="+2"> Plan Sales Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.topupPrincipal.submittedPrincipalId.id}</td> </tr> <tr><td>Seller:</td><td>${transaction.senderPrincipal.primaryPrincipalId.id}</td></tr> <tr><td>Product Name:</td><td>${transaction.transactionProperties.get("productName")}</td></tr> <tr><td>Plan Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(transaction.requestedTopupAmount))}</td></tr></table>
+
+# Transaction profile-RECEIPT_TITLE
+# Transaction profile-RECEIPT
+CUSTOM_OPERATION_PREPAID_DATA_BUNDLE_RECEIPT_TITLE=Plan Sales Receipt
+CUSTOM_OPERATION_PREPAID_DATA_BUNDLE_RECEIPT=<table><caption><font size="+2"> Plan Sales Receipt </font> <br />Date: ${transaction.startTime?datetime}</caption> <tr><td>Reference no.:</td><td>${transaction.ersReference}</td> </tr> <tr><td>Buyer:</td><td>${transaction.transactionProperties.get("receiverMSISDN")}</td> </tr> <tr><td>Seller:</td><td>${transaction.targetPrincipal.resellerId}</td></tr> <tr><td>Product Name:</td><td>${transaction.transactionProperties.get("productSKU")}</td></tr> <tr><td>Plan Amount:</td><td>${amountUtils.formatAmount(cmsUtils.convert(amount))}</td></tr></table>
+
+BULK_CUSTOM_OPERATION_PREPAID_DATA_BUNDLE_RECEIPT_TITLE=Bulk Plan Sales Receipt
+BULK_CUSTOM_OPERATION_PREPAID_DATA_BUNDLE_RECEIPT=<#assign success=0 failed=0><table><caption style='text-align:left'><tr><td><img src="../../agentportal_resources/receipt_logo.jpg"></td><td><font size="+2"> Bulk Bundle Sale Receipt </font></td> <tr><td>Reseller: ${resellerData.resellerMSISDN} - </td><td>Date: ${date?datetime}</td></tr></table></caption><table><#list topups as topup><#if topup.resultCode==0><#assign success=success+1><tr><td><b>Success: </b>${topup.transaction.resultMessage}</td></tr></#if></#list></table><table><#list topups as topup><#if topup.resultCode!=0><#assign failed=failed+1><tr><td><b>Failed: </b>[${topup.topupId} ${topup.amount}]. ${topup.transaction.resultMessage}</td></#if></#list></tr><tr><b><td>Total: ${success+failed} &nbsp;&nbsp; Success: ${success} &nbsp;&nbsp; Failed: ${failed}</td></b></tr></table>
+
+BULK_DATA_BUNDLE_RECEIPT_TITLE=Bulk Bundle Sale Receipt
+BULK_DATA_BUNDLE_RECEIPT=<#assign success=0 failed=0><table><caption style='text-align:left'><tr><td><img src="../../agentportal_resources/receipt_logo.jpg"></td><td><font size="+2"> Bulk Bundle Sale Receipt </font></td> <tr><td>Reseller: ${resellerData.resellerMSISDN} - </td><td>Date: ${date?datetime}</td></tr></table></caption><table><#list topups as topup><#if topup.resultCode==0><#assign success=success+1><tr><td><b>Success: </b>${topup.transaction.resultMessage}</td></tr></#if></#list></table><table><#list topups as topup><#if topup.resultCode!=0><#assign failed=failed+1><tr><td><b>Failed: </b>[${topup.topupId} ${topup.amount}]. ${topup.transaction.resultMessage}</td></#if></#list></tr><tr><b><td>Batch Id: ${bulkBatchId} &nbsp;&nbsp; Total: ${success+failed} &nbsp;&nbsp; Success: ${success} &nbsp;&nbsp; Failed: ${failed}</td></b></tr></table>
+
+# look into agentportal_client.properties to know about these following configurations
+#welcomeText=Welcome to ERS 360 Agent Portal
+#dashboardReportId=ResellersHomePage
+#helpUrl=../help/manual/users_manual.html
+
+
+
+
+# for countries use "countries.[COUNTRY NAME]" syntax, eg. "countries.USA=USA"
+# for statuses use "transactionStatuses.[STATUS NAME]" syntax, eg. "transactionStatuses.All=All"
+# for paymentMethods use "paymentMethods.[PAYMENT METHOD NAME]" syntax, eg. "paymentMethods.Cash=Cash"
+# for participationTypes use "participationTypes.[PARTICIPATION TYPE]" syntax, eg. "participationTypes.Sender=Sender"
+# for reports, use "reports.[REPORT ID].displayName" and "reports.[REPORT ID].params.[PARAM ID].displayName" syntax, eg. "reports.MOLLET_003.displayName=mollet003" and "reports.MOLLET_003.params.a.displayName=p1"
+
+
+#for enabledLanguages use "enabledLanguages.[LANGUAGE]" syntax, 
+#eg. "enabledLanguages.en=English"
+enabledLanguages.en=English
+
+
+###################################### Client side interface configurations
+####### Messages Section
+Message.LoginFailed=Login failed!
+Message.LoginFailedTooManyLoginAttempts=You are blocked due to too many wrong attempts. Please contact operator to unblock.
+Message.UserLocked=You have not activated 
+Message.SessionExpired=Login session expired. You have to login again.
+Message.SingleSessionLoggedIn=Please Try Later! Reseller is already loggedIn on AgentPortal.
+Message.TransactionAlreadyReversed=This transaction has already been reversed.
+Message.TransactionReversalAlreadyRequested=Transaction reversal for this request has been already made. It is still pending for admin confirmation.
+Message.AccessDenied=Access denied.
+Message.IncorrectPasswordInChangePassword=Incorrect password.
+Message.TXEErrorMessageNoContents=Error occurred on server, error code:
+Message.ResellerIsAlreadyLinkedToYou=Reseller is already linked with you.
+Message.ResellerLinkedSuccessfully=Reseller is now linked with you.
+Message.ResellerDeLinkedSuccessfully=Reseller is de-linked from you.
+Message.BulkTopupInvalidFileFormat=Selected file is not well formatted. Refer to user manual for correct format.
+
+Message.BulkTopupInvalidFields=Please fill the highlighted fields correctly.
+
+Message.BulkTopupLimitCrossed=You have exceeded the maximum entries limit in a single file. Maximum number of entries allowed is:
+
+Message.BulkTopupDuplicateEntries=You have duplicate entries
+
+Message.BulkTopupInvalidProductSku=Invalid Product SKU
+Message.BulkTopupInvalidSubscriberNo=Invalid Subscriber Number
+Message.ResultsTruncated=Results are truncated. Try to search with more conditions to decrease number of results.
+Message.CaptchaFailed=CAPTCHA failed.
+Message.PleaseFillCaptcha=Please fill in the CAPTCHA field
+Message.PasswordsDoNotMatch=Passwords do not match!
+Message.IncorrectPasswordsFormat=Please enter correct password format!
+Message.NotMatch=Value do not match given Criteria
+Message.NoPricingInfo=No Pricing information retrieved from server
+Message.SubscriberPassword=Please enter customer remittance password
+Message.RemittanceAlreadyReceived=Receive is not possible for the transaction reference
+Message.TransactionRefNotFound=Remittance Transaction Id not found.
+Message.InvalidTransactionType=Invalid Remittance Transaction. Please check transaction type
+Message.ConfirmCancelTransaction=Do you want to cancel the transaction.
+Message.ResellerHasNoParent=Transaction failed because this agent has no parent
+Message.ConfirmRemoveAll=Do you really want to remove all receivers from the list ?
+Message.Warning=Warning
+Message.ResendNotificationSuccess=Notification resent successfully. <br> ERS Reference:
+Message.ResendNotificationFailed=Resend Notification failed. <br> ERS Reference:
+
+# Basic components messages (GWT components)
+
+Message.InvalidEmailAddress= Invalid Email address
+Message.InvalidAmount=Amount is invalid
+Message.InvalidNumber=Non-numeric character entered
+Message.PleaseFill=Please fill in the required fields
+Message.InvalidPersonalNo=Invalid personal no. entered
+Message.InvalidPhoneNo=Invalid phone no entered
+Message.InvalidImsi=Invalid serial no entered
+Message.InvalidSubscriberId=Invalid subscriber id entered
+Message.InvalidResellerId=Invalid reseller id entered
+
+Message.InvalidDate=Invalid date format!
+Message.PleaseFillPassword=Please fill in your password
+Message.PleaseFillMSISDN=Please fill in your phone number
+Message.PleaseFillResellerId=Please fill in your Reseller ID
+Message.PleaseFillUserId=Please fill in your User ID
+Message.DontFillBothPhoneAndResellerId=Entering values for both 'Reseller ID' and 'Phone no' is not supported, use either of them.
+Message.DontFillPhoneAndResellerIdAndTerminalSerial=Entering values for one of 'Reseller ID', 'Terminal Serial' and 'Phone no' is supported. You cannot fill more than one of them.
+Message.UnsupportedOperation=Unsupported Operation
+Message.PleaseFillValidAgentId=Please enter your own or sub agent ID
+Message.NextStepRegisterUser=.Next step is to register users for 
+
+Message.FileAlreadyExists=The File already exists
+Message.FileUploadFailed=File upload has failed
+Message.FileDownloadFailed=File download failed
+Message.UnAuthrizeSearch=You are not authorize to view this search results
+
+Message.OTPNotMatch=Your OTP does not match.
+Message.PasswordResetFailureMsg=Password was not reset successfully
+Message.PasswordResetFailed=Either ResellerId or UserId is invalid
+Message.PasswordResetPhoneNumberNotReg=Phone number is not registered
+
+####### Labels Section
+
+
+# Login Screen
+Label.LoginScreenTitle=Login
+Label.AgentPortalLogin=Agent Portal Login
+Label.PhoneNo=Phone Number
+Label.PhoneNoHelp=
+Label.Password=Password
+Label.PasswordHelp=
+Label.Submit=Submit
+Label.Reset=Reset
+Label.LoginUsingMSISDN=Login Using Phone Number and Password
+Label.LoginUsingResellerId=Login Using Reseller ID, User ID and Password
+Label.ResellerId=Reseller ID
+Label.UserId=User ID
+Label.ResellerIdHelp=
+Label.UsernameHelp=
+Label.PasswordReset=Forgot Password
+Label.PasswordResetSuccessMsg=New password has been sent successfully to the registered mobile number
+
+
+# Account Information Screen
+Label.AgentAccountInfoScreenTitle=Account Information
+Label.AgentAccountInfo=Personal Details
+Label.Name=Name
+Label.NameHelp=
+Label.AgentId=Agent Id.
+Label.AgentIdHelp=
+Label.AgentType=Reseller Type
+Label.ParentReseller=Parent Reseller
+Label.ParentResellerHelp=
+Label.Contract=Contract
+Label.ContractHelp=
+Label.DormantState=Status
+Label.TaxGroup=Tax Group
+Label.TaxGroupHelp=
+Label.Account=Account
+Label.AccountHelp=
+Label.Type=Type
+Label.TypeHelp=
+Label.Balance=Balance
+Label.BalanceHelp=
+Label.CreditLimit=Credit Limit
+Label.CreditLimitHelp=
+Label.Description=Description
+Label.DescriptionHelp=
+Label.AccountInfoFor=Account Details
+Label.CommissionDetails=Commission Details 
+Label.Address=Address
+Label.AddressHelp=
+Label.UnlimitedCredit=Unlimited
+Label.Zone=Zone
+Label.ZoneHelp=
+Label.Group=Group
+Label.SubGroup=Sub Group
+Label.SubSubGroup=Sub Sub Group
+Label.ParentResellerName=Parent Reseller Name
+Label.LimitPeriod=Limit Period
+Label.PeriodicCreditLimit=Periodic Credit Limit
+
+
+# Change Password Screen
+Label.ChangePasswordScreenTitle=Change Password
+Label.ChangePassword=Change Password
+Label.OldPassword=Old Password
+Label.OldPasswordHelp=
+Label.NewPassword=New Password
+Label.NewPasswordHelp=
+Label.ReEnterNewPassword= Re-enter New Password
+Label.ReEnterNewPasswordHelp=
+Label.PasswordChangedSuccessfully=Password changed successfully.
+
+# Mobile Money Screen
+Label.MobileMoneyScreenTitle=MM2ERS
+Label.MobileMoneyScreen=MM2ERS
+Label.MobileMoneyService=MM2ERS
+Label.MobileMoneyServiceHelp=Receive Mobile Money
+Label.MobileMoneyAmount=Amount
+Label.MobileMoneyReceiptTitle=MM2ERS
+
+# Deposit Screen
+Label.DepositScreenTitle=Subscriber Deposit
+Label.DepositScreen=Deposit Details
+Label.DepositPhoneNo=Subscriber Id.
+Label.DepositPhoneNoHelp=
+Label.DepositAmount=Amount
+Label.DepositAmountHelp=
+Label.DepositCurrency=Currency
+Label.DepositCurrencyHelp=
+Label.DepositReceiptTitle=Subscriber Deposit Receipt
+Label.DepositTransactionFinished=Transaction successfully finished with reference no. :
+
+
+#RedeemVoucherScreen
+Label.RedeemVoucherScreenTitle=Redeem Voucher
+Label.RedeemVoucherScreen=Voucher Information
+Label.VoucherId=Voucher Id
+Label.VoucherIdHelp=
+Label.Currency=Currency
+Label.CurrencyHelp=
+Label.Amount=Amount
+Label.AmountHelp=
+Label.PersonalInformation=Personal Information
+Label.PersonalIdNo=Personal Id. No.
+Label.PersonalIdNoHelp=Passport/Driving License/Personal ID Number
+Label.IdType=ID Type
+Label.IdTypeHelp=
+Label.FirstName=First Name
+Label.FirstNameHelp=
+Label.MiddleName=Middle Name
+Label.MiddleNameHelp=
+Label.LastName=Last Name
+Label.LastNameHelp=
+Label.DateOfBirth=Date of Birth
+Label.DateOfBirthHelp=
+Label.Street=Street Address
+Label.StreetHelp=
+Label.City=City
+Label.CityHelp=
+Label.Zip=Zip
+Label.ZipHelp=
+Label.Country=Country
+Label.CountryHelp=
+Label.EmailAddress=Email Address
+Label.EmailAddressHelp=
+Label.RedeemVoucherSuccess=Transaction successfully finished with reference no. :
+Label.RedeemVoucherReceiptTitle=Redeem Voucher Receipt
+
+
+#Register Agent Screen
+Label.RegisterAgentScreenTitle=Register Sub-Agent
+Label.RegisterAgentSuccess=Agent registered successfully.
+Label.ResellerName=Name
+Label.ResellerNameHelp=
+Label.ResellerTypeHelp=
+Label.JuridicalName=Juridical Name
+Label.JuridicalNameHelp=
+Label.Website=Website
+Label.WebsiteHelp=WebsiteHelp
+Label.AgentGroup=Country
+Label.AgentGroupHelp=
+Label.AgentSubGroup=City
+Label.AgentSubGroupHelp=
+Label.AgentSubSubGroup=Area
+Label.AgentSubSubGroupHelp=
+Label.EditAgentScreen=Update Agent
+
+
+#Link-DeLink Agent Screen
+Label.LinkDeLinkTitle=Link/De-Link subresellers
+Label.LinkTitle=Link subreseller
+Label.DeLinkTitle=De-Link subreseller
+Label.LinkDeLinkResellerMSISDN=Subreseller phone number
+Label.LinkDeLinkResellerMSISDNHelp=Enter the phone number to link / de-link to you as a subreseller
+Label.ChooseResellerTypeForLinking=Please choose subreseller's type:
+Label.LinkFailTitle=Link Sub-reseller
+Label.LinkFailReceipt=Give reseller not found in the system.
+
+
+#Mollet Transfer Screen
+Label.MolletTransferScreenTitle=Mollet Transfer
+Label.TransferDetails=Transfer Details
+Label.TransferSuccess=Transfer completed successfully. Transaction reference is :
+Label.MolletTransferReceiptTitle=Mollet Transfer Receipt
+
+
+#Credit Transfer Screen
+Label.CreditTransferScreenTitle=Credit Transfer
+Label.AgentMsisdn=Agent MSISDN
+Label.AgentMsisdnHelp=
+Label.Comments=Comments
+Label.CommentsHelp=
+Label.PaymentMethod=Payment Method
+Label.PaymentMethodHelp=
+Label.CreditTransferReceiptTitle=Stock Credit Transfer Receipt
+Label.Print=Print
+Label.TransferAmount=Transfer Amount
+Label.TransferAmountHelp=
+Label.AccountType=Account Type
+Label.AccountTypeHelp=
+
+
+#MOMO Stock Transfer Screen
+Label.PurchaseStockScreenTitle=Purchase Stock
+Label.PurchaseStockReceiptTitle=Purchase Stock Receipt
+Label.PurchaseStockDetails=Purchase Stock Detail
+Label.PurchaseFor=Purchase For
+
+#UpdateMollerUser Screen
+Label.UpdateMolletUserScreenTitle=Register Mollet User
+Label.SubscriptionType=Subscription Type
+Label.SubscriptionTypeHelp=
+Label.UserRegisterSuccess=User registered successfully.
+
+
+#StatusBar Screen
+Label.RequestFailed=Request Failed
+
+
+#Main Menu
+Label.MainMenuScreenTitle=Main Menu
+Label.Role=Role
+Label.RoleHelp=
+Label.LoggedInResellerId=
+Label.MyAccount=My Account
+Label.SubAgents=Agents
+Label.Subscribers=Subscribers
+Label.Transactions=Transactions
+Label.Reports=Reports
+Label.Logout=Logout
+Label.LoggingOut=Logging out ...
+Label.ResellerType=Type
+Label.ResellerTypeHelp=
+
+
+#Transactions Report
+Label.TransactionsReportScreenTitle=Transactions
+Label.SearchTransactions=Search Transactions
+Label.FromDate=From Date
+Label.ToDate=To Date
+Label.PhoneOrId=Phone No.
+Label.bulkBatchId=Batch Id
+Label.PhoneOrIdParticipation=ID/Phone No Participation
+Label.SenderPhoneOrId=Sender ID/Phone No.
+Label.ReceiverPhoneOrId=Receiver ID/Phone No
+Label.TransactionType=Transaction Type
+Label.TransactionReference=Transaction Reference
+Label.TransactionStatus=Transaction Status
+Label.Channel=Channel
+Label.Date=Date
+Label.Result=Result
+Label.Succeeded=Succeeded
+Label.Failed=Failed
+Label.Pending=Pending
+Label.Ongoing=Ongoing
+Label.Cancelled=Cancelled
+Label.TransactionsReportEmpty=No transactions found
+Label.RequestReversal=Request Reversal
+Label.RequestReversalCommentsTitle=Request Reversal Comments
+Label.ReversalFinished=Reversal finished successfully.
+Label.ReversalPending=Reversal requested. It will stay in pending state until it is confirmed by an admin.
+Label.DetailsOfTransaction=Details of Transaction
+Label.Export=Export
+Label.SelectFormat=Select Format
+Label.Html=HTML
+Label.Pdf=PDF
+Label.Excel=EXCEL
+Label.CustomerPhoneOrId=Customer ID/Phone No.
+Label.ReceiveMoney=Receive Money
+Label.ReprintReceipt=Reprint Receipt
+Label.ResendPassword=Resend Password
+Label.Operations=Operations
+Label.Select=Select
+Label.State=State
+
+#ChildTransactionReportWithRegion Report
+Label.ChildTransactionReportWithRegionScreenTitle=Region Based Child Transactions
+Label.ChildTransactionReportWithRegion=Region Based Child Transactions
+Label.Regions=Select Region
+Label.RegionParticipation=Region Participation
+
+Label.SenderRegion= Sender Region
+Label.ReceiverRegion= Receiver Region
+
+
+
+
+#SubAgentsReport Screen
+Label.SubAgentsReportScreenTitle=Agents
+Label.SubAgentsList=Agents List
+Label.SearchDepth=Search Depth
+Label.SearchDepthHelp=
+Label.RPP=Rows Per Page
+Label.RPPHelp=
+Label.Details=Details
+Label.UpdatePaylimit=Update Paylimit
+Label.TransferCredit=Transfer Credit
+Label.TransferMolletCredit=Transfer Mollet Credit
+Label.TerminalSerial=Terminal Serial
+Label.TerminalSerialHelp=
+Label.Block=Block
+Label.Unblock=Unblock
+Label.BlockCommentsTitle=Block Comments
+Label.AgentsReportEmpty=No agents found
+Label.OnlySubAgentsOneLevelBelow=Only show one level below
+Label.AllSubAgents=Show all levels
+
+
+#Simple Dialog
+Label.OK=OK
+Label.Cancel=Cancel
+Label.Yes=Yes
+Label.No=No
+Label.MessageTitle=Message
+Label.ErrorTitle=Error
+Label.Search=Search
+Label.New=New
+Label.Next=Next
+Label.Send=Send
+Label.Back=Back
+
+
+#EIRE Report
+Label.EIREReportScreenTitle=Reports
+Label.EIREReport=Reports
+Label.ReportName=Report Name
+Label.ReportParameters=Report Parameters
+
+
+#Home Page
+Label.HomePageTitle=Dashboard
+
+
+# Topup Screen
+Label.TopupScreenTitle=Subscriber Topup
+Label.TopupScreen=Topup Details
+Label.TopupPhoneNo=Subscriber Id
+Label.TopupPhoneNoHelp=Phone or Serial number or anonymousId of the subscriber to topup
+Label.TopupAmount=Transaction Amount
+Label.TopupAmountHelp=The amount to topup
+Label.TopupService=Service
+Label.TopupServiceHelp=
+Label.TopupTransactionFinished=Transaction successfully finished with reference no. :
+Label.TopupReceiptTitle=Topup Receipt
+
+
+# Bulk Topup Screen
+Label.BulkTopupScreenTitle=Bulk Topup
+Label.BulkTopupScreen=Bulk Topup Details
+Label.BulkTopupPhoneNo=Subscriber Phone No.
+Label.BulkTopupAmount=Amount
+Label.BulkTopupCurrency=Currency
+Label.BulkTopupReceiptTitle=Topup(s) Receipt
+Label.BulkTopupRemove=Remove
+Label.BulkTopupAddNewTopup=Add New
+Label.BulkTopupSelectFile=Select File...
+Label.BulkTopupSubmit=Submit
+Label.BulkTopupReset=Reset
+Label.BulkTopupSequenceNo=Sequence No
+Label.BulkTopupService=Service
+
+
+#Report Screen
+Label.EmptyReport=Report is empty.
+Label.Row=Row
+Label.Page=Page:
+Label.PageNoAndTotalSeperator=/
+
+
+#General
+Label.CopyRightFooter=<font size='-2'>&copy;2011 Seamless Distribution AB - All rights reserved.</font>
+Label.RequiredFieldDescription=* marked fields are mandatory
+Label.RequiredFieldSign=*
+#Label.Help=Help
+Label.Help=
+Label.Remove=Remove
+Label.ShowHideReceiverList=Show/Hide Receiver List
+Label.Alias=Alias
+Label.RemoveAll=Remove All
+Label.Save=Save
+Label.Go=Go
+
+
+#Transaction details screen
+Label.TransactionDetails=Transaction Details
+Label.TransactionReferenceHelp=
+Label.TransactionDetailsScreenTitle=Transaction Details
+Label.Sender=Sender
+Label.SenderHelp=
+Label.Receiver=Receiver
+Label.ReceiverHelp=
+Label.TransactionTypeHelp=
+Label.ChannelHelp=
+Label.TransactionStartDate=Start Date 
+Label.TransactionStartDateHelp=
+Label.TransactionEndDate=End Date
+Label.TransactionEndDateHelp=
+Label.TransactionResultCode=Result Code
+Label.TransactionResultCodeHelp=
+Label.TransactionResultDescription=Result Description
+Label.TransactionResultDescriptionHelp=
+Label.OriginalErsReference=Original ERS Reference
+Label.OriginalErsReferenceHelp=
+Label.ReferredErsReference=Referred ERS Reference
+Label.ReferredErsReferenceHelp=
+Label.SenderBalanceBefore=Sender's Balance Before
+Label.SenderBalanceBeforeHelp=
+Label.SenderBalanceAfter=Sender's Balance After
+Label.SenderBalanceAfterHelp=
+Label.ReceiverBalanceBefore=Receiver's Balance Before
+Label.ReceiverBalanceBeforeHelp=
+Label.ReceiverBalanceAfter=Receiver's Balance After
+Label.ReceiverBalanceAfterHelp=
+Label.SenderCustomerVirtualBalanceBefore=Sender Customer's Virtual A/C Balance Before
+Label.SenderCustomerVirtualBalanceBeforeHelp=
+Label.SenderCustomerVirtualBalanceAfter=Sender Customer's Virtual A/C Balance After
+Label.SenderCustomerVirtualBalanceAfterHelp=
+Label.ReceiverCustomerVirtualBalanceBefore=Receiver Customer's Virtual A/C Balance Before
+Label.ReceiverCustomerVirtualBalanceBeforeHelp=
+Label.ReceiverCustomerVirtualBalanceAfter=Receiver Customer's Virtual A/C Balance After
+Label.ReceiverCustomerVirtualBalanceAfterHelp=
+Label.TransactionChainState=Transaction Chain State
+Label.TransactionChainStateHelp=
+Label.Customer=Customer
+Label.CustomerHelp=Customer paying for the transaction
+Label.OriginalChainErsReference=Original chain ERS Reference
+Label.ResendNotification=Resend Notification
+
+# Single transaction search
+Label.SingleTransactionSearch=Single Transaction Search
+Label.SingleTransactionSearchScreenTitle=Single Transaction Search
+
+
+# Captcha
+Label.CaptchaText=Please type the characters below, case doesn't matter.
+
+
+# Basic components labels (GWT components)
+Label.Submit=Submit
+Label.Reset=Reset
+Label.OK=Ok
+Label.Cancel=Cancel
+Label.Yes=Yes
+Label.No=No
+Label.MessageTitle=Message
+Label.ErrorTitle=Error
+Label.EmptyReport=Report is empty.
+Label.Row=Row
+Label.Page=Page:
+Label.PageNoAndTotalSeparator=/
+Label.FirstPage=&lt;&lt;First
+Label.PreviousPage=&lt;Previous
+Label.NextPage=Next&gt;
+Label.LastPage=Last&gt;&gt;
+Label.Export=Export
+Label.RequiredFieldDescription=* marked fields are mandatory
+Label.RequiredFieldSign=*
+
+# Remittance Screen
+Label.RemittanceScreenTitle=Send money 
+Label.RemittanceScreen1=Step 1 of 2 - Enter send money details
+Label.RemittanceScreen2=Step 2 of 2 - Confirm transaction
+Label.SendingCustomer=Sending Customer
+Label.ReceivingCustomer=Receiving Customer
+Label.PaymentDetails=Payment Details
+Label.RemittanceSenderCustomerID=Sender ID
+Label.RemittanceReceiverCustomerID=Receiver ID
+Label.RemittanceCustomerIDHelp=Customer ID registered in the system.
+Label.SenderCustomerId=Sender CustomerId
+Label.SenderCustomerIdHelp=Sender CustomerId
+Label.SenderName=Name
+Label.SenderNameHelp=Name
+Label.SenderPhone=Phone
+Label.SenderPhoneHelp=Phone Help
+Label.SenderAddress=Address
+Label.SenderAddressHelp=Address Help
+Label.SenderCountry=Country
+Label.SenderCountryHelp=Country Help
+Label.ReceiverCustomerId=Receiver CustomerId
+Label.ReceiverCustomerIdHelp=Receiver CustomerId Help
+Label.ReceiverName=Name
+Label.ReceiverNameHelp=Name
+Label.ReceiverPhone=Phone
+Label.ReceiverPhoneHelp=Phone Help
+Label.ReceiverAddress=Address
+Label.ReceiverAddressHelp=Address Help
+Label.ReceiverCountry=Country
+Label.ReceiverCountryHelp=Country Help
+Label.RemittanceAmount=Remittance Amount
+Label.RemittanceAmountHelp=The amount to transfer to receiver customer without fee
+Label.RemittanceTransactionFinished=Transaction successfully finished with reference no. :
+Label.RemittanceReceiptTitle=Remittance - Send money receipt
+Label.RemittanceService=Remittance service
+Label.RemittanceServiceHelp=Choose remittance service with fee or without fee.
+Label.PaymentAmountHelp=Amount in currency of payment
+Label.PaymentCurrencyHelp=Customer price currency
+Label.PaymentAmount=Customer price
+Label.PaymentCurrency=Customer currency
+Label.AgentPrice=Agent Price
+Label.AgentPriceHelp=Price for Agent's Commission
+Label.ExchangeRate=Exchange Rate
+Label.ExchangeRateHelp=Rate for Conversion between these Currencies
+Label.TotalAmountHelp=Transfer amount including fee
+Label.TotalAmount=Total amount
+Label.FeeAmount=Fee amount
+Label.FeeAmountHelp=Fee for the transaction
+Label.PaymentReference=Payment reference
+Label.PaymentReferenceHelp=Bank reference or cheque no
+Label.PricingDetails=Pricing Details
+Label.NoSubscriberFound="No Subscriber Found"
+Label.CancelTransactionFinished=Transaction is cancelled successfully
+Label.ReceiverAlias=Alias
+Label.ReceiverAliasHelp=Name the customer to be easy to remember
+Label.ReceiverList=Receiver list
+Label.ReceiverListHelp=People registered as your receiver list
+Label.Recurring=Recurring
+Label.RecurringHelp=Schedule recurring payment
+Label.RecurringDetails=Recurring Details
+Label.RecurringStartDate=Start Date
+Label.RecurringStartDateHelp=Start date of recurring payment
+Label.RecurringEndDate=End Date
+Label.RecurringEndDateHelp=End date of recurring payment
+Label.RecurringPeriod=Recurring Period
+Label.RecurringPeriodHelp=Repeat payment cycle
+
+# Remittance agent registration screen
+Label.RemittanceEditAgent=Edit Agent
+Label.RemittanceAgentPhoneNumber=Phone Number
+Label.RemittanceAgentPhoneNumberHelp=Agent's phone number / Organization Phone Number
+Label.RemittanceOrganizationNumber=Organization Number
+Label.RemittanceOrganizationNumberHelp=Organization Number
+Label.RemittanceAgentType=Agent Type
+Label.RemittanceAccountType=Account Type
+Label.RemittanceCreditLimit=Credit Limit
+Label.RemittanceCreditLimitHelp=The credit amount which agent can use if the account goes below zero
+Label.RemittancePaylimitPeriod=Paylimit Period
+Label.RemittancePaylimitPeriodHelp=Paylimit is one way to control the number of transactions or aggregated amount which can be used for the period.
+Label.RemittancePaylimitAmount=Paylimit Amount
+Label.RemittancePaylimitAmountHelp=The aggregated amount of transfer transactions.
+Label.RemittanceTotalTransactions=Total Transactions
+Label.RemittanceTotalTransactionsHelp=Total transactions allowed for the defined period of time.
+
+
+
+# Remittance receive screen
+Label.RemittanceReceiveScreenTitle=Receive money
+Label.RemittanceReceiveScreen1=Step 1 of 2 - Enter receive money details
+Label.RemittanceReceiveScreen2=Step 2 of 2 - Confirm transaction
+Label.RemittanceReceiveAmountHelp=The amount customer will be received
+Label.ReceivePaymentCurrencyHelp=The currency which customer want to get the money
+Label.ReceivePaymentAmountHelp=Amount in payment currency
+Label.ReceivePaymentAmount=Receiving Amount
+Label.ReceivePaymentCurrency=Receiving Currency
+Label.RemittanceReference=Remittance transaction ID
+Label.RemittanceReferenceHelp=Transaction ID of sender remittance
+Label.RemittanceReceive=Receive money
+Label.ReceivingService=Receiving Service
+Label.ReceivingServiceHelp=Service for Receiving Money
+Label.ReceivingAmount=Receiving Amount
+Label.ReceivingAmountHelp=Amount to be received
+Label.AgentCommission=Agent Commission
+Label.AgentCommissionHelp=Commission to Agent
+Label.SendingAgent=Sending Agent
+Label.Receive=Receive
+
+# Subscriber search screen
+Label.SubscriberSearchScreen=Search subscriber
+Label.SubscriberCountryHelp=Country of subscriber
+Label.SubscriberId=Subscriber ID
+Label.SubscriberIdHelp=Unique subscriber id generated from ERS
+Label.SubscriberSearchScreenTitle=Search subscriber
+Label.IdNumber=ID number
+Label.IdNumberHelp=Identity name of the specific identity type
+Label.RemittanceSend=Send money
+Label.SubscriberResultEmpty=No subscriber found
+Label.Edit=Edit
+
+# Register Subscriber Screen
+Label.RegisterSubscriberScreenTitle=Register
+Label.RegisterSubscriberScreen=Register subscriber
+Label.EditSubscriberScreen=Edit subscriber
+Label.ShouldBeSelected= should be selected
+Label.AddFiles=Add File(s)
+Label.Upload=Upload
+
+# Remittance Cancel Screen
+Label.RemittanceCancelScreenTitle=Cancel Sending Money
+Label.RemittanceCancelDetails1=Step 1 of 2 - Enter cancel money details
+Label.RemittanceCancelDetails2=Step 2 of 2 - Confirm transaction
+Label.CancellingAmount=Cancelling Amount
+Label.CancellingAmountHelp=
+Label.CancellingCurrency=Cancelling Currency
+Label.CancellingCurrencyHelp=
+Label.CancelSending=Cancel sending money
+
+
+# Voucher Screen
+Label.VoucherScreenTitle=Sell Voucher
+Label.VoucherScreen=Voucher Details
+Label.VoucherPhoneNo=Subscriber Id
+Label.VoucherPhoneNoHelp=
+Label.VoucherAmount=Voucher Amount
+Label.VoucherAmountHelp=
+Label.VoucherService=Voucher Type
+Label.VoucherServiceHelp=
+Label.VoucherTransactionFinished=Transaction successfully finished with reference no. :
+Label.VoucherReceiptTitle=Voucher Receipt
+
+# Pin on demand (Voucher) Screen
+Label.PinOnDemandScreenTitle=Sell Voucher(Pin on demand)
+Label.PinOnDemandScreen=Voucher(Pin on demand) Details
+Label.PinOnDemandPhoneNo=Subscriber MSISDN
+Label.PinOnDemandPhoneNoHelp=
+Label.PinOnDemandAmount=Voucher Amount
+Label.PinOnDemandAmountHelp=
+Label.PinOnDemandService=Voucher Type
+Label.PinOnDemandServiceHelp=
+Label.PinOnDemandTransactionFinished=Transaction successfully finished with reference no. :
+Label.PinOnDemandReceiptTitle=Voucher Receipt
+
+# Request credit transfer
+Label.RequestCreditTransferScreenTitle=Request Credit
+Label.RequestTransferDetails=Request credits details
+
+# Search reseller users
+Label.SearchUsers=Search Users
+Label.UserResultEmpty=No user found
+
+# Register/Update reseller users
+Label.RegisterAgentUserScreenTitle=Register Users
+Label.RegisterAgentUserScreen=Register User
+Label.EditAgentUserScreen=Edit User
+Label.UserIdHelp=
+
+Label.IdentificationNo=Identification No
+Label.IdentificationNoHelp=Identification No
+Label.ShouldExpire=should expire
+Label.PaymentExpiration=Payment expiration
+Label.ExpiresAt=expires at
+
+#Dynamic Fields
+#Each KYC Fields are mapped based on Field-Id and Field-Description.
+#Example: Each field is mapped like <fileldId>:<fieldDescription> separated by comma(,). 
+Label.DynamicFields=FirstName:First Name, FirstNameHelp:Enter Your First Name, LastName:Last Name, LastNameHelp:Enter Your Last Name, MSISDN: Phone no, MobileNoHelp: Enter your mobile no in international format t.ex. 46762000123, City:City, CityHelp: City of the address, PostCode:Postal code, PostCodeHelp:Postal Code of the address, StreetAddress: Street Address, StreetAddressHelp:Street of your address, IdentificationType:Identification Type, IdentificationTypeHelp:Identification Type Help, IdentificationNo:Identification No, IdentificationNoHelp:Identification No Help, IdentificationFiles:Identification File(s), IdentificationFilesHelp:Identification Files Help, Passport:Passport,IDCard: ID Card, DrivingLicense:Driving license,Other:Other
+
+
+#Bulk Credit Transfer
+Label.bulkCreditTransferTitle=Bulk Credit Transfer
+Label.bulkCreditTransferScreen=Bulk Credit Transfer Details
+Label.bulkCreditTransferMsisdnNo=Reseller MSISDN.
+Label.bulkCreditTransferAmount=Amount
+Label.bulkCreditTransferCurrency=Currency
+Label.bulkCreditTransferReceiptTitle=Credit Transfer(s) Receipt
+Label.bulkCreditTransferRemove=Remove
+Label.bulkCreditTransferAddNew=Add New
+Label.bulkCreditTransferSelectFile=Select File...
+Label.bulkCreditTransferSubmit=Submit
+Label.bulkCreditTransferReset=Reset
+Label.bulkCreditTransferSequenceNo=Sequence No
+Label.bulkCreditTransferService=Service
+
+Message.bulkCreditTransferInvalidFileFormat=Selected file is not well formatted. Refer to user manual for correct format.
+Message.bulkCreditTransferDuplicateEntries=You have duplicate entries
+Message.bulkCreditTransferInvalidFields=Please fill the highlighted fields correctly.
+Message.bulkCreditTransferInvalidSubscriberNo=Invalid Reseller ID
+Message.bulkCreditTransferInvalidProductSku=Invalid Product SKU
+Message.bulkCreditTransferLimitCrossed=You have exceeded the maximum entries limit in a single file. Maximum number of entries allowed is:
+
+#Report Screen
+
+Label.transactionsReportDetailsScreenTitle=Transaction Report Details
+Label.transactionsReportSearchTransactions=Transaction Report
+Label.transactionsReportFromDate=Date
+Label.transactionsReportToDate=To Date
+Label.transactionsReportPhoneOrId=ID/Phone No.
+Label.transactionsReportPhoneOrIdParticipation=ID/Phone No Participation
+Label.transactionsReportSenderPhoneOrId=Sender ID/Phone No.
+Label.transactionsReportReceiverPhoneOrId=Receiver ID/Phone No
+Label.transactionReportType=Transaction Type
+Label.transactionReportReference=Transaction Reference
+Label.transactionReportStatus=Transaction Status
+Label.transactionReportChannel=Channel
+Label.transactionReportDate=Date
+Label.transactionReportResult=Result
+Label.transactionReportSucceeded=Succeeded
+Label.transactionReportFailed=Failed
+Label.transactionReportPending=Pending
+Label.transactionReportOngoing=Ongoing
+Label.transactionReportCancelled=Cancelled
+Label.transactionsReportEmpty=No transactions found
+Label.transactionsReportRequestReversal=Request Reversal
+Label.transactionsReportRequestReversalCommentsTitle=Request Reversal Comments
+Label.transactionsReportReversalFinished=Reversal finished successfully.
+Label.transactionsReportReversalPending=Reversal requested. It will stay in pending state until it is confirmed by an admin.
+Label.transactionsReportDetailsOfTransaction=Details of Transaction
+Label.transactionsReportExport=Export
+Label.transactionsReportSelectFormat=Select Format
+Label.transactionsReportHtml=HTML
+Label.transactionsReportPdf=PDF
+Label.transactionsReportExcel=EXCEL
+Label.transactionsReportCustomerPhoneOrId=Customer ID/Phone No.
+Label.transactionsReportReceiveMoney=Receive Money
+Label.transactionsReportReprintReceipt=Reprint Receipt
+Label.transactionsReportResendPassword=Resend Password
+Label.transactionsReportOperations=Operations
+Label.transactionsReportSelect=Select
+Label.transactionsReportState=State
+Label.fromHour=From Hour
+Label.toHour=To Hour
+
+#Update reseller pay limit
+Label.UpdateResellerPaylimitScreenTitle=Reseller Paylimit
+Label.UpdateResellerPaylimitScreen=Reseller Paylimit
+Label.UpdateResellerPaylimitAmount=Paylimit amount
+Label.UpdateResellerPaylimitComments=Comment
+Label.UpdateResellerPaylimitUpdate=Update
+Label.UpdateResellerPaylimitReset=Reset
+
+#OTP 2nd Level Authentication
+Label.inputOTP=Enter OTP
+Label.helpOTP=
+Label.screenTitleOTP=OTP Verification
+Label.OTPverifySuccessfully=Your OTP has been successfully verified.
+
+# Bundle Sales Screen
+Label.BundleSalesScreenTitle=Plan Sales
+Label.BundleSalesScreen=Plan Sales Details
+Label.BundleSalesPhoneNo=Subscriber Id
+Label.BundleSalesPhoneNoHelp=
+Label.BundleSalesName=Plan Name
+Label.BundleSalesNameHelp=
+Label.BundleSalesService=Plan Type
+Label.BundleSalesServiceHelp=
+Label.BundleSalesPrice=Price
+Label.BundleSalesPriceHelp=
+Label.BundleSalesDescription=Description
+Label.BundleSalesDescriptionHelp=
+Label.BundleSalesTransactionFinished=Transaction successfully finished with reference no. :
+Label.BundleSalesReceiptTitle=Plan Sales Receipt
+Label.NoPlansAvailable=No Plans Available
+
+Label.BulkBundleSalesScreenTitle=Plan Sales
+Label.BulkBundleSalesScreen=Plan Sales Details
+Label.BulkBundleSalesSelectFile=Select Bundle File...
+
+#Reports
+Label.ReportScreenTitle=Reports
+
+#Cen main menu
+Label.CenMainMenu=CEN
+
+#Cen Screen title
+Label.CenScreenTitle=CEN

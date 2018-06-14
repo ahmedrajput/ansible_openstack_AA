@@ -1,0 +1,40 @@
+# query for adding cursor to database, do not change it unless you stop using MySQL
+databasecursorrepository.upsertQuery=INSERT INTO cursors (scriptId, ersReference) VALUES (?, ?) ON DUPLICATE KEY UPDATE ersReference = VALUES(ersReference)
+
+# publish url of DataAggregatorAdminService
+admin_service_url=http://0.0.0.0:9001/data-aggregator/admin
+
+# url to transaction log
+ers.connections.transaction_exporting.url=http://localhost:8777/txe/transactionExporting
+
+scripts_directory=/opt/seamless/conf/data-aggregator/scripts/
+
+# includes other property files other than log4j properties
+#include (?!log4j).*.properties 
+
+# Here we are transforming profileId based on following conditions
+# if it is not required, just disable it.
+transaction_profile_translation=<#if profileID?? && profileID="CREDIT_TRANSFER" && channel?? && channel="webadmin">SUPPORT_TRANSFER<#else>${profileID}</#if>
+
+
+# Transaction log provider settings
+transactionlog.class_name=com.seamless.ers.txe.transactionlog.xmlbeans.XMLBeansTransactionLoggingFactory
+
+transactionlog.log.active=false
+transactionlog.replication.active=false
+transactionlog.archive.db_driver=org.mariadb.jdbc.Driver
+transactionlog.archive.db_url=jdbc:mysql://localhost:3306/transactionlog
+transactionlog.archive.db_user=refill
+transactionlog.archive.db_password=refill
+transactionlog.archive.pool_min_size=1
+transactionlog.archive.pool_max_size=100
+transactionlog.archive.pool_simultaneous_build_throttle=40
+
+# Maximum number of transactions to fetch in one call to transaction source (db, transaction exporting service or other)
+transactionExportingService.batch=500
+
+# Configuration for the connection to the ersifplatform-internal
+#
+ersplatforminternal.url=http://localhost:8765/suggestedstock
+ersplatforminternal.user=
+ersplatforminternal.password=

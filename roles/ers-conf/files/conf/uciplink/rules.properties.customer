@@ -1,0 +1,16 @@
+# The property file used for executing TXE business rule requests
+# It maps the TXE rule ids to corresponding processors with additional
+# properties.
+#
+# The format is:
+# <rule id defined in txe>.<command as validate, failed, and/or completed>.classname=<processor class name>
+# <rule id defined in txe>.<command>.<key>=<value>
+#
+
+# Matches sender and receiver service class. Enable/disable sender or receiver
+# by removing corresponding property
+#
+EXTERNAL_ACCOUNT_CLASS_CONDITION.validate.classname=ServiceClassMatchProcessor
+EXTERNAL_ACCOUNT_CLASS_CONDITION.validate.sender_sc_regexp=^(.*)$
+EXTERNAL_ACCOUNT_CLASS_CONDITION.validate.receiver_sc_regexp=^(.*)$
+

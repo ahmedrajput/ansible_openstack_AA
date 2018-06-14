@@ -1,0 +1,508 @@
+# txe messages_english.properties
+#
+# CMS will match against the following string using a regular expression
+#   <Transaction class name>/<Initiator Principal type>/<Profile ID>/<Operation>/<Chain state>/resultCode=<resultCode>
+#
+# Examples:
+#   ERSTopupTransaction/Reseller/TOPUP/REQUEST/Completed/resultCode=0
+#   ERSChangePasswordTransaction/Subscriber/MOLLET_CHANGE_PASSWORD/REQUEST/Failed/resultcode=1031
+#
+#	Please note there is a specific section for Mollet specific messages!
+
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/Completed/resultCode=0"=${transaction.receiverPrincipal.resellerData.resellerMSISDN} is now registered to you as a sub-reseller. The transaction ID: ${transaction.ersReference}
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/Pending/resultCode=1"=You have requested to add ${transaction.receiverPrincipal.resellerData.resellerMSISDN} to your distribution tree. The transaction ID: ${transaction.ersReference}
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/APPROVE/Completed/resultCode=0"=You are now registered to the distribution tree of ${transaction.senderPrincipal.resellerData.resellerMSISDN}. The transaction ID: ${transaction.ersReference}
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/CANCEL/Cancelled/resultCode=3"=You have canceled the request to become a sub-reseller of ${transaction.senderPrincipal.resellerData.resellerMSISDN}. The transaction ID: ${transaction.ersReference}
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/REQUEST/Failed/resultCode=1040"=${transaction.receiverPrincipal.resellerData.resellerMSISDN} is already a linked sub-reseller and linked sub-reseller can not be re-assigned. The transaction ID: ${transaction.ersReference}
+
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/(APPROVE|CANCEL)/Completed/resultCode=(1040|1057)"=You have already approved to be part of a distribution tree. The transaction ID: ${transaction.ersReference}
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/(APPROVE|CANCEL)/Cancelled/resultCode=(1040|1057)"=You have already cancelled to be part of a distribution tree. The transaction ID: ${transaction.ersReference}
+
+".*/Reseller/REGISTER_SUB_RESELLER/APPROVE/Pending/resultCode=1040"=You have already approved to be part of a distribution tree. The transaction ID: ${transaction.ersReference}
+
+".*/Reseller/(RESELLER_LINK_SUB_RESELLER|REGISTER_SUB_RESELLER)/.*/.*/resultCode=1090"=You are not allowed to add this reseller to your distribution hierarchy tree.
+
+
+".*/Reseller/RESELLER_DELINK_SUB_RESELLER.*resultCode=0"=You have successfully removed ${transaction.receiverPrincipal.resellerData.resellerMSISDN} from your distribution tree. The transaction ID: ${transaction.ersReference}
+
+"ERSTopupTransaction/(Reseller|AdminUser)/.*/(REQUEST)/Completed/resultCode=0"=You <#if transaction.fields.productSKU?starts_with("TOPUP")>topped up<#elseif transaction.fields.productSKU="RECHARGE">recharged<#else>???</#if> ${amountUtils.formatAmount(transaction.topupAmount)} to ${transaction.topupPrincipal.principalId.id}.<#if transaction.senderBalanceAfter??> Your balance is now ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received a bonus and now have ${transaction.senderBonus}.</#if> The transaction ID: ${transaction.ersReference}
+"ERSTopupTransaction/(Reseller|AdminUser)/.*/Reversed/resultCode=0"=You successfully reversed the <#if transaction.fields.productSKU?starts_with("TOPUP")>top up<#elseif transaction.fields.productSKU="RECHARGE">recharge<#else>???</#if> ${amountUtils.formatAmount(transaction.topupAmount)} to ${transaction.topupPrincipal.principalId.id}.<#if transaction.senderBalanceAfter??> Your balance is now ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received a bonus and now have ${transaction.senderBonus}.</#if> The transaction ID: ${transaction.ersReference}
+
+".*/Subscriber/(AIRTIME_TOPUP|MOLLET_TOPUP|TOPUP).*resultCode=0"=You topped up ${amountUtils.formatAmount(transaction.topupAmount)} to ${transaction.topupAccount.accountId}.<#if transaction.senderBalanceAfter??> Your balance is now ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received a bonus and now have ${transaction.senderBonus}.</#if> The transaction ID: ${transaction.ersReference}
+
+# Sender message for reseller credit transfer
+"ERSTransferTransaction/(Reseller|Subscriber)/CREDIT_TRANSFER/REQUEST/Completed/.*resultCode=0"=You successfully transferred <#if (transaction.amount)??>${amountUtils.formatAmount(transaction.amount)}<#else> No Amount given </#if> to ${transaction.receiverAccount.accountId}<#if transaction.senderBalanceAfter??>. Your balance is now ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if> <#if transaction.getAccountResultData("BOOKKEEPING", "COMMISSION")?has_content>You received a commission and your total is ${amountUtils.formatAmount(transaction.getAccountResultData("BOOKKEEPING", "COMMISSION").totalAmount.clone().negate())} </#if> The transaction ID: ${transaction.ersReference}
+
+# Support transfer confirmation
+"ERSTransferTransaction/AdminUser/CREDIT_TRANSFER/REQUEST/Completed/.*resultCode=0"=You successfully transferred ${amountUtils.formatAmount(transaction.amount)} from ${transaction.senderPrincipal.principalId.id} to ${transaction.receiverPrincipal.principalId.id}. The transaction ID: ${transaction.ersReference}
+
+# R2R transfer reversal succeeded message to sender
+".*/.*/REVERSE_CREDIT_TRANSFER/(REQUEST_REVERSAL|APPROVE)/.*/resultCode=0*"=You successfully reversed ${amountUtils.formatAmount(transaction.amount)} from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. Transaction ID: ${transaction.ersReference}
+".*/.*/REVERSE_CREDIT_TRANSFER/(REQUEST_REVERSAL|APPROVE)/Reversed/resultCode=1053"=The transaction has already been reversed. Transaction ID: ${transaction.ersReference}
+
+".*/.*/REVERSE_CREDIT_TRANSFER/CANCEL/.*/resultCode=3.*"=The reversal of ${amountUtils.formatAmount(transaction.amount)} from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId} was cancelled. Transaction ID: ${transaction.ersReference}
+
+
+# R2R transfer reversal request succeeded message to sender. When transaction is in pending state waiting for denial or approval
+".*/.*/REVERSE_CREDIT_TRANSFER.*resultCode=1"=Reversal initiated for ${amountUtils.formatAmount(transaction.amount)} from account  ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The reversal is awaiting approval. The transaction ID: ${transaction.ersReference}
+
+# R2S topup reversal succeeded message to sender
+".*/.*/REVERSE_TOPUP/APPROVE/.*resultCode=0.*"=You successfully reversed <#if transaction.amount??> ${amountUtils.formatAmount(transaction.amount)} <#elseif transaction.topupAmount??> ${amountUtils.formatAmount(transaction.topupAmount)} <#else> ??? </#if> from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. Transaction ID: ${transaction.ersReference}
+".*/.*/REVERSE_TOPUP/CANCEL/.*resultCode=3.*"=The reversal of <#if transaction.amount??> ${amountUtils.formatAmount(transaction.amount)} <#elseif transaction.topupAmount??> ${amountUtils.formatAmount(transaction.topupAmount)} <#else> ??? </#if> from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId} was cancelled. Transaction ID: ${transaction.ersReference}
+
+# R2S topup reversal request succeeded message to sender. When transaction is in pending state waiting for denial or approval
+".*/.*/REVERSE_TOPUP.*resultCode=1"=Reversal initiated for <#if transaction.amount??> ${amountUtils.formatAmount(transaction.amount)} <#elseif transaction.topupAmount??> ${amountUtils.formatAmount(transaction.topupAmount)} <#else> ??? </#if>  from account  ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The reversal is awaiting approval. The transaction ID: ${transaction.ersReference}
+
+# R2S topup reversal when subscriber AIRTIME account has insufficient balance
+".*/.*/REVERSE_TOPUP.*resultCode=1023"=You can not reverse money from account ${transaction.receiverAccount.accountId} due to insufficient balance. The transaction ID: ${transaction.ersReference}
+
+# R2S topup reversal when subscriber AIRTIME account has incorrect status
+".*/.*/REVERSE_TOPUP.*resultCode=1081"=You can not reverse money from a subscriber account that is in grace period. The transaction ID: ${transaction.ersReference}
+".*/.*/REVERSE_TOPUP.*resultCode=1082"=You can not reverse money from a subscriber account that is pending and has not been activated. The transaction ID: ${transaction.ersReference}
+".*/.*/REVERSE_TOPUP.*resultCode=1083"=You can not reverse money from a subscriber account in expired state. The transaction ID: ${transaction.ersReference}
+
+
+".*/.*/AIRTIME_TRANSFER.*resultCode=0.*"=You have transferred ${amountUtils.formatAmount(transaction.amount)} to ${transaction.receiverAccount.accountId}.<#if transaction.senderBalanceAfter??> Your balance is now ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if> The transaction ID: ${transaction.ersReference}
+
+# Sender message for reseller activation
+".*/.*/RESELLER_ACTIVATE.*resultCode=0.*"=You have been activated successfully. Transaction ID: ${transaction.ersReference}
+
+# Sender message for reseller current balance.
+".*/.*/RESELLER_BALANCE.*resultCode=0.*"=<#if transaction.balance ??>Your current balance as of ${transaction.startTime?datetime} is ${amountUtils.formatAmount(transaction.balance)} <#else>Your current balance could not be determined.</#if>
+
+# Sender message for subscriber current airtime balance.
+".*/.*/AIRTIME_BALANCE.*resultCode=0.*"=<#if transaction.balance ??>Your current balance as of ${transaction.startTime?datetime} is ${amountUtils.formatAmount(transaction.balance)} <#else>Your current balance could not be determined.</#if>
+
+
+# Sender message for reseller and subscriber last transactions.
+".*/.*/LAST_TRANSACTION.*resultCode=0.*"=<#if transaction.reportContent?has_content>${transaction.reportContent}<#else>No transactions found.</#if>
+
+# Sender message for reseller transactions status.
+".*/.*/TRANSACTION_STATUS.*resultCode=0.*"=<#if transaction.reportContent?has_content>${transaction.reportContent}<#else>No transactions found.</#if>
+
+
+# Sender message for reseller and subscriber change PIN.
+".*/.*/.*CHANGE_PASSWORD.*resultCode=0.*"=Password changed successfully!
+
+# Sender message for Reseller stock level to Agent
+STOCK_NOTIFICATION_TO_SENDER=Reseller Number :${transaction.receiverMSISDN}   Current Stock Level: ${amountUtils.formatAmount(transaction.currentStock)}.   Low Stock Threshold Amount: ${amountUtils.formatAmount(transaction.stockThreshold)}.   Suggested Stock to purchase: ${amountUtils.formatAmount(transaction.suggestedStock)}
+
+# Receiver message for refund transfer
+REFUND_NOTIFICATION=You have received a refund of -${amountUtils.formatAmount(transaction.amount)} from ${transaction.senderPrincipal.resellerData.resellerName}. The refund reference number is ${transaction.ersReference}
+
+
+
+TOPUP_NOTIFICATION=Your account has been <#if transaction.fields.productSKU="TOPUP">topped up<#elseif transaction.fields.productSKU="P2P">topped up<#elseif transaction.fields.productSKU="RECHARGE">recharged<#else>???</#if> with ${amountUtils.formatAmount(transaction.topupAmount)} from ${transaction.senderAccount.accountId}.<#if transaction.topupBalanceAfter??> Your balance is now ${amountUtils.formatAmount(transaction.topupBalanceAfter)}.</#if><#if transaction.receiverBonus?has_content> You received a bonus and now have ${transaction.receiverBonus}.</#if> <#if transaction.fields.rvtDA5??>In addition you got a Bonus of ${amountUtils.formatAmount(amountUtils.createAmount(transaction.fields.rvtDA5?number,transaction.topupAmount.currency))}.</#if> The transaction ID: ${transaction.ersReference}
+VOUCHER_NOTIFICATION=<#list transaction.purchasedProducts as purchasedProduct><#list purchasedProduct.rows as row><#include "/templates/purchase_" + ((purchasedProduct.product.productGroupId)!"default") + ".ftl"></#list></#list>
+REP_VOUCHER_NOTIFICATION_TO_SUBSCRIBER=<#assign TX=transaction.reportContent?trim?split(",")>You have received one voucher with details:- \nAmount: ${TX[1]} USD\nSerial:${TX[3]}\nPin: ${TX[4]}\nExpiry Date: ${TX[5]}\nRef.:${TX[6]}
+
+# Receiver message for Etopup transfer
+ETOPUP_TRANSFER_NOTIFICATION=You have received ${amountUtils.formatAmount(transaction.amount)} from ${transaction.senderAccount.accountId}<#if transaction.receiverBalanceAfter??>. Your balance is now ${amountUtils.formatAmount(transaction.receiverBalanceAfter)}</#if>. The transaction ID: ${transaction.ersReference}
+
+# Reversal notification to original receiver
+RECEIVER_REVERSAL_NOTIFICATION= <#if transaction.topupAmount??>${amountUtils.formatAmount(transaction.topupAmount)}<#elseif transaction.amount??>${amountUtils.formatAmount(transaction.amount)}</#if> has been debited from your account to account ${transaction.senderAccount.accountId} as the sender requested reversal of this transaction. Transaction Reference: ${transaction.ersReference}
+
+# Reversal notification to original sender
+SENDER_REVERSAL_NOTIFICATION=Your transaction of amount <#if transaction.topupAmount??>${amountUtils.formatAmount(transaction.topupAmount)}<#elseif transaction.amount??>${amountUtils.formatAmount(transaction.amount)}</#if> has been reversed successfully; your updated balance is ${amountUtils.formatAmount(transaction.senderBalanceAfter)}. Transaction Reference: ${transaction.ersReference}
+
+# Reversal cancel notification to original sender
+SENDER_REVERSAL_CANCEL_NOTIFICATION=Your reversal request of amount <#if transaction.topupAmount??>${amountUtils.formatAmount(transaction.topupAmount)}<#elseif transaction.amount??>${amountUtils.formatAmount(transaction.amount)}</#if> has been canceled. Transaction Reference: ${transaction.ersReference}
+
+# Warning message for sender minimum limit
+SENDER_ACCOUNT_BALANCE_MIN_WARNING=Your balance has nearly run out. You have ${transaction.fields.senderAccountBalanceRemainMin} remaining.
+
+# Warning message for receiver maximum limit
+RECEIVER_ACCOUNT_BALANCE_MAX_WARNING=Your balance has nearly reached its maximum. You have ${transaction.fields.receiverAccountBalanceRemainMax} left.
+
+# Receiver message for reseller link request of sub reseller for a pending transaction
+LINK_SUBRESELLER_REQUEST_PENDING_NOTIFICATION=Reseller ${transaction.senderPrincipal.resellerData.resellerMSISDN} is trying to register you. Please send SMS to <short code> with SMS body "RAPPROVE ${transaction.ersReference} <password>" in order to become a sub-reseller. The transaction ID: ${transaction.ersReference}
+
+# Receiver message for reseller link request of sub reseller for a non-pending transaction
+LINK_SUBRESELLER_REQUEST_NOTIFICATION=Reseller ${transaction.senderPrincipal.resellerData.resellerMSISDN} has registered you to his distribution tree. The transaction ID: ${transaction.ersReference}
+
+# Receiver message for reseller link approval of sub reseller
+LINK_SUBRESELLER_APPROVAL_NOTIFICATION=${transaction.receiverPrincipal.resellerData.resellerMSISDN} is now registered to you as a sub-reseller. The transaction ID: ${transaction.ersReference}
+
+# Receiver message for reseller link cancel of sub reseller
+LINK_SUBRESELLER_CANCEL_NOTIFICATION=${transaction.receiverPrincipal.resellerData.resellerMSISDN} has canceled the request to become a sub-reseller of your distribution tree. The transaction ID: ${transaction.ersReference}
+
+# Receiver message for reseller delink of sub reseller
+RESELLER_DELINK_SUB_RESELLER_NOTIFICATION=${transaction.senderPrincipal.resellerData.resellerMSISDN} has removed you from his distribution tree. The transaction ID: ${transaction.ersReference}
+
+LICENSE_AT_80P=Transaction volume crossed 80 percent of Total transaction.
+
+LICENSE_AT_95P=Transaction volume crossed 95 percent of Total transaction.
+
+LICENSE_MODE_OK=System's license mode has been changed to OK.
+
+LICENSE_MODE_Error=System's license mode has been changed to Error.
+
+LICENSE_MODE_Limited=System's license mode has been changed to Limited.
+
+LICENSE_MODE_Exceeded=System's license mode has been changed to Exceeded.
+
+# ETopup service registration success response
+".*/Subscriber/REGISTER_ETOPUP_SERVICE.*resultCode=0.*"=You have now registered with our ETopup service, Welcome!
+
+# Service activation success response
+".*/Subscriber/ACTIVATE_SERVICE.*resultCode=0.*"=You have now activated ${transaction.serviceType} service, Welcome!
+
+# Reseller self block successful response
+".*/Reseller/BLOCK_RESELLER.*resultCode=0.*"=You have now locked your account. Transaction ID: ${transaction.ersReference}
+
+# Get user info successful response
+".*/Reseller/GET_USER_INFO.*resultCode=0.*"=Get user information transaction successful.
+
+# Sender message for execute report template.
+".*/.*/REPORT.*resultCode=0.*"=<#if transaction.reportContent?has_content>${transaction.reportContent}<#else>No data found.</#if>
+
+# Sender message for register web user
+".*/Reseller/REGISTER_WEB_USER.*resultCode=0.*"=You have registered a web user with name: ${transaction.userId} and password:  ${transaction.password}
+
+# Get anonymous id success response
+".*/GET_ANONYMOUSID.*resultCode=0.*"=Your Unique Code is ${(transaction.anonymousId)}.
+# Activate anonymous id success response
+".*/ACTIVATE_ANONYMOUSID.*resultCode=0.*"=Unique Code service is activated now. Your Unique Code is ${(transaction.anonymousId)}.
+# Deactivate anonymous id success response
+".*/DEACTIVATE_ANONYMOUSID.*resultCode=0.*"=You have now deactivated Unique Code service.
+".*/DEACTIVATE_ANONYMOUSID.*resultCode=1015"=You have not activated Unique Code service.
+
+
+# VAS messages
+".*/Subscriber/VAS_SC_INFO.*resultCode=0.*"=Your current service class is ${transaction.fields.accountClassId}.
+
+".*/Subscriber/VAS_SC_CHANGE.*resultCode=0.*"=You have changed your service class to ${transaction.fields.accountClassId}.
+
+".*/Subscriber/VAS_FAF_INFO.*resultCode=0.*"=<#if transaction.fields.fafList ?? && transaction.fields.fafList?length != 0>Here is your current Friends and Family list: ${transaction.fields.fafList}<#else>You have no numbers in your Friends and Family list</#if>
+
+".*/Subscriber/VAS_FAF_REMOVE.*resultCode=0.*"=Removed number ${transaction.fields.fafNumber} from Friends and Family list.
+
+".*/Subscriber/VAS_FAF_ADD.*resultCode=0.*"=Added number ${transaction.fields.fafNumber} to Friends and Family list.
+
+".*/Subscriber/VAS_REDEEM_AIRTIME_VOUCHER.*resultCode=0.*"=You have successfully redeemed voucher.The transaction ID: ${transaction.ersReference}
+
+".*/Subscriber/VAS_BIC_INFO.*resultCode=0.*"=Your BIC status is: ${transaction.fields.status}
+
+".*/Subscriber/VAS_BIC_ACTIVATE.*resultCode=0.*"=BIC is now activated
+
+".*/Subscriber/VAS_BIC_DEACTIVATE.*resultCode=0.*"=BIC is now deactivated
+
+".*/Subscriber/VAS_CMB.*resultCode=0.*"=Sent Call-Me-Back request to ${transaction.fields.CMBNumber}
+CALL_ME_BACK=Subscriber ${transaction.senderAccount.accountId} would like you to call them back
+
+".*/SYSTEM_INFO/.*/resultCode=1007"=You are not permitted to do this operation
+
+## ----------------------------------------- CUSTOM OPERATION -------------------------------------------------------
+
+".*/.*/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_QUERY.*resultCode=0.*"=<#assign id = transaction.operationResultParameters.parameters.anonymousId!"ERROR"><#if id != "ERROR">Your anonymous id is ${id}<#else>Your anonymous id is not active</#if> 
+".*/.*/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_GENERATE.*resultCode=0.*"=Your new anonymous id is ${transaction.operationResultParameters.parameters.anonymousId!"ERROR"}
+".*/.*/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_GENERATE.*resultCode=1055.*"=You already have generated an anonymous id
+".*/.*/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_CHANGE.*resultCode=0.*"=You have changed your anonymous id to ${transaction.operationResultParameters.parameters.anonymousId!"ERROR"}
+".*/.*/CUSTOM_OPERATION_SUBSCRIBER_ANONYMOUS_ID_CHANGE.*resultCode=1055.*"=You don't have an anonymous id so there is nothing to change
+".*/.*/CUSTOM_OPERATION_.*resultCode=2000.*"=You're not allowed to perform this operation on the specified principal
+
+#FAF custom operation
+".*/.*/CUSTOM_OPERATION_FAF_.*resultCode=.*"=<#if transaction.operationResultParameters??><#if transaction.operationResultParameters.resultDescription??>${transaction.operationResultParameters.resultDescription} <#assign fee=(transactionUtils.calculateAmount(transaction,"Fee")!"0")><#if (!fee?starts_with("0"))>, You were charged a fee of ${fee}.</#if><#else>Your FAF service is not active.</#if><#else>The service is currently unavailable, please try again later.</#if>
+
+
+## ----------------------------------------- PURCHASE OPERATION -------------------------------------------------------
+
+".*/Reseller/PURCHASE/(REQUEST|APPROVE)/.*resultCode=0.*"=You have sold <#list transaction.purchasedProducts as purchasedProduct>${(purchasedProduct.purchaseCount)!"<unknown quantity>"} x ${(purchasedProduct.product.name)!"unknown product"}</#list> <#if (transaction.receiverMSISDN)??>to ${transaction.receiverMSISDN}</#if>. Transaction ID: ${transaction.ersReference}
+".*/Subscriber.*PURCHASE.*Completed.*resultCode=0.*"=<#list transaction.purchasedProducts as purchasedProduct><#list purchasedProduct.rows as row><#include "/templates/purchase_" + ((purchasedProduct.product.productGroupId)!"default") + ".ftl"></#list></#list>
+".*/Subscriber/.*GET_PRINCIPAL_INFORMATION.*resultCode=0.*"=<#include "/templates/balance.ftl">
+
+
+".*/.*/PURCHASE/CANCEL/.*resultCode=3.*"=The purchase was cancelled. The transaction ID: ${transaction.ersReference}
+
+## ------------------------------------------------------------------------------------------------------------------
+
+
+# Mollet specific messages only
+## ----------------------------------------- mollet -------------------------------------------------------
+#
+
+# M2NM reversal succeeded message to sender
+".*/.*/REVERSE_MOLLET_VOUCHER_CREATE.*resultCode=0.*"=You successfully reversed ${amountUtils.formatAmount(transaction.amount)} from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The transaction ID: ${transaction.ersReference}
+
+# M2NM reversal request succeeded message to sender. When transaction is in pending state waiting for denial or approval
+".*/.*/REVERSE_MOLLET_VOUCHER_CREATE.*resultCode=1"=Reversal initiated for ${amountUtils.formatAmount(transaction.amount)} from account  ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The reversal is awaiting approval. The transaction ID: ${transaction.ersReference}
+
+# M2M reversal succeeded message to sender
+".*/.*/REVERSE_MOLLET_TRANSFER.*resultCode=0.*"=You successfully reversed ${amountUtils.formatAmount(transaction.amount)} from account ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The transaction ID: ${transaction.ersReference}
+
+# M2M reversal request succeeded message to sender. When transaction is in pending state waiting for denial or approval
+".*/.*/REVERSE_MOLLET_TRANSFER.*resultCode=1"=Reversal initiated for ${amountUtils.formatAmount(transaction.amount)} from account  ${transaction.receiverAccount.accountId} to account ${transaction.senderAccount.accountId}. The reversal is awaiting approval. The transaction ID: ${transaction.ersReference}
+
+# Sender message for subscriber to subscriber transfer.
+".*/.*/MOLLET_TRANSFER.*resultCode=0.*"=You have successfully transferred ${amountUtils.formatAmount(transaction.amount)} to ${transaction.receiverAccount.accountId}<#if transaction.senderBalanceAfter??>. Your current Mobile Money balance is ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received bonus and have a total of ${transaction.senderBonus}.</#if> The transaction ID: ${transaction.ersReference}
+
+# Sender message for reseller cash-in to subscriber.
+".*/.*/MOLLET_DEPOSIT.*resultCode=0.*"=You have successfully deposited ${amountUtils.formatAmount(transaction.amount)} to Subscriber ${transaction.receiverAccount.accountId}.<#if transaction.senderBalanceAfter??> Your current Mobile Money account balance is ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.commissionAmount??> You received bonus and have a total of ${amountUtils.formatAmount(transaction.commissionAmount)}.</#if> Transaction ID: ${transaction.ersReference}
+
+# Sender message for subscriber cash-out to reseller.
+".*/.*/MOLLET_WITHDRAWAL.*resultCode=0.*"=You have successfully withdrawn ${amountUtils.formatAmount(transaction.amount)} from your Mobile Money account.<#if transaction.senderBalanceAfter??> Your current Mobile Money account balance is ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received bonus and have a total of ${transaction.senderBonus}.</#if> Transaction ID: ${transaction.ersReference}
+
+# Sender message for mollet subscriber activation
+".*/.*/MOLLET_ACTIVATE.*resultCode=0.*"=You have been activated successfully. Transaction ID: ${transaction.ersReference}
+
+# Sender message for reseller activation
+".*/.*/MOLLET_QUERY_VOUCHER.*resultCode=0.*"=${transaction.voucherCreatorId.id} transferred ${transaction.voucherValue.value?string("0.00")} ${transaction.voucherValue.currency} to ${transaction.voucherReceiverId.id}, ${transaction.voucherReceiverPersonDetails.firstName} ${transaction.voucherReceiverPersonDetails.lastName}, ${transaction.voucherReceiverPersonDetails.idNumber}. Transaction ID: ${transaction.ersReference} 
+
+# Sender message for subscriber current balance.
+".*/.*/MOLLET_BALANCE.*resultCode=0.*"=<#if transaction.balance ??>Your current Mobile Money balance as of ${transaction.startTime?datetime} is ${amountUtils.formatAmount(transaction.balance)} <#else>Your current Mobile Money balance could not be determined.</#if>
+
+# Sender message for reseller registration of subscriber.
+".*/Reseller/MOLLET_REGISTER.*resultCode=0.*"=Subscriber ${transaction.molletUserInfo.firstName} <#if transaction.molletUserInfo.middleName ??>${transaction.molletUserInfo.middleName}</#if> ${transaction.molletUserInfo.lastName} with ${transaction.molletUserInfo.MSISDN} has been successfully registered for Mobile Money service. <#if transaction.generatedPassword??>Please ask them to change the PIN<#else>Please ask them to activate their account</#if> and deposit money to use the services. Transaction ID: ${transaction.ersReference}
+
+# Sender message for subscriber self registration.
+".*/Subscriber/MOLLET_REGISTER.*resultCode=0.*"=You have been registered and approved for the Mobile Money service, to activate the service please send an SMS in the format ACTIVATEMM <PIN> with your chosen <PIN> code.
+
+# Sender message for de-registration.
+".*/.*/MOLLET_DEREGISTER.*resultCode=0.*"=${transaction.senderAccount.accountId} has been deregistered and ${amountUtils.formatAmount(transaction.amount)} has been transfered to your account. Please handover ${amountUtils.formatAmount(transaction.amount)} to ${transaction.senderAccount.accountId}. <#if transaction.receiverBalanceAfter??>Your current Mobile Money balance is ${amountUtils.formatAmount(transaction.receiverBalanceAfter)}.</#if> The transaction ID: ${transaction.ersReference}
+
+# Sender message for subscriber create mollet voucher.
+".*/.*/MOLLET_VOUCHER_CREATE.*resultCode=0.*"=You have successfully transferred ${amountUtils.formatAmount(transaction.amount)} to non-mollet user ${transaction.receiverPrincipal.principalId.id} with voucher ID: ${transaction.getField("voucherId")} <#if transaction.senderBalanceAfter??>. Your current Mobile Money balance is ${amountUtils.formatAmount(transaction.senderBalanceAfter)}.</#if><#if transaction.senderBonus?has_content> You received bonus and have a total of ${transaction.senderBonus}.</#if> ref: ${transaction.ersReference}
+# Reseller message for voucher redemption.
+".*/.*/MOLLET_VOUCHER_REDEEM.*resultCode=0.*"=You have successfully redeemed ${amountUtils.formatAmount(transaction.amount)} from voucher ID: ${transaction.voucherId}. The transaction ID: ${transaction.ersReference}
+
+# Receiver message for subscriber create mollet voucher.
+MOLLET_VOUCHER_CREATE_NOTIFICATION=You have received ${amountUtils.formatAmount(transaction.amount)} from ${transaction.senderAccount.accountId} with voucher ID: ${transaction.fields.voucherId}. The transaction ID: ${transaction.ersReference} 
+
+# Receiver message for redeem mollet voucher.
+MOLLET_VOUCHER_REDEEM_NOTIFICATION=You have cashed a voucher of worth ${amountUtils.formatAmount(transaction.amount)}. voucher ID: ${transaction.voucherId}. The transaction ID: ${transaction.ersReference}
+
+# Mollet Voucher creator notification, that the voucher is now redeemed.
+MOLLET_VOUCHER_REDEEM_CREATOR_NOTIFICATION=Cash out of ${amountUtils.formatAmount(transaction.amount)} to ${transaction.subscriberMSISDN} has been done by ${transaction.principal.principalId.id} for Voucher ID: ${transaction.voucherId}. The transaction ID: ${transaction.ersReference}.
+
+# Receiver message for subscriber to subscriber transfer.
+MOLLET_TRANSFER_NOTIFICATION=You have received ${amountUtils.formatAmount(transaction.amount)} from ${transaction.senderAccount.accountId}<#if transaction.receiverBalanceAfter??>. Your current Mobile Money balance is ${amountUtils.formatAmount(transaction.receiverBalanceAfter)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isPositive()> You received bonus of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isNegative()> You where charged a fee of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if> The transaction ID: ${transaction.ersReference} 
+
+# Receiver message for subscriber cash-out to reseller.
+MOLLET_WITHDRAWAL_NOTIFICATION=You have successfully withdrawn ${amountUtils.formatAmount(transaction.amount)} from Subscriber ${transaction.senderAccount.accountId}.<#if transaction.receiverBalanceAfter??> Your current Mobile Money balance is ${amountUtils.formatAmount(transaction.receiverBalanceAfter)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isPositive()> You received bonus of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isNegative()> You where charged a fee of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if> The transaction ID: ${transaction.ersReference} 
+
+# Receiver message for reseller cash-in to subscriber.
+MOLLET_DEPOSIT_NOTIFICATION=<#attempt> You have successfully deposited ${amountUtils.formatAmount(transaction.receivedAmount)} into your Mobile Money account.<#if transaction.receiverBalanceAfter??> Your current Mobile Money account balance is ${amountUtils.formatAmount(transaction.receiverBalanceAfter)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isPositive()> You received bonus of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if><#if transaction.bonusAmount?? && transaction.bonusAmount.isNegative()> You where charged a fee of ${amountUtils.formatAmount(transaction.bonusAmount)}.</#if> Transaction ID: ${transaction.ersReference}<#recover> Something went wrong! Please contact with customer care.</#attempt>
+
+#MOLLET_DEREGISTER_NOTIFICATION=You are now de-registered from the Mobile Money service.
+MOLLET_DEREGISTER_NOTIFICATION=You have been successfully deregistered from the Mollet service and your balance has been adjusted against ${transaction.receiverAccount.accountId}. Please collect ${amountUtils.formatAmount(transaction.amount)} from him. The transaction ID: ${transaction.ersReference}
+
+".*/.*/MOLLET_TRANSFER.*resultCode=1133.*"=Receiver is not a Mobile Money subscriber
+".*/.*/MOLLET_TRANSFER.*resultCode=1002.*"=Invalid receiver account
+
+# Receiver message for reseller registration of subscriber.
+MOLLET_REGISTER_NOTIFICATION=You have been registered for Mobile Money service. <#if transaction.generatedPassword??>Your PIN is ${transaction.generatedPassword}<#else>Please activate your account</#if>. Transaction ID: ${transaction.ersReference}
+
+# ERSResultCodes
+
+## -------------------------------- Success (fallback) --------------------------------------
+
+".*resultCode=0"=Success
+".*resultCode=1"=Your request was successful and is now awaiting approval.
+	
+## -------------------------------- INITIAL ERRORS 100 - 199 --------------------------------
+
+".*resultCode=100"=Something went wrong. Please try again.
+".*resultCode=101"=The system is overloaded right now, please try again in a few minutes.
+".*resultCode=102"=There is something wrong with the protocol of this message, we can not parse it in a satisfactory manner.
+
+#----------------------------------Invalid Msisdn--------------------------------------------------
+".*resultCode=901"=Invalid state of MSISDN
+
+##-------------------------------- Validation errors 1000 - 1099 --------------------------------
+
+".*resultCode=1000"=Validation success.
+".*resultCode=1001"=Sender account number has a weird formatting.
+".*resultCode=1002"=Receiving account number has a weird formatting.
+".*resultCode=1003"=The amount is negative or zero.
+".*resultCode=1004"=The amount was not represented with numbers.
+".*resultCode=1005"=Sender has reached max transactions per period.
+".*resultCode=1006"=Sender has reached max transaction amounts per period.
+#".*resultCode=1007"=Invalid or undefined principal to perform transaction.
+".*/AdminUser/.*resultCode=1007.*"=You are not a registered admin user!
+".*/Reseller/.*resultCode=1007.*"=You are not a registered reseller!
+".*/Subscriber/.*resultCode=1007.*"=You are not a registered subscriber!
+".*resultCode=1008"=Invalid or undefined user data to perform transaction.
+".*resultCode=1009"=The given password is not correct.<#if transaction.fields.WRONG_PIN_ATTEMPTS_remainMaxValue??>You enter wrong pin almost reach maximum limit.You have ${transaction.fields.WRONG_PIN_ATTEMPTS_remainMaxValue} before the account will be locked.</#if>
+".*resultCode=1010"=You are not found in the system.
+
+# Deprecated, use 1103 instead
+".*/Reseller/MOLLET.*/.*resultCode=1011"=The Mobile Money service is not active for you. Please activate.
+".*resultCode=1011"=The service is not active for you. Please activate.
+
+".*resultCode=1012"=Invalid or undefined terminalId or terminalAddress
+".*resultCode=1013"=Terminal not found.
+".*resultCode=1014"=Invalid or undefined principal type.
+".*resultCode=1015"=Subscriber service is not registered.
+".*resultCode=1016"=Invalid terminal state for this operation.
+".*resultCode=1017"=Access denied.
+".*resultCode=1018"=Receiver is not subreseller.
+".*resultCode=1019"=Receiver is not sibling.
+".*resultCode=1020"=The amount is undefined.
+".*resultCode=1021"=Sender balance is too low.
+".*resultCode=1022"=Sender balance is too high.
+".*resultCode=1023"=Receiver balance is too low.
+".*resultCode=1024"=Receiver balance is too high.
+".*resultCode=1025"=It is not possible to de-register the subscriber as the subscribers balance is not zero.	
+".*resultCode=1026"=Sender account not found.	
+".*resultCode=1027"=Voucher serial is not valid.	
+".*resultCode=1028"=Subscriber account not found in system.	
+".*resultCode=1029"=The receiving user is not registered in the system.	
+".*resultCode=1030"=The provided MSISDN is not correct.	
+".*resultCode=1031"=The PIN/password has incorrect format.
+".*resultCode=1032"=The terminal doesn't belong to you.
+".*resultCode=1033"=Incorrect activation code.	
+".*resultCode=1034"=Amount is higher than maximum limit. Please enter lower amount.
+".*resultCode=1035"=Amount is lower than minimum limit. Please enter higher amount.	
+".*resultCode=1036"=Your account is not active.
+".*resultCode=1037"=Transferring to yourself is not allowed.
+".*resultCode=1038"=Old password and new password cannot be the same.
+".*resultCode=1039"=Reseller type id doesn't exists.
+".*resultCode=1040"=Reseller already exists.
+".*resultCode=1041"=Receiver account not found.
+".*resultCode=1051"=You are not allowed to use the service.
+".*resultCode=1052"=You are not allowed to topup to yourself.
+".*resultCode=1053"=The transaction has already been reversed. Transaction ID: ${transaction.ersReference}
+".*resultCode=1054"=The specified transaction could not be found.
+".*resultCode=1055"=The requested transaction operation have been denied by user.
+".*resultCode=1056"=You do not have privileges to execute the requested transaction operation. 
+".*resultCode=1057"=The specified transaction is in illegal state for this operation.
+".*resultCode=1058"=The service class is already active.
+".*resultCode=1059"=You are blocked due to too many wrong attempts. Please contact operator to unblock.
+".*resultCode=1060"=You provided an amount outside the margins of the contract. Please try again with a valid amount.
+".*resultCode=1061"=You provided an invalid product SKU. Please try again with a valid product SKU.
+".*resultCode=1062"=You provided an unknown product SKU. Please try again with an existing product SKU.
+".*resultCode=1063"=The currency is not supported.
+".*resultCode=1064"=Transaction reversal already requested.
+".*resultCode=1065"=You don't have a contract configured correctly.
+
+".*/.*/(.*TRANSFER|.*TOPUP).*/resultCode=1066"=You are not allowed to transfer to the specified receiver.
+".*resultCode=1066"=You are not allowed to perform this operation on the specified receiver.
+
+".*resultCode=1067"=No report found.
+".*resultCode=1068"=You have restricted access. Please contact the operator.
+".*resultCode=1069"=You can not do a transfer to receiver having restricted access.
+".*resultCode=1070"=Invalid or undefined sender principal to perform transaction.
+".*resultCode=1071"=This specific product is not available.
+".*resultCode=1072"=You specified an amount with too many fraction digits.
+".*resultCode=1073"=Your password has expired. Please change it.
+".*resultCode=1074"=This subscriber service is not ready for activation.
+".*resultCode=1075"=The account is in the wrong state.
+".*resultCode=1076"=The receivers account is in the wrong state.
+".*resultCode=1077"=Another transaction is currently in progress or was very recently processed regarding the referred transaction.
+".*resultCode=1078"=Rejected: You cannot transfer money in grace period.
+".*resultCode=1079"=Rejected: Your account is pending and has not been activated.
+".*resultCode=1080"=Rejected: You cannot transfer money in expired state.
+".*resultCode=1081"=Rejected: You cannot transfer money to a subscriber in grace period.
+".*resultCode=1082"=Rejected: You cannot transfer money to a subscriber account that is pending and has not been activated.
+".*resultCode=1083"=Rejected: You cannot transfer money to a subscriber in expired state.
+".*resultCode=1084"=Provided MSISDN is outside the allowed network.
+".*resultCode=1085"=The voucher has already been redeemed and has zero balance.	
+".*resultCode=1086"=You are not allowed to perform this operation.	
+".*resultCode=1087"=You are not allowed to access the service from your current address.
+".*resultCode=1088"=You are not able to perform the operation as the provided account is already assigned to a parent.
+".*resultCode=1089"=You are not able to perform the operation as you are not the parent in the hierarchy.
+".*resultCode=1090"=You are not allowed to perform the operation as reseller hierarchy is not valid.
+".*resultCode=1091"=The specific user does not exist.
+".*resultCode=1092"=The specific subscriber service does not exist.
+".*resultCode=1093"=Invalid state of the initiator principal
+".*resultCode=1094"=Invalid state of the receiver principal
+".*resultCode=1095"=Invalid state of the sender principal
+".*resultCode=1096"=Receiver ID is not valid.
+".*resultCode=1099"=Error during the validation phase.
+## -------------------------------- Payment errors 1100-1199 --------------------------------
+
+".*resultCode=1100"=Payment error.
+".*resultCode=1101"=You do not have sufficient credit for this transaction.
+".*resultCode=1102"=You are blocked to use the service. Please contact operator to unblock.
+
+".*/Reseller/MOLLET.*/.*resultCode=1103"=The Mobile Money service is not active for you. Please activate.
+".*resultCode=1103"=The service is not active for you. Please activate.
+
+".*resultCode=1104"=You are not a Mobile Money subscriber, please activate.
+
+".*resultCode=1120"=You have exceeded a limit.
+
+".*resultCode=1130"=Receiver is blocked.
+".*resultCode=1131"=Receiver is not active.
+".*resultCode=1132"=Receiver has to high credit.
+".*resultCode=1133"=Receiver not found.
+".*resultCode=1134"=Receiver is expired.
+".*resultCode=1135"=Receiver is in grace period.
+".*resultCode=302"=Account type does not exists.
+
+## -------------------------------- Voucher errors 1200-1299 --------------------------------
+".*resultCode=1200"=Product is out of stock.
+
+## -------------------------------- Account Class errors 1300-1399 --------------------------------
+".*/Subscriber/CUSTOM_OPERATION_WIMAX_CHANGE_PASSWORD/REQUEST/Failed/resultCode=1300"=You are not allowed to use this feature
+".*/Subscriber/ACTIVATE_SERVICE/REQUEST/Failed/resultCode=1300"=You are not allowed to use this feature
+".*/Subscriber/TOPUP/REQUEST/Failed/resultCode=1300"=You are not allowed to use this feature
+".*/Subscriber/CUSTOM_OPERATION_WIMAX_BALANCE_ENQUIRY/REQUEST/Failed/resultCode=1300"=You are not allowed to use this feature
+".*/Subscriber/P2W_CHANGE_PASSWORD/REQUEST/Failed/resultCode=1300"=You are not allowed to use this feature
+".*resultCode=1300"=Sender Account class is blocked.
+".*resultCode=1301"=Receiver Account class is blocked.
+".*resultCode=1302"=Sender Account is about to expire.
+".*resultCode=1303"=Receiver Account is about to expire.
+
+## -------------------------------- Business logic errors 2000-2999 --------------------------------
+".*resultCode=2000"=Transaction cannot be completed successfully due to a business rule rejection
+".*resultCode=2001"=You have to change PIN before doing a transaction
+".*resultCode=2011"=Target Reseller can not be Unlinked because He has Children Resellers
+".*resultCode=2012"=Target Reseller can not be Unlinked because He has balance more than Min threshold
+
+## -------------------------------- Business logic errors 3000-3999 --------------------------------
+".*resultCode=3000"=Sender's region is invalid.
+".*resultCode=3001"=Receiver's region is invalid.
+".*resultCode=3002"=Transfers between sender's region and receiver's regions not allowed.
+".*resultCode=3003"=Reseller is performing transaction out of its allowed region.
+
+## --- not categorized yet ---
+".*resultCode=666"=The PIN codes do not match.
+".*resultCode=667"=The service is currently not available.
+
+".*resultCode=668"=You did not succeed to buy air time.
+".*resultCode=669"=The account to topup was not found.
+
+".*/Subscriber/VAS_BIC_ACTIVATE/REQUEST/Failed/resultCode=670"=BIC already active.
+".*/Subscriber/VAS_BIC_DEACTIVATE/REQUEST/Failed/resultCode=670"=BIC not active.
+".*resultCode=670"=The status of the service is not correct.
+
+".*resultCode=700"=The Mobile Money service has already registered.
+".*resultCode=701"=The Mobile Money service has not been registered.
+".*resultCode=702"=The Mobile Money service is already active.
+".*resultCode=704"=You have already activated <#if transaction.serviceType??>${transaction.serviceType}<#else>this</#if> service.
+".*resultCode=705"=The receiver is already a registered Mollet user
+".*resultCode=706"=The receiver is not a Mollet user
+
+## -------------------------------- System state errors 7000 - 7100 --------------------------------
+".*resultCode=7000"=Invalid system state.
+
+## -------------------------------- Operation errors 8000 - 8100 --------------------------------
+".*resultCode=8000"=Operation unsupported.
+".*resultCode=8001"=The service is currently down, please try again later.
+".*resultCode=8002"=Subscriber is already registered in the system.
+".*resultCode=8003"=Reseller/Agent is already activated in the system.
+".*resultCode=8004"=The license is invalid. 
+".*resultCode=8005"=The user already exists.
+".*resultCode=8006"=Access to Link denied.
+".*resultCode=8007"=Link is closed.
+".*resultCode=8008"=Link is down.
+".*resultCode=8009"=Link Error.
+".*resultCode=8010"=Link is Exhausted.
+".*resultCode=8011"=Link timeout.
+
+## -------------------------------- cen system errors 2017 - 2018 --------------------------------
+".*resultCode=2017"=Reseller is not allowed to topup to this subscriber.
+".*resultCode=2018"=Subscriber don't have topup access.
+
+## -------------------------------- password change history errors 2019 - 2020 --------------------------------
+".*resultCode=2019"=User password was used previously, please try another
+
+## -------------------------------- Internal errors 9900 - 9999 --------------------------------
+".*resultCode=9900"=Internal error encountered. Please contact administrator.
+".*resultCode=9901"=Transaction zero sum failed.
+".*resultCode=9999"=Rollback failed.
+
+.*=Unknown result code (${transaction.resultCode.code} - ${transaction.resultCode})
+
+

@@ -1,0 +1,7 @@
+---
+# vars file for keystone
+KEYSTONE_DBPASS: c005f8bf2b043c45762c
+DB_PASS: 50f05373656451edbaf4
+ADMIN_PASS: 56dda5cced74f3168ba6
+REGION: RegionOne
+VIP: 10.10.10.4

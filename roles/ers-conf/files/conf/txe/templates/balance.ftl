@@ -1,0 +1,1 @@
+Balans ${transactionUtils.getPrincipalAccountData(transaction, "Initiator", "SLCOUPONS")}

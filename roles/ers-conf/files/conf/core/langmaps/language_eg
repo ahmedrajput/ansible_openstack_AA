@@ -1,0 +1,668 @@
+
+
+
+1 = <font dir="righttoleft" encoding="utf-8"><tabledir dir="righttoleft">
+
+90 = <menu name="اعادة ملئ"><choice id="12" name="تشغيل"><choice id="13" name="ختم"><choice id="14" name="نقطة بيع متحركة"><choice id="1" name="شراء"><choice id="2" name="وردية"><choice id="9" name="طباعة ثانية"><choice id="3" name="إدارة النظام"><choice id="4" name="تجربة"><choice id="5" name="خدمة"><choice id="6" name="اتصال"><choice id="8" name="الخروج"><choice id="10" name="نظام"></menu>
+
+100 = <vs><small><center>بائع غير معروف!<br><bottom><large><hs><invert>موافق
+
+101 = <center><large>بائع موقوف!<vs><small>هذا البائع موقوف!<br>.<bottom><hs><large><invert>~موافق~
+
+102 = <vs><small><center>الكود السري غير صحيح<br><bottom><large><hs><invert>~موافق~
+
+103 = <vs><small><center>الدخول مرفوض<br><bottom><large><hs><invert>~موافق~
+
+104 = <vs><small><center>البائع موجود مسبقاً<br><bottom><large><hs><invert>~موافق~
+
+105 = <vs><small><center> الشفرة غير مطابقة<br><bottom><large><hs><invert>~موافق~
+
+106 = <vs><small><center>الكارت موجود مسبقاً<br><bottom><large><hs><invert>~موافق~
+
+107 = <vs><small><center>مشكلة في الاتصال<br>حاول لاحقا<br><bottom><large><hs><invert>~موافق~
+
+108 = <vs><small><br><br>التحميل الان!<br><button id="ok" name="موافق">
+
+109 = <vs><small><center>شفرة تشغيل خاطئة<br><bottom><large><hs><invert>موافق
+
+110 = <vs><small><center>شفرة بداية خاطئة!<br><bottom><large><hs><invert>~موافق~
+
+111 = <vs><small><center>تارخ غير سارى<br><bottom><large><hs><invert>~موافق~
+
+112 = <vs><small><center>تم رفض عملية الشراء، اتصل بالدعم الفنى!<br><bottom><large><hs><invert>~موافق~
+
+113 = <vs><small><center>الخادم الرئيسى غير متاح! حاول فى وقت آخر!<br><bottom><large><hs><invert>~موافق~
+
+114 = <vs><small><center>هذا المنتج غير موجود موقتاً!<br><bottom><large><hs><invert>~موافق~
+
+115 = <vs><small><center>حدث خطأ!<br><bottom><large><hs><invert>~موافق~
+
+116 = <vs><small><center>الطلب مرفوض<br><bottom><large><hs><invert>~موافق~
+
+117 = <vs><small><center>لا يوجد خط! تأكد من خط الهاتف أو مفتاح الاتصال <br><bottom><large><hs><invert>~موافق~<br>
+
+118 = <vs><small><center>لا يوجد خط! تأكد من خط الهاتف أو مفتاح الاتصال!<br><bottom><large><hs><invert>~موافق~<br>
+
+119 = <vs><small><center>الخط مشغول! شخص ما يستخدم خط التليفون!<br><bottom><large><hs><invert>~موافق~<br>
+
+120 = <vs><small><center>فترة بيع<br><bottom><large><hs><invert>~موافق~<br>
+
+121 = <menu name="إدارة النظام"><choice id="1" name="شراء"><choice id="2" name="ختم مرة اخرى"><choice id="3" name="ختم مرة اخري"></menu>
+
+122 = <vs><small><center> النظام مغلق!<br>.<bottom><large><hs><invert>~موافق~<br>
+
+123 = <center><large><vs><small>تعريف خاطئ للمنتج!<br><bottom><large><hs><invert>~موافق~<br>
+
+124 = <center><large><vs><small>لا يوجد تعريف للمنتج!<br><bottom><large><hs><invert>~موافق~<br>
+
+125 = <center><large><vs><small>نقطة البيع لا تصلح لاجراء هذه العملية!<br><bottom><large><hs><invert>~موافق~<br>
+
+126 = <center><large> كثيراً جداً!<br><small>~$max_count$~.<bottom><large><hs><invert>~موافق~<br>
+
+127 = <center><large><br><small>رقم تليفون غير صحيح<bottom><large><hs><invert>~موافق~<br>
+
+128 = <center><large><br><small>مبلغ غير صحيح<bottom><large><hs><invert>~موافق~<br>
+
+129 = <center><large><br><small>شفرة تأكيد غير صحيحة<bottom><large><hs><invert>~موافق~<br>
+
+130 = <center><large><br><small><bottom><large><hs><invert>~موافق~<br>
+
+131 = <center><large><br><small>لا يمكن الغاء الشفرة<bottom><large><hs><invert>~موافق~<br>
+
+132 = <center><large><br><small><bottom><large><hs><invert>~موافق~<br>
+133 = <vs><small><center>Credit limit reached, not enough credit!<br><bottom><large><hs><invert>~OK~
+
+200 = <menu name="إدارة النظام"><choice id="4" name="اعدادات"><choice id="5" name="اجراء توافق البيانات"><choice id="6" name="بائع جديد"><choice id="7" name="تعدبل بيانات بائع"><choice id="8" name="احصائيات المخزون"><choice id="9" name="اعادة تشغيل البائع"><choice id="10" name="خدمة"><choice id="11" name="اختبار"><choice id="12" name="رسائل"><choice id="13" name="معلومات"><choice id="14" name="مستخدمين"><choice id="15" name="خصائص الطباعة"></menu>
+
+201 = <menu name="اعدادات"><choice id="7" name="اختيار المنتج"><choice id="9" name="بدء وانهاء وردية البائع"><choice id="1" name="طباعة الصور"><choice id="2" name="طباعة الايصال"><choice id="3" name="تأكيد الطباعة"><choice id="4" name="طباعة الباركود"><choice id="5" name="بيع سريع"><choice id="6" name="وضع استخدام النظام"><choice id="10" name="قوائم المنتجات"><choice id="12" name="استخد مفاتيح ادخال الرقم السرى"></menu>
+
+202 = <menu name="وردية"><choice id="4" name="اغلاق النظام"><choice id="5" name="فتح النظام"><choice id="6" name="اغلاق التقرير"><choice id="1" name="ابدا الوردية"><choice id="2" name="انهاء الوردية"><choice id="3" name="تقرير عام"></menu>
+
+203 = <menu name="تقارير"><choice id="1" name="فردى"><choice id="2" name="ملخص"><choice id="3" name="منتج"></menu>
+
+204 = <menu name="خدمة"><choice id="1" name="اعادة تشغيل"><choice id="2" name="الغاء تفعيل"><choice id="3" name="تحميل"><choice id="4" name="وقف نقطة البيع"><choice id="5" name="اجراء توافق البيانات"><choice id="6" name="اعادة تشغيل البائع"><choice id="7" name="تحديث اللغة"><choice id="12" name="مجموعة المودم"><choice id="8" name="الخروج الى نظام التشغيل"><choice id="9" name="الغاء الختم"></menu>
+
+205 = <menu name="اختبار"><choice id="1" name="خدمة"><choice id="2" name="نظام"><choice id="3" name="سجل الاستخدام"><choice id="4" name="منتجات"><choice id="5" name="اتصالات"><choice id="6" name="مستخدمين"><choice id="7" name="موارد"><choice id="8" name=""><choice id="9" name="مدخلات"><choice id="10" name="رسائل"><choice id="11" name="ادوات الاختبار"></menu>
+
+206 = <menu name="تحميل"><choice id="1" name="التحميل الان!"><choice id="3" name="الغاء التحميل"></menu>
+
+207 = <menu name="ادوات الاختبار"><choice id="2" name="طباعة قائمة ASCII"><choice id="3" name="عرض قائمة ASCII"><choice id="5" name="اختبار طباعة"></menu>
+
+208 = <menu name="نظام"><choice id="1" name="طباعة المعلومات"><choice id="2" name="اختبار التكامل"><choice id="5" name="تحميل"></menu>
+
+209 = <menu name="مستخدمين"><choice id="1" name="اعادة تشغيل"><choice id="2" name=""><choice id="3" name="ورديات"></menu>
+
+210 = <menu name="مدخلات"><choice id="1" name="اعادة تشغيل"><choice id="2" name=""><choice id="3" name="قائمة"></menu>
+
+211 = <menu name="موارد"><choice id="1" name="اعادة تشغيل"><choice id="2" name=""><choice id="3" name="تحديث"><choice id="4" name="اختبار الترابط"></menu>
+
+212 = <menu name="سجل الاستخدام"><choice id="2" name=""><choice id="3" name="اعادة تشغيل"><choice id="4" name="اختيار سجل الاستخدام"><choice id="5" name=""><choice id="6" name="اختيار التقرير"><choice id="7" name="المعلومات"></menu>
+
+213 = <menu name="اتصالات"><choice id="1" name="اعادة تشغيل"><choice id="2" name="Dump"></menu>
+
+214 = <menu name="Heap"><choice id="1" name="اعادة تشغيل"><choice id="2" name="تخصيص"><choice id="3" name="غير مستخدم"><choice id="4" name=""><choice id="5" name="اعادة الترتيب"></menu>
+
+215 = <menu name="منتجات"><choice id="1" name="اعادة تشغيل"><choice id="2" name="كتالوج"><choice id="4" name="احصائيات المخزون"><choice id="5" name=""><choice id="6" name=""><choice id="7" name="عرض المخزون"></menu>
+
+216 = <menu name="اتصال"><choice id="1" name="نمط"><choice id="2" name="السرعة"><choice id="3" name="كود الاتصال"><choice id="4" name="عمل اختبار لمكالمة"><choice id="5" name="تحديث اللغة"></menu>
+
+217 = <menu name="وضع الاتصال"><choice id="3" name="متصل"><choice id="1" name="اتصال مخطط مسبقا"><choice id="2" name="غير متصل"></menu>
+
+218 = <menu name="نوع"><choice id="1" name="البائع"><choice id="2" name="مدير النظام"><choice id="3" name="Root"></menu>
+
+219 = <menu name="قائمة سريعة"><choice id="1" name="شراء"><choice id="2" name="إدارة النظام"><choice id="3" name="وردية"><choice id="4" name="اختبار"></menu>
+
+300 = ذاكرة نقطة البيع ممتلئة
+
+301 = خطا فى تأكيد طلب نقطة البيع المتحركة
+
+302 = مشكلة فى مخزون نقطة البيع المتحركة
+
+400 = <center><normal>$reseller_name(0,16)$<br><small><output id="المعلومات"  width="120"><br><vs height="12"><small><invert>~~مدير النظام~~<hs><invert>~~وردية~~<br><bottom><invert>~~موافق~~<hs><invert>~~شراء~~
+
+401 = <center><normal>$reseller_name$<br><small><output id="المعلومات" width="120"><br><vs height="12"><small><invert>~~الدخول~~<hs><br><bottom><invert>~~موافق~~<hs>
+
+402 = <center><normal>$reseller_name$<br><small><output id="المعلومات" width="120"><br>البائع:~$cashier_id$<br><vs height="2"><small><invert>~~الخروج~~<hs><invert>~~وردية~~<br><bottom><invert>~~موافق~~<hs><invert>~~شراء~~
+
+403 = <center><normal>$reseller_name(0,16)$<br><small><output id="المعلومات" width="120"><br><vs height="12"><small><bottom><invert>~~مدير النظام~~<hs><invert>~~موافق~~<hs><invert>~~شراء~~
+
+404 = <center><normal>اعادة ملئ$system_version$<br><small>$terminal_id$<br><vs height="12"><small><invert>~~مدير النظام~~<hs><invert>~~وردية~~<br><bottom><invert>~~موافق~~<hs><invert>~~شراء~~
+
+405 = <center><normal>$reseller_name(0,16)$<br><small><output id="المعلومات" width="120"><br>:<output id=""  width="50"><br><bottom><small><invert>~~مدير النظام~~<hs><invert>~~وردية~~<br><bottom><invert>~~موافق~~<hs><invert>~~شراء~~
+
+500 = <center><large>مرحبا!<br><small>نقطة البيع غير فعالة!<left><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+501 = <small><left>:كود البداية~$terminal_id$<br>:~<input id="start_code" length="4" width="40"><br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+502 = <center><large>تشغيل<vs><small><left>:كود التفعيل<br><input id="activation_code" length="6" width="40"><br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+503 = <large><center><output id="main_task" width="120"><br><small><output id="sub_task" width="120"><br><bottom><right><output id="task_status" width="64"><br>
+
+504 = <center><large> الطباعة صحيحة؟<vs><bottom><large><invert>~لا~<hs><invert>~نعم~
+
+505 = <center><large>طباعة الايصال؟<vs><bottom><large><invert>~لا~<hs><invert>~نعم~
+
+506 = <small><left>خدمة$service_code$<br>شفرة التأكيد<input id="verification_code" length="4" align="right" width="30"><br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+507 = <center><large>شراء<br><small>$category_name$~$product_value$<br>السعر:$product_price$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+508 = <center><large>تحميل<vs><small><output id="" length="2"  width="20">...<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+509 = <center><large>جارى اجراء توافق البيانات<vs><small><output id="count" length="2" width="20">...<br><bottom><large><invert>~الغاء~<hs><invert>~~
+
+510 = <center><large>موقوف!<vs><small>نقطة البيع موقوفة! اتصل بالدعم الفني للحصول علي التعليمات.<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+511 = <center><large><vs><bottom><large><invert>~موافق~
+
+512 = <center><large><vs><small><bottom><large><hs><invert>~موافق~
+
+513 = <center><large>طباعة ثانية؟<vs><small>$product_long_name$<br>السعر:$product_price$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+515 = <center><large>شراء<br><small>$category_name$~$product_value$<br>السعر:$product_price$<br>:<input id="count" length="2"><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+516 = <center><large>شراء<br><small>$category_name$~$product_value$<br>السعر:$product_price$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+517 = <center><large>طباعة ثانية?<vs><small>$category_name$~$product_value$<br>السعر:$product_price$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+518 = <center><large><br><small><br>$count$~$category_name$~$product_value$<br>السعر:$product_price$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+519 = <center><large>شحن علي الهواء<br><small>$product_long_name$<br>:رقم الهاتف <br><input id="phone_nr" length="14"><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+520 = <center><large>شحن علي الهواء<br><small>$product_long_name$<br>:($currency$)<br><input id="amount" length="5"><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+521 = <center><large>شحن علي الهواء<br><small>...<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+522 = <center><large>الغاء الايصال<br><small>مسلسل:<br><input id="serial" length="14"><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+523 = <center><large>الغاء الايصال<br><small><br><input id="reference" length="14"><bottom><large><invert>~الغاء~<hs><invert>موافق~
+
+524 = <center><large>الغاء الختم<br><small> هل انت متاكد من انك تريد الغاء الختم؟<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+600 = <menu name="نقطة بيع متحركة"><choice id="1" name="اجراء توافق البيانات"><choice id="2" name="Unlock Vouchers"></menu>
+
+601 = <center><large>موافق علي التحميل؟<br><small>نقطة بيع متحركة:$mpos_ser$<br>:المبلغ$value$<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+602 = <center><large>اكتمال التحميل!<bottom><large><invert><center>~موافق~
+
+603 = <center><large>اكتمال توافق البيانات!<bottom><large><invert><center>~موافق~
+
+604 = <center><large> فشل توافق البيانات!<br><br><center>$result_code$<bottom><large><invert><center>~موافق~
+
+605 = <center><large> فشل توافق البيانات!<br><br><center>$reason$<bottom><large><invert><center>~موافق~
+
+606 = <center><large>جاري تشغيل نقطة البيع المتحركة<br><small>$mpos_ser$<br><vs><small><left>CNP:<input id="cnp" length="8" width="40"><br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+607 = <large><center>الكود المطلوب<hr><small><left><vs><table><tr><td>منتج</td><td>#</td><td></td></tr><hr>
+
+608 = <small><tr><td>$name$</td><td>$count$</td><td>$amount$</td></tr>
+
+609 = <hr><tr><td>الكلي</td><td>$count$</td><td>$turnover$</td></tr></table><br>
+
+610 = <center><large>تاكيد الغاءالتخزين<br><small>نقطة بيع متحركة:$mpos_ser$<br><small><right>:المرجع<input id="ref" length="12" width="40"><br><bottom><large><invert>~الغاء~<hs><invert>~~
+
+611 = <center>فشل التشغيل<br><br><center>$result_code$<br>معاودة المحاولة؟<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+612 =  الغاء اعادة التخزين<br><small>نقطة بيع متحركة:$mpos_ser$<br><bottom><large><invert><center>~موافق~
+
+613 =  فشل التشغيل<br><small>نقطة بيع متحركة:$mpos_ser$<br><bottom><center><large><invert>~موافق~
+
+614 = اعادة تشغيل جميع المنتجات؟<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+615 = <large><center>ملخص اعادة التخزين<hr><small>نقطة بيع متحركة:$mpos_ser$<br>Ref:$ref$<hr><small><left><vs><table><tr><td>منتج</td><td>#</td><td></td></tr><hr>
+
+616 = <large><center>منتجات مفقودة<hr><small>نقطة بيع متحركة:$mpos_ser$<br>Ref:$ref$<br>قيمة اعادة التخزين:$restock_value$<hr><small><left><vs><table><tr><td>منتج</td><td>#</td><td></td></tr><hr>
+
+617 = <large><center>اعادة تشغيل المنتجات<br><small><center>:$count$<br><bottom><center><large><invert>~موافق~
+
+618 = <large><center>منتجات مفقودة<br><small>مطلوب:$restock_value$<vs>مفقود:$turnover$<br>استكمال اعادة التخزين؟<br><bottom><center><large><invert>~لا~<hs><invert>~نعم~
+
+619 = <large><center>Lost_codes<hr><small><left><vs><table><tr><td>منتج</td><td>مسلسل</td><td>القيمة</td></tr><hr>
+
+620 = <small><tr><td>$product_name$</td><td>$serial$</td><td>$product_resprice$</td></tr>
+
+621 = <hr><tr><td>الكلي</td><td>$count$</td><td>$turnover$</td></tr></table><br>
+
+622 = <hr><tr><td>الكلي</td><td>$count$</td><td>$turnover$</td></tr></table><small><br>قيمه اعادة التخرين المطلوبة:$restock_value$<br><normal>القيمه المستردة:$refund_value$
+
+700 = <center><large> اضافة بائع؟<br><small>البائع:$user_id$<br>Group:$user_group$<br>Use_card:$use_card$<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+701 = <center><large>تعديل بيانات بائع?<br><small>البائع:$user_id$<br>Group:$user_group$<br>Use_card:$use_card$<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+702 = <center><large>خارج التخزين!<br><small>اتصال واعادة التخرين؟ هذا يستغرق من دقيقة الي 5 دقائق.<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+703 = <center><large>النظام مغلق<vs><small>فتح النظام?<bottom><large><invert>~لا~<hs><invert>~نعم~
+
+704 = <center><large><vs><small>اغلاق النظام?<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+705 = <center><large> لا توجد وردية<vs><small>ابدا الوردية<bottom><large><invert>~لا~<hs><invert>~نعم~
+
+706 = <center><large>اضافة بائع؟<br><large><bottom><invert>~لا~<hs><invert>~نعم~
+
+707 = <center><large><vs><small>انهاء الوردية<bottom><large><invert>~لا~<hs><invert>~نعم~
+
+710 = <center><large>رسالة جديدة<vs><small>Print$count$New_messages?<bottom><large><invert>~لاحقا~<hs><invert>~موافق~
+
+711 = <center><large>تحميل<vs><small>الغاء التحميل؟<bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+712 = <center><large>اتصال؟<vs><small>تاكد من خط التليفون ثم اضغط موافق للاتصال.<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+713 = <center><large>مستوي التخرين قليل<br><small>اتصال واعادة التخرين؟ هذا يستغرق من دقيقة الي 5 دقائق.<br><bottom><large><invert>~الغاء~<hs><invert>~موافق~
+
+716 = <large><center>$product_status$<hr><small><hr><table><tr><td align="left" width="24">Product</td><td>Count</td></tr>
+717 = <tr><td>$name$</td><td>$count$</td></tr>
+718 = </table><hr>Total count:$count$<vs><vs>
+719 = <menu name="ComType"><choice id="0" name="KYLIK"><choice id="65" name="Landline"><choice id="73" name="ISDN"><choice id="71" name="GPRS"><choice id="84" name="LAN"><choice id="77" name="GSM"><choice id="87" name="WIFI"><choice id="67" name="CDMA"><choice id="80" name="Landline-PPP"></menu>
+
+800 = <large><center>وردية<hr><normal>البائع:~$cashier_id$<br><small><left>البداية:~~~$start_date$~$start_time$<br>النهاية:~~~~~$end_date$~$end_time$<br>
+
+801 = <large><center>الكلي<br><small><left>
+
+802 = <small><table><tr><td width="24">منتج</td><td width="5">#</td><td>المبيعات</td></tr><hr>
+
+803 = <small><tr><td width="24">$product_name$</td><td>$count$</td><td>$turnover$</td></tr>
+
+804 = <hr><tr><td width="24">المجموع</td><td width="5">$count$</td><td>$turnover$</td></tr></table><vs><vs>
+
+805 = <br><br><hr><hr><hr><large><center>اغلاق التقرير<br><small><left>الوقت الحالي:$date$~$time$<br>فتح النظام:$system_open$<br>اغلاق النظام:$system_close$<br>الطباعة السابقة:$last_printed$<br><vs>
+
+806 = <hr><hr><hr><vs><vs><vs>
+
+808 = <normal><center>Till$cashier_id$<hr>
+
+809 = <tr><small><td>$date(5,10)$~$time$</td><td>$product_name$</td><td>$product_value$</td></tr>
+
+810 = <large><center>معلومات النظام<br><hr><small><left>البائع:$reseller_name$<br>العنوان:$reseller_addr$<br>الكود البريدي:$reseller_zip$<br>تليفون:$reseller_phone$<br>WWW$reseller_www$<br><br>:$terminal_id$<br>$open_status$<br>حالة النظام:$state$<br><br><br><br>
+
+811 = <small><table><tr><td width="24">التاريخ</td><td>منتج</td><td>القيمة</td></tr>
+
+812 = <center><large>User Information<left><normal><br><table><tr><td>Id<td>Name<td>State</tr>
+813 = <tr><td>$user_id$</td><td>$user_name$</td><td>$user_locked$</td></tr>
+814 = </table><br>Users:$user_count$ of $max_user_count$<vs><vs><vs>
+
+820 = <large><center>التقرير<br><small><right>البداية:$system_open$<br>النهاية:$system_close$<br>$cashier_id$:البائع<br><vs>
+
+821 = <small><table><tr><td width="14">منتج</td><td>~#~</td><td>المبيعات</td></tr><hr>
+
+822 = <small><tr><td>$product_name$</td><td>$count$</td><td>$turnover$</td></tr>
+
+823 = <hr><tr><td> المجموع</td><td>$count$</td><td>$turnover$</td></tr></table><br><vs><vs>
+
+830 = <large><center>التقرير<hr><hr><small><right>البداية:$system_open$<br>النهاية:$system_close$<vs><vs>
+
+831 = <small><table><tr><td width="24">البائع</td><td width="5">#</td><td>المبيعات</td></tr><hr>
+
+832 = <small><tr><td>$cashier_id$</td><td>$count$</td><td>$turnover$</td></tr>
+
+833 = <hr><tr><td>المجموع</td><td>$count$</td><td>$turnover$</td></tr></table><br><vs><vs>
+
+834 = <hr></table><br>
+
+835 = <br>
+
+840 = <vs><large><center> الايصال<hr><normal>( نسخة البائع)<vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>السعر:</td><td>$product_price$</td></tr><tr><td>البائع:</td><td>$cashier_id$</td></tr><tr><tr><td>مسلسل:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+
+841 = <vs><large><center>ملحوظة!<br>اعادة الطباعة<hr><normal>Check_date_and_time_for_first_printout_of_code!<vs>Copy #$copy_no$<br>
+
+842 = <vs><large><center>المطبوع<br>مقاطع!<hr><br><vs><vs><vs>
+
+843 = <vs><large><center>المطبوع<br>!<hr><br><vs><vs><vs>
+
+844 = <vs><large><center>الايصال<hr><normal>(نسخة البائع)<vs><left>$count$~~$product_long_name$<br>$date$~$time$<br><table><tr><td>السعر:</td><td>$sum_amount$</td></tr><tr><td>البائع:</td><td>$cashier_id$</td></tr><tr><tr><td>مسلسل:</td><td>$serial$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+
+845 = <vs><large><center> تعليمات الالغاء<hr><normal>هذا هو كيف تقوم بالالغاء...<vs><vs><vs><vs><vs>
+
+846 = <vs><large><center>الغاء الايصال<hr><normal><vs><left>$product_long_name$<br>$date$~$time$<br><table><tr><td>البائع:</td><td>$cashier_id$</td></tr><tr><tr><td>مسلسل:</td><td>$serial$</td></tr><tr><td></td><td>$reference$</td></tr><tr></table><vs><vs><vs><vs><vs><vs><vs><vs><vs>
+
+850 = <large><center>Buffered_codes<hr><small><table><tr><td align="left" width="24">منتج</td><td width="3" >#</td><td></td></tr><hr>
+
+851 = <small><tr><td width="24">$product_name$</td><td width="3">$product_count$</td><td>$amount$</td></tr>
+
+852 = <hr></table><vs><vs>
+
+853 = <hr><small><tr><td width="15">الكلي</td><td width="5">$product_total$</td><td width="12">$total_amount$</td></tr>
+
+860 = <vs><hr><center>جارى اجراء توافق البيانات<br><hr><small>بدا:<hs>~$date$~$time$<br>
+
+861 = <natural><small>:منتهي<hs>~$date$~$time$<br>:توافق البيانات التالية<hs>~$next_sync_date$~$next_sync_time$<br><hr><vs><vs><vs>
+
+862 = <small>توافق البيانات قطع!<br><hr><vs><vs><vs>
+
+863 = <vs><vs><hr><center>Connection problem<br><small>فشل المحاولة المكررة لاجراء توافق البيانات! <br>تاكد من خط التليفون وقم بعمليه توافق البيانات يدويا عن طريق دخول قائمة ادارة النظام واختيار توافق البيانات..<br>اذا استمرت المشكلة اتصل بالدعم الفني.<vs><vs><vs>
+
+864 = <large>Paylimit_error!<br><normal>Contact_support_about_your_paylimit.<hr><vs><vs><vs>
+
+865 = Test_call
+
+866 = <small>Paylimit_error<br><hr><vs><vs><vs>
+
+870 = <large><center>اكواد الشراء<hr><small><left><table><tr><td>بداية المدة:</td><td>$from_date$~$from_time$</td></tr><tr><td>نهاية المدة:</td><td>$to_date$~$to_time$</td></tr></table><vs><table><tr><td>منتج</td><td>#</td><td></td></tr><hr>
+
+871 = <small><tr><td>$name$</td><td>$count$</td><td>$amount$</td></tr>
+
+872 = <hr><tr><td>الكلي </td><td>$count$</td><td>$turnover$</td></tr></table><br>
+
+873 = <br><center>لا يوجد سابق<br>purchases!<br><br><center><invert>~موافق~
+
+880 = <large><center><hr><hr><hr>PrepaidClient<hr><normal><vs><table><tr><td>شراء</td><td>ايصال شراء</td></tr><tr><td>وردية</td><td>بدايه /نهاية الوردية</td></tr><td>طباعة ثانية</td><td>اعادة طباعة اخر عملية</td></tr></table><vs> يوجد مشاكل مع نقطة البيع؟<br><hr><hr><hr>
+
+881 = <vs><hr><center>معلومات النظام<br><hr><br>
+
+882 = <br><hr><vs><vs><vs><vs><vs>
+
+883 = <center><br><left>مجموعه مودم غير صحيحة<vs><center><invert>~موافق~
+
+884 = Workshift_Overflow<br>اغلاق النظام واجراء توافق البيانات!<vs><center><invert>~موافق~
+
+890 = <vs>اختبار الورقة!<vs><center><invert>~موافق~
+
+891 = Printer OK again
+
+892 = <center><large>Printer low on paper!<br><small>Continue anyway?<left><bottom><large><invert>~Cancel~<hs><invert>~OK~
+
+
+895 =  تفعيل نقطة البيع المتحركة 
+
+896 = عدم تفعيل نقطة البيع المتحركة
+
+897 = Restocking MPOS
+
+898 = Waiting for MPOS
+
+899 = نقطة البيع المتحركة غير موقوفة!
+
+900 = جارى الاتصال
+
+901 = اتصال
+
+902 = ارسال
+
+903 = استقبال
+
+904 = جارى التشغيل
+
+905 = جارى الغاء التفعيل
+
+906 = جارى التحديث
+
+907 = جارى اجراء توافق البيانات
+
+908 = جارى اعادة التشغيل
+
+909 = جارى اعادة الملئ
+
+910 = اعداد التقارير
+
+911 = شراء
+
+912 = اختبار
+
+913 = طباعة
+
+914 = استكمال البيع
+
+915 = جارى الختم
+
+916 = تسجيل
+
+917 = احضار موارد
+
+918 = احضار المخزون
+
+919 = احضار تقارير
+
+920 = احضار معلومات
+
+921 = اضافة بائع
+
+922 = تعدبل بيانات بائع
+
+923 = جارى التنفيذ
+
+924 = المشغلين
+
+925 = الكود السري:
+
+926 = تاكيد الكود السري:
+
+927 = كود الاتصال
+
+928 = كود الطلب:
+
+929 = من:
+
+930 = الى:
+
+931 = وجهة:
+
+932 = البائع:
+
+933 = ادخال البطاقة الممغنطة:
+
+934 = مدير النظام
+
+935 = البائع
+
+936 = Root user
+
+937 = نعم
+
+938 = لا
+
+939 = اختيار مفتاح الاتصال
+
+940 = المبيعات السابقة
+
+941 = اعداد
+
+942 = استكمال
+
+943 = تأكيد
+
+944 = طباعة الصور
+
+945 = طباعة الايصال
+
+946 = تأكيد المطبوعات
+
+947 = طباعة الباركود
+
+948 = بيع سريع
+
+949 = وضع استخدام النظام
+
+950 = دائماً
+
+951 = ابداً
+
+952 = اسأل فى كل مرة
+
+953 = قياسى
+
+954 = وضع التحكم الرئيسى
+
+955 = Master+_logon
+
+956 = اختيار المنتج
+
+957 = شجرة المتنج
+
+958 = جميع المنتجات
+
+959 = منتجات
+961 = خروج
+
+962 = اعدادات...
+
+963 = الاتصال المسبق
+
+964 = اجراء توافق نقطة البيع المتحركة
+
+965 = 
+
+966 = بدء وانهاء وردية البائع
+
+967 = لا يوجد
+
+968 = اغلاق فقط
+
+969 = فتح واغلاق
+
+970 = قوائم المنتجات
+
+971 = السعر
+
+972 = القيمة
+
+973 = الاسم
+
+974 = Use_PIN-pad
+
+975 = حساب اجمالى البيع اوتوماتيكيا
+
+976 = ادخل مجموعة المودم
+
+525 = <center> <normal>تم الغاء ايقاف المستخدمين!<br><invert><center><large><invert>~موافق~	
+960 = >> رجوع >>
+961 = الخروج	
+1000 = شراء	
+1001 = وردية	
+1002 = أعادة طباعة
+1003 = إدارة النظام	
+1004 = استعراض	
+1005 = خدمة	
+1006 = اعدادات	
+1007 = تفعيل 
+1040 = العودة الى القائمة الرئيسية	
+
+1100 =الغاء	
+1101 =موافق	
+1102 =طباعة	
+1103 =خصائص الطباعة	
+1104 =منتج تجريبى	
+1105 =كارت	
+1106 =طباعة	
+1107 =اعادة طباعة	
+	
+1108 = <center><normal>اللغة المختارة<br>$language$<bottom><invert>~موافق~		
+1109 = <center><large>PrepaidClient is busy<br><small>جارى الاتصال بالحاسب الرئيسى,<br>برجاء الأنتظار$progress$<bottom><small><input type="cancel" text=" الغاء العملية ">	
+	
+1110 = <center><large>الجهاز مشغول<br><small>جارى اعداد البطاقات من الحاسب الرئيسى,<br> الأنتظار $progress$<bottom><input type="cancel" text="الغاء العملية">	
+	
+1111 = <menu name="الاعدادات"><choice id="1" name="نمط"><choice id="2" name="السرعة"><choice id="3" name="كود الاتضال"><choice id="4" name="اختبار الاتصال"><choice id="5" name="اختيار اللغة"><choice id="6" name="اعدادات الطابعة"></menu>	
+	
+1112 = اعادة تخزين
+1113 = ايقاف
+1114 = الغاء الايقاف	
+1115 = جارى تحميل قائمة اللغات	
+1116 = جارى تحميل اللغة	
+1117 = جارى تحديث التطبيق	
+1118 = <center><large>خطأ فى التاريخ<small><br>تاريح محدد غير ساري<bottom><invert>~موافق~
+1119 = أعداد الحاسب للبدء	
+1120 = توقيت البيع	
+1121 = البائع	
+1122 = نوع المنتج	
+1123 = الرقم المسلسل	
+1124 = البطاقة	
+1125 = هوامش البطاقة (%)	
+1126 = يسارً	
+1127 = عرض	
+1128 = خطوط البطاقة	
+1129 = صغير	
+1130 = عادى
+1131 = كبير
+1132 = اسم
+1133 = حجم
+1134 = الطابعة المختارة	
+1135 = تغير	
+1136 = القائمه الرئيسيه لأعاده الشحن
+1137 = All
+1138 = جارى الاتصال بالحاسب الرئيسى
+1139 = <center><large>تفعيل<vs><small><center>ERS IP address:<br><input id="ers_address" length="40" width="200p"><br>Store ID:<br><input id="store_id" length="40" width="200p"><br>:كود التفعيل<br><input id="activation_code" length="6" width="40"><vs><vs><bottom><large><invert>~الغاء~<hs><invert>~استمرار~
+1140 = <center><large>فشل العملية<br><small>$error_str$<wbr>($error_code$)<vs><vs><bottom><large><center><invert>~استمرار~
+1141 = Landscape mode
+1142 = Portrait only
+1143 = Landscape on request
+1144 = مازال يعمل 
+1145 = مازال مفتوح
+1146 = <center><large>Error<br><small>Mandatory field '$field$' has to be entered!<vs><bottom><large><center><invert>~Continue~
+1147 = <center><large>Error<br><small>Mandatory field '$field$' is invalid!<br>$error$<vs><bottom><large><center><invert>~Continue~
+
+
+1900 = خطأ غير معروف
+1901 = تم الغاء العملية بواسطة المستخدم	
+1902 = نفذ الوقت	
+1903 = غير مصرح بالدخول	
+1904 = User locked out, too many login attempts!
+1910 = رد خطأ من الحاسب	
+1911 = بيانات الطلب غير صحيحة	
+1912 = الذاكرة لا تستطيع الاستيعاب	
+1913 = Invalid shared secret	
+1914 = خطأ أثناء الكتابة على وحدة التخزين	
+1915 = خطأ فى ترجمة صفحة الرموز	
+1990 = الجهاز خارج النطاق	
+1991 = لم يمكن الأتصال بالحاسب الرئيسى	
+1999 = (لم تتم العمملية بنجاح (أغلاق قاعدة التوصيل
+
+2000 = تم التنفيذ بنجاح
+2001 = رمز تعريف البائع غير مسجل أو خطأ
+2002 = الجهاز مشغول، جارى المطابقة مع الحاسب الرئيسى	
+2003 = خطأ فى كود العملية	
+2010 = المنتج غير موجود أو تم نفاذ الكمية المتاحة	
+2011 = لا يوجد مخزون من هذا المنتج على الجهاز	
+2031 = لم يتم السماح ببيع هذا المنتج حاليا	
+2032 = تم وقف بيع هذا المنتج	
+2080 = لا يوجد منتج بالرمز المذكور	
+2081 = Resource(typically bitmap) not found	
+2082 = الأمر المذكور غير معروف	
+2083 = تم تجاوز الحد النقدى، برجاء الاتصال بالدعم الفنى	
+2084 = هذا الجهاز تم ايقافه مركزيا	
+2085 = الأمر المذكور محجوز من بائع آخر	
+2086 = خطأ فى حالة الأمر	
+2087 = خطأ فى الرقم المسلسل للبطاقة	
+2088 = خطأ فر رمز تأكيد الغاء البطاقة	
+2089 = رقم البطاقة متكرر، برجاء تحديد المنتج	
+2093 = حدث خطأ غير معرف، برجاء مراجعة سجل التشغيل	
+2094 = خطأ أثناء الاتصال مع الحاسب الرئيسى	
+2095 = خطأ فى رسالة الطلب	
+2100 = خطأ داخلى فى الجهاز	
+2101 = خطأ فى حالة الجهاز المعرفة بالحاسب الرئيسى	
+2102 = خطأ فى اسم المستخدم أو كلمة السر	
+2103 = لم يتم الدخول على النظام، برجاء الدخول على النظام أولا	
+2104 = غير مصرح للمستخدم الحالى	
+2105 = لم يتم تنفيذ العملية,خطأ فى البيانات المدخلة	
+2106 = لغة غير معرفة	
+2107 = خطأ فى نوع المستخدم	
+2108 = عدد المستخدمين أكثر من الحد المسموح به	
+2109 = خطأ فى رموز تأكيد الخدمة	
+2110 = Old unsupported pagefile (mwterm_xxx.dat) used, cannot start!
+2111 = تم بدء الوردية بالفعل	
+2112 = تم إيقاف الورديات بالفعل	
+2113 = لا يتم استخدام الورديات بالنسبة لهذا الجهاز	
+2114 = عدد الورديات المفتوحة أكثر من المسموح به	
+2115 = غير مسموح لهذا المستخدم بفتح النظام	
+2116 = النظام مفتوح بالفعل	
+2117 = النظام مغلق بالفعل	
+2118 = خطأ فى بيانات الورديات	
+2119 = لا توجد حواسب يمكن تفعيلها فى نطاق المحل المذكور	
+2120 = كود تعريف المستخدم الجديد غير مقبول، يجب أن يكون 4 - 16 حرف	
+2121 = كلمة السر الجديدة غير مقبولة، يجب أن تكون 4- 8 حروف	
+2122 = التقرير المطلوب غير معروف	
+2123 = يجب استكمال جميع البيانات الاجبارية	
+2124 = تم طباعة البطاقة بالفعل	
+2125 = غير مسموح بإعادة طباعة البطاقات
+2126 = خطأ فى عدم التفعيل، تم حفظ البطاقات فى حالة مدفوعة	
+2127 = مستخدم غير معرف	
+2128 = غير مصرح بالاتصال بالحاسب الرئيسى	
+2129 = All products passed last sell date
+2130 = Lock : Mismatching network card MAC
+2131 = Lock : Mismatching computer (Netbios) name
+2132 = Lock : Mismatching harddisk (volume) serial
+2133 = Lock : Mismatching restart counter
+2134 = Syntax error in receipt template
+2135 = Activation denied (unauthorized IP address)
+2136 = report incomplete, some langmap entries are missing
+2137 = Wrong activation code
+2138 = Store-id is incorrect or unauthorized
+2139 = Report has no matching language
+2140 = ERS still processing. please retry sooon
+2141 = ERS invalid/unexpected voucherless state
+2142 = Credit limit reached, please contact support
+
+

@@ -1,0 +1,55 @@
+import com.seamless.ers.txe.transaction.model.ERSTopupTransaction;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+import com.seamless.ers.txe.transaction.model.ERSTopupTransaction;
+import com.seamless.ers.interfaces.ersifclient.dto.ResultCodes;
+
+String refillProfileIdKey="refillProfileId";
+
+String topupProductSKU="TOPUP";
+String topupTypeName="topup";
+String topupRefillProfileId="1";
+
+String p2pProductSKU="P2P";
+String p2pTypeName="topup";
+String p2pRefillProfileId="1";
+
+String rechargeProductSKU="RECHARGE";
+String rechargeTypeName="recharge";
+String rechargeRefillProfileId="2";
+
+
+
+
+public boolean validate(TXETransaction transaction)
+{
+	ERSTopupTransaction topupTransaction = (ERSTopupTransaction)transaction;
+	if (topupTransaction.getProductSKU() == null)
+	{
+		logger.warn("productSKU is null so set the value to topupProductSKU");
+		topupTransaction.setProductSKU(topupProductSKU);
+	}
+	if (topupTransaction.getProductSKU().equals(topupProductSKU))
+	{
+		topupTransaction.setTopupType(topupTypeName);
+		topupTransaction.putField(refillProfileIdKey, topupRefillProfileId);
+	}
+    else if (topupTransaction.getProductSKU().equals(p2pProductSKU))
+	{
+		topupTransaction.setTopupType(p2pTypeName);
+		topupTransaction.putField(refillProfileIdKey, p2pRefillProfileId);
+	}
+	else if (topupTransaction.getProductSKU().equals(rechargeProductSKU))
+	{
+		topupTransaction.setTopupType(rechargeTypeName);
+		topupTransaction.putField(refillProfileIdKey, rechargeRefillProfileId);
+	}
+	else
+	{
+		transaction.setResultCode(ResultCodes.INTERNAL_ERROR);
+		logger.error("Unsupported productSKU: " + topupTransaction.getProductSKU());
+		return false;
+	}
+
+	return true;
+}	
+

@@ -1,0 +1,15 @@
+TAX = "10";
+
+calculate(Account sender, Account receiver, Amount amount)
+{
+	t_amount = percent(amount, TAX);
+	s_amount = add(amount, t_amount).negate();
+	r_amount = amount;
+	
+	tax_account = new Account("BOOKKEEPING", "TAX");
+	
+	addReceiverTransaction(receiver, r_amount, AccountTransactionClassifier.Transfer);
+	addSenderTransaction(sender, s_amount, AccountTransactionClassifier.Transfer);
+	addOtherTransaction(tax_account, t_amount, AccountTransactionClassifier.Transfer);
+}
+	
