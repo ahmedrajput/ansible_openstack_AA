@@ -1,2 +1,73 @@
 ---
 # tasks file for ers-conf
+- block:
+  - name: Accountsystem configuration
+    template:
+     src: accountsystem.properties.customer
+     dest: /opt/seamless/conf/accountsystem/accountsystem.properties.customer
+     owner: admin
+     group: admin
+  - name: Business Logic configuration
+    template:
+     src: businesslogic.properties.customer
+     dest: /opt/seamless/conf/businesslogic/businesslogic.properties.customer
+     owner: admin
+     group: admin
+  - name: Business Logic Currency Configuration
+    template:
+     src: currency.properties.customer
+     dest: /opt/seamless/conf/businesslogic/currency.properties.customer
+     owner: admin
+     group: admin
+  - name: SMS App configuration
+    template:
+     src: smsapp.properties.customer
+     dest: /opt/seamless/conf/smsapp/smsapp.properties.customer
+     owner: admin
+     group: admin
+  - name: Subscriber System configuration
+    template:
+     src: subscribersystem.properties.customer
+     dest: /opt/seamless/conf/subscribersystem/subscribersystem.properties.customer
+     owner: admin
+     group: admin
+  - name: Supportsystem configuration
+    template:
+     src: supportsystem.properties.customer
+     dest: /opt/seamless/conf/supportsystem/supportsystem.properties.customer
+     owner: admin
+     group: admin
+  - name: Transaction Exporter Configuration
+    template:
+     src: transactionexporter.properties.customer
+     dest: /opt/seamless/conf/transactionexporter/transactionexporter.properties.customer
+     owner: admin
+     group: admin
+  - name: Txe configuration
+    template:
+     src: txe.properties.customer
+     dest: /opt/seamless/conf/txe/txe.properties.customer
+     owner: admin
+     group: admin
+  - name: Uciplink Configuration
+    template:
+     src: uciplink.properties.customer
+     dest: /opt/seamless/conf/uciplink/uciplink.properties.customer
+     owner: admin
+     group: admin
+  - name: Vasmanager Configuration
+    template:
+     src: vasmanager.properties.customer
+     dest: /opt/seamless/conf/vasmanager/vasmanager.properties.customer
+     owner: admin
+     group: admin
+  - name: Voucher factory Configuration
+    template:
+     src: voucher-factory.properties
+     dest: /opt/semaless/conf/voucher-factory/voucher-factory.properties
+     owner: admin
+     group: admin
+  when: '"trs" in inventory_hostname'
+- block:
+  
+  when: '"web" in inventory_hostname'
